@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="3693980862" file="C:\Users\fan\MEconTools\MEconTools.prj" location="C:\Users\fan\MEconTools" name="MEconTools" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="3967573787" file="C:\Users\fan\MEconTools\MEconTools.prj" location="C:\Users\fan\MEconTools" name="MEconTools" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>MEconTools</param.appname>
     <param.authnamewatermark>Fan Wang</param.authnamewatermark>
     <param.email>fanwecon@gmail.com</param.email>
@@ -27,15 +27,34 @@
          &lt;file type="image"&gt;/graph/html/ff_graph_grid_02.png&lt;/file&gt;
       &lt;/example&gt;
    &lt;/exampleCategory&gt;
+   &lt;exampleCategory name="table"&gt;
+      &lt;example name="ff_mat2tab" type="html"&gt;
+         &lt;file type="source"&gt;/table/html/ff_mat2tab.html&lt;/file&gt;
+         &lt;file type="main"&gt;/table/ff_mat2tab.m&lt;/file&gt;
+         &lt;file type="thumbnail"/&gt;
+      &lt;/example&gt;
+      &lt;example name="ff_sup_save_prep" type="html"&gt;
+         &lt;file type="source"&gt;/table/html/ff_sup_save_prep.html&lt;/file&gt;
+         &lt;file type="main"&gt;/table/ff_sup_save_prep.m&lt;/file&gt;
+         &lt;file type="thumbnail"/&gt;
+      &lt;/example&gt;
+      &lt;example name="ff_tables_large_subset" type="html"&gt;
+         &lt;file type="source"&gt;/table/html/ff_tables_large_subset.html&lt;/file&gt;
+         &lt;file type="main"&gt;/table/ff_tables_large_subset.m&lt;/file&gt;
+         &lt;file type="thumbnail"/&gt;
+      &lt;/example&gt;
+   &lt;/exampleCategory&gt;
 &lt;/examples&gt;</param.examples>
     <param.demosxml />
     <param.apps />
     <param.registered.apps />
     <param.docs />
     <param.getting.started.guide />
-    <param.matlabpath.excludes />
+    <param.matlabpath.excludes>
+      <item>/graph/html</item>
+    </param.matlabpath.excludes>
     <param.javaclasspath.excludes />
-    <param.exported.on.package>true</param.exported.on.package>
+    <param.exported.on.package>false</param.exported.on.package>
     <param.required.addons />
     <param.matlab.project.id />
     <param.matlab.project.name />
@@ -66,8 +85,8 @@
       <param.registered.apps />
       <param.docs />
       <param.getting.started.guide />
-      <param.matlabpath.excludes />
       <param.javaclasspath.excludes />
+      <param.exported.on.package />
       <param.required.addons />
       <param.matlab.project.id />
       <param.matlab.project.name />
@@ -91,6 +110,7 @@
     <fileset.rootfiles>
       <file>${PROJECT_ROOT}\MEconTools\demos.xml</file>
       <file>${PROJECT_ROOT}\MEconTools\graph</file>
+      <file>${PROJECT_ROOT}\MEconTools\table</file>
     </fileset.rootfiles>
     <fileset.depfun.included />
     <fileset.depfun.excluded />

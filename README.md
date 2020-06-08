@@ -2,7 +2,7 @@
 
 # A Collection of Matlab Tools
 
-This is a work-in-progress [website](https://fanwangecon.github.io/MEconTools/) consisting of files for doing Dynamic Programming and Related Tasks. Materials gathered from various [projects](https://fanwangecon.github.io/research) in which Matlab code is used. Files are the [MEconTools](https://github.com/FanWangEcon/MEconTools) repository.
+This is a work-in-progress Matlab package consisting of functions that facilitate Dynamic Programming and Related Tasks. Materials gathered from various [projects](https://fanwangecon.github.io/research) in which Matlab code is used. Files are the [MEconTools](https://github.com/FanWangEcon/MEconTools) repository.
 
 Other repositories: For dynamic borrowing and savings problems, see [Dynamic Asset Repository](https://fanwangecon.github.io/CodeDynaAsset/); For code examples, see also [R Example Code](https://fanwangecon.github.io/R4Econ/) ([bookdown site](https://fanwangecon.github.io/R4Econ/bookdown)), [Matlab Example Code](https://fanwangecon.github.io/M4Econ/) and [Stata Example Code](https://fanwangecon.github.io/Stata4Econ/); For intro econ with Matlab, see [Intro Mathematics for Economists](https://fanwangecon.github.io/Math4Econ/), and for intro stat with R, see [Intro Statistics for Undergraduates](https://fanwangecon.github.io/Stat4Econ/) ([bookdown site](https://fanwangecon.github.io/Stat4Econ/bookdown)). See [here](https://github.com/FanWangEcon) for all of [Fan](https://fanwangecon.github.io/)'s public repositories.
 
@@ -20,7 +20,7 @@ cd "C:/Downloads"
 git clone https://github.com/fanwangecon/MEconTools.git
 ```
 
-Install the Package:
+Install the Package from inside Matlab:
 
 ```
 # Install Matlab Toolbox MEconTools

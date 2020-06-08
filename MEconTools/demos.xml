@@ -14,4 +14,25 @@
          <file>graph/html/ff_graph_grid.html</file>
       </demoitem>
    </demosection>
+   <demosection>
+      <label>table</label>
+      <demoitem>
+         <label>ff_mat2tab</label>
+         <type>other</type>
+         <source>ff_mat2tab</source>
+         <file>table/html/ff_mat2tab.html</file>
+      </demoitem>
+      <demoitem>
+         <label>ff_sup_save_prep</label>
+         <type>other</type>
+         <source>ff_sup_save_prep</source>
+         <file>table/html/ff_sup_save_prep.html</file>
+      </demoitem>
+      <demoitem>
+         <label>ff_tables_large_subset</label>
+         <type>other</type>
+         <source>ff_tables_large_subset</source>
+         <file>table/html/ff_tables_large_subset.html</file>
+      </demoitem>
+   </demosection>
 </demos>
