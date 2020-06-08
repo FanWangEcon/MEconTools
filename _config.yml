@@ -1,0 +1,6 @@
+theme: jekyll-theme-slate
+title: Matlab Dynamic Programming and Tools
+google_analytics: UA-92953468-6
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
