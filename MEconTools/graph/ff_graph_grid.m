@@ -1,79 +1,104 @@
-%% Grid based Graph, x-axis one param, color another param, over outcomes
-% a graphing tool.
+%% FF_GRAPH_GRID Grid based Graph, x-axis one param, color another param, over outcomes
+%    FF_GRAPH_GRID() draws matrix values (MT_VALUE) as Y, columns
+%    (AR_COL_GRID) as X, and rows (AR_ROW_GRID) as separate lines. For
+%    example columns could be asset points, and rows could be corresponding
+%    to different shocks, and MT_VALUE are different policy optimal chocies
+%    given asset and shock points. The AR_ROW_GRID values can be 
+%
+%    * MT_VALUE R by C numeric matrix
+%    * AR_COL_GRID 1 by C array, numeric array
+%    * AR_ROW_GRID 1 by R array, numeric or string array (NOT CHAR array)
+%    * MP_SUPPORT_GRAPH container map
+%
+%    MP_SUPPORT_GRAPH keys and Example Values: 
+%
+%    mp_support_graph = containers.Map('KeyType', 'char', 'ValueType', 'any');
+%    mp_support_graph('cl_st_graph_title') = {'title line main', 'title line 2'};
+%    mp_support_graph('cl_st_ytitle') = {'y title, matrix values', 'y line 2'};
+%    mp_support_graph('cl_st_xtitle') = {'x title, matrix columns', 'x line 2'};
+%    mp_support_graph('st_rowvar_name') = 'category rows';
+%    mp_support_graph('st_legend_loc') = 'northwest';
+%    mp_support_graph('bl_graph_logy') = true;
+%    mp_support_graph('it_legend_select') = 5;
+%    mp_support_graph('st_rounding') = '.2f';
+%
+%    When the number of rows (shocks) is below six, each line will have
+%    a scatter point overlay with different scatter patterns.
+%
+%    Each rows (shocks), will have a different color from a color
+%    spectrum. In the legend, at most 5 color/shape values will be shown.
+%    When the number of rows exceeds 5, only five colors will be shown. The
+%    middle color could be zero shock, the boundary points are highest and
+%    lowest shock points.
+%
+%    FF_GRAPH_GRID() draw figure with a testing matrix. f(row, col), 6 row
+%    values, 10 column values, f are growing splines with different
+%    x-intercepts and random shocks
+%
+%    FF_GRAPH_GRID(MT_VALUE) draw a figure with a matrix of values. The
+%    matrix values will show up as y=axis values. The x-axis will be column
+%    index. Each row will have a different colored/patterned line. Legend
+%    indicates row index.
+%
+%    FF_GRAPH_GRID(MT_VALUE, AR_ROW_GRID, AR_COL_GRID) uses the column grid
+%    values as x-axis points, and row-grid points as legend labels.
+%
+%    FF_GRAPH_GRID(MT_VALUE, AR_ROW_GRID, AR_COL_GRID, MP_SUPPORT_GRAPH)
+%    overrides local default options.
+%
+%    See also FX_GRAPH_GRID
 
 %%
-function ff_graph_grid(varargin)
-%% FF_GRAPH_GRID genereate 4 graphs
-% Generates graph where the x-axis is some parameter, y some outcome, and
-% color another parameter
-%
-% @param ar_color_grid array 1 by N, corresponding to the different colors,
-% this could be fixed cost, one color a different fixed costs
-%
-% @param ar_x_grid array 1 by M, corresponding to the different colors,
-% this could be fixed cost, one color a different fixed costs
-%
-% @param mt_outcome matrix N by M matrix, each row is a different color,
-% each column matches up to the x-axis vector. Each column could be a
-% different amin and each row a different fixed cost.
-%
+function varargout = ff_graph_grid(varargin)
 
-%% Default
+%% Parse Main Inputs and Set Defaults
 
 if (~isempty(varargin))
-
-    % if invoked from outside overrid fully
-    [ar_color_grid, ar_x_grid, mt_outcome, grh_sup_map] = varargin{:};
-
+    
+    if (length(varargin)==1)
+        mt_value = varargin{:};
+        [it_rows, it_cols] = size(mt_value);
+        ar_row_grid = num2str(1:1:it_rows);
+        ar_col_grid = 1:1:it_cols;
+    elseif (length(varargin)==3)
+        [mt_value, ar_row_grid, ar_col_grid] = varargin{:};
+    elseif (length(varargin)==4)
+        [mt_value, ar_row_grid, ar_col_grid, mp_support_graph_ext] = varargin{:};
+    end
+    
 else
-    clear all;
+    
     close all;
-
-    % internal invoke for testing
-    ar_color_grid = linspace(1,10,6);
-    ar_x_grid = linspace(-4,11,10);
+    ar_row_grid = linspace(-4, 11, 5);
+    ar_col_grid = linspace(-1, 1, 6);
     rng(123);
-    mt_outcome = rand([length(ar_color_grid), length(ar_x_grid)]);
-
-    grh_sup_map = containers.Map('KeyType','char', 'ValueType','any');
-
+    mt_value = 0.2*ar_row_grid' + exp(ar_col_grid) + rand([length(ar_row_grid), length(ar_col_grid)]);
+    
 end
 
-%% Default Map
+%% Set and Update Graph Support Map
+mp_support_graph = containers.Map('KeyType', 'char', 'ValueType', 'any');
+mp_support_graph('cl_st_graph_title') = {'title line main', 'title line 2'};
+mp_support_graph('cl_st_ytitle') = {'y title, matrix values', 'y line 2'};
+mp_support_graph('cl_st_xtitle') = {'x title, matrix columns', 'x line 2'};
+mp_support_graph('st_rowvar_name') = 'category rows';
+mp_support_graph('st_legend_loc') = 'northwest';
+mp_support_graph('bl_graph_logy') = true;
+mp_support_graph('it_legend_select') = 5;
+mp_support_graph('st_rounding') = '.2f';
 
-crra = 1;
-ar1_z = 0.90;
-stderr_z = 0.40;
-sunkc = 0.40;
-amin = 0.10;
-st_graph_var_name = 'fixed costs';
-st_pref_shock = ['crra = ' num2str(crra, '%3.2f') ', shock persistence = ' num2str(ar1_z, '%3.2f')  ', shock s.d. = ' num2str(stderr_z, '%3.2f')];
-st_costs = ['other savings frictions: sunk-cost = ' num2str(sunkc, '%4.3f') ', amin = ' num2str(amin, '%4.3f')];
-st_graph_title = {['Supply Curve of Credit With Varying ' st_graph_var_name] ...
-                  [st_pref_shock] ...
-                  [st_costs]};
+% override default support_map values
+if (length(varargin)==4)
+    mp_support_graph = [mp_support_graph; mp_support_graph_ext];
+end
 
-st_ytitle = 'Aggregate Supply of Savings';
-st_xtitle = 'Savings Interest Rate';
-
-grh_sup_map_default = containers.Map('KeyType','char', 'ValueType','any');
-grh_sup_map_default('st_ytitle') = st_ytitle;
-grh_sup_map_default('st_xtitle') = st_xtitle;
-grh_sup_map_default('st_graph_var_name') = st_graph_var_name;
-grh_sup_map_default('st_graph_title') = st_graph_title;
-grh_sup_map_default('st_legend_loc') = 'southeast';
-grh_sup_map_default('bl_graph_logy') = true;
-
-%% Override
-
-grh_sup_map = [grh_sup_map_default ; grh_sup_map];
-
-%% Parse
-params_group = values(grh_sup_map, {'st_ytitle', 'st_xtitle', 'st_graph_title', 'st_graph_var_name'});
-[st_ytitle, st_xtitle, st_graph_title, st_graph_var_name] = params_group{:};
-
-params_group = values(grh_sup_map, {'st_legend_loc', 'bl_graph_logy'});
-[st_legend_loc, bl_graph_logy] = params_group{:};
+% Parse Support_map
+cl_params = values(mp_support_graph, {'cl_st_graph_title', ...
+    'cl_st_ytitle', 'cl_st_xtitle', 'st_rowvar_name'});
+[cl_st_graph_title, cl_st_ytitle, cl_st_xtitle, st_rowvar_name] = cl_params{:};
+cl_params = values(mp_support_graph, {'st_legend_loc', 'bl_graph_logy', ...
+    'it_legend_select', 'st_rounding'});
+[st_legend_loc, bl_graph_logy, it_legend_select, st_rounding] = cl_params{:};
 
 %% Generaet Graph
 
@@ -84,66 +109,130 @@ else
 end
 
 for it_plot = ar_it_plot
-
-    figure('PaperPosition', [0 0 7 4]);
+    
+    %% Plot Initiate
+    pl_obj = figure('PaperPosition', [0 0 7 4]);
     hold on;
-
+    
     it_graph_counter = 0;
-    cl_legend_mesh = [];
-    cl_scatter_shapes = {'s','x','o','d','p','*'};
-%             ar_fl_clr = jet(length(param_grid));
-    ar_fl_clr = fx_linspecer(length(ar_color_grid), 'sequential');
-    for it_color = 1:length(ar_color_grid)
-
-        fl_savefric_param = ar_color_grid(it_color);
-        fl_fc = ar_color_grid(it_color);
-
-        it_graph_counter = it_graph_counter + 1;
-        ar_color = ar_fl_clr(it_color,:);
-
-        % Access Y Values
-        ar_y = mt_outcome(it_color,:);
-        if (it_plot == 1)
-            ar_y = ar_y;
-        elseif (it_plot == 2)
-            ar_y = log(ar_y+1);
-        end
-
-        % Access X Values
-        it_csize = 100;
-        if (it_color <= length(cl_scatter_shapes))
-            st_shape = cl_scatter_shapes{it_color};
+    cl_legend = [];
+    cl_scatter_shapes = {'s','x','o','d','p'};
+    %             ar_fl_clr = jet(length(param_grid));
+    mt_fl_clr = fx_linspecer(length(ar_row_grid), 'sequential');
+    
+    %% Log Transform
+    ar_x = ar_col_grid;
+    mt_value_use = mt_value;
+    if (it_plot == 2)
+        if (min(min(mt_value))>0)
+            mt_value_use = log(mt_value_use + 0.001);
+            st_log_func_y = 'LOG(Y)';
         else
-            st_shape = 'x';
+            fl_y_log_adj = abs(min(min(mt_value)))+0.001;
+            mt_value_use = log(mt_value_use + fl_y_log_adj);
+            st_log_func_y = 'LOG(Y+min(Y))';
         end
-
-        scatter(ar_x_grid', ar_y', it_csize, ar_color, st_shape, 'MarkerFaceAlpha', 1.0, 'MarkerEdgeAlpha', 1.0);
-
-        line = plot(ar_x_grid, ar_y);
-        line.HandleVisibility = 'off';
-        line.Color = ar_color;
-        line.LineStyle = '-';
-        line.HandleVisibility = 'off';
-        line.LineWidth = 2;
-
-        cl_legend_mesh{it_graph_counter} = [st_graph_var_name,':', num2str(fl_savefric_param)];
-
+        if (min(ar_col_grid)>0)
+            ar_x = log(ar_x);
+            st_log_func_x = 'LOG(X)';
+        else
+            ar_x = log(ar_x-min(ar_col_grid)+0.001);
+            st_log_func_x = 'LOG(X+min(X))';
+        end
     end
-
-    % Titling and Legends
-    title(st_graph_title);
-    if (it_plot == 1)
-        ylabel([st_ytitle]);
+    
+    %% Plot Given Fewer or Many Rows Counts
+    if (length(ar_row_grid) > length(cl_scatter_shapes))
+        
+        %% Plot Many Rows as Jet Lines        
+        chart = plot(mt_value_use');
+        clr = jet(numel(chart));
+        for m = 1:numel(chart)
+            set(chart(m),'Color',clr(m,:))
+        end
+        
     else
-        ylabel(['LOG(' st_ytitle ' +1)']);
+        
+        %% Plot Less than 7 Rows as Scatter + Lines
+        for it_color = 1:length(ar_row_grid)
+            
+            florst_row_param = ar_row_grid(it_color);
+            
+            it_graph_counter = it_graph_counter + 1;
+            ar_color = mt_fl_clr(it_color,:);
+            
+            % Access Y Values
+            ar_y_use = mt_value_use(it_color,:);
+            
+            % Access X Values
+            it_csize = 100;
+            st_shape = cl_scatter_shapes{it_color};
+            
+            % scatter draw
+            scatter(ar_x', ar_y_use', it_csize, ...
+                ar_color, st_shape, ...
+                'MarkerFaceAlpha', 1.0, 'MarkerEdgeAlpha', 1.0);
+            
+            % line draw
+            line = plot(ar_x, ar_y_use);
+            line.Color = ar_color;
+            line.LineStyle = '-';
+            line.LineWidth = 2;
+            line.HandleVisibility = 'off';
+            
+            % Legend
+            if (isnumeric(florst_row_param))
+                cl_legend{it_graph_counter} = compose(strcat(st_rowvar_name, "%", st_rounding), florst_row_param);
+            else
+                cl_legend{it_graph_counter} = florst_row_param;
+            end
+        end
     end
-    xlabel(st_xtitle);
-    legend(cl_legend_mesh, 'Location', st_legend_loc);
+    
+    %% Titling
+    cl_st_ytitle_use = cl_st_ytitle;
+    cl_st_xtitle_use = cl_st_xtitle;
+    cl_st_graph_title_use = cl_st_graph_title;
+    if (it_plot == 2)
+        cl_st_ytitle_use{length(cl_st_ytitle_use)+1} = st_log_func_y;
+        cl_st_xtitle_use{length(cl_st_xtitle_use)+1} = st_log_func_x;
+    end
+    title(cl_st_graph_title_use);
+    ylabel(cl_st_ytitle_use);
+    xlabel(cl_st_xtitle_use);
+    
+    %% Legend
+    st_legend_loc_use = st_legend_loc;
+    if (it_plot == 2)
+        st_legend_loc_use = 'best';
+    end
+    
+    if (length(ar_row_grid)> length(cl_scatter_shapes))
+        ar_it_legend_select = fliplr(round(linspace(1, length(ar_row_grid), it_legend_select)));
+        if(isstring(ar_row_grid))
+            cl_legend = ar_row_grid;
+        else
+            cl_legend = cellstr(num2str(ar_row_grid', strcat(st_rowvar_name, '%', st_rounding)));        
+        end        
+        legend(chart(ar_it_legend_select), cl_legend(ar_it_legend_select), 'Location', st_legend_loc_use);
+    else
+        legend(cl_legend, 'Location', st_legend_loc_use);
+    end
+    
     grid on;
     grid minor;
-
     snapnow;
-
+    
 end
+
+%% Return
+varargout = cell(nargout,0);
+for it_k = 1:nargout
+    if (it_k==1)
+        ob_out_cur = pl_obj;
+    end
+    varargout{it_k} = ob_out_cur;
+end
+
 
 end

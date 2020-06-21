@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Convert Matlab Matrix to Table with Column Names</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-06-07"><meta name="DC.source" content="ff_mat2tab.m"><style type="text/css">
+      --><title>Convert Matlab Matrix to Table with Column Names</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-06-19"><meta name="DC.source" content="ff_mat2tab.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -90,7 +90,7 @@ mt_data = cell2mat(optional_params(1));
 <span class="comment">% The structure below works with cell array</span>
 ar_st_colnames = optional_params{2};
 </pre><h2 id="6">Create Table</h2><pre class="codeinput">tb_from_mat = array2table(mt_data);
-</pre><img vspace="5" hspace="5" src="ff_mat2tab_01.png" alt=""> <h2 id="7">Adjust Column Names</h2><p>if ar_st_colnames does not have sufficient column</p><pre class="codeinput">[it_tb_row_cnt, it_tb_col_cnt] = size(tb_from_mat);
+</pre><h2 id="7">Adjust Column Names</h2><p>if ar_st_colnames does not have sufficient column</p><pre class="codeinput">[it_tb_row_cnt, it_tb_col_cnt] = size(tb_from_mat);
 it_ar_st_colnames_cnt = length(ar_st_colnames);
 <span class="keyword">if</span> (it_ar_st_colnames_cnt &lt; it_tb_col_cnt)
 <span class="comment">%     warning('Not enough column names specified');</span>

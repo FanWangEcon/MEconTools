@@ -1,7 +1,7 @@
 %% Given Row and Column Counts, Get Subset of Rows and Columns for Display
 
 %%
-function [ar_it_cols, ar_it_rows] = ff_tables_large_subset(varargin)
+function [ar_it_cols, ar_it_rows] = ff_row_col_subset(varargin)
 %% Pick subset of rows and columns
 % ff_tables_large_subset(it_col_n, it_col_n_keep, it_row_n, it_row_n_keep)
 

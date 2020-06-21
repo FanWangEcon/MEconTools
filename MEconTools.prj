@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="3967573787" file="C:\Users\fan\MEconTools\MEconTools.prj" location="C:\Users\fan\MEconTools" name="MEconTools" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="1436004826" file="C:\Users\fan\MEconTools\MEconTools.prj" location="C:\Users\fan\MEconTools" name="MEconTools" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>MEconTools</param.appname>
     <param.authnamewatermark>Fan Wang</param.authnamewatermark>
     <param.email>fanwecon@gmail.com</param.email>
@@ -7,7 +7,7 @@
     <param.summary>Dynamic programming and related.</param.summary>
     <param.description>Dynamic programming and related.</param.description>
     <param.screenshot>${PROJECT_ROOT}\img\toolboxlogo.png</param.screenshot>
-    <param.version>0.0.0.1</param.version>
+    <param.version>0.1.7</param.version>
     <param.output>${PROJECT_ROOT}\MEconTools.mltbx</param.output>
     <param.products.name />
     <param.products.id />
@@ -18,6 +18,35 @@
     <param.exclude.pcodedmfiles>true</param.exclude.pcodedmfiles>
     <param.examples>&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;examples&gt;
+   &lt;exampleCategory name="stats"&gt;
+      &lt;example name="ff_disc_rand_var_mass2covcor" type="html"&gt;
+         &lt;file type="source"&gt;/stats/html/ff_disc_rand_var_mass2covcor.html&lt;/file&gt;
+         &lt;file type="main"&gt;/stats/ff_disc_rand_var_mass2covcor.m&lt;/file&gt;
+         &lt;file type="thumbnail"/&gt;
+      &lt;/example&gt;
+      &lt;example name="ff_disc_rand_var_mass2outcomes" type="html"&gt;
+         &lt;file type="source"&gt;/stats/html/ff_disc_rand_var_mass2outcomes.html&lt;/file&gt;
+         &lt;file type="main"&gt;/stats/ff_disc_rand_var_mass2outcomes.m&lt;/file&gt;
+         &lt;file type="thumbnail"/&gt;
+      &lt;/example&gt;
+      &lt;example name="ff_disc_rand_var_stats" type="html"&gt;
+         &lt;file type="source"&gt;/stats/html/ff_disc_rand_var_stats.html&lt;/file&gt;
+         &lt;file type="main"&gt;/stats/ff_disc_rand_var_stats.m&lt;/file&gt;
+         &lt;file type="thumbnail"/&gt;
+      &lt;/example&gt;
+      &lt;example name="ff_simu_stats" type="html"&gt;
+         &lt;file type="source"&gt;/stats/html/ff_simu_stats.html&lt;/file&gt;
+         &lt;file type="main"&gt;/stats/ff_simu_stats.m&lt;/file&gt;
+         &lt;file type="thumbnail"/&gt;
+      &lt;/example&gt;
+   &lt;/exampleCategory&gt;
+   &lt;exampleCategory name="tools"&gt;
+      &lt;example name="ff_container_map_display" type="html"&gt;
+         &lt;file type="source"&gt;/tools/html/ff_container_map_display.html&lt;/file&gt;
+         &lt;file type="main"&gt;/tools/ff_container_map_display.m&lt;/file&gt;
+         &lt;file type="thumbnail"/&gt;
+      &lt;/example&gt;
+   &lt;/exampleCategory&gt;
    &lt;exampleCategory name="graph"&gt;
       &lt;example name="ff_graph_grid" type="html"&gt;
          &lt;file type="source"&gt;/graph/html/ff_graph_grid.html&lt;/file&gt;
@@ -25,6 +54,12 @@
          &lt;file type="thumbnail"&gt;/graph/html/ff_graph_grid.png&lt;/file&gt;
          &lt;file type="image"&gt;/graph/html/ff_graph_grid_01.png&lt;/file&gt;
          &lt;file type="image"&gt;/graph/html/ff_graph_grid_02.png&lt;/file&gt;
+         &lt;file type="image"&gt;/graph/html/ff_graph_grid_03.png&lt;/file&gt;
+         &lt;file type="image"&gt;/graph/html/ff_graph_grid_04.png&lt;/file&gt;
+         &lt;file type="image"&gt;/graph/html/ff_graph_grid_05.png&lt;/file&gt;
+         &lt;file type="image"&gt;/graph/html/ff_graph_grid_06.png&lt;/file&gt;
+         &lt;file type="image"&gt;/graph/html/ff_graph_grid_07.png&lt;/file&gt;
+         &lt;file type="image"&gt;/graph/html/ff_graph_grid_08.png&lt;/file&gt;
       &lt;/example&gt;
    &lt;/exampleCategory&gt;
    &lt;exampleCategory name="table"&gt;
@@ -38,18 +73,13 @@
          &lt;file type="main"&gt;/table/ff_sup_save_prep.m&lt;/file&gt;
          &lt;file type="thumbnail"/&gt;
       &lt;/example&gt;
-      &lt;example name="ff_tables_large_subset" type="html"&gt;
-         &lt;file type="source"&gt;/table/html/ff_tables_large_subset.html&lt;/file&gt;
-         &lt;file type="main"&gt;/table/ff_tables_large_subset.m&lt;/file&gt;
-         &lt;file type="thumbnail"/&gt;
-      &lt;/example&gt;
    &lt;/exampleCategory&gt;
 &lt;/examples&gt;</param.examples>
     <param.demosxml />
     <param.apps />
     <param.registered.apps />
-    <param.docs />
-    <param.getting.started.guide />
+    <param.docs>${PROJECT_ROOT}\MEconTools\info.xml</param.docs>
+    <param.getting.started.guide>${PROJECT_ROOT}\MEconTools\doc\GettingStarted.mlx</param.getting.started.guide>
     <param.matlabpath.excludes>
       <item>/graph/html</item>
     </param.matlabpath.excludes>
@@ -83,15 +113,11 @@
       <param.demosxml />
       <param.apps />
       <param.registered.apps />
-      <param.docs />
-      <param.getting.started.guide />
       <param.javaclasspath.excludes />
       <param.exported.on.package />
       <param.required.addons />
       <param.matlab.project.id />
       <param.matlab.project.name />
-      <param.release.start />
-      <param.release.end />
       <param.release.current.only />
       <param.compatiblity.windows />
       <param.compatiblity.macos />
@@ -109,8 +135,12 @@
     </fileset.rootdir>
     <fileset.rootfiles>
       <file>${PROJECT_ROOT}\MEconTools\demos.xml</file>
+      <file>${PROJECT_ROOT}\MEconTools\doc</file>
       <file>${PROJECT_ROOT}\MEconTools\graph</file>
+      <file>${PROJECT_ROOT}\MEconTools\info.xml</file>
+      <file>${PROJECT_ROOT}\MEconTools\stats</file>
       <file>${PROJECT_ROOT}\MEconTools\table</file>
+      <file>${PROJECT_ROOT}\MEconTools\tools</file>
     </fileset.rootfiles>
     <fileset.depfun.included />
     <fileset.depfun.excluded />

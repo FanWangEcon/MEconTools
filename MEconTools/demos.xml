@@ -6,6 +6,42 @@
    <website/>
    <description>Dynamic programming and related.</description>
    <demosection>
+      <label>stats</label>
+      <demoitem>
+         <label>ff_disc_rand_var_mass2covcor</label>
+         <type>other</type>
+         <source>ff_disc_rand_var_mass2covcor</source>
+         <file>stats/html/ff_disc_rand_var_mass2covcor.html</file>
+      </demoitem>
+      <demoitem>
+         <label>ff_disc_rand_var_mass2outcomes</label>
+         <type>other</type>
+         <source>ff_disc_rand_var_mass2outcomes</source>
+         <file>stats/html/ff_disc_rand_var_mass2outcomes.html</file>
+      </demoitem>
+      <demoitem>
+         <label>ff_disc_rand_var_stats</label>
+         <type>other</type>
+         <source>ff_disc_rand_var_stats</source>
+         <file>stats/html/ff_disc_rand_var_stats.html</file>
+      </demoitem>
+      <demoitem>
+         <label>ff_simu_stats</label>
+         <type>other</type>
+         <source>ff_simu_stats</source>
+         <file>stats/html/ff_simu_stats.html</file>
+      </demoitem>
+   </demosection>
+   <demosection>
+      <label>tools</label>
+      <demoitem>
+         <label>ff_container_map_display</label>
+         <type>other</type>
+         <source>ff_container_map_display</source>
+         <file>tools/html/ff_container_map_display.html</file>
+      </demoitem>
+   </demosection>
+   <demosection>
       <label>graph</label>
       <demoitem>
          <label>ff_graph_grid</label>
@@ -27,12 +63,6 @@
          <type>other</type>
          <source>ff_sup_save_prep</source>
          <file>table/html/ff_sup_save_prep.html</file>
-      </demoitem>
-      <demoitem>
-         <label>ff_tables_large_subset</label>
-         <type>other</type>
-         <source>ff_tables_large_subset</source>
-         <file>table/html/ff_tables_large_subset.html</file>
       </demoitem>
    </demosection>
 </demos>
