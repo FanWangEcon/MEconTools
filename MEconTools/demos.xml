@@ -6,6 +6,15 @@
    <website/>
    <description>Dynamic programming and related.</description>
    <demosection>
+      <label>summ</label>
+      <demoitem>
+         <label>ff_summ_nd_array</label>
+         <type>other</type>
+         <source>ff_summ_nd_array</source>
+         <file>summ/html/ff_summ_nd_array.html</file>
+      </demoitem>
+   </demosection>
+   <demosection>
       <label>stats</label>
       <demoitem>
          <label>ff_disc_rand_var_mass2covcor</label>

@@ -7,7 +7,7 @@
     <param.summary>Dynamic programming and related.</param.summary>
     <param.description>Dynamic programming and related.</param.description>
     <param.screenshot>${PROJECT_ROOT}\img\toolboxlogo.png</param.screenshot>
-    <param.version>0.1.7</param.version>
+    <param.version>0.1.8</param.version>
     <param.output>${PROJECT_ROOT}\MEconTools.mltbx</param.output>
     <param.products.name />
     <param.products.id />
@@ -18,6 +18,13 @@
     <param.exclude.pcodedmfiles>true</param.exclude.pcodedmfiles>
     <param.examples>&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;examples&gt;
+   &lt;exampleCategory name="summ"&gt;
+      &lt;example name="ff_summ_nd_array" type="html"&gt;
+         &lt;file type="source"&gt;/summ/html/ff_summ_nd_array.html&lt;/file&gt;
+         &lt;file type="main"&gt;/summ/ff_summ_nd_array.m&lt;/file&gt;
+         &lt;file type="thumbnail"/&gt;
+      &lt;/example&gt;
+   &lt;/exampleCategory&gt;
    &lt;exampleCategory name="stats"&gt;
       &lt;example name="ff_disc_rand_var_mass2covcor" type="html"&gt;
          &lt;file type="source"&gt;/stats/html/ff_disc_rand_var_mass2covcor.html&lt;/file&gt;
@@ -139,6 +146,7 @@
       <file>${PROJECT_ROOT}\MEconTools\graph</file>
       <file>${PROJECT_ROOT}\MEconTools\info.xml</file>
       <file>${PROJECT_ROOT}\MEconTools\stats</file>
+      <file>${PROJECT_ROOT}\MEconTools\summ</file>
       <file>${PROJECT_ROOT}\MEconTools\table</file>
       <file>${PROJECT_ROOT}\MEconTools\tools</file>
     </fileset.rootfiles>

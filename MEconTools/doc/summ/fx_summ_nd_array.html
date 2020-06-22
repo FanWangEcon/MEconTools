@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB R2019b"><title>FF_SUMM_ND_ARRAY Examples</title><style type="text/css">.rtcContent { padding: 30px; } .S0 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 28.8px; min-height: 0px; white-space: pre-wrap; color: rgb(213, 80, 0); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 24px; font-weight: 400; text-align: left;  }
+.S1 { margin: 2px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(0, 0, 0); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S2 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 20px; min-height: 0px; white-space: pre-wrap; color: rgb(60, 60, 60); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 20px; font-weight: 700; text-align: left;  }
+.CodeBlock { background-color: #F7F7F7; margin: 10px 0 10px 0;}
+.S3 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 1px solid rgb(233, 233, 233); border-bottom: 1px solid rgb(233, 233, 233); border-radius: 4px 4px 0px 0px; padding: 6px 45px 4px 13px; line-height: 16.996px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S4 { color: rgb(64, 64, 64); padding: 10px 0px 6px 17px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px; overflow-x: hidden; line-height: 16.996px;  }
+.embeddedOutputsErrorElement {min-height: 18px; max-height: 250px; overflow: auto;}
+.embeddedOutputsErrorElement.inlineElement {}
+.embeddedOutputsErrorElement.rightPaneElement {}
+.embeddedOutputsWarningElement{min-height: 18px; max-height: 250px; overflow: auto;}
+.embeddedOutputsWarningElement.inlineElement {}
+.embeddedOutputsWarningElement.rightPaneElement {}
+.diagnosticMessage-wrapper {font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 12px;}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType {color: rgb(255,100,0);}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType a {color: rgb(255,100,0); text-decoration: underline;}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType {color: rgb(230,0,0);}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType a {color: rgb(230,0,0); text-decoration: underline;}
+.diagnosticMessage-wrapper .diagnosticMessage-messagePart,.diagnosticMessage-wrapper .diagnosticMessage-causePart {white-space: pre-wrap;}
+.diagnosticMessage-wrapper .diagnosticMessage-stackPart {white-space: pre;}
+.embeddedOutputsTextElement,.embeddedOutputsVariableStringElement {white-space: pre; word-wrap: initial; min-height: 18px; max-height: 250px; overflow: auto;}
+.textElement,.rtcDataTipElement .textElement {padding-top: 3px;}
+.embeddedOutputsTextElement.inlineElement,.embeddedOutputsVariableStringElement.inlineElement {}
+.inlineElement .textElement {}
+.embeddedOutputsTextElement.rightPaneElement,.embeddedOutputsVariableStringElement.rightPaneElement {min-height: 16px;}
+.rightPaneElement .textElement {padding-top: 2px; padding-left: 9px;}
+.S5 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 1px solid rgb(233, 233, 233); border-bottom: 0px none rgb(0, 0, 0); border-radius: 4px 4px 0px 0px; padding: 6px 45px 0px 13px; line-height: 16.996px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S6 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 0px none rgb(0, 0, 0); border-bottom: 0px none rgb(0, 0, 0); border-radius: 0px; padding: 0px 45px 0px 13px; line-height: 16.996px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S7 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 0px none rgb(0, 0, 0); border-bottom: 1px solid rgb(233, 233, 233); border-radius: 0px 0px 4px 4px; padding: 0px 45px 4px 13px; line-height: 16.996px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S8 { margin: 10px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(0, 0, 0); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S9 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 0px none rgb(0, 0, 0); border-bottom: 1px solid rgb(233, 233, 233); border-radius: 0px; padding: 0px 45px 4px 13px; line-height: 16.996px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S10 { margin: 20px 10px 5px 4px; padding: 0px; line-height: 20px; min-height: 0px; white-space: pre-wrap; color: rgb(60, 60, 60); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 20px; font-weight: 700; text-align: left;  }</style></head><body><div class = rtcContent><h1  class = 'S0'><span>FF_SUMM_ND_ARRAY Examples</span></h1><div  class = 'S1'><span style=' font-weight: bold;'>back to </span><a href = "https://fanwangecon.github.io"><span style=' font-weight: bold;'>Fan</span></a><span style=' font-weight: bold;'>'s </span><a href = "https://fanwangecon.github.io/Math4Econ/"><span style=' font-weight: bold;'>Intro Math for Econ</span></a><span style=' font-weight: bold;'>,  </span><a href = "https://fanwangecon.github.io/M4Econ/"><span style=' font-weight: bold;'>Matlab Examples</span></a><span style=' font-weight: bold;'>, or </span><a href = "https://fanwangecon.github.io/CodeDynaAsset/"><span style=' font-weight: bold;'>Dynamic Asset</span></a><span style=' font-weight: bold;'> Repositories</span></div><div  class = 'S1'><span>This is the example vignette for function: </span><a href = "https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/summ/ff_summ_nd_array.m"><span style=' font-weight: bold;'>ff_summ_nd_array</span></a><span> from the </span><a href = "https://fanwangecon.github.io/MEconTools/"><span style=' font-weight: bold;'>MEconTools Package</span></a><span style=' font-weight: bold;'>.</span><span> This function summarizes policy and value functions over states.</span></div><h2  class = 'S2'><span>Test FF_SUMM_ND_ARRAY Defaults</span></h2><div  class = 'S1'><span>Call the function with defaults.</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S3'><span style="white-space: pre;"><span>ff_summ_nd_array();</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement" uid="E88B3EB2" data-testid="output_0" data-width="1009" data-height="175" data-hashorizontaloverflow="false" style="width: 1039px; max-height: 261px;"><div class="textElement">xxx  Summ over (a,z), condi age as cols, kids/marriage as rows  xxxxxxxxxxxxxxxxxxxxxxxxxxx
+    <strong>group</strong>    <strong>marry</strong>    <strong>kids</strong>    <strong>mn_age_18</strong>    <strong>mn_age_19</strong>    <strong>mn_age_20</strong>    <strong>mn_age_21</strong>    <strong>sd_age_18</strong>    <strong>sd_age_19</strong>    <strong>sd_age_20</strong>    <strong>sd_age_21</strong>
+    <strong>_____</strong>    <strong>_____</strong>    <strong>____</strong>    <strong>_________</strong>    <strong>_________</strong>    <strong>_________</strong>    <strong>_________</strong>    <strong>_________</strong>    <strong>_________</strong>    <strong>_________</strong>    <strong>_________</strong>
+
+      1        0       1       0.56976       0.4476      0.49109      0.45251      0.29322      0.27339      0.28525      0.25744 
+      2        1       1       0.52687      0.51443       0.5625      0.50024      0.29268      0.28909      0.27528      0.29418 
+      3        0       2       0.53998      0.47601      0.53021      0.54748      0.24868      0.25859       0.2877       0.2696 
+      4        1       2       0.55659      0.46433      0.50748        0.507        0.246      0.26424      0.29974      0.30187 
+      5        0       3       0.46647      0.51699       0.4597      0.45794      0.31578      0.28643      0.32383      0.28091 
+      6        1       3       0.54954      0.49923      0.50037      0.48724      0.31836      0.29447      0.24006      0.29272 
+      7        0       4       0.48948      0.49315      0.42655      0.54456      0.31243       0.2981      0.30805      0.28355 
+      8        1       4       0.55851      0.54233      0.54391      0.49281      0.27196      0.27044      0.24937      0.27754 </div></div></div></div></div><h2  class = 'S2'><span>Test FF_SUMM_ND_ARRAY with Random 6 Dimensional Matrix </span></h2><div  class = 'S1'><span>Summarize over 6 dimensional array. </span></div><div  class = 'S1'><span>First, generate matrix:</span></div><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S5'><span style="white-space: pre;"><span>st_title = </span><span style="color: rgb(160, 32, 240);">"Random ND dimensional Array Testing Summarizing"</span><span>;</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>rng(123)</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>mn_polval = rand(8,7,6,5,4,3);</span></span></div></div><div class="inlineWrapper"><div  class = 'S7'><span style="white-space: pre;"><span>bl_print_table = true;</span></span></div></div></div><div  class = 'S8'><span>Second, summarize over the first four dimensions,  row group others:</span></div><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S5'><span style="white-space: pre;"><span>it_aggd = 4; </span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>bl_row = 0; </span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S9'><span style="white-space: pre;"><span>ff_summ_nd_array(st_title, mn_polval, bl_print_table, it_aggd, bl_row);</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement" uid="F55D6156" data-testid="output_1" data-width="1009" data-height="233" data-hashorizontaloverflow="false" style="width: 1039px; max-height: 261px;"><div class="textElement">xxx  Random ND dimensional Array Testing Summarizing  xxxxxxxxxxxxxxxxxxxxxxxxxxx
+    <strong>group</strong>    <strong>vardim5</strong>    <strong>vardim6</strong>     <strong>mean</strong>        <strong>std</strong>         <strong>min</strong>          <strong>max</strong>  
+    <strong>_____</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>__________</strong>    <strong>_______</strong>
+
+      1         1          1       0.49808    0.29255    8.1888e-05    0.99964
+      2         2          1       0.50128    0.28968    6.7838e-05    0.99936
+      3         3          1       0.49491    0.28851    0.00091373    0.99989
+      4         4          1       0.50232    0.28154    0.00012471    0.99731
+      5         1          2        0.4994     0.2911    0.00029749    0.99938
+      6         2          2       0.49453    0.28634    0.00027113     0.9992
+      7         3          2       0.49559    0.28682    0.00035994    0.99936
+      8         4          2       0.48835    0.29032    0.00096259    0.99896
+      9         1          3       0.51819    0.29111     0.0010616    0.99951
+     10         2          3       0.50874    0.28458      0.001884    0.99965
+     11         3          3       0.49898     0.2891     0.0019192    0.99945
+     12         4          3       0.50169     0.2877    0.00016871    0.99963</div></div></div></div></div><div  class = 'S8'><span>Third, summarize over the first four dimensions, column group 5th, and row group others:</span></div><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S5'><span style="white-space: pre;"><span>it_aggd = 4; </span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>bl_row = 1; </span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S9'><span style="white-space: pre;"><span>ff_summ_nd_array(st_title, mn_polval, bl_print_table, it_aggd, bl_row);</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement" uid="F493F2DF" data-testid="output_2" data-width="1009" data-height="103" data-hashorizontaloverflow="false" style="width: 1039px; max-height: 261px;"><div class="textElement">xxx  Random ND dimensional Array Testing Summarizing  xxxxxxxxxxxxxxxxxxxxxxxxxxx
+    <strong>group</strong>    <strong>vardim6</strong>    <strong>mn_vardim5_1</strong>    <strong>mn_vardim5_2</strong>    <strong>mn_vardim5_3</strong>    <strong>mn_vardim5_4</strong>    <strong>sd_vardim5_1</strong>    <strong>sd_vardim5_2</strong>    <strong>sd_vardim5_3</strong>    <strong>sd_vardim5_4</strong>
+    <strong>_____</strong>    <strong>_______</strong>    <strong>____________</strong>    <strong>____________</strong>    <strong>____________</strong>    <strong>____________</strong>    <strong>____________</strong>    <strong>____________</strong>    <strong>____________</strong>    <strong>____________</strong>
+
+      1         1         0.49808         0.50128         0.49491         0.50232         0.29255         0.28968         0.28851         0.28154   
+      2         2          0.4994         0.49453         0.49559         0.48835          0.2911         0.28634         0.28682         0.29032   
+      3         3         0.51819         0.50874         0.49898         0.50169         0.29111         0.28458          0.2891          0.2877   </div></div></div></div></div><h2  class = 'S2'><span>Test FF_SUMM_ND_ARRAY with Random 7 Dimensional Matrix with All Parameters</span></h2><div  class = 'S1'><span>Given a random seven dimensional matrix, average over the 2nd, 4th and 5th dimensionals. Show as row groups the 3, 6 and 7th dimensions, and row groups the 1st dimension. </span></div><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S5'><span style="white-space: pre;"><span>st_title = </span><span style="color: rgb(160, 32, 240);">"avg VALUE 2+4+5th dims. groups 3+6+7th dims, and row groups the 1st dim."</span><span>;</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>rng(123)</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>mn_polval = rand(3,10,2,10,10,2,3);</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>ar_permute = [2,4,5,1,3,6,7];</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>bl_print_table = true;</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>it_aggd = 3; </span><span style="color: rgb(60, 118, 61);">% mean over 3 dims</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>bl_row = 1; </span><span style="color: rgb(60, 118, 61);">% one var for row group</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>cl_mp_datasetdesc = {};</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>cl_mp_datasetdesc{1} = containers.Map({</span><span style="color: rgb(160, 32, 240);">'name'</span><span>, </span><span style="color: rgb(160, 32, 240);">'labval'</span><span>}, </span><span style="color: rgb(0, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>    {</span><span style="color: rgb(160, 32, 240);">'age'</span><span>, [18, 19, 20]});</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>cl_mp_datasetdesc{2} = containers.Map({</span><span style="color: rgb(160, 32, 240);">'name'</span><span>, </span><span style="color: rgb(160, 32, 240);">'labval'</span><span>}, </span><span style="color: rgb(0, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>    {</span><span style="color: rgb(160, 32, 240);">'savings'</span><span>, linspace(0,1,10)});</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>cl_mp_datasetdesc{3} = containers.Map({</span><span style="color: rgb(160, 32, 240);">'name'</span><span>, </span><span style="color: rgb(160, 32, 240);">'labval'</span><span>}, </span><span style="color: rgb(0, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>    {</span><span style="color: rgb(160, 32, 240);">'borrsave'</span><span>, [-1,+1]});</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>cl_mp_datasetdesc{4} = containers.Map({</span><span style="color: rgb(160, 32, 240);">'name'</span><span>, </span><span style="color: rgb(160, 32, 240);">'labval'</span><span>}, </span><span style="color: rgb(0, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>    {</span><span style="color: rgb(160, 32, 240);">'shocka'</span><span>, linspace(-5,5,10)});</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>cl_mp_datasetdesc{5} = containers.Map({</span><span style="color: rgb(160, 32, 240);">'name'</span><span>, </span><span style="color: rgb(160, 32, 240);">'labval'</span><span>}, </span><span style="color: rgb(0, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>    {</span><span style="color: rgb(160, 32, 240);">'shockb'</span><span>, linspace(-5,5,10)});</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>cl_mp_datasetdesc{6} = containers.Map({</span><span style="color: rgb(160, 32, 240);">'name'</span><span>, </span><span style="color: rgb(160, 32, 240);">'labval'</span><span>}, </span><span style="color: rgb(0, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>    {</span><span style="color: rgb(160, 32, 240);">'marry'</span><span>, [0,1]});</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>cl_mp_datasetdesc{7} = containers.Map({</span><span style="color: rgb(160, 32, 240);">'name'</span><span>, </span><span style="color: rgb(160, 32, 240);">'labval'</span><span>}, </span><span style="color: rgb(0, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>    {</span><span style="color: rgb(160, 32, 240);">'region'</span><span>, [1,2,3]});</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">% call function</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S9'><span style="white-space: pre;"><span>ff_summ_nd_array(st_title, mn_polval, bl_print_table, it_aggd, bl_row, cl_mp_datasetdesc, ar_permute);</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement" uid="5A403C77" data-scroll-top="null" data-scroll-left="null" data-testid="output_3" data-width="1009" data-height="233" data-hashorizontaloverflow="false" style="width: 1039px; max-height: 261px;"><div class="textElement">xxx  avg VALUE 2+4+5th dims. groups 3+6+7th dims, and row groups the 1st dim.  xxxxxxxxxxxxxxxxxxxxxxxxxxx
+    <strong>group</strong>    <strong>borrsave</strong>    <strong>marry</strong>    <strong>region</strong>    <strong>mn_age_18</strong>    <strong>mn_age_19</strong>    <strong>mn_age_20</strong>    <strong>sd_age_18</strong>    <strong>sd_age_19</strong>    <strong>sd_age_20</strong>
+    <strong>_____</strong>    <strong>________</strong>    <strong>_____</strong>    <strong>______</strong>    <strong>_________</strong>    <strong>_________</strong>    <strong>_________</strong>    <strong>_________</strong>    <strong>_________</strong>    <strong>_________</strong>
+
+      1         -1         0        1        0.50503      0.50389      0.49788      0.28684      0.28738      0.29176 
+      2          1         0        1         0.4829      0.50795      0.49205      0.29151      0.29024      0.28872 
+      3         -1         1        1        0.48123      0.50734      0.50109      0.28975      0.28731       0.2898 
+      4          1         1        1        0.49987      0.49852      0.49519      0.28466       0.2852      0.28126 
+      5         -1         0        2        0.49859      0.50866      0.51752      0.28796      0.29057      0.28977 
+      6          1         0        2        0.50451      0.49802      0.50439      0.29083      0.28821      0.29022 
+      7         -1         1        2        0.50967      0.49651      0.50556      0.28615      0.28291      0.28778 
+      8          1         1        2        0.50209      0.49224      0.50252      0.28782      0.28292      0.28318 
+      9         -1         0        3        0.48885      0.49229      0.49692      0.28714      0.28479      0.29402 
+     10          1         0        3        0.49534      0.50183      0.50266      0.28468      0.28596      0.28962 
+     11         -1         1        3        0.50312      0.50535      0.48959      0.29342      0.29234      0.28233 
+     12          1         1        3        0.51204      0.49998      0.50738      0.28574      0.28879      0.29074 </div></div></div></div></div><h2  class = 'S10'></h2></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+%% FF_SUMM_ND_ARRAY Examples
+% *back to* <https://fanwangecon.github.io *Fan*>*'s* <https://fanwangecon.github.io/Math4Econ/ 
+% *Intro Math for Econ*>*,*  <https://fanwangecon.github.io/M4Econ/ *Matlab Examples*>*, 
+% or* <https://fanwangecon.github.io/CodeDynaAsset/ *Dynamic Asset*> *Repositories*
+% 
+% This is the example vignette for function: <https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/summ/ff_summ_nd_array.m 
+% *ff_summ_nd_array*> from the <https://fanwangecon.github.io/MEconTools/ *MEconTools 
+% Package*>*.* This function summarizes policy and value functions over states.
+%% Test FF_SUMM_ND_ARRAY Defaults
+% Call the function with defaults.
+
+ff_summ_nd_array();
+%% Test FF_SUMM_ND_ARRAY with Random 6 Dimensional Matrix 
+% Summarize over 6 dimensional array. 
+% 
+% First, generate matrix:
+
+st_title = "Random ND dimensional Array Testing Summarizing";
+rng(123)
+mn_polval = rand(8,7,6,5,4,3);
+bl_print_table = true;
+%% 
+% Second, summarize over the first four dimensions,  row group others:
+
+it_aggd = 4; 
+bl_row = 0; 
+ff_summ_nd_array(st_title, mn_polval, bl_print_table, it_aggd, bl_row);
+%% 
+% Third, summarize over the first four dimensions, column group 5th, and row 
+% group others:
+
+it_aggd = 4; 
+bl_row = 1; 
+ff_summ_nd_array(st_title, mn_polval, bl_print_table, it_aggd, bl_row);
+%% Test FF_SUMM_ND_ARRAY with Random 7 Dimensional Matrix with All Parameters
+% Given a random seven dimensional matrix, average over the 2nd, 4th and 5th 
+% dimensionals. Show as row groups the 3, 6 and 7th dimensions, and row groups 
+% the 1st dimension. 
+
+st_title = "avg VALUE 2+4+5th dims. groups 3+6+7th dims, and row groups the 1st dim.";
+rng(123)
+mn_polval = rand(3,10,2,10,10,2,3);
+ar_permute = [2,4,5,1,3,6,7];
+bl_print_table = true;
+it_aggd = 3; % mean over 3 dims
+bl_row = 1; % one var for row group
+cl_mp_datasetdesc = {};
+cl_mp_datasetdesc{1} = containers.Map({'name', 'labval'}, ...
+    {'age', [18, 19, 20]});
+cl_mp_datasetdesc{2} = containers.Map({'name', 'labval'}, ...
+    {'savings', linspace(0,1,10)});
+cl_mp_datasetdesc{3} = containers.Map({'name', 'labval'}, ...
+    {'borrsave', [-1,+1]});
+cl_mp_datasetdesc{4} = containers.Map({'name', 'labval'}, ...
+    {'shocka', linspace(-5,5,10)});
+cl_mp_datasetdesc{5} = containers.Map({'name', 'labval'}, ...
+    {'shockb', linspace(-5,5,10)});
+cl_mp_datasetdesc{6} = containers.Map({'name', 'labval'}, ...
+    {'marry', [0,1]});
+cl_mp_datasetdesc{7} = containers.Map({'name', 'labval'}, ...
+    {'region', [1,2,3]});
+% call function
+ff_summ_nd_array(st_title, mn_polval, bl_print_table, it_aggd, bl_row, cl_mp_datasetdesc, ar_permute);
+%%
+##### SOURCE END #####
+--></body></html>

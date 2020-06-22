@@ -1,6 +1,7 @@
 %% FF_CONTAINER_MAP_DISPLAY organizes and prints container map key/values
 %    FF_CONTAINER_MAP_DISPLAY() summarizes the contents of a map container
-%    by data types.
+%    by data types. Includes, scalar, array, matrix, string, functions,
+%    tensors (3-tuples), tesseracts (4-tuples)
 %
 %    * MP_CONTAINER_MAP container map with string, scalar, matrix, function
 %    values and associated key names
@@ -9,7 +10,7 @@
 %
 %    FF_CONTAINER_MAP_DISPLAY() prints out information from a default
 %    container that includes string, scalar, boolean, matrix of scalars and
-%    matrix of booleans. 
+%    matrix of booleans.
 %
 %    FF_CONTAINER_MAP_DISPLAY(MP_CONTAINER_MAP) prints out information from
 %    the MP_CONTAINER_MAP provided. If there are matrixes inside, will only
@@ -57,9 +58,15 @@ else
     mp_container_map('string_int_1') = 1021;
     mp_container_map('string_float_1') = 1021.13;
     mp_container_map('boolean_1') = true;
+    mp_container_map('tensor_1') = rand(2,4,2);
+    mp_container_map('tensor_2') = rand(3,5,5);
+    mp_container_map('tensor_3') = rand(1,4,1);
+    mp_container_map('tesseract_1') = rand(3,4,2,3);
+    mp_container_map('tesseract_2') = rand(2,1,5,2);
+    mp_container_map('tesseract_2') = rand(1,1,5,2);
     
     bl_print_matrix_detail = true;
-        
+    
 end
 
 %% Start Display
@@ -96,6 +103,7 @@ for i = 1:length(mp_container_map)
     %% Access current Key and Value
     st_cur_key = param_map_keys{i};
     na_cur_val = param_map_vals{i};
+    it_ndims = ndims(na_cur_val);
     
     if(iscell(na_cur_val))
         na_cur_val = na_cur_val{1};
@@ -105,30 +113,34 @@ for i = 1:length(mp_container_map)
     end
     
     %% Various Types of Values
-    if (ismatrix(na_cur_val) && (isnumeric(na_cur_val) || islogical(na_cur_val)))
-        %% A. If Value is Matrix, Scalar or Boolean
+    if (it_ndims == 4 && (isnumeric(na_cur_val)))
+        %% A. Four Tuple
+        % Separate the four tuple into a set of matrixes, and summarize each. 
+        
+    elseif (it_ndims == 3 && (isnumeric(na_cur_val)))
+        %% B. Three Tuple
+        
+    elseif (ismatrix(na_cur_val) && (isnumeric(na_cur_val) || islogical(na_cur_val)))
+        %% C. If Value is Matrix, Scalar or Boolean
         % Get Size
         [it_row_n, it_col_n] = size(na_cur_val);
         
         if ( it_row_n == 1 && it_col_n == 1)
-            %% A1. Store Scalar Values and Boolean in Arrays
+            %% C1. Store Scalar Values and Boolean in Arrays
             it_scalar_ctr = it_scalar_ctr + 1;
             row_scalar_names{it_scalar_ctr} = st_cur_key;
             ar_scalar_val(it_scalar_ctr) = real(na_cur_val);
             ar_scalar_i(it_scalar_ctr) = i;
             
-            st_display = strjoin(['pos =' num2str(i) '; key =' string(st_cur_key) '; val =' string(na_cur_val)]);
+            % st_display = strjoin(['pos =' num2str(i) '; key =' string(st_cur_key) '; val =' string(na_cur_val)]);
             %             disp(st_display);
             
         else
-            %% A2. Store Numeric Matrix Stats and Size Info
+            %% C2. Store Numeric Matrix Stats and Size Info
             it_mat_ctr = it_mat_ctr + 1;
             row_mat_names{it_mat_ctr} = st_cur_key;
             
-            fl_mean = mean(na_cur_val, 'all');
-            fl_std = std(na_cur_val, [], 'all');
-            fl_min = min(na_cur_val, [], 'all');
-            fl_max = max(na_cur_val, [], 'all');
+            [fl_mean, fl_std, fl_min, fl_max] = ff_container_map_display_mat_stats(na_cur_val);
             
             ar_rows_n(it_mat_ctr) = it_row_n;
             ar_cols_n(it_mat_ctr) = it_col_n;
@@ -138,13 +150,13 @@ for i = 1:length(mp_container_map)
             ar_max(it_mat_ctr) = fl_max;
             ar_mat_i(it_mat_ctr) = i;
             
-            st_display = strjoin(['pos =' num2str(i) '; key =' string(st_cur_key) ...
-                ';rown=' num2str(it_row_n) ',coln=' num2str(it_col_n)]);
+            %             st_display = strjoin(['pos =' num2str(i) '; key =' string(st_cur_key) ...
+            %                 ';rown=' num2str(it_row_n) ',coln=' num2str(it_col_n)]);
             %             disp(st_display);
             
-            st_display = strjoin([string(st_cur_key) ...
-                ':mu=' num2str(fl_mean) ',sd=' num2str(fl_std) ...
-                ',min=' num2str(fl_min) ',max=' num2str(fl_max)]);
+            %             st_display = strjoin([string(st_cur_key) ...
+            %                 ':mu=' num2str(fl_mean) ',sd=' num2str(fl_std) ...
+            %                 ',min=' num2str(fl_min) ',max=' num2str(fl_max)]);
             %             disp(st_display);
             
             if (bl_print_matrix_detail)
@@ -159,30 +171,33 @@ for i = 1:length(mp_container_map)
                 cl_tb_data_subset{it_mat_ctr} = tb_data_subset;
             end
         end
+        
     elseif(isa(na_cur_val, 'function_handle'))
-        %% B. If Value is a Function Handle
+        %% D. If Value is a Function Handle
         
         it_function_ctr = it_function_ctr + 1;
         row_function_names{it_function_ctr} = st_cur_key;
         ar_function_i(it_function_ctr) = i;
         ar_function_value(it_function_ctr) = it_function_ctr;
         
-        st_display = strjoin(['pos =' num2str(i) '; key =' string(st_cur_key) '; val =' func2str(na_cur_val)]);
-        disp(st_display);
+        %         st_display = strjoin(['pos =' num2str(i) '; key =' string(st_cur_key) '; val =' func2str(na_cur_val)]);
+        %         disp(st_display);
         
     elseif(isa(na_cur_val, 'string') || isa(na_cur_val, 'char'))
-        %% C. String
+        %% E. String
         it_string_ctr = it_string_ctr + 1;
         row_string_names{it_string_ctr} = st_cur_key;
         ar_string_i(it_string_ctr) = i;
+        ar_string_val(it_string_ctr) = strjoin(na_cur_val, ';');
         
-        st_display = strjoin(['pos =' num2str(i) '; key =' string(st_cur_key) '; val =' string(na_cur_val)]);
-        disp(st_display);
+        %         st_display = strjoin(['pos =' num2str(i) '; key =' string(st_cur_key) '; val =' string(na_cur_val)]);
+        %         disp(st_display);
         
     else
-        %% D. Other Types
-        st_display = strjoin(['pos =' num2str(i) '; key =' string(st_cur_key) '; val =' string(na_cur_val)]);
+        %% F. Other Types
+        st_display = strjoin(['pos =' num2str(i) '; key =' string(st_cur_key)]);
         disp(st_display);
+        disp(na_cur_val);
     end
     
 end
@@ -192,7 +207,7 @@ if (it_mat_ctr >= 1)
     disp('----------------------------------------');
     disp('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
     disp([st_containerinput ' Matrix'] )
-%     disp('Matrix in Container and Sizes and Basic Statistics');
+    %     disp('Matrix in Container and Sizes and Basic Statistics');
     disp('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
     
     tb_rowcols_tab = array2table([(1:it_mat_ctr)', ar_mat_i', ar_rows_n', ar_cols_n', ar_mean', ar_std', ar_min', ar_max']);
@@ -203,7 +218,7 @@ if (it_mat_ctr >= 1)
     if (bl_print_matrix_detail)
         % Show matrix details:
         for i=1:length(cl_tb_data_subset)
-            disp(strcat('xxx TABLE: ', row_mat_names{i}, ' xxxxxxxxxxxxxxxxxx'));    
+            disp(strcat('xxx TABLE: ', row_mat_names{i}, ' xxxxxxxxxxxxxxxxxx'));
             disp(cl_tb_data_subset{i})
         end
     end
@@ -214,7 +229,7 @@ if (it_scalar_ctr >= 1)
     disp('----------------------------------------');
     disp('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
     disp([st_containerinput ' Scalars'] )
-%     disp('Scalars in Container and Sizes and Basic Statistics');
+    %     disp('Scalars in Container and Sizes and Basic Statistics');
     disp('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
     
     tb_rowcols_tab = array2table([(1:it_scalar_ctr)', ar_scalar_i', ar_scalar_val']);
@@ -223,25 +238,25 @@ if (it_scalar_ctr >= 1)
     disp(tb_rowcols_tab);
 end
 
-% if (it_string_ctr >= 1)
-%     % Overall String Results
-%     disp('----------------------------------------');
-%     disp('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-%     disp('Strings in Container and Sizes and Basic Statistics');
-%     disp('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-%
-%     tb_rowcols_tab = array2table([(1:it_string_ctr)', ar_string_i']);
-%     tb_rowcols_tab.Properties.VariableNames = matlab.lang.makeValidName(["i", "idx"]);
-%     tb_rowcols_tab.Properties.RowNames = matlab.lang.makeValidName(row_string_names);
-%     disp(tb_rowcols_tab);
-% end
+if (it_string_ctr >= 1)
+    % Overall String Results
+    disp('----------------------------------------');
+    disp('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+    disp([st_containerinput ' String'] )
+    disp('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+    
+    tb_rowcols_tab = array2table([(1:it_string_ctr)', ar_string_i', ar_string_val']);
+    tb_rowcols_tab.Properties.VariableNames = matlab.lang.makeValidName(["i", "idx", "string"]);
+    tb_rowcols_tab.Properties.RowNames = matlab.lang.makeValidName(row_string_names);
+    disp(tb_rowcols_tab);
+end
 
 if (it_function_ctr >= 1)
     % Overall Scalar Results
     disp('----------------------------------------');
     disp('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
     disp([st_containerinput ' Functions'] )
-%     disp('Scalars in Container and Sizes and Basic Statistics');
+    %     disp('Scalars in Container and Sizes and Basic Statistics');
     disp('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
     
     tb_rowcols_tab = array2table([(1:it_function_ctr)', ar_function_i', ar_function_value']);
@@ -249,5 +264,15 @@ if (it_function_ctr >= 1)
     tb_rowcols_tab.Properties.RowNames = matlab.lang.makeValidName(row_function_names);
     disp(tb_rowcols_tab);
 end
+
+end
+
+%% Matrix Statistics
+function [fl_mean, fl_std, fl_min, fl_max] = ff_container_map_display_mat_stats(mt_numeric)
+
+fl_mean = mean(mt_numeric, 'all');
+fl_std = std(mt_numeric, [], 'all');
+fl_min = min(mt_numeric, [], 'all');
+fl_max = max(mt_numeric, [], 'all');
 
 end
