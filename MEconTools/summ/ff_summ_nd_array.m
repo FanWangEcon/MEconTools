@@ -28,17 +28,25 @@
 %    TB_ND_SUMMARY = FF_SUMM_ND_ARRAY() default test summary of 5D array.
 %
 %    TB_ND_SUMMARY = FF_SUMM_ND_ARRAY(ST_TITLE, MN_POLVAL, BL_PRINT_TABLE,
-%    IT_AGGD, BL_ROW) given ND dimensional array, summarize the initial
-%    IT_AGGD dimensions, if BL_ROW is true, group by the dimension higher
-%    than IT_AGGD. If BL_ROW is false, now column groups, all remaining
-%    dimensions are row group combinations.
+%    AR_ST_STATS, IT_AGGD, BL_ROW) given ND dimensional array, summarize
+%    the initial IT_AGGD dimensions, if BL_ROW is true, group by the
+%    dimension higher than IT_AGGD. If BL_ROW is false, now column groups,
+%    all remaining dimensions are row group combinations. If the ND array
+%    has N dimensions, IT_AGGD can be at most N-1 if BL_ROW is true.
+%    Additionally, AR_ST_STATS allows for summarizing with the possibility
+%    of specifying when there are row groups which stats to show, options
+%    are: mean only, mean and std, mean and cv (coefficient of variation),
+%    mean and std and cv. AR_ST_STATS must be specified has: ar_st_stats =
+%    ["mean", "std", "coefvari"], ar_st_stats = ["mean", "coefvari"],
+%    ar_st_stats = ["mean", "std"], or ar_st_stats = ["mean"]. Default is
+%    to show ar_st_stats = ["mean", "coefvari"].
 %
 %    TB_ND_SUMMARY = FF_SUMM_ND_ARRAY(ST_TITLE, MN_POLVAL, BL_PRINT_TABLE,
-%    IT_AGGD, BL_ROW, CL_MP_DATASETDESC, AR_PERMUTE) summarizes over nd
-%    dimensional array, decide which dimensions to summarize over, which
-%    dimensions to use as row groups, and which dimension as column group.
-%    To permute dimensions, must provide dimension details in
-%    CL_MP_DATASETDESC.
+%    AR_ST_STATS, IT_AGGD, BL_ROW, CL_MP_DATASETDESC, AR_PERMUTE)
+%    summarizes over nd dimensional array, decide which dimensions to
+%    summarize over, which dimensions to use as row groups, and which
+%    dimension as column group. To permute dimensions, must provide
+%    dimension details in CL_MP_DATASETDESC.
 %
 %    See also FX_SUMM_ND_ARRAY
 %
@@ -56,23 +64,24 @@ if (~isempty(varargin))
     it_aggd = 1;
     bl_row = true;
     ar_permute = false;
+    ar_st_stats = ["mean", "coefvari"];
     
     if (length(varargin)==3)
         [st_title, mn_polval, bl_print_table] = varargin{:};
-    elseif (length(varargin)==5)
-        [st_title, mn_polval, bl_print_table, ...
-            it_aggd, bl_row] = varargin{:};
     elseif (length(varargin)==6)
-        [st_title, mn_polval, bl_print_table, ...
-            it_aggd, bl_row, cl_mp_datasetdesc] = varargin{:};
+        [st_title, mn_polval, bl_print_table, ar_st_stats, ...
+            it_aggd, bl_row] = varargin{:};
     elseif (length(varargin)==7)
-        [st_title, mn_polval, bl_print_table, ...
+        [st_title, mn_polval, bl_print_table, ar_st_stats, ...
+            it_aggd, bl_row, cl_mp_datasetdesc] = varargin{:};
+    elseif (length(varargin)==8)
+        [st_title, mn_polval, bl_print_table, ar_st_stats,...
             it_aggd, bl_row, cl_mp_datasetdesc, ar_permute] = varargin{:};
     end
     
     % Generate cl_mp_datasetdesc and ar_permute
     ar_dim = size(mn_polval);
-    if (length(varargin)<6)
+    if (length(varargin)<7)
         % set cl_mp_datasetdesc
         if (~cl_mp_datasetdesc)
             cl_mp_datasetdesc = {};
@@ -87,7 +96,7 @@ if (~isempty(varargin))
     end
     
     % set ar_permute
-    if (length(varargin)<7)
+    if (length(varargin)<8)
         if (~ar_permute)
             ar_permute = 1:1:length(ar_dim);
         end
@@ -116,6 +125,11 @@ else
     bl_print_table = true;
     ar_dim = size(mn_polval);
     
+%     ar_st_stats = ["mean", "std", "coefvari"];
+%     ar_st_stats = ["mean", "std"];
+    ar_st_stats = ["mean", "coefvari"];
+%     ar_st_stats = ["mean"];
+    
 end
 
 %% Resort Dimensions
@@ -136,9 +150,12 @@ for it_dim=(it_aggd+bl_row+1):1:length(ar_dim)
     cl_ar_row_groups{it_counter} = ar_var_lab_val;
 end
 cl_mt_row_groups_all = cl_ar_row_groups;
-[cl_mt_row_groups_all{:}] = ndgrid(cl_ar_row_groups{:});
-mt_row_groups_allcombo = cell2mat(cellfun(@(m) m(:), cl_mt_row_groups_all, 'uni', 0));
-
+if (numel(cl_ar_row_groups)==0)
+    mt_row_groups_allcombo = [1];
+else
+    [cl_mt_row_groups_all{:}] = ndgrid(cl_ar_row_groups{:});
+    mt_row_groups_allcombo = cell2mat(cellfun(@(m) m(:), cl_mt_row_groups_all, 'uni', 0));
+end
 
 %% Summarize
 if (bl_row)
@@ -146,6 +163,7 @@ if (bl_row)
     it_row_group = size(mn_polval_resort, (it_aggd+bl_row));
     mt_mean = zeros(length(cl_mn_polval), it_row_group);
     mt_std = zeros(length(cl_mn_polval), it_row_group);
+    mt_cv = zeros(length(cl_mn_polval), it_row_group);
     for it_mt=1:length(cl_mn_polval)
         mt_cur = cl_mn_polval{it_mt};
         if (it_aggd == 1)
@@ -154,21 +172,24 @@ if (bl_row)
         else
             mt_cur = reshape(mt_cur, [], it_row_group);
             mt_mean(it_mt,:) = mean(mt_cur, 1);
-            mt_std(it_mt,:) = std(mt_cur, [], 1);
+            mt_std(it_mt,:) = std(mt_cur, [], 1);            
         end
-    end
+        mt_cv(it_mt,:) = mt_mean(it_mt,:)./mt_std(it_mt,:);
+    end    
     
 else
     
     % Over of matrix and summarize
     ar_mean = zeros(size(cl_mn_polval));
     ar_std = zeros(size(cl_mn_polval));
+    ar_cv = zeros(size(cl_mn_polval));
     ar_min = zeros(size(cl_mn_polval));
     ar_max = zeros(size(cl_mn_polval));
     for it_mt=1:length(cl_mn_polval)
         mt_cur = cl_mn_polval{it_mt};
         ar_mean(it_mt) = mean(mt_cur, 'all');
         ar_std(it_mt) = std(mt_cur, [], 'all');
+        ar_cv(it_mt) = ar_mean(it_mt)/ar_std(it_mt);
         ar_min(it_mt) = min(mt_cur, [], 'all');
         ar_max(it_mt) = max(mt_cur, [], 'all');
     end
@@ -177,23 +198,50 @@ end
 
 %% Construct Table
 if (bl_row)
-    % Constructe Table
-    tb_nd_summary = array2table([(1:length(cl_mn_polval))', ...
-        mt_row_groups_allcombo, mt_mean, mt_std]);
+        
     % Column Names
     mp_datasetdesc = cl_mp_datasetdesc{ar_permute(it_aggd+bl_row)};
     ar_row_cate_lab_val = mp_datasetdesc('labval');
     st_row_cate_name = string(mp_datasetdesc('name'));
-    cl_col_names_mn = strcat('mn_', st_row_cate_name, '_', string(ar_row_cate_lab_val));
+    
+    cl_col_names_mn = strcat('mn_', st_row_cate_name, '_', string(ar_row_cate_lab_val));    
     cl_col_names_sd = strcat('sd_', st_row_cate_name, '_', string(ar_row_cate_lab_val));
-    tb_nd_summary.Properties.VariableNames = ...
-        matlab.lang.makeValidName(["group", ar_group_names, cl_col_names_mn, cl_col_names_sd]);
+    cl_col_names_cv = strcat('cv_', st_row_cate_name, '_', string(ar_row_cate_lab_val));
+    
+    % Constructe Table
+    if (sum(contains(ar_st_stats, "std")) && sum(contains(ar_st_stats, "coefvari")))
+        tb_nd_summary = array2table([(1:length(cl_mn_polval))', ...
+            mt_row_groups_allcombo, mt_mean, mt_std, mt_cv]);
+        tb_nd_summary.Properties.VariableNames = ...
+            matlab.lang.makeValidName(["group", ar_group_names, ...
+            cl_col_names_mn, cl_col_names_sd, cl_col_names_cv]);        
+    elseif (sum(contains(ar_st_stats, "std")))
+        tb_nd_summary = array2table([(1:length(cl_mn_polval))', ...
+            mt_row_groups_allcombo, mt_mean, mt_std]);
+        tb_nd_summary.Properties.VariableNames = ...
+            matlab.lang.makeValidName(["group", ar_group_names, ...
+            cl_col_names_mn, cl_col_names_sd]);        
+    elseif (sum(contains(ar_st_stats, "coefvari")))
+        tb_nd_summary = array2table([(1:length(cl_mn_polval))', ...
+            mt_row_groups_allcombo, mt_mean, mt_cv]);
+        tb_nd_summary.Properties.VariableNames = ...
+            matlab.lang.makeValidName(["group", ar_group_names, ...
+            cl_col_names_mn, cl_col_names_cv]);        
+    else
+        tb_nd_summary = array2table([(1:length(cl_mn_polval))', ...
+            mt_row_groups_allcombo, mt_mean]);
+        tb_nd_summary.Properties.VariableNames = ...
+            matlab.lang.makeValidName(["group", ar_group_names, ...
+            cl_col_names_mn]);        
+    end
+        
 else
     % Constructe Table
     tb_nd_summary = array2table([(1:length(cl_mn_polval))', ...
-        mt_row_groups_allcombo, ar_mean, ar_std, ar_min, ar_max]);
+        mt_row_groups_allcombo, ar_mean, ar_std, ar_cv, ar_min, ar_max]);
     tb_nd_summary.Properties.VariableNames = ...
-        matlab.lang.makeValidName(["group", ar_group_names,  "mean", "std", "min", "max"]);
+        matlab.lang.makeValidName(["group", ar_group_names,  "mean", "std", "coefvari", "min", "max"]);
+    
 end
 
 %% Print

@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>FF_GRAPH_GRID Grid based Graph, x-axis one param, color another param, over outcomes</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-06-20"><meta name="DC.source" content="ff_graph_grid.m"><style type="text/css">
+      --><title>FF_GRAPH_GRID Grid based Graph, x-axis one param, color another param, over outcomes</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-06-22"><meta name="DC.source" content="ff_graph_grid.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -150,7 +150,7 @@ cl_params = values(mp_support_graph, {<span class="string">'st_legend_loc'</span
 
     it_graph_counter = 0;
     cl_legend = [];
-    cl_scatter_shapes = {<span class="string">'s'</span>,<span class="string">'x'</span>,<span class="string">'o'</span>,<span class="string">'d'</span>,<span class="string">'p'</span>};
+    cl_scatter_shapes = {<span class="string">'s'</span>, <span class="string">'x'</span>, <span class="string">'o'</span>, <span class="string">'d'</span>, <span class="string">'p'</span>, <span class="string">'*'</span>, <span class="string">'^'</span>, <span class="string">'&lt;'</span>};
     <span class="comment">%             ar_fl_clr = jet(length(param_grid));</span>
     mt_fl_clr = fx_linspecer(length(ar_row_grid), <span class="string">'sequential'</span>);
 </pre><img vspace="5" hspace="5" src="ff_graph_grid_01.png" alt=""> <img vspace="5" hspace="5" src="ff_graph_grid_05.png" alt=""> <h2 id="8">Log Transform</h2><pre class="codeinput">    ar_x = ar_col_grid;
@@ -372,7 +372,7 @@ for it_plot = ar_it_plot
     
     it_graph_counter = 0;
     cl_legend = [];
-    cl_scatter_shapes = {'s','x','o','d','p'};
+    cl_scatter_shapes = {'s', 'x', 'o', 'd', 'p', '*', '^', '<'};
     %             ar_fl_clr = jet(length(param_grid));
     mt_fl_clr = fx_linspecer(length(ar_row_grid), 'sequential');
     

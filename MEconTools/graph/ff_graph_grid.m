@@ -116,7 +116,7 @@ for it_plot = ar_it_plot
     
     it_graph_counter = 0;
     cl_legend = [];
-    cl_scatter_shapes = {'s','x','o','d','p'};
+    cl_scatter_shapes = {'s', 'x', 'o', 'd', 'p', '*', '^', '<'};
     %             ar_fl_clr = jet(length(param_grid));
     mt_fl_clr = fx_linspecer(length(ar_row_grid), 'sequential');
     
