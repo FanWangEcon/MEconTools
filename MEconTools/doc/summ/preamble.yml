@@ -1,0 +1,24 @@
+- file: fx_summ_nd_array
+  title: "Matlab Group by and Summarize ND Array Policy and Value Functions"
+  titleshort: "Summarize ND Array Policy and Value Functions"
+  description: |
+    Given an NDarray matrix with N1, N2, ..., ND dimensions. Generate average and standard deviation for the 3rd dimension, grouping by the other dimensions.
+    For example, show the 5th dimension as the column groups, and the other variables generate combinations shown as rows.
+    The resulting summary statistics table contains mean and standard deviation among other statistics over the policy or value contained in the ND array.
+  core :
+    - package: MEconTools
+      code: |
+        ff_summ_nd_array()
+  date: 2020-06-22
+  date_start: 2020-06-22
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue

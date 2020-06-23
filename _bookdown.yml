@@ -1,0 +1,26 @@
+book_filename: "Matlab Toolbox Heterogeneous Agents Dynamic Programming"
+output_dir: "bookdown"
+language:
+  ui:
+    chapter_name: "Chapter "
+delete_merged_file: true
+rmd_files:
+  - index.Rmd
+
+  - MEconTools/doc/summ/main.Rmd
+  - MEconTools/doc/summ/fx_summ_nd_array.Rmd
+
+  - MEconTools/doc/stats/main.Rmd
+  - MEconTools/doc/stats/fx_simu_stats.Rmd
+  - MEconTools/doc/stats/fx_disc_rand_var_stats.Rmd
+  - MEconTools/doc/stats/fx_disc_rand_var_mass2outcomes.Rmd
+  - MEconTools/doc/stats/fx_disc_rand_var_mass2covcor.Rmd
+
+  - MEconTools/doc/graph/main.Rmd
+  - MEconTools/doc/graph/fx_graph_grid.Rmd
+
+  - MEconTools/doc/tools/main.Rmd
+  - MEconTools/doc/tools/fx_container_map_display.Rmd
+
+  - README_appendix.md
+  - title.Rmd

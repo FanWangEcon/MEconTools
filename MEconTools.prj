@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="1436004826" file="C:\Users\fan\MEconTools\MEconTools.prj" location="C:\Users\fan\MEconTools" name="MEconTools" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="3439100976" file="C:\Users\fan\MEconTools\MEconTools.prj" location="C:\Users\fan\MEconTools" name="MEconTools" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>MEconTools</param.appname>
     <param.authnamewatermark>Fan Wang</param.authnamewatermark>
     <param.email>fanwecon@gmail.com</param.email>
@@ -7,14 +7,35 @@
     <param.summary>Dynamic programming and related.</param.summary>
     <param.description>Dynamic programming and related.</param.description>
     <param.screenshot>${PROJECT_ROOT}\img\toolboxlogo.png</param.screenshot>
-    <param.version>0.1.11</param.version>
+    <param.version>0.1.12</param.version>
     <param.output>${PROJECT_ROOT}\MEconTools.mltbx</param.output>
     <param.products.name />
     <param.products.id />
     <param.products.version />
     <param.platforms />
     <param.guid>629aec6f-8f88-4bdc-8c6e-6d731d1ae90b</param.guid>
-    <param.exclude.filters />
+    <param.exclude.filters>% List files contained in your toolbox folder that you would like to exclude
+% from packaging.  Excludes should be listed relative to the toolbox folder.
+% Some examples of how to specify excludes are provided below:
+%
+% A single file in the toolbox folder:
+% .svn
+%
+% A single file in a subfolder of the toolbox folder:
+% example/.svn
+%
+% All files in a subfolder of the toolbox folder:
+% example/*
+%
+% All files of a certain name in all subfolders of the toolbox folder:
+% **/.svn
+%
+% All files matching a pattern in all subfolders of the toolbox folder:
+% **/*.bak
+%
+*/htmlpdfm/*
+*htmlpdfm/*
+htmlpdfm/*</param.exclude.filters>
     <param.exclude.pcodedmfiles>true</param.exclude.pcodedmfiles>
     <param.examples>&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;examples&gt;
@@ -115,7 +136,6 @@
       <param.products.id />
       <param.products.version />
       <param.platforms />
-      <param.exclude.filters />
       <param.exclude.pcodedmfiles />
       <param.demosxml />
       <param.apps />

@@ -1,0 +1,22 @@
+- file: fx_graph_grid
+  title: "Matlab FF_GRAPH_GRID 2D Generic Line Plot Function"
+  titleshort: "Multiple Line Graph Function"
+  description: |
+    Grid based Graph, x-axis one param, color another param, over outcomes.
+  core :
+    - package: MEconTools
+      code: |
+        ff_graph_grid()
+  date: 2020-06-22
+  date_start: 2020-06-22
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue

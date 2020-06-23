@@ -1,7 +1,7 @@
 %% FF_SUMM_ND_ARRAY Group by and Summarize ND Array
 %    Given an NDarray matrix with N1, N2, ..., ND dimensions. Generate
 %    average and standard deviation for the 3rd dimension, grouping by the
-%    other dimensions. In particular, show the 5th dimension as the column
+%    other dimensions. For example, show the 5th dimension as the column
 %    groups, and the other variables generate combinations shown as rows.
 %    The resulting summary statistics table contains mean and standard
 %    deviation among other statistics over the policy or value contained in

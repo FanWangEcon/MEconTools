@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Distributional Analysis | Matlab Toolbox Heterogeneous Agents Dynamic Programming</title>
+  <meta name="description" content="Summarizes the contents of a map container by data types. Includes, scalar, array, matrix, string, functions, tensors (3-tuples), tesseracts (4-tuples)." />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Distributional Analysis | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Summarizes the contents of a map container by data types. Includes, scalar, array, matrix, string, functions, tensors (3-tuples), tesseracts (4-tuples)." />
+  <meta name="github-repo" content="fanwangecon/MEconTools" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Distributional Analysis | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
+  
+  <meta name="twitter:description" content="Summarizes the contents of a map container by data types. Includes, scalar, array, matrix, string, functions, tensors (3-tuples), tesseracts (4-tuples)." />
+  
+
+<meta name="author" content="Fan Wang" />
+
+
+<meta name="date" content="2020-06-22" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="summarize-policy-and-value.html"/>
+<link rel="next" href="graphs.html"/>
+<script src="libs/header-attrs-2.2/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-92953468-6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-92953468-6');
+</script>
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Matlab Toolbox Heterogeneous Agents Dynamic Programming</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html"><i class="fa fa-check"></i><b>1</b> Summarize Policy and Value</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#ff_summ_nd_array-examples"><i class="fa fa-check"></i><b>1.1</b> FF_SUMM_ND_ARRAY Examples</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#test-ff_summ_nd_array-defaults"><i class="fa fa-check"></i><b>1.1.1</b> Test FF_SUMM_ND_ARRAY Defaults</a></li>
+<li class="chapter" data-level="1.1.2" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#test-ff_summ_nd_array-with-random-2-dimensional-matrix"><i class="fa fa-check"></i><b>1.1.2</b> Test FF_SUMM_ND_ARRAY with Random 2 Dimensional Matrix</a></li>
+<li class="chapter" data-level="1.1.3" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#test-ff_summ_nd_array-with-random-6-dimensional-matrix"><i class="fa fa-check"></i><b>1.1.3</b> Test FF_SUMM_ND_ARRAY with Random 6 Dimensional Matrix</a></li>
+<li class="chapter" data-level="1.1.4" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#test-ff_summ_nd_array-with-random-7-dimensional-matrix-with-all-parameters"><i class="fa fa-check"></i><b>1.1.4</b> Test FF_SUMM_ND_ARRAY with Random 7 Dimensional Matrix with All Parameters</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="distributional-analysis.html"><a href="distributional-analysis.html"><i class="fa fa-check"></i><b>2</b> Distributional Analysis</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_simu_stats-examples"><i class="fa fa-check"></i><b>2.1</b> FF_SIMU_STATS Examples</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_simu_stats-defaults"><i class="fa fa-check"></i><b>2.1.1</b> Test FF_SIMU_STATS Defaults</a></li>
+<li class="chapter" data-level="2.1.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_simu_stats-four-states-points-matrix"><i class="fa fa-check"></i><b>2.1.2</b> Test FF_SIMU_STATS Four States-Points Matrix</a></li>
+<li class="chapter" data-level="2.1.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_simu_stats-four-states-points-matrix-single-column-inputs"><i class="fa fa-check"></i><b>2.1.3</b> Test FF_SIMU_STATS Four States-Points Matrix Single Column Inputs</a></li>
+<li class="chapter" data-level="2.1.4" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_simu_stats-print-many-details"><i class="fa fa-check"></i><b>2.1.4</b> Test FF_SIMU_STATS Print Many Details</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_disc_rand_var_stats-examples"><i class="fa fa-check"></i><b>2.2</b> FF_DISC_RAND_VAR_STATS Examples</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_stats-defaults"><i class="fa fa-check"></i><b>2.2.1</b> Test FF_DISC_RAND_VAR_STATS Defaults</a></li>
+<li class="chapter" data-level="2.2.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_stats-0-and-1-random-variable"><i class="fa fa-check"></i><b>2.2.2</b> Test FF_DISC_RAND_VAR_STATS 0 and 1 Random Variable</a></li>
+<li class="chapter" data-level="2.2.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_stats-with-poisson"><i class="fa fa-check"></i><b>2.2.3</b> Test FF_DISC_RAND_VAR_STATS with Poisson</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_disc_rand_var_mass2outcomes-examples"><i class="fa fa-check"></i><b>2.3</b> FF_DISC_RAND_VAR_MASS2OUTCOMES Examples</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2outcomes-defaults"><i class="fa fa-check"></i><b>2.3.1</b> Test FF_DISC_RAND_VAR_MASS2OUTCOMES Defaults</a></li>
+<li class="chapter" data-level="2.3.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2outcomes-four-states-points"><i class="fa fa-check"></i><b>2.3.2</b> Test FF_DISC_RAND_VAR_MASS2OUTCOMES Four States-Points</a></li>
+<li class="chapter" data-level="2.3.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2outcomes-conditional-mass-outputs"><i class="fa fa-check"></i><b>2.3.3</b> Test FF_DISC_RAND_VAR_MASS2OUTCOMES Conditional Mass Outputs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_disc_rand_var_mass2covcor-examples"><i class="fa fa-check"></i><b>2.4</b> FF_DISC_RAND_VAR_MASS2COVCOR Examples</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2covcor-defaults"><i class="fa fa-check"></i><b>2.4.1</b> Test FF_DISC_RAND_VAR_MASS2COVCOR Defaults</a></li>
+<li class="chapter" data-level="2.4.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2covcor-four-states-points"><i class="fa fa-check"></i><b>2.4.2</b> Test FF_DISC_RAND_VAR_MASS2COVCOR Four States-Points</a></li>
+<li class="chapter" data-level="2.4.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2covcor-two-random-vectors"><i class="fa fa-check"></i><b>2.4.3</b> Test FF_DISC_RAND_VAR_MASS2COVCOR Two Random Vectors</a></li>
+<li class="chapter" data-level="2.4.4" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2covcor-provide-mean-and-sd"><i class="fa fa-check"></i><b>2.4.4</b> Test FF_DISC_RAND_VAR_MASS2COVCOR Provide Mean and SD</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>3</b> Graphs</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="graphs.html"><a href="graphs.html#ff_graph_grid-examples-x-y-and-color-line-plots"><i class="fa fa-check"></i><b>3.1</b> FF_GRAPH_GRID Examples: X, Y and Color Line Plots</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-defaults"><i class="fa fa-check"></i><b>3.1.1</b> Test FF_GRAPH_GRID Defaults</a></li>
+<li class="chapter" data-level="3.1.2" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-two-random-normal-lines-and-labels"><i class="fa fa-check"></i><b>3.1.2</b> Test FF_GRAPH_GRID Two Random Normal Lines and Labels</a></li>
+<li class="chapter" data-level="3.1.3" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-many-lines"><i class="fa fa-check"></i><b>3.1.3</b> Test FF_GRAPH_GRID Many Lines</a></li>
+<li class="chapter" data-level="3.1.4" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-many-lines-legend-exogenous"><i class="fa fa-check"></i><b>3.1.4</b> Test FF_GRAPH_GRID Many Lines Legend Exogenous</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="support-tools.html"><a href="support-tools.html"><i class="fa fa-check"></i><b>4</b> Support Tools</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="support-tools.html"><a href="support-tools.html#ff_container_map_display-examples"><i class="fa fa-check"></i><b>4.1</b> FF_CONTAINER_MAP_DISPLAY Examples</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="support-tools.html"><a href="support-tools.html#test-ff_container_map_display-defaults"><i class="fa fa-check"></i><b>4.1.1</b> Test FF_CONTAINER_MAP_DISPLAY Defaults</a></li>
+<li class="chapter" data-level="4.1.2" data-path="support-tools.html"><a href="support-tools.html#test-ff_container_map_display-summarize-matrix-only"><i class="fa fa-check"></i><b>4.1.2</b> Test FF_CONTAINER_MAP_DISPLAY summarize Matrix Only</a></li>
+<li class="chapter" data-level="4.1.3" data-path="support-tools.html"><a href="support-tools.html#test-ff_container_map_display-show-matrix-subset"><i class="fa fa-check"></i><b>4.1.3</b> Test FF_CONTAINER_MAP_DISPLAY Show Matrix Subset</a></li>
+</ul></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="index-and-code-links.html"><a href="index-and-code-links.html"><i class="fa fa-check"></i><b>A</b> Index and Code Links</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="index-and-code-links.html"><a href="index-and-code-links.html#summarize-policy-and-value-links"><i class="fa fa-check"></i><b>A.1</b> Summarize Policy and Value links</a></li>
+<li class="chapter" data-level="A.2" data-path="index-and-code-links.html"><a href="index-and-code-links.html#distributional-analysis-links"><i class="fa fa-check"></i><b>A.2</b> Distributional Analysis links</a></li>
+<li class="chapter" data-level="A.3" data-path="index-and-code-links.html"><a href="index-and-code-links.html#graphs-links"><i class="fa fa-check"></i><b>A.3</b> Graphs links</a></li>
+<li class="chapter" data-level="A.4" data-path="index-and-code-links.html"><a href="index-and-code-links.html#support-tools-links"><i class="fa fa-check"></i><b>A.4</b> Support Tools links</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://fanwangecon.github.io/M4Econ/bookdown/index.html" target="blank">M4Econ Bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Matlab Toolbox Heterogeneous Agents Dynamic Programming</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="distributional-analysis" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Distributional Analysis</h1>
+
+<div id="ff_simu_stats-examples" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> FF_SIMU_STATS Examples</h2>
+<blockquote>
+<p>Go back to <a href="http://fanwangecon.github.io/">fan</a>’s <a href="https://fanwangecon.github.io/MEconTools/">MEconTools</a> Toolbox (<a href="https://fanwangecon.github.io/MEconTools/bookdown">bookdown</a>), <a href="https://fanwangecon.github.io/M4Econ/">Matlab Code Examples</a> Repository (<a href="https://fanwangecon.github.io/M4Econ/bookdown">bookdown</a>), or <a href="https://fanwangecon.github.io/Math4Econ/">Math for Econ with Matlab</a> Repository (<a href="https://fanwangecon.github.io/Math4Econ/bookdown">bookdown</a>).</p>
+</blockquote>
+<p>This is the example vignette for function:
+<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/stats/ff_simu_stats.m"><strong>ff_simu_stats</strong></a>
+from the <a href="https://fanwangecon.github.io/MEconTools/"><strong>MEconTools
+Package</strong></a><strong>.</strong> This is a
+gate-way function that computes mean, percentiles, covariance etc
+between several variables.</p>
+<div id="test-ff_simu_stats-defaults" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Test FF_SIMU_STATS Defaults</h3>
+<p>Call the function with defaults.</p>
+<pre><code>ff_simu_stats();
+
+xxx tb_outcomes: all stats xxx
+    OriginalVariableNames     cl_mt_pol_a    cl_mt_pol_c
+    ______________________    ___________    ___________
+
+    {&#39;mean&#39;              }     -0.11081          8.8423 
+    {&#39;sd&#39;                }       4.1239          6.5845 
+    {&#39;coefofvar&#39;         }      -37.215         0.74466 
+    {&#39;min&#39;               }           -7         -6.3772 
+    {&#39;max&#39;               }            9          21.786 
+    {&#39;pYis0&#39;             }     0.064259               0 
+    {&#39;pYls0&#39;             }      0.54867        0.027329 
+    {&#39;pYgr0&#39;             }      0.38707         0.97267 
+    {&#39;pYisMINY&#39;          }     0.051764        0.015232 
+    {&#39;pYisMAXY&#39;          }     0.027329        0.046484 
+    {&#39;p1&#39;                }           -7         -6.3772 
+    {&#39;p10&#39;               }           -6         0.27238 
+    {&#39;p25&#39;               }           -3          5.2138 
+    {&#39;p50&#39;               }           -1          6.5321 
+    {&#39;p75&#39;               }            3          13.799 
+    {&#39;p90&#39;               }            5          16.887 
+    {&#39;p99&#39;               }            9          21.786 
+    {&#39;fl_cov_cl_mt_pol_a&#39;}       17.007         -22.084 
+    {&#39;fl_cor_cl_mt_pol_a&#39;}            1        -0.81327 
+    {&#39;fl_cov_cl_mt_pol_c&#39;}      -22.084          43.356 
+    {&#39;fl_cor_cl_mt_pol_c&#39;}     -0.81327               1 
+    {&#39;fracByP1&#39;          }       3.2699       -0.010985 
+    {&#39;fracByP10&#39;         }       5.9889       -0.013362 
+    {&#39;fracByP25&#39;         }       14.165        0.041007 
+    {&#39;fracByP50&#39;         }       16.208          0.1893 
+    {&#39;fracByP75&#39;         }       12.702         0.59539 
+    {&#39;fracByP90&#39;         }       6.6611          0.8307 
+    {&#39;fracByP99&#39;         }            1               1 </code></pre>
+</div>
+<div id="test-ff_simu_stats-four-states-points-matrix" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Test FF_SIMU_STATS Four States-Points Matrix</h3>
+<p>Over some (a,z) states that is 3 by 3, c matrix, generate all stats</p>
+<pre><code>% Set Parameters
+mt_x_of_s = [1, 2,  3.0;...
+             3, 1,  1.5;...
+             4, 3,  2.0];
+mt_y_of_s = [2, -10, 9.0;...
+             5, 1.1,3.0;...
+             1, 3,  -1.5];
+mt_z_of_s = [1.1, 2,3.3;...
+             2.3, 1,1.5;...
+             4, 2.5,2.0];
+mp_cl_mt_xyz_of_s = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_cl_mt_xyz_of_s(&#39;cl_mt_x_of_s&#39;) = {mt_x_of_s, zeros(1)};
+mp_cl_mt_xyz_of_s(&#39;cl_mt_y_of_s&#39;) = {mt_y_of_s, zeros(1)};
+mp_cl_mt_xyz_of_s(&#39;cl_mt_z_of_s&#39;) = {mt_z_of_s, zeros(1)};
+mp_cl_mt_xyz_of_s(&#39;ar_st_y_name&#39;) = [&quot;cl_mt_x_of_s&quot;, &quot;cl_mt_y_of_s&quot;, &quot;cl_mt_z_of_s&quot;];
+% Mass
+rng(123);
+mt_f_of_s = rand(size(mt_x_of_s));
+mt_f_of_s = mt_f_of_s/sum(mt_f_of_s, &#39;all&#39;);
+% Call Function
+mp_cl_mt_xyz_of_s_out = ff_simu_stats(mt_f_of_s, mp_cl_mt_xyz_of_s);
+
+xxx tb_outcomes: all stats xxx
+     OriginalVariableNames     cl_mt_x_of_s    cl_mt_y_of_s    cl_mt_z_of_s
+    _______________________    ____________    ____________    ____________
+
+    {&#39;mean&#39;               }        2.0763          1.9323          2.0668  
+    {&#39;sd&#39;                 }        0.9071          5.2239          0.9042  
+    {&#39;coefofvar&#39;          }       0.43688          2.7034         0.43749  
+    {&#39;min&#39;                }             1             -10               1  
+    {&#39;max&#39;                }             4               9               4  
+    {&#39;pYis0&#39;              }             0               0               0  
+    {&#39;pYls0&#39;              }             0         0.20441               0  
+    {&#39;pYgr0&#39;              }             1         0.79559               1  
+    {&#39;pYisMINY&#39;           }       0.28039         0.10917         0.14247  
+    {&#39;pYisMAXY&#39;           }      0.044922         0.19422        0.044922  
+    {&#39;p1&#39;                 }             1             -10               1  
+    {&#39;p10&#39;                }             1             -10               1  
+    {&#39;p25&#39;                }             1             1.1             1.1  
+    {&#39;p50&#39;                }             2               2               2  
+    {&#39;p75&#39;                }             3               5             2.5  
+    {&#39;p90&#39;                }             3               9             3.3  
+    {&#39;p99&#39;                }             4               9               4  
+    {&#39;fl_cov_cl_mt_x_of_s&#39;}       0.82282           1.589         0.78646  
+    {&#39;fl_cor_cl_mt_x_of_s&#39;}             1         0.33534         0.95887  
+    {&#39;fl_cov_cl_mt_y_of_s&#39;}         1.589          27.289          1.8353  
+    {&#39;fl_cor_cl_mt_y_of_s&#39;}       0.33534               1         0.38856  
+    {&#39;fl_cov_cl_mt_z_of_s&#39;}       0.78646          1.8353         0.81758  
+    {&#39;fl_cor_cl_mt_z_of_s&#39;}       0.95887         0.38856               1  
+    {&#39;fracByP1&#39;           }       0.13504        -0.56498        0.068934  
+    {&#39;fracByP10&#39;          }       0.13504        -0.56498        0.068934  
+    {&#39;fracByP25&#39;          }       0.13504        -0.53456         0.14234  
+    {&#39;fracByP50&#39;          }       0.42991        -0.39181         0.43856  
+    {&#39;fracByP75&#39;          }       0.91346        0.095425         0.60296  
+    {&#39;fracByP90&#39;          }       0.91346               1         0.91306  
+    {&#39;fracByP99&#39;          }             1               1               1  </code></pre>
+</div>
+<div id="test-ff_simu_stats-four-states-points-matrix-single-column-inputs" class="section level3" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Test FF_SIMU_STATS Four States-Points Matrix Single Column Inputs</h3>
+<p>Same as before, but now inputs are single column, should have identical
+results:</p>
+<pre><code>% Array Inputs
+mp_cl_ar_xyz_of_s = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_cl_mt_xyz_of_s(&#39;cl_mt_x_of_s&#39;) = {mt_x_of_s(:), zeros(1)};
+mp_cl_mt_xyz_of_s(&#39;cl_mt_y_of_s&#39;) = {mt_y_of_s(:), zeros(1)};
+mp_cl_mt_xyz_of_s(&#39;cl_mt_z_of_s&#39;) = {mt_z_of_s(:), zeros(1)};
+mp_cl_mt_xyz_of_s(&#39;ar_st_y_name&#39;) = [&quot;cl_mt_x_of_s&quot;, &quot;cl_mt_y_of_s&quot;, &quot;cl_mt_z_of_s&quot;];
+% Call Function
+mp_cl_mt_xyz_of_s_out = ff_simu_stats(mt_f_of_s(:), mp_cl_mt_xyz_of_s);
+
+xxx tb_outcomes: all stats xxx
+     OriginalVariableNames     cl_mt_x_of_s    cl_mt_y_of_s    cl_mt_z_of_s
+    _______________________    ____________    ____________    ____________
+
+    {&#39;mean&#39;               }        2.0763          1.9323          2.0668  
+    {&#39;sd&#39;                 }        0.9071          5.2239          0.9042  
+    {&#39;coefofvar&#39;          }       0.43688          2.7034         0.43749  
+    {&#39;min&#39;                }             1             -10               1  
+    {&#39;max&#39;                }             4               9               4  
+    {&#39;pYis0&#39;              }             0               0               0  
+    {&#39;pYls0&#39;              }             0         0.20441               0  
+    {&#39;pYgr0&#39;              }             1         0.79559               1  
+    {&#39;pYisMINY&#39;           }       0.28039         0.10917         0.14247  
+    {&#39;pYisMAXY&#39;           }      0.044922         0.19422        0.044922  
+    {&#39;p1&#39;                 }             1             -10               1  
+    {&#39;p10&#39;                }             1             -10               1  
+    {&#39;p25&#39;                }             1             1.1             1.1  
+    {&#39;p50&#39;                }             2               2               2  
+    {&#39;p75&#39;                }             3               5             2.5  
+    {&#39;p90&#39;                }             3               9             3.3  
+    {&#39;p99&#39;                }             4               9               4  
+    {&#39;fl_cov_cl_mt_x_of_s&#39;}       0.82282           1.589         0.78646  
+    {&#39;fl_cor_cl_mt_x_of_s&#39;}             1         0.33534         0.95887  
+    {&#39;fl_cov_cl_mt_y_of_s&#39;}         1.589          27.289          1.8353  
+    {&#39;fl_cor_cl_mt_y_of_s&#39;}       0.33534               1         0.38856  
+    {&#39;fl_cov_cl_mt_z_of_s&#39;}       0.78646          1.8353         0.81758  
+    {&#39;fl_cor_cl_mt_z_of_s&#39;}       0.95887         0.38856               1  
+    {&#39;fracByP1&#39;           }       0.13504        -0.56498        0.068934  
+    {&#39;fracByP10&#39;          }       0.13504        -0.56498        0.068934  
+    {&#39;fracByP25&#39;          }       0.13504        -0.53456         0.14234  
+    {&#39;fracByP50&#39;          }       0.42991        -0.39181         0.43856  
+    {&#39;fracByP75&#39;          }       0.91346        0.095425         0.60296  
+    {&#39;fracByP90&#39;          }       0.91346               1         0.91306  
+    {&#39;fracByP99&#39;          }             1               1               1  </code></pre>
+</div>
+<div id="test-ff_simu_stats-print-many-details" class="section level3" number="2.1.4">
+<h3><span class="header-section-number">2.1.4</span> Test FF_SIMU_STATS Print Many Details</h3>
+<p>The Same As before, but now control which percentiles and other details
+to display.</p>
+<pre><code>% Array Inputs
+mp_cl_ar_xyz_of_s = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_cl_ar_xyz_of_s(&#39;cl_ar_x_of_s&#39;) = {mt_x_of_s(:), zeros(1)};
+mp_cl_ar_xyz_of_s(&#39;cl_ar_z_of_s&#39;) = {mt_z_of_s(:), zeros(1)};
+mp_cl_ar_xyz_of_s(&#39;ar_st_y_name&#39;) = [&quot;cl_ar_x_of_s&quot;, &quot;cl_ar_z_of_s&quot;];
+
+% controls
+mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_support(&#39;bl_display_detail&#39;) = false;
+mp_support(&#39;bl_display_final&#39;) = true;
+mp_support(&#39;bl_display_drvm2outcomes&#39;) = false;
+mp_support(&#39;ar_fl_percentiles&#39;) = [25 50 75];
+mp_support(&#39;bl_display_drvstats&#39;) = true;
+mp_support(&#39;bl_display_drvm2covcor&#39;) = false;
+
+% Call Function
+mp_cl_mt_xyz_of_s_out = ff_simu_stats(mt_f_of_s(:), mp_cl_ar_xyz_of_s, mp_support);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Summary Statistics for: cl_ar_x_of_s
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+----------------------------------------
+fl_choice_mean
+    2.0763
+
+fl_choice_sd
+    0.9071
+
+fl_choice_coefofvar
+    0.4369
+
+fl_choice_prob_zero
+     0
+
+fl_choice_prob_below_zero
+     0
+
+fl_choice_prob_above_zero
+     1
+
+fl_choice_prob_max
+    0.0449
+
+tb_disc_cumu
+    cl_ar_x_of_sDiscreteVal    cl_ar_x_of_sDiscreteValProbMass     CDF      cumsumFrac
+    _______________________    _______________________________    ______    __________
+
+                1                          0.28039                28.039     0.13504  
+              1.5                          0.13561                  41.6     0.23301  
+                2                          0.20441                62.041     0.42991  
+                3                          0.33466                95.508     0.91346  
+                4                         0.044922                   100           1  
+
+    cl_ar_x_of_sDiscreteVal    cl_ar_x_of_sDiscreteValProbMass     CDF      cumsumFrac
+    _______________________    _______________________________    ______    __________
+
+                1                          0.28039                28.039     0.13504  
+              1.5                          0.13561                  41.6     0.23301  
+                2                          0.20441                62.041     0.42991  
+                3                          0.33466                95.508     0.91346  
+                4                         0.044922                   100           1  
+
+tb_prob_drv
+    percentiles    cl_ar_x_of_sDiscreteValPercentileValues    fracOfSumHeldBelowThisPercentile
+    ___________    _______________________________________    ________________________________
+
+        25                            1                                   0.13504             
+        50                            2                                   0.42991             
+        75                            3                                   0.91346             
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Summary Statistics for: cl_ar_z_of_s
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+----------------------------------------
+fl_choice_mean
+    2.0668
+
+fl_choice_sd
+    0.9042
+
+fl_choice_coefofvar
+    0.4375
+
+fl_choice_prob_zero
+     0
+
+fl_choice_prob_below_zero
+     0
+
+fl_choice_prob_above_zero
+     1
+
+fl_choice_prob_max
+    0.0449
+
+tb_disc_cumu
+    cl_ar_z_of_sDiscreteVal    cl_ar_z_of_sDiscreteValProbMass     CDF      cumsumFrac
+    _______________________    _______________________________    ______    __________
+
+                1                          0.14247                14.247     0.068934 
+              1.1                          0.13792                28.039      0.14234 
+              1.5                          0.13561                  41.6      0.24076 
+                2                          0.20441                62.041      0.43856 
+              2.3                         0.056663                67.708      0.50162 
+              2.5                         0.083786                76.086      0.60296 
+              3.3                          0.19422                95.508      0.91306 
+                4                         0.044922                   100            1 
+
+    cl_ar_z_of_sDiscreteVal    cl_ar_z_of_sDiscreteValProbMass     CDF      cumsumFrac
+    _______________________    _______________________________    ______    __________
+
+                1                          0.14247                14.247     0.068934 
+              1.1                          0.13792                28.039      0.14234 
+              1.5                          0.13561                  41.6      0.24076 
+                2                          0.20441                62.041      0.43856 
+              2.3                         0.056663                67.708      0.50162 
+              2.5                         0.083786                76.086      0.60296 
+              3.3                          0.19422                95.508      0.91306 
+                4                         0.044922                   100            1 
+
+tb_prob_drv
+    percentiles    cl_ar_z_of_sDiscreteValPercentileValues    fracOfSumHeldBelowThisPercentile
+    ___________    _______________________________________    ________________________________
+
+        25                           1.1                                  0.14234             
+        50                             2                                  0.43856             
+        75                           2.5                                  0.60296             
+
+xxx tb_outcomes: all stats xxx
+     OriginalVariableNames     cl_ar_x_of_s    cl_ar_z_of_s
+    _______________________    ____________    ____________
+
+    {&#39;mean&#39;               }        2.0763          2.0668  
+    {&#39;sd&#39;                 }        0.9071          0.9042  
+    {&#39;coefofvar&#39;          }       0.43688         0.43749  
+    {&#39;min&#39;                }             1               1  
+    {&#39;max&#39;                }             4               4  
+    {&#39;pYis0&#39;              }             0               0  
+    {&#39;pYls0&#39;              }             0               0  
+    {&#39;pYgr0&#39;              }             1               1  
+    {&#39;pYisMINY&#39;           }       0.28039         0.14247  
+    {&#39;pYisMAXY&#39;           }      0.044922        0.044922  
+    {&#39;p25&#39;                }             1             1.1  
+    {&#39;p50&#39;                }             2               2  
+    {&#39;p75&#39;                }             3             2.5  
+    {&#39;fl_cov_cl_ar_x_of_s&#39;}       0.82282         0.78646  
+    {&#39;fl_cor_cl_ar_x_of_s&#39;}             1         0.95887  
+    {&#39;fl_cov_cl_ar_z_of_s&#39;}       0.78646         0.81758  
+    {&#39;fl_cor_cl_ar_z_of_s&#39;}       0.95887               1  
+    {&#39;fracByP25&#39;          }       0.13504         0.14234  
+    {&#39;fracByP50&#39;          }       0.42991         0.43856  
+    {&#39;fracByP75&#39;          }       0.91346         0.60296</code></pre>
+
+</div>
+</div>
+<div id="ff_disc_rand_var_stats-examples" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> FF_DISC_RAND_VAR_STATS Examples</h2>
+<blockquote>
+<p>Go back to <a href="http://fanwangecon.github.io/">fan</a>’s <a href="https://fanwangecon.github.io/MEconTools/">MEconTools</a> Toolbox (<a href="https://fanwangecon.github.io/MEconTools/bookdown">bookdown</a>), <a href="https://fanwangecon.github.io/M4Econ/">Matlab Code Examples</a> Repository (<a href="https://fanwangecon.github.io/M4Econ/bookdown">bookdown</a>), or <a href="https://fanwangecon.github.io/Math4Econ/">Math for Econ with Matlab</a> Repository (<a href="https://fanwangecon.github.io/Math4Econ/bookdown">bookdown</a>).</p>
+</blockquote>
+<p>This is the example vignette for function:
+<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/stats/ff_disc_rand_var_stats.m"><strong>ff_disc_rand_var_stats</strong></a>
+from the <a href="https://fanwangecon.github.io/MEconTools/"><strong>MEconTools
+Package</strong></a><strong>.</strong> This function
+summarizes statistics of matrixes stored in a container map, as well as
+scalar, string, function and other values stored in container maps.</p>
+<div id="test-ff_disc_rand_var_stats-defaults" class="section level3" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Test FF_DISC_RAND_VAR_STATS Defaults</h3>
+<p>Call the function with defaults.</p>
+<pre><code>ff_disc_rand_var_stats();
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Summary Statistics for: binom
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+----------------------------------------
+fl_choice_mean
+   -1.0000
+
+fl_choice_sd
+    2.5100
+
+fl_choice_coefofvar
+   -2.5100
+
+fl_choice_prob_zero
+    0.1416
+
+fl_choice_prob_below_zero
+    0.5888
+
+fl_choice_prob_above_zero
+    0.2696
+
+fl_choice_prob_max
+   2.0589e-16
+
+tb_disc_cumu
+    binomDiscreteVal    binomDiscreteValProbMass       CDF       cumsumFrac
+    ________________    ________________________    _________    __________
+
+          -10                  2.2539e-05           0.0022539    0.00022539
+           -9                  0.00028979            0.031233     0.0028335
+           -8                   0.0018008             0.21132       0.01724
+           -7                   0.0072034             0.93166      0.067664
+           -6                    0.020838              3.0155       0.19269
+           -5                     0.04644              7.6595       0.42489
+           -4                    0.082928              15.952       0.75661
+           -3                     0.12185              28.138        1.1222
+           -2                     0.15014              43.152        1.4224
+           -1                     0.15729              58.881        1.5797
+
+    binomDiscreteVal    binomDiscreteValProbMass    CDF    cumsumFrac
+    ________________    ________________________    ___    __________
+
+           11                  6.0392e-06           100        1     
+           12                  1.0588e-06           100        1     
+           13                  1.5784e-07           100        1     
+           14                   1.973e-08           100        1     
+           15                  2.0293e-09           100        1     
+           16                  1.6725e-10           100        1     
+           17                  1.0619e-11           100        1     
+           18                  4.8762e-13           100        1     
+           19                  1.4412e-14           100        1     
+           20                  2.0589e-16           100        1     
+
+tb_prob_drv
+    percentiles    binomDiscreteValPercentileValues    fracOfSumHeldBelowThisPercentile
+    ___________    ________________________________    ________________________________
+
+        0.1                       -8                               0.01724             
+          1                       -6                               0.19269             
+          5                       -5                               0.42489             
+         10                       -4                               0.75661             
+         15                       -4                               0.75661             
+         20                       -3                                1.1222             
+         25                       -3                                1.1222             
+         35                       -2                                1.4224             
+         50                       -1                                1.5797             
+         65                        0                                1.5797             
+         75                        1                                1.4694             
+         80                        1                                1.4694             
+         85                        2                                1.3197             
+         90                        2                                1.3197             
+         95                        3                                1.1865             
+         99                        5                                1.0412             
+       99.9                        7                                1.0052             </code></pre>
+</div>
+<div id="test-ff_disc_rand_var_stats-0-and-1-random-variable" class="section level3" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Test FF_DISC_RAND_VAR_STATS 0 and 1 Random Variable</h3>
+<p>The simplest discrete random variable has two values, zero or one. The
+probability of zero is 30 percent, and 70 percent is the probability of
+one.</p>
+<pre><code>% Parameters
+% 1. specify the random variable
+st_var_name = &#39;bernoulli&#39;;
+ar_choice_unique_sorted = [0, 1];
+ar_choice_prob = [0.3, 0.7];
+% 2. percentiles of interest
+ar_fl_percentiles = [0.1 5 25 50 75 95 99.9];
+% 3. print resutls
+bl_display_drvstats = true;
+% Call Function
+[ds_stats_map] = ff_disc_rand_var_stats(st_var_name, ...
+    ar_choice_unique_sorted, ar_choice_prob, ...
+    ar_fl_percentiles, bl_display_drvstats);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Summary Statistics for: bernoulli
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+----------------------------------------
+fl_choice_mean
+    0.7000
+
+fl_choice_sd
+    0.4583
+
+fl_choice_coefofvar
+    0.6547
+
+fl_choice_prob_zero
+    0.3000
+
+fl_choice_prob_below_zero
+     0
+
+fl_choice_prob_above_zero
+    0.7000
+
+fl_choice_prob_max
+    0.7000
+
+tb_disc_cumu
+    bernoulliDiscreteVal    bernoulliDiscreteValProbMass    CDF    cumsumFrac
+    ____________________    ____________________________    ___    __________
+
+             0                          0.3                  30        0     
+             1                          0.7                 100        1     
+
+    bernoulliDiscreteVal    bernoulliDiscreteValProbMass    CDF    cumsumFrac
+    ____________________    ____________________________    ___    __________
+
+             0                          0.3                  30        0     
+             1                          0.7                 100        1     
+
+tb_prob_drv
+    percentiles    bernoulliDiscreteValPercentileValues    fracOfSumHeldBelowThisPercentile
+    ___________    ____________________________________    ________________________________
+
+        0.1                         0                                     0                
+          5                         0                                     0                
+         25                         0                                     0                
+         50                         1                                     1                
+         75                         1                                     1                
+         95                         1                                     1                
+       99.9                         1                                     1                </code></pre>
+</div>
+<div id="test-ff_disc_rand_var_stats-with-poisson" class="section level3" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Test FF_DISC_RAND_VAR_STATS with Poisson</h3>
+<p><a href="https://fanwangecon.github.io/Stat4Econ/probability_discrete/htmlpdfr/poisson.html">Poisson random
+variable</a>,
+with mean equals to ten, summarize over umsymmetric percentiles. Note
+that the poisson random variable has no upper bound.</p>
+<pre><code>% Parameters
+% 1. specify the random variable
+st_var_name = &#39;poisson&#39;;
+mu = 10;
+ar_choice_unique_sorted = 0:1:50;
+ar_choice_prob = poisspdf(ar_choice_unique_sorted, mu);
+% 2. percentiles of interest, unsymmetric
+ar_fl_percentiles = [0.1 5 10 25 50 90 95 99 99.9 99.99 99.999 99.9999];
+% 3. print resutls
+bl_display_drvstats = true;
+% Call Function
+[ds_stats_map] = ff_disc_rand_var_stats(st_var_name, ...
+    ar_choice_unique_sorted, ar_choice_prob, ...
+    ar_fl_percentiles, bl_display_drvstats);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Summary Statistics for: poisson
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+----------------------------------------
+fl_choice_mean
+    10
+
+fl_choice_sd
+    3.1623
+
+fl_choice_coefofvar
+    0.3162
+
+fl_choice_prob_zero
+   4.5400e-05
+
+fl_choice_prob_below_zero
+     0
+
+fl_choice_prob_above_zero
+    1.0000
+
+fl_choice_prob_max
+   1.4927e-19
+
+tb_disc_cumu
+    poissonDiscreteVal    poissonDiscreteValProbMass      CDF      cumsumFrac
+    __________________    __________________________    _______    __________
+
+            0                      4.54e-05             0.00454            0 
+            1                      0.000454             0.04994     4.54e-05 
+            2                       0.00227             0.27694    0.0004994 
+            3                     0.0075667              1.0336    0.0027694 
+            4                      0.018917              2.9253     0.010336 
+            5                      0.037833              6.7086     0.029253 
+            6                      0.063055              13.014     0.067086 
+            7                      0.090079              22.022      0.13014 
+            8                        0.1126              33.282      0.22022 
+            9                       0.12511              45.793      0.33282 
+
+    poissonDiscreteVal    poissonDiscreteValProbMass    CDF    cumsumFrac
+    __________________    __________________________    ___    __________
+
+            41                    1.3571e-13            100        1     
+            42                    3.2313e-14            100        1     
+            43                    7.5146e-15            100        1     
+            44                    1.7079e-15            100        1     
+            45                    3.7953e-16            100        1     
+            46                    8.2506e-17            100        1     
+            47                    1.7554e-17            100        1     
+            48                    3.6572e-18            100        1     
+            49                    7.4636e-19            100        1     
+            50                    1.4927e-19            100        1     
+
+tb_prob_drv
+    percentiles    poissonDiscreteValPercentileValues    fracOfSumHeldBelowThisPercentile
+    ___________    __________________________________    ________________________________
+
+         0.1                        2                               0.0004994            
+           5                        5                                0.029253            
+          10                        6                                0.067086            
+          25                        8                                 0.22022            
+          50                       10                                 0.45793            
+          90                       14                                 0.86446            
+          95                       15                                 0.91654            
+          99                       18                                 0.98572            
+        99.9                       21                                 0.99841            
+       99.99                       24                                 0.99988            
+      99.999                       26                                 0.99998            
+         100                       28                                       1            
+
+% Print out full Stored Matrix
+% Note that the outputs are single row arrays.
+ff_container_map_display(ds_stats_map, 100, 100)
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: ds_stats_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                               i    idx    ndim    numel    rowN    colN     mean       std      coefvari       min       max
+                               _    ___    ____    _____    ____    ____    _______    ______    ________    _________    ___
+
+    ar_choice_perc_fracheld    1     1      2       12       1       12     0.62833     0.435    0.69231     0.0004994      1
+    ar_choice_percentiles      2     2      2       12       1       12       14.75    8.7399    0.59254             2     28
+    ar_fl_percentiles          3     3      2       12       1       12      64.499    42.887    0.66492           0.1    100
+
+xxx TABLE:ar_choice_perc_fracheld xxxxxxxxxxxxxxxxxx
+             c1           c2          c3         c4         c5         c6         c7         c8         c9         c10        c11      c12
+          _________    ________    ________    _______    _______    _______    _______    _______    _______    _______    _______    ___
+
+    r1    0.0004994    0.029253    0.067086    0.22022    0.45793    0.86446    0.91654    0.98572    0.99841    0.99988    0.99998     1 
+
+xxx TABLE:ar_choice_percentiles xxxxxxxxxxxxxxxxxx
+          c1    c2    c3    c4    c5    c6    c7    c8    c9    c10    c11    c12
+          __    __    __    __    __    __    __    __    __    ___    ___    ___
+
+    r1    2     5     6     8     10    14    15    18    21    24     26     28 
+
+xxx TABLE:ar_fl_percentiles xxxxxxxxxxxxxxxxxx
+          c1     c2    c3    c4    c5    c6    c7    c8     c9      c10      c11      c12
+          ___    __    __    __    __    __    __    __    ____    _____    ______    ___
+
+    r1    0.1    5     10    25    50    90    95    99    99.9    99.99    99.999    100
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: ds_stats_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                 i     idx      value   
+                                 __    ___    __________
+
+    fl_choice_coefofvar           1     4        0.31623
+    fl_choice_max                 2     5             50
+    fl_choice_mean                3     6             10
+    fl_choice_min                 4     7              0
+    fl_choice_prob_above_zero     5     8        0.99995
+    fl_choice_prob_below_zero     6     9              0
+    fl_choice_prob_max            7    10     1.4927e-19
+    fl_choice_prob_min            8    11       4.54e-05
+    fl_choice_prob_zero           9    12       4.54e-05
+    fl_choice_sd                 10    13         3.1623</code></pre>
+
+</div>
+</div>
+<div id="ff_disc_rand_var_mass2outcomes-examples" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> FF_DISC_RAND_VAR_MASS2OUTCOMES Examples</h2>
+<blockquote>
+<p>Go back to <a href="http://fanwangecon.github.io/">fan</a>’s <a href="https://fanwangecon.github.io/MEconTools/">MEconTools</a> Toolbox (<a href="https://fanwangecon.github.io/MEconTools/bookdown">bookdown</a>), <a href="https://fanwangecon.github.io/M4Econ/">Matlab Code Examples</a> Repository (<a href="https://fanwangecon.github.io/M4Econ/bookdown">bookdown</a>), or <a href="https://fanwangecon.github.io/Math4Econ/">Math for Econ with Matlab</a> Repository (<a href="https://fanwangecon.github.io/Math4Econ/bookdown">bookdown</a>).</p>
+</blockquote>
+<p>This is the example vignette for function:
+<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/stats/ff_disc_rand_var_mass2outcomes.m"><strong>ff_disc_rand_var_mass2outcomes</strong></a>
+from the <a href="https://fanwangecon.github.io/MEconTools/"><strong>MEconTools
+Package</strong></a><strong>.</strong> This function
+generates sorted discrete random variable from state-space joint
+distribution.</p>
+<div id="test-ff_disc_rand_var_mass2outcomes-defaults" class="section level3" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Test FF_DISC_RAND_VAR_MASS2OUTCOMES Defaults</h3>
+<p>Call the function with defaults.</p>
+<pre><code>ff_disc_rand_var_mass2outcomes();
+
+INPUT f(a,z): mt_dist_bystates
+    0.0289    0.0465    0.0228    0.0036    0.0001
+    0.0241    0.0930    0.0857    0.0241    0.0015
+    0.0080    0.0744    0.1285    0.0643    0.0074
+    0.0013    0.0297    0.0964    0.0857    0.0186
+    0.0001    0.0059    0.0361    0.0571    0.0232
+    0.0000    0.0005    0.0054    0.0152    0.0116
+
+INPUT y(a,z): mt_choice_bystates
+    -5    -4    -5    -4    -4
+    -3    -2    -3    -2    -3
+    -1    -1    -1     0     0
+     1     1     2     3     1
+     4     3     3     4     3
+     5     6     5     6     6
+
+OUTPUT f(y): ar_choice_prob_byY
+    0.0518
+    0.0502
+    0.1113
+    0.1171
+    0.2109
+    0.0717
+    0.0497
+    0.0964
+    0.1510
+    0.0572
+    0.0054
+    0.0273
+
+OUTPUT f(y,z): mt_choice_prob_byYZ
+    0.0289         0    0.0228         0         0
+         0    0.0465         0    0.0036    0.0001
+    0.0241         0    0.0857         0    0.0015
+         0    0.0930         0    0.0241         0
+    0.0080    0.0744    0.1285         0         0
+         0         0         0    0.0643    0.0074
+    0.0013    0.0297         0         0    0.0186
+         0         0    0.0964         0         0
+         0    0.0059    0.0361    0.0857    0.0232
+    0.0001         0         0    0.0571         0
+    0.0000         0    0.0054         0         0
+         0    0.0005         0    0.0152    0.0116
+
+OUTPUT f(y,a): mt_choice_prob_byYA
+    0.0518         0         0         0         0         0
+    0.0502         0         0         0         0         0
+         0    0.1113         0         0         0         0
+         0    0.1171         0         0         0         0
+         0         0    0.2109         0         0         0
+         0         0    0.0717         0         0         0
+         0         0         0    0.0497         0         0
+         0         0         0    0.0964         0         0
+         0         0         0    0.0857    0.0653         0
+         0         0         0         0    0.0572         0
+         0         0         0         0         0    0.0054
+         0         0         0         0         0    0.0273
+
+OUTPUT f(y) and y in table: tb_choice_drv_cur_byY
+    binomtestOutcomes    probMassFunction
+    _________________    ________________
+
+           -5                0.051764    
+           -4                0.050217    
+           -3                 0.11126    
+           -2                 0.11706    
+           -1                 0.21092    
+            0                0.071696    
+            1                0.049682    
+            2                0.096388    
+            3                 0.15102    
+            4                0.057231    
+            5               0.0054256    
+            6                0.027329    </code></pre>
+</div>
+<div id="test-ff_disc_rand_var_mass2outcomes-four-states-points" class="section level3" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Test FF_DISC_RAND_VAR_MASS2OUTCOMES Four States-Points</h3>
+<p>Over some (a,z) states that is 2 by 2, matrix or vectorized inputs
+identical results.</p>
+<pre><code>% Set Parameters
+st_y_name = &#39;consumption&#39;;
+% consumption matrix: c(a,z)
+mt_c_of_s = [1,2;3,1];
+% stationary mass over assets adn shocks: f(a,z)
+mt_f_of_s = rand(size(mt_c_of_s));
+mt_f_of_s = mt_f_of_s/sum(mt_f_of_s, &#39;all&#39;);
+% Call Function
+[ar_f_of_y, ar_y_unique_sorted] = ...
+    ff_disc_rand_var_mass2outcomes(st_y_name, mt_c_of_s, mt_f_of_s);
+% print
+disp([ar_f_of_y ar_y_unique_sorted]);
+
+    0.4039    1.0000
+    0.2971    2.0000
+    0.2990    3.0000</code></pre>
+<p>Same as before, but now inputs are single column:</p>
+<pre><code>% Call Function
+[ar_f_of_y, ar_y_unique_sorted] = ...
+    ff_disc_rand_var_mass2outcomes(st_y_name, mt_c_of_s(:), mt_f_of_s);
+disp([ar_f_of_y ar_y_unique_sorted]);
+
+    0.4039    1.0000
+    0.2971    2.0000
+    0.2990    3.0000</code></pre>
+</div>
+<div id="test-ff_disc_rand_var_mass2outcomes-conditional-mass-outputs" class="section level3" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> Test FF_DISC_RAND_VAR_MASS2OUTCOMES Conditional Mass Outputs</h3>
+<p>Same inputs as before, but now, also output additional conditional
+statistis, f(y, a), where a is the row state variable for f(a,z). For
+conditional statistics, must provide matrix based inputs.</p>
+<pre><code>% Set Parameters
+st_y_name = &#39;consumption&#39;;
+% consumption matrix: c(a,z)
+mt_c_of_s = [1,2,0.5;
+             3,1,2.0];
+% stationary mass over assets adn shocks: f(a,z)
+mt_f_of_s = rand(size(mt_c_of_s));
+mt_f_of_s = mt_f_of_s/sum(mt_f_of_s, &#39;all&#39;);
+% Call Function
+[ar_f_of_y, ar_y_unique_sorted, mt_f_of_y_srow, mt_f_of_y_scol] = ...
+    ff_disc_rand_var_mass2outcomes(st_y_name, mt_c_of_s, mt_f_of_s);
+% print
+disp([ar_f_of_y ar_y_unique_sorted]);
+
+    0.2695    0.5000
+    0.3765    1.0000
+    0.2649    2.0000
+    0.0891    3.0000
+
+disp(mt_f_of_y_srow);
+
+    0.2695         0
+    0.1215    0.2550
+    0.1217    0.1432
+         0    0.0891
+
+disp(mt_f_of_y_scol);
+
+         0         0    0.2695
+    0.1215    0.2550         0
+         0    0.1217    0.1432
+    0.0891         0         0</code></pre>
+
+</div>
+</div>
+<div id="ff_disc_rand_var_mass2covcor-examples" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> FF_DISC_RAND_VAR_MASS2COVCOR Examples</h2>
+<blockquote>
+<p>Go back to <a href="http://fanwangecon.github.io/">fan</a>’s <a href="https://fanwangecon.github.io/MEconTools/">MEconTools</a> Toolbox (<a href="https://fanwangecon.github.io/MEconTools/bookdown">bookdown</a>), <a href="https://fanwangecon.github.io/M4Econ/">Matlab Code Examples</a> Repository (<a href="https://fanwangecon.github.io/M4Econ/bookdown">bookdown</a>), or <a href="https://fanwangecon.github.io/Math4Econ/">Math for Econ with Matlab</a> Repository (<a href="https://fanwangecon.github.io/Math4Econ/bookdown">bookdown</a>).</p>
+</blockquote>
+<p>This is the example vignette for function:
+<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/stats/ff_disc_rand_var_mass2covcor.m"><strong>ff_disc_rand_var_mass2covcor</strong></a>
+from the <a href="https://fanwangecon.github.io/MEconTools/"><strong>MEconTools
+Package</strong></a><strong>.</strong> This function
+calculates covariance and correlation based for two discrete random
+variables.</p>
+<div id="test-ff_disc_rand_var_mass2covcor-defaults" class="section level3" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Test FF_DISC_RAND_VAR_MASS2COVCOR Defaults</h3>
+<p>Call the function with defaults.</p>
+<pre><code>ff_disc_rand_var_mass2covcor();
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: covvar_input_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                 i    idx    ndim    numel    rowN    colN      mean        std       coefvari       min          max  
+                 _    ___    ____    _____    ____    ____    ________    ________    ________    __________    _______
+
+    mt_f_of_s    1     5      2       30       6       5      0.033333    0.035743     1.0723     3.7187e-06    0.12852
+    mt_x_of_s    2     6      2       30       6       5       0.83333      5.3051     6.3661             -7          9
+    mt_y_of_s    3     7      2       30       6       5        8.3259      7.1913    0.86373        -6.3772     21.786
+
+xxx TABLE:mt_f_of_s xxxxxxxxxxxxxxxxxx
+              c1            c2           c3           c4           c5    
+          __________    __________    _________    _________    _________
+
+    r1      0.028917      0.046484     0.022848    0.0036146     0.000119
+    r2      0.024097      0.092967     0.085679     0.024097    0.0014875
+    r3     0.0080324      0.074374      0.12852     0.064259    0.0074374
+    r4     0.0013387       0.02975     0.096388     0.085679     0.018593
+    r5    0.00011156     0.0059499     0.036146     0.057119     0.023242
+    r6    3.7187e-06    0.00047599    0.0054218     0.015232     0.011621
+
+xxx TABLE:mt_x_of_s xxxxxxxxxxxxxxxxxx
+          c1    c2    c3    c4    c5
+          __    __    __    __    __
+
+    r1    -7    -6    -7    -6    -6
+    r2    -5    -3    -5    -3    -4
+    r3    -2    -1    -1     0    -1
+    r4     2     2     3     4     2
+    r5     6     5     5     6     5
+    r6     8     9     7     9     9
+
+xxx TABLE:mt_y_of_s xxxxxxxxxxxxxxxxxx
+            c1         c2         c3        c4         c5   
+          ______    ________    ______    _______    _______
+
+    r1    13.231      21.786    18.136      19.35     13.901
+    r2     9.946      16.887    9.6914      15.71     8.6906
+    r3    16.255      6.2166    13.799     5.2138     11.641
+    r4    12.628      2.7525    6.5321    0.27238     13.357
+    r5    5.8844      4.0352      6.05    0.14102    0.50318
+    r6    3.5617    -0.72091    5.1855    -6.3772    -4.4805
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: covvar_input_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                 i    idx     value  
+                 _    ___    ________
+
+    fl_x_mean    1     1     -0.11081
+    fl_x_sd      2     2       4.1239
+    fl_y_mean    3     3       8.8423
+    fl_y_sd      4     4       6.5845
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: covvar_output_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                 i    idx    ndim    numel    rowN    colN      mean       std      coefvari      min        max  
+                                 _    ___    ____    _____    ____    ____    ________    ______    ________    _______    _______
+
+    mt_cov_component_weighted    1     1      2       30       6       5      -0.73612    1.0404    -1.4134     -3.5432    0.17717
+    mt_x_devi_from_mean          2     2      2       30       6       5       0.94415    5.3051     5.6189     -6.8892     9.1108
+    mt_x_y_multiply              3     3      2       30       6       5       -31.321    36.564    -1.1674     -138.66     9.5287
+    mt_y_devi_from_mean          4     4      2       30       6       5      -0.51644    7.1913    -13.925      -15.22     12.943
+
+xxx TABLE:mt_cov_component_weighted xxxxxxxxxxxxxxxxxx
+              c1            c2           c3          c4            c5    
+          ___________    _________    ________    _________    __________
+
+    r1       -0.87434      -3.5432     -1.4628     -0.22368    -0.0035451
+    r2       -0.13003      -2.1607    -0.35565     -0.47814    0.00087767
+    r3       -0.11248      0.17365    -0.56642    -0.025838     -0.018507
+    r4       0.010697     -0.38241    -0.69273      -3.0184       0.17717
+    r5     -0.0020165     -0.14618    -0.51584      -3.0371      -0.99056
+    r6    -0.00015927    -0.041473    -0.14098      -2.1121       -1.4106
+
+xxx TABLE:mt_x_devi_from_mean xxxxxxxxxxxxxxxxxx
+            c1          c2          c3         c4          c5   
+          _______    ________    ________    _______    ________
+
+    r1    -6.8892     -5.8892     -6.8892    -5.8892     -5.8892
+    r2    -4.8892     -2.8892     -4.8892    -2.8892     -3.8892
+    r3    -1.8892    -0.88919    -0.88919    0.11081    -0.88919
+    r4     2.1108      2.1108      3.1108     4.1108      2.1108
+    r5     6.1108      5.1108      5.1108     6.1108      5.1108
+    r6     8.1108      9.1108      7.1108     9.1108      9.1108
+
+xxx TABLE:mt_x_y_multiply xxxxxxxxxxxxxxxxxx
+            c1         c2         c3          c4         c5   
+          _______    _______    _______    ________    _______
+
+    r1    -30.237    -76.225    -64.023     -61.882    -29.792
+    r2     -5.396    -23.242     -4.151     -19.842    0.59004
+    r3    -14.003     2.3348    -4.4073    -0.40209    -2.4884
+    r4     7.9905    -12.854    -7.1868      -35.23     9.5287
+    r5    -18.075    -24.568    -14.271     -53.172     -42.62
+    r6     -42.83    -87.129    -26.003     -138.66    -121.38
+
+xxx TABLE:mt_y_devi_from_mean xxxxxxxxxxxxxxxxxx
+            c1         c2         c3         c4          c5   
+          _______    _______    _______    _______    ________
+
+    r1      4.389     12.943     9.2933     10.508      5.0587
+    r2     1.1037     8.0444    0.84902     6.8677    -0.15171
+    r3     7.4123    -2.6258     4.9566    -3.6286      2.7985
+    r4     3.7855    -6.0898    -2.3103      -8.57      4.5142
+    r5    -2.9579    -4.8071    -2.7924    -8.7013     -8.3392
+    r6    -5.2806    -9.5633    -3.6568     -15.22     -13.323
+
+fl_cov
+  -22.0835
+
+fl_cor
+   -0.8133</code></pre>
+</div>
+<div id="test-ff_disc_rand_var_mass2covcor-four-states-points" class="section level3" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Test FF_DISC_RAND_VAR_MASS2COVCOR Four States-Points</h3>
+<p>Over some (a,z) states that is 2 by 2, c matrix, and y matrix, find
+correlation. Positively related.</p>
+<pre><code>% Set Parameters
+mt_c_of_s = [1,2;3,1];
+mt_y_of_s = [2,10;5,1.1];
+rng(123);
+mt_f_of_s = rand(size(mt_c_of_s));
+mt_f_of_s = mt_f_of_s/sum(mt_f_of_s, &#39;all&#39;);
+bl_display_drvm2covcor = false;
+% Call Function
+[fl_cov_xy, fl_cor_xy] = ff_disc_rand_var_mass2covcor(...
+    mt_c_of_s, mt_y_of_s, mt_f_of_s, bl_display_drvm2covcor);
+display([&#39;cov=&#39; num2str(fl_cov_xy) &#39;,cor=&#39;, num2str(fl_cor_xy)]);
+
+cov=1.4446,cor=0.65723</code></pre>
+<p>Same as before, but now inputs are single column:</p>
+<pre><code>% Call Function
+[fl_cov_xy, fl_cor_xy] = ff_disc_rand_var_mass2covcor(...
+    mt_c_of_s(:), mt_y_of_s(:), mt_f_of_s(:), bl_display_drvm2covcor);
+display([&#39;cov=&#39; num2str(fl_cov_xy) &#39;,cor=&#39;, num2str(fl_cor_xy)]);
+
+cov=1.4446,cor=0.65723</code></pre>
+</div>
+<div id="test-ff_disc_rand_var_mass2covcor-two-random-vectors" class="section level3" number="2.4.3">
+<h3><span class="header-section-number">2.4.3</span> Test FF_DISC_RAND_VAR_MASS2COVCOR Two Random Vectors</h3>
+<p><a href="https://fanwangecon.github.io/Stat4Econ/probability_discrete/htmlpdfr/poisson.html">G</a>enerate
+two random vectors, with random or even mass, correlation should be
+zero:</p>
+<pre><code>% Set Parameters
+rng(4567);
+mt_c_of_s = rand([20,1])*100;
+mt_y_of_s = rand([20,1])*100;
+mt_f_of_s = rand(size(mt_c_of_s));
+mt_f_of_s = mt_f_of_s/sum(mt_f_of_s, &#39;all&#39;);
+bl_display_drvm2covcor = false;
+% Call Function
+[fl_cov_xy, fl_cor_xy] = ff_disc_rand_var_mass2covcor(...
+    mt_c_of_s, mt_y_of_s, mt_f_of_s, bl_display_drvm2covcor);
+display([&#39;cov=&#39; num2str(fl_cov_xy) &#39;,cor=&#39;, num2str(fl_cor_xy)]);
+
+cov=-57.6533,cor=-0.062023</code></pre>
+</div>
+<div id="test-ff_disc_rand_var_mass2covcor-provide-mean-and-sd" class="section level3" number="2.4.4">
+<h3><span class="header-section-number">2.4.4</span> Test FF_DISC_RAND_VAR_MASS2COVCOR Provide Mean and SD</h3>
+<p>Same as above, but now provide means and sd for x andy directly. The
+results are the same as when mean and sd are calculated inside the
+function.</p>
+<pre><code>% Set Parameters
+rng(4567);
+mt_c_of_s = rand([20,1])*100;
+mt_y_of_s = rand([20,1])*100;
+mt_f_of_s = rand(size(mt_c_of_s));
+mt_f_of_s = mt_f_of_s/sum(mt_f_of_s, &#39;all&#39;);
+fl_c_mean = sum(mt_f_of_s.*mt_c_of_s);
+fl_c_sd = sqrt(sum(mt_f_of_s.*(mt_c_of_s-fl_c_mean).^2));
+fl_y_mean = sum(mt_f_of_s.*mt_y_of_s);
+fl_y_sd = sqrt(sum(mt_f_of_s.*(mt_y_of_s-fl_y_mean).^2));
+bl_display_drvm2covcor = false;
+% Call Function
+[fl_cov_xy, fl_cor_xy] = ff_disc_rand_var_mass2covcor(...
+    mt_c_of_s, mt_y_of_s, mt_f_of_s, ...
+    fl_c_mean, fl_c_sd, ...
+    fl_y_mean, fl_y_sd, bl_display_drvm2covcor);
+display([&#39;cov=&#39; num2str(fl_cov_xy) &#39;,cor=&#39;, num2str(fl_cor_xy)]);
+
+cov=-57.6533,cor=-0.062023</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="summarize-policy-and-value.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="graphs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["Matlab-Toolbox-Heterogeneous-Agents-Dynamic-Programming.pdf", "PDF"]],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

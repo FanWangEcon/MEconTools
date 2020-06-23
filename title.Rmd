@@ -1,0 +1,5 @@
+---
+title: "Matlab Toolbox Heterogeneous Agents Dynamic Programming"
+author: "Fan Wang"
+date: '`r format(Sys.Date(), "%Y-%m-%d")`'
+---

@@ -1,0 +1,93 @@
+- file: fx_disc_rand_var_mass2covcor
+  title: "Matlab Discrete Random Variable Correlation and Covariance"
+  titleshort: "Discrete Random Variable Correlation and Covariance"
+  description: |
+    Given probability mass function f(s), X(s), and Y(s), compute the covariance and correlation betwen X and Y.
+  core :
+    - package: MEconTools
+      code: |
+        ff_disc_rand_var_mass2covcor()
+  date: 2020-06-22
+  date_start: 2020-06-22
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue
+
+- file: fx_disc_rand_var_mass2outcomes
+  title: "Matlab Generate Discrete Random Variable"
+  titleshort: "Generate Discrete Random Variable"
+  description: |
+    Given mass at state space points, and y, c, a, z and other outcomes or other information at each corresponding state space points, generate discrete random variable, with unique sorted values, and mass for each unique sorted values.
+    Generate additional joint distributions: if initial distribution is over f(a,z), generate joint distribution of f(y,a) or f(y,z).
+  core :
+    - package: MEconTools
+      code: |
+        ff_disc_rand_var_mass2outcomes()
+  date: 2020-06-22
+  date_start: 2020-06-22
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue
+
+- file: fx_disc_rand_var_stats
+  title: "Matlab Computes Discrete Random Variable Distributional Statistics"
+  titleshort: "Discrete Random Variable Distributional Statistics"
+  description: |
+    Model simulation generates discrete random variables, calculate mean, standard deviation, min, max, percentiles, and proportion of outcomes held by x percentiles, etc.
+  core :
+    - package: MEconTools
+      code: |
+        ff_disc_rand_var_stats()
+  date: 2020-06-22
+  date_start: 2020-06-22
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue
+
+- file: fx_simu_stats
+  title: "Matlab Joint Probability Mass Distribution Statistics over Multiple Variables"
+  titleshort: "Gateway Joint Probability Mass Statistics"
+  description: |
+    Given probability mass function f(s), and information y(s), x(s), z(s) at each element of the state-space, compute statistics for each variable, y, x, z, which are all discrete random variables.
+    Compute their correlation and covariance.
+  core :
+    - package: MEconTools
+      code: |
+        ff_simu_stats()
+  date: 2020-06-22
+  date_start: 2020-06-22
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue

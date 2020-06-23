@@ -1,54 +1,30 @@
 *.[jJ][pP][gG]
 # *.[cC][sS][vV]
+# *.[mM][aA][tT]
 *.[tT][xX][tT]
 *.[pP][yY][cC]
 
 ###################
-# R gitignore
+# RMD
 ###################
 
-# History files
-*.Rhistory
-*.Rapp.history
+_img/
+*.Rmd
+!index.Rmd
+!title.Rmd
+!main.Rmd
 
-# Session Data files
+###################
+# R markdown
+###################
+
+.Rproj.user
+.Rhistory
 .RData
-
-# User-specific files
-.Ruserdata
-
-# Example code in package build process
-*-Ex.R
-
-# Output files from R CMD build
-/*.tar.gz
-
-# Output files from R CMD check
-/*.Rcheck/
-
-# RStudio files
-.Rproj.user/
-
-# produced vignettes
-# vignettes/*.html
-# vignettes/*.pdf
-
-# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
-.httr-oauth
-
-# knitr and R markdown default cache directories
-*_cache/
-/cache/
-
-# Temporary files created by R markdown
-*.utf8.md
-*.knit.md
-
-# R Environment Variables
-.Renviron
-
-# pkgdown site
-# docs/
+_publish.R
+_book
+_bookdown_files
+rsconnect
 
 ###################
 # Jupyter Ignore
@@ -57,16 +33,41 @@
 *checkpoints.md
 *checkpoints.ipynb
 *ipynb_checkpoints
+
+*checkpoints.ipynb
+
+###################
 # R.gitignore
-.Rproj.user
-.Rhistory
-.RData
+###################
+
+*.Rhistory
 
 ###################
 # Matlab.gitignore
 ###################
 
 *.asv
+# profiling files
+file1.html
+file2.html
+file3.html
+file4.html
+file5.html
+file6.html
+file7.html
+file8.html
+file9.html
+file1?.html
+file2?.html
+file3?.html
+file4?.html
+file5?.html
+file6?.html
+file7?.html
+file8?.html
+file9?.html
+file???.html
+file????.html
 
 ###################
 # PDF.gitignore
@@ -98,36 +99,47 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+
 # Eclipse Core
 .project
+
 # External tool builders
 .externalToolBuilders/
+
 # Locally stored "Eclipse launch configurations"
 *.launch
+
 # PyDev specific (Python IDE for Eclipse)
 *.pydevproject
+
 # CDT-specific (C/C++ Development Tooling)
 .cproject
+
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+
 # Java annotation processor (APT)
 .factorypath
+
 # PDT-specific (PHP Development Tools)
 .buildpath
+
 # sbteclipse plugin
 .target
+
 # Tern plugin
 .tern-project
+
 # TeXlipse plugin
 .texlipse
+
 # STS (Spring Tool Suite)
 .springBeans
+
 # Code Recommenders
 .recommenders/
+
 # Scala IDE specific (Scala & Java development for Eclipse)
 .cache-main
 .scala_dependencies
 .worksheet
-inst/doc
-# doc
-Meta

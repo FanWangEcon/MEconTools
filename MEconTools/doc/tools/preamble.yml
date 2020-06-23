@@ -1,0 +1,22 @@
+- file: fx_container_map_display
+  title: "Matlab Organizes and Prints Container Map Key and Values"
+  titleshort: "Organizes and Prints Container Map Key and Values"
+  description: |
+     Summarizes the contents of a map container by data types. Includes, scalar, array, matrix, string, functions, tensors (3-tuples), tesseracts (4-tuples).
+  core :
+    - package: MEconTools
+      code: |
+        ff_container_map_display()
+  date: 2020-06-22
+  date_start: 2020-06-22
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue
