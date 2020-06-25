@@ -38,8 +38,9 @@
 %    are: mean only, mean and std, mean and cv (coefficient of variation),
 %    mean and std and cv. AR_ST_STATS must be specified has: ar_st_stats =
 %    ["mean", "std", "coefvari"], ar_st_stats = ["mean", "coefvari"],
-%    ar_st_stats = ["mean", "std"], or ar_st_stats = ["mean"]. Default is
-%    to show ar_st_stats = ["mean", "coefvari"].
+%    ar_st_stats = ["mean", "std"], ar_st_stats = ["mean"], ar_st_stats =
+%    ["std"], ar_st_stats = ["coefvari"], or ar_st_stats = ["sum"]. Default
+%    is to show ar_st_stats = ["mean"].
 %
 %    TB_ND_SUMMARY = FF_SUMM_ND_ARRAY(ST_TITLE, MN_POLVAL, BL_PRINT_TABLE,
 %    AR_ST_STATS, IT_AGGD, BL_ROW, CL_MP_DATASETDESC, AR_PERMUTE)
@@ -64,7 +65,7 @@ if (~isempty(varargin))
     it_aggd = 1;
     bl_row = true;
     ar_permute = false;
-    ar_st_stats = ["mean", "coefvari"];
+    ar_st_stats = ["mean"];
     
     if (length(varargin)==3)
         [st_title, mn_polval, bl_print_table] = varargin{:};
@@ -127,8 +128,11 @@ else
     
 %     ar_st_stats = ["mean", "std", "coefvari"];
 %     ar_st_stats = ["mean", "std"];
-    ar_st_stats = ["mean", "coefvari"];
-%     ar_st_stats = ["mean"];
+%     ar_st_stats = ["mean", "coefvari"];
+%     ar_st_stats = ["std"];
+%     ar_st_stats = ["coefvari"];
+    ar_st_stats = ["mean"];
+%     ar_st_stats = ["sum"];
     
 end
 
@@ -161,16 +165,19 @@ end
 if (bl_row)
     
     it_row_group = size(mn_polval_resort, (it_aggd+bl_row));
+    mt_sum = zeros(length(cl_mn_polval), it_row_group);
     mt_mean = zeros(length(cl_mn_polval), it_row_group);
     mt_std = zeros(length(cl_mn_polval), it_row_group);
     mt_cv = zeros(length(cl_mn_polval), it_row_group);
     for it_mt=1:length(cl_mn_polval)
         mt_cur = cl_mn_polval{it_mt};
         if (it_aggd == 1)
+            mt_sum(it_mt,:) = sum(mt_cur, 1);
             mt_mean(it_mt,:) = mean(mt_cur, 1);
             mt_std(it_mt,:) = std(mt_cur, [], 1);
         else
             mt_cur = reshape(mt_cur, [], it_row_group);
+            mt_sum(it_mt,:) = sum(mt_cur, 1);
             mt_mean(it_mt,:) = mean(mt_cur, 1);
             mt_std(it_mt,:) = std(mt_cur, [], 1);            
         end
@@ -180,6 +187,7 @@ if (bl_row)
 else
     
     % Over of matrix and summarize
+    ar_sum = zeros(size(cl_mn_polval));
     ar_mean = zeros(size(cl_mn_polval));
     ar_std = zeros(size(cl_mn_polval));
     ar_cv = zeros(size(cl_mn_polval));
@@ -187,6 +195,7 @@ else
     ar_max = zeros(size(cl_mn_polval));
     for it_mt=1:length(cl_mn_polval)
         mt_cur = cl_mn_polval{it_mt};
+        ar_sum(it_mt) = sum(mt_cur, 'all');
         ar_mean(it_mt) = mean(mt_cur, 'all');
         ar_std(it_mt) = std(mt_cur, [], 'all');
         ar_cv(it_mt) = ar_mean(it_mt)/ar_std(it_mt);
@@ -204,29 +213,48 @@ if (bl_row)
     ar_row_cate_lab_val = mp_datasetdesc('labval');
     st_row_cate_name = string(mp_datasetdesc('name'));
     
-    cl_col_names_mn = strcat('mn_', st_row_cate_name, '_', string(ar_row_cate_lab_val));    
-    cl_col_names_sd = strcat('sd_', st_row_cate_name, '_', string(ar_row_cate_lab_val));
+    cl_col_names_sm = strcat('sum_', st_row_cate_name, '_', string(ar_row_cate_lab_val));    
+    cl_col_names_mn = strcat('mean_', st_row_cate_name, '_', string(ar_row_cate_lab_val));    
+    cl_col_names_sd = strcat('std_', st_row_cate_name, '_', string(ar_row_cate_lab_val));
     cl_col_names_cv = strcat('cv_', st_row_cate_name, '_', string(ar_row_cate_lab_val));
     
     % Constructe Table
-    if (sum(contains(ar_st_stats, "std")) && sum(contains(ar_st_stats, "coefvari")))
+    if (sum(contains(ar_st_stats, "mean")) && sum(contains(ar_st_stats, "std")) && sum(contains(ar_st_stats, "coefvari")))
         tb_nd_summary = array2table([(1:length(cl_mn_polval))', ...
             mt_row_groups_allcombo, mt_mean, mt_std, mt_cv]);
         tb_nd_summary.Properties.VariableNames = ...
             matlab.lang.makeValidName(["group", ar_group_names, ...
             cl_col_names_mn, cl_col_names_sd, cl_col_names_cv]);        
-    elseif (sum(contains(ar_st_stats, "std")))
+    elseif (sum(contains(ar_st_stats, "mean")) && sum(contains(ar_st_stats, "std")))
         tb_nd_summary = array2table([(1:length(cl_mn_polval))', ...
             mt_row_groups_allcombo, mt_mean, mt_std]);
         tb_nd_summary.Properties.VariableNames = ...
             matlab.lang.makeValidName(["group", ar_group_names, ...
             cl_col_names_mn, cl_col_names_sd]);        
-    elseif (sum(contains(ar_st_stats, "coefvari")))
+    elseif (sum(contains(ar_st_stats, "mean")) && sum(contains(ar_st_stats, "coefvari")))
         tb_nd_summary = array2table([(1:length(cl_mn_polval))', ...
             mt_row_groups_allcombo, mt_mean, mt_cv]);
         tb_nd_summary.Properties.VariableNames = ...
             matlab.lang.makeValidName(["group", ar_group_names, ...
             cl_col_names_mn, cl_col_names_cv]);        
+    elseif (sum(contains(ar_st_stats, "std")))
+        tb_nd_summary = array2table([(1:length(cl_mn_polval))', ...
+            mt_row_groups_allcombo, mt_std]);
+        tb_nd_summary.Properties.VariableNames = ...
+            matlab.lang.makeValidName(["group", ar_group_names, ...
+            cl_col_names_sd]);        
+    elseif (sum(contains(ar_st_stats, "coefvari")))
+        tb_nd_summary = array2table([(1:length(cl_mn_polval))', ...
+            mt_row_groups_allcombo, mt_cv]);
+        tb_nd_summary.Properties.VariableNames = ...
+            matlab.lang.makeValidName(["group", ar_group_names, ...
+            cl_col_names_cv]);        
+    elseif (sum(contains(ar_st_stats, "sum")))
+        tb_nd_summary = array2table([(1:length(cl_mn_polval))', ...
+            mt_row_groups_allcombo, mt_sum]);
+        tb_nd_summary.Properties.VariableNames = ...
+            matlab.lang.makeValidName(["group", ar_group_names, ...
+            cl_col_names_sm]);        
     else
         tb_nd_summary = array2table([(1:length(cl_mn_polval))', ...
             mt_row_groups_allcombo, mt_mean]);
@@ -238,9 +266,9 @@ if (bl_row)
 else
     % Constructe Table
     tb_nd_summary = array2table([(1:length(cl_mn_polval))', ...
-        mt_row_groups_allcombo, ar_mean, ar_std, ar_cv, ar_min, ar_max]);
+        mt_row_groups_allcombo, ar_sum, ar_mean, ar_std, ar_cv, ar_min, ar_max]);
     tb_nd_summary.Properties.VariableNames = ...
-        matlab.lang.makeValidName(["group", ar_group_names,  "mean", "std", "coefvari", "min", "max"]);
+        matlab.lang.makeValidName(["group", ar_group_names, "sum", "mean", "std", "coefvari", "min", "max"]);
     
 end
 

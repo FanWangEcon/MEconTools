@@ -86,14 +86,14 @@ ff_summ_nd_array(st_title, mn_polval, bl_print_table, ar_st_stats, it_aggd, bl_r
 
 it_aggd = 4; 
 bl_row = 1; 
-ff_summ_nd_array(st_title, mn_polval, bl_print_table, ar_st_stats, it_aggd, bl_row);
+ff_summ_nd_array(st_title, mn_polval, bl_print_table, ["sum"], it_aggd, bl_row);
 %% 
 % Fourth, summarize over the first five dimensions, column group 6th, no row 
 % groups:
 
 it_aggd = 5;
 bl_row = 1; 
-ff_summ_nd_array(st_title, mn_polval, bl_print_table, ar_st_stats, it_aggd, bl_row);
+ff_summ_nd_array(st_title, mn_polval, bl_print_table, ["mean", "std"], it_aggd, bl_row);
 %% 
 % Fifth, summarize over all six dimensions, summary statistics over the entire 
 % dataframe:
@@ -104,14 +104,14 @@ ff_summ_nd_array(st_title, mn_polval, bl_print_table, ar_st_stats, it_aggd, bl_r
 %% Test FF_SUMM_ND_ARRAY with Random 7 Dimensional Matrix with All Parameters
 % Given a random seven dimensional matrix, average over the 2nd, 4th and 5th 
 % dimensionals. Show as row groups the 3, 6 and 7th dimensions, and row groups 
-% the 1st dimension. 
+% the 1st dimension. Show Coefficient of Variation only.
 
 st_title = "avg VALUE 2+4+5th dims. groups 3+6+7th dims, and row groups the 1st dim.";
 rng(123)
 mn_polval = rand(3,10,2,10,10,2,3);
 ar_permute = [2,4,5,1,3,6,7];
 bl_print_table = true;
-ar_st_stats = ["mean", "coefvari"];
+ar_st_stats = ["coefvari"];
 it_aggd = 3; % mean over 3 dims
 bl_row = 1; % one var for row group
 cl_mp_datasetdesc = {};

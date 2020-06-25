@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="3439100976" file="C:\Users\fan\MEconTools\MEconTools.prj" location="C:\Users\fan\MEconTools" name="MEconTools" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="2172318292" file="C:\Users\fan\MEconTools\MEconTools.prj" location="C:\Users\fan\MEconTools" name="MEconTools" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>MEconTools</param.appname>
     <param.authnamewatermark>Fan Wang</param.authnamewatermark>
     <param.email>fanwecon@gmail.com</param.email>
@@ -7,7 +7,7 @@
     <param.summary>Dynamic programming and related.</param.summary>
     <param.description>Dynamic programming and related.</param.description>
     <param.screenshot>${PROJECT_ROOT}\img\toolboxlogo.png</param.screenshot>
-    <param.version>0.1.12</param.version>
+    <param.version>0.1.15</param.version>
     <param.output>${PROJECT_ROOT}\MEconTools.mltbx</param.output>
     <param.products.name />
     <param.products.id />
@@ -35,7 +35,10 @@
 %
 */htmlpdfm/*
 *htmlpdfm/*
-htmlpdfm/*</param.exclude.filters>
+htmlpdfm/*
+**/*htmlpdfm*
+**/*.Rmd
+**/*fx*.html</param.exclude.filters>
     <param.exclude.pcodedmfiles>true</param.exclude.pcodedmfiles>
     <param.examples>&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;examples&gt;

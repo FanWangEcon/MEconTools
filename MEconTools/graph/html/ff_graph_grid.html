@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>FF_GRAPH_GRID Grid based Graph, x-axis one param, color another param, over outcomes</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-06-22"><meta name="DC.source" content="ff_graph_grid.m"><style type="text/css">
+      --><title>FF_GRAPH_GRID Grid based Graph, x-axis one param, color another param, over outcomes</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-06-24"><meta name="DC.source" content="ff_graph_grid.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -73,15 +73,17 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
   given asset and shock points. The AR_ROW_GRID values can be</pre><pre>  * MT_VALUE R by C numeric matrix
   * AR_COL_GRID 1 by C array, numeric array
   * AR_ROW_GRID 1 by R array, numeric or string array (NOT CHAR array)
-  * MP_SUPPORT_GRAPH container map</pre><pre>  MP_SUPPORT_GRAPH keys and Example Values:</pre><pre>  mp_support_graph = containers.Map('KeyType', 'char', 'ValueType', 'any');
-  mp_support_graph('cl_st_graph_title') = {'title line main', 'title line 2'};
-  mp_support_graph('cl_st_ytitle') = {'y title, matrix values', 'y line 2'};
-  mp_support_graph('cl_st_xtitle') = {'x title, matrix columns', 'x line 2'};
-  mp_support_graph('st_rowvar_name') = 'category rows';
-  mp_support_graph('st_legend_loc') = 'northwest';
-  mp_support_graph('bl_graph_logy') = true;
-  mp_support_graph('it_legend_select') = 5;
-  mp_support_graph('st_rounding') = '.2f';</pre><pre>  When the number of rows (shocks) is below six, each line will have
+  * MP_SUPPORT_GRAPH container map</pre><pre>  MP_SUPPORT_GRAPH keys and Example Values:</pre><pre>  MP_SUPPORT_GRAPH = containers.Map('KeyType', 'char', 'ValueType', 'any');
+  MP_SUPPORT_GRAPH('cl_st_graph_title') = {'title line main', 'title line 2'};
+  MP_SUPPORT_GRAPH('cl_st_ytitle') = {'y title, matrix values', 'y line 2'};
+  MP_SUPPORT_GRAPH('cl_st_xtitle') = {'x title, matrix columns', 'x line 2'};
+  MP_SUPPORT_GRAPH('st_rowvar_name') = 'category rows';
+  MP_SUPPORT_GRAPH('st_legend_loc') = 'northwest';
+  MP_SUPPORT_GRAPH('bl_graph_logy') = true;
+  MP_SUPPORT_GRAPH('it_legend_select') = 5;
+  MP_SUPPORT_GRAPH('st_rounding') = '.2f';
+  MP_SUPPORT_GRAPH('cl_scatter_shapes') = {'s', 'x', 'o', 'd'};
+  MP_SUPPORT_GRAPH('cl_colors') = {'blue', 'red', 'black', 'green'};</pre><pre>  When the number of rows (shocks) is below six, each line will have
   a scatter point overlay with different scatter patterns.</pre><pre>  Each rows (shocks), will have a different color from a color
   spectrum. In the legend, at most 5 color/shape values will be shown.
   When the number of rows exceeds 5, only five colors will be shown. The
@@ -93,7 +95,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
   index. Each row will have a different colored/patterned line. Legend
   indicates row index.</pre><pre>  FF_GRAPH_GRID(MT_VALUE, AR_ROW_GRID, AR_COL_GRID) uses the column grid
   values as x-axis points, and row-grid points as legend labels.</pre><pre>  FF_GRAPH_GRID(MT_VALUE, AR_ROW_GRID, AR_COL_GRID, MP_SUPPORT_GRAPH)
-  overrides local default options.</pre><pre>  See also FX_GRAPH_GRID</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Parse Main Inputs and Set Defaults</a></li><li><a href="#4">Set and Update Graph Support Map</a></li><li><a href="#5">Generaet Graph</a></li><li><a href="#7">Plot Initiate</a></li><li><a href="#8">Log Transform</a></li><li><a href="#9">Plot Given Fewer or Many Rows Counts</a></li><li><a href="#11">Plot Many Rows as Jet Lines</a></li><li><a href="#14">Plot Less than 7 Rows as Scatter + Lines</a></li><li><a href="#16">Titling</a></li><li><a href="#17">Legend</a></li><li><a href="#19">Return</a></li></ul></div><pre class="codeinput"><span class="keyword">function</span> varargout = ff_graph_grid(varargin)
+  overrides local default options.</pre><pre>  See also FX_GRAPH_GRID</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Parse Main Inputs and Set Defaults</a></li><li><a href="#4">Set and Update Graph Support Map</a></li><li><a href="#5">Parse Title and Lengends</a></li><li><a href="#6">Parse Graphing Details</a></li><li><a href="#7">Generaet Graph</a></li><li><a href="#9">Plot Initiate</a></li><li><a href="#10">Log Transform</a></li><li><a href="#11">Plot Given Fewer or Many Rows Counts</a></li><li><a href="#13">Plot Many Rows as Jet Lines</a></li><li><a href="#16">Plot Less than 7 Rows as Scatter + Lines</a></li><li><a href="#18">Titling</a></li><li><a href="#19">Legend</a></li><li><a href="#21">Return</a></li></ul></div><pre class="codeinput"><span class="keyword">function</span> varargout = ff_graph_grid(varargin)
 </pre><h2 id="3">Parse Main Inputs and Set Defaults</h2><pre class="codeinput"><span class="keyword">if</span> (~isempty(varargin))
 
     <span class="keyword">if</span> (length(varargin)==1)
@@ -110,7 +112,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <span class="keyword">else</span>
 
     close <span class="string">all</span>;
-    ar_row_grid = linspace(-4, 11, 5);
+    ar_row_grid = linspace(-4, 11, 8);
     ar_col_grid = linspace(-1, 1, 6);
     rng(123);
     mt_value = 0.2*ar_row_grid' + exp(ar_col_grid) + rand([length(ar_row_grid), length(ar_col_grid)]);
@@ -125,35 +127,49 @@ mp_support_graph(<span class="string">'st_legend_loc'</span>) = <span class="str
 mp_support_graph(<span class="string">'bl_graph_logy'</span>) = true;
 mp_support_graph(<span class="string">'it_legend_select'</span>) = 5;
 mp_support_graph(<span class="string">'st_rounding'</span>) = <span class="string">'.2f'</span>;
+mp_support_graph(<span class="string">'cl_scatter_shapes'</span>) = <span class="keyword">...</span>
+    {<span class="string">'o'</span>, <span class="string">'d'</span>, <span class="string">'s'</span>, <span class="string">'p'</span>, <span class="string">'h'</span>, <span class="string">'x'</span>, <span class="string">'*'</span>, <span class="string">'&gt;'</span>, <span class="string">'&lt;'</span>};
+mp_support_graph(<span class="string">'cl_colors'</span>) = <span class="keyword">...</span>
+    {<span class="string">'blue'</span>, <span class="string">'red'</span>, <span class="string">'black'</span>, <span class="string">'green'</span>, <span class="string">'brown'</span>, <span class="string">'purple'</span>, <span class="string">'gray'</span>, <span class="string">'orange'</span>};
 
 <span class="comment">% override default support_map values</span>
 <span class="keyword">if</span> (length(varargin)==4)
     mp_support_graph = [mp_support_graph; mp_support_graph_ext];
 <span class="keyword">end</span>
-
-<span class="comment">% Parse Support_map</span>
-cl_params = values(mp_support_graph, {<span class="string">'cl_st_graph_title'</span>, <span class="keyword">...</span>
+</pre><h2 id="5">Parse Title and Lengends</h2><pre class="codeinput">cl_params = values(mp_support_graph, {<span class="string">'cl_st_graph_title'</span>, <span class="keyword">...</span>
     <span class="string">'cl_st_ytitle'</span>, <span class="string">'cl_st_xtitle'</span>, <span class="string">'st_rowvar_name'</span>});
 [cl_st_graph_title, cl_st_ytitle, cl_st_xtitle, st_rowvar_name] = cl_params{:};
 cl_params = values(mp_support_graph, {<span class="string">'st_legend_loc'</span>, <span class="string">'bl_graph_logy'</span>, <span class="keyword">...</span>
     <span class="string">'it_legend_select'</span>, <span class="string">'st_rounding'</span>});
 [st_legend_loc, bl_graph_logy, it_legend_select, st_rounding] = cl_params{:};
-</pre><h2 id="5">Generaet Graph</h2><pre class="codeinput"><span class="keyword">if</span> (bl_graph_logy)
+</pre><h2 id="6">Parse Graphing Details</h2><pre class="codeinput">cl_params = values(mp_support_graph, {<span class="string">'cl_scatter_shapes'</span>, <span class="string">'cl_colors'</span>});
+[cl_scatter_shapes, cl_colors] = cl_params{:};
+
+mp_colors = containers.Map(<span class="string">'KeyType'</span>, <span class="string">'char'</span>, <span class="string">'ValueType'</span>, <span class="string">'any'</span>);
+mp_colors(<span class="string">'blue'</span>)   = [57 106 177]./255;
+mp_colors(<span class="string">'red'</span>)    = [204 37 41]./255;
+mp_colors(<span class="string">'black'</span>)  = [83 81 84]./255;
+mp_colors(<span class="string">'green'</span>)  = [62 150 81]./255;
+
+mp_colors(<span class="string">'brown'</span>)  = [146 36 40]./255;
+mp_colors(<span class="string">'purple'</span>) = [107 76 154]./255;
+mp_colors(<span class="string">'gray'</span>)   = [128 133 133]./255;
+mp_colors(<span class="string">'orange'</span>)   = [255 140 0]./255;
+
+cl_color_values = values(mp_colors, cl_colors);
+</pre><h2 id="7">Generaet Graph</h2><pre class="codeinput"><span class="keyword">if</span> (bl_graph_logy)
     ar_it_plot = [1,2];
 <span class="keyword">else</span>
     ar_it_plot = [1];
 <span class="keyword">end</span>
 
 <span class="keyword">for</span> it_plot = ar_it_plot
-</pre><h2 id="7">Plot Initiate</h2><pre class="codeinput">    pl_obj = figure(<span class="string">'PaperPosition'</span>, [0 0 7 4]);
+</pre><h2 id="9">Plot Initiate</h2><pre class="codeinput">    pl_obj = figure(<span class="string">'PaperPosition'</span>, [0 0 7 4]);
     hold <span class="string">on</span>;
 
     it_graph_counter = 0;
     cl_legend = [];
-    cl_scatter_shapes = {<span class="string">'s'</span>, <span class="string">'x'</span>, <span class="string">'o'</span>, <span class="string">'d'</span>, <span class="string">'p'</span>, <span class="string">'*'</span>, <span class="string">'^'</span>, <span class="string">'&lt;'</span>};
-    <span class="comment">%             ar_fl_clr = jet(length(param_grid));</span>
-    mt_fl_clr = fx_linspecer(length(ar_row_grid), <span class="string">'sequential'</span>);
-</pre><img vspace="5" hspace="5" src="ff_graph_grid_01.png" alt=""> <img vspace="5" hspace="5" src="ff_graph_grid_05.png" alt=""> <h2 id="8">Log Transform</h2><pre class="codeinput">    ar_x = ar_col_grid;
+</pre><img vspace="5" hspace="5" src="ff_graph_grid_01.png" alt=""> <img vspace="5" hspace="5" src="ff_graph_grid_05.png" alt=""> <h2 id="10">Log Transform</h2><pre class="codeinput">    ar_x = ar_col_grid;
     mt_value_use = mt_value;
     <span class="keyword">if</span> (it_plot == 2)
         <span class="keyword">if</span> (min(min(mt_value))&gt;0)
@@ -172,19 +188,19 @@ cl_params = values(mp_support_graph, {<span class="string">'st_legend_loc'</span
             st_log_func_x = <span class="string">'LOG(X+min(X))'</span>;
         <span class="keyword">end</span>
     <span class="keyword">end</span>
-</pre><h2 id="9">Plot Given Fewer or Many Rows Counts</h2><pre class="codeinput">    <span class="keyword">if</span> (length(ar_row_grid) &gt; length(cl_scatter_shapes))
-</pre><h2 id="11">Plot Many Rows as Jet Lines</h2><pre class="codeinput">        chart = plot(mt_value_use');
+</pre><h2 id="11">Plot Given Fewer or Many Rows Counts</h2><pre class="codeinput">    <span class="keyword">if</span> (length(ar_row_grid) &gt; length(cl_scatter_shapes))
+</pre><h2 id="13">Plot Many Rows as Jet Lines</h2><pre class="codeinput">        chart = plot(mt_value_use');
         clr = jet(numel(chart));
         <span class="keyword">for</span> m = 1:numel(chart)
             set(chart(m),<span class="string">'Color'</span>,clr(m,:))
         <span class="keyword">end</span>
 </pre><pre class="codeinput">    <span class="keyword">else</span>
-</pre><h2 id="14">Plot Less than 7 Rows as Scatter + Lines</h2><pre class="codeinput">        <span class="keyword">for</span> it_color = 1:length(ar_row_grid)
+</pre><h2 id="16">Plot Less than 7 Rows as Scatter + Lines</h2><pre class="codeinput">        <span class="keyword">for</span> it_color = 1:length(ar_row_grid)
 
             florst_row_param = ar_row_grid(it_color);
 
             it_graph_counter = it_graph_counter + 1;
-            ar_color = mt_fl_clr(it_color,:);
+            ar_color = cl_color_values{it_color};
 
             <span class="comment">% Access Y Values</span>
             ar_y_use = mt_value_use(it_color,:);
@@ -213,7 +229,7 @@ cl_params = values(mp_support_graph, {<span class="string">'st_legend_loc'</span
             <span class="keyword">end</span>
         <span class="keyword">end</span>
 </pre><img vspace="5" hspace="5" src="ff_graph_grid_02.png" alt=""> <img vspace="5" hspace="5" src="ff_graph_grid_06.png" alt=""> <pre class="codeinput">    <span class="keyword">end</span>
-</pre><h2 id="16">Titling</h2><pre class="codeinput">    cl_st_ytitle_use = cl_st_ytitle;
+</pre><h2 id="18">Titling</h2><pre class="codeinput">    cl_st_ytitle_use = cl_st_ytitle;
     cl_st_xtitle_use = cl_st_xtitle;
     cl_st_graph_title_use = cl_st_graph_title;
     <span class="keyword">if</span> (it_plot == 2)
@@ -223,7 +239,7 @@ cl_params = values(mp_support_graph, {<span class="string">'st_legend_loc'</span
     title(cl_st_graph_title_use);
     ylabel(cl_st_ytitle_use);
     xlabel(cl_st_xtitle_use);
-</pre><img vspace="5" hspace="5" src="ff_graph_grid_03.png" alt=""> <img vspace="5" hspace="5" src="ff_graph_grid_07.png" alt=""> <h2 id="17">Legend</h2><pre class="codeinput">    st_legend_loc_use = st_legend_loc;
+</pre><img vspace="5" hspace="5" src="ff_graph_grid_03.png" alt=""> <img vspace="5" hspace="5" src="ff_graph_grid_07.png" alt=""> <h2 id="19">Legend</h2><pre class="codeinput">    st_legend_loc_use = st_legend_loc;
     <span class="keyword">if</span> (it_plot == 2)
         st_legend_loc_use = <span class="string">'best'</span>;
     <span class="keyword">end</span>
@@ -244,7 +260,7 @@ cl_params = values(mp_support_graph, {<span class="string">'st_legend_loc'</span
     grid <span class="string">minor</span>;
     snapnow;
 </pre><img vspace="5" hspace="5" src="ff_graph_grid_04.png" alt=""> <img vspace="5" hspace="5" src="ff_graph_grid_08.png" alt=""> <pre class="codeinput"><span class="keyword">end</span>
-</pre><h2 id="19">Return</h2><pre class="codeinput">varargout = cell(nargout,0);
+</pre><h2 id="21">Return</h2><pre class="codeinput">varargout = cell(nargout,0);
 <span class="keyword">for</span> it_k = 1:nargout
     <span class="keyword">if</span> (it_k==1)
         ob_out_cur = pl_obj;
@@ -268,15 +284,17 @@ cl_params = values(mp_support_graph, {<span class="string">'st_legend_loc'</span
 %
 %    MP_SUPPORT_GRAPH keys and Example Values: 
 %
-%    mp_support_graph = containers.Map('KeyType', 'char', 'ValueType', 'any');
-%    mp_support_graph('cl_st_graph_title') = {'title line main', 'title line 2'};
-%    mp_support_graph('cl_st_ytitle') = {'y title, matrix values', 'y line 2'};
-%    mp_support_graph('cl_st_xtitle') = {'x title, matrix columns', 'x line 2'};
-%    mp_support_graph('st_rowvar_name') = 'category rows';
-%    mp_support_graph('st_legend_loc') = 'northwest';
-%    mp_support_graph('bl_graph_logy') = true;
-%    mp_support_graph('it_legend_select') = 5;
-%    mp_support_graph('st_rounding') = '.2f';
+%    MP_SUPPORT_GRAPH = containers.Map('KeyType', 'char', 'ValueType', 'any');
+%    MP_SUPPORT_GRAPH('cl_st_graph_title') = {'title line main', 'title line 2'};
+%    MP_SUPPORT_GRAPH('cl_st_ytitle') = {'y title, matrix values', 'y line 2'};
+%    MP_SUPPORT_GRAPH('cl_st_xtitle') = {'x title, matrix columns', 'x line 2'};
+%    MP_SUPPORT_GRAPH('st_rowvar_name') = 'category rows';
+%    MP_SUPPORT_GRAPH('st_legend_loc') = 'northwest';
+%    MP_SUPPORT_GRAPH('bl_graph_logy') = true;
+%    MP_SUPPORT_GRAPH('it_legend_select') = 5;
+%    MP_SUPPORT_GRAPH('st_rounding') = '.2f';
+%    MP_SUPPORT_GRAPH('cl_scatter_shapes') = {'s', 'x', 'o', 'd'};
+%    MP_SUPPORT_GRAPH('cl_colors') = {'blue', 'red', 'black', 'green'};
 %
 %    When the number of rows (shocks) is below six, each line will have
 %    a scatter point overlay with different scatter patterns.
@@ -325,7 +343,7 @@ if (~isempty(varargin))
 else
     
     close all;
-    ar_row_grid = linspace(-4, 11, 5);
+    ar_row_grid = linspace(-4, 11, 8);
     ar_col_grid = linspace(-1, 1, 6);
     rng(123);
     mt_value = 0.2*ar_row_grid' + exp(ar_col_grid) + rand([length(ar_row_grid), length(ar_col_grid)]);
@@ -342,19 +360,40 @@ mp_support_graph('st_legend_loc') = 'northwest';
 mp_support_graph('bl_graph_logy') = true;
 mp_support_graph('it_legend_select') = 5;
 mp_support_graph('st_rounding') = '.2f';
+mp_support_graph('cl_scatter_shapes') = ...
+    {'o', 'd', 's', 'p', 'h', 'x', '*', '>', '<'};
+mp_support_graph('cl_colors') = ...
+    {'blue', 'red', 'black', 'green', 'brown', 'purple', 'gray', 'orange'};
 
 % override default support_map values
 if (length(varargin)==4)
     mp_support_graph = [mp_support_graph; mp_support_graph_ext];
 end
 
-% Parse Support_map
+%% Parse Title and Lengends
 cl_params = values(mp_support_graph, {'cl_st_graph_title', ...
     'cl_st_ytitle', 'cl_st_xtitle', 'st_rowvar_name'});
 [cl_st_graph_title, cl_st_ytitle, cl_st_xtitle, st_rowvar_name] = cl_params{:};
 cl_params = values(mp_support_graph, {'st_legend_loc', 'bl_graph_logy', ...
     'it_legend_select', 'st_rounding'});
 [st_legend_loc, bl_graph_logy, it_legend_select, st_rounding] = cl_params{:};
+
+%% Parse Graphing Details
+cl_params = values(mp_support_graph, {'cl_scatter_shapes', 'cl_colors'});
+[cl_scatter_shapes, cl_colors] = cl_params{:};
+
+mp_colors = containers.Map('KeyType', 'char', 'ValueType', 'any');
+mp_colors('blue')   = [57 106 177]./255;
+mp_colors('red')    = [204 37 41]./255;
+mp_colors('black')  = [83 81 84]./255;
+mp_colors('green')  = [62 150 81]./255;
+				    
+mp_colors('brown')  = [146 36 40]./255;
+mp_colors('purple') = [107 76 154]./255;
+mp_colors('gray')   = [128 133 133]./255;
+mp_colors('orange')   = [255 140 0]./255;
+
+cl_color_values = values(mp_colors, cl_colors);
 
 %% Generaet Graph
 
@@ -372,9 +411,6 @@ for it_plot = ar_it_plot
     
     it_graph_counter = 0;
     cl_legend = [];
-    cl_scatter_shapes = {'s', 'x', 'o', 'd', 'p', '*', '^', '<'};
-    %             ar_fl_clr = jet(length(param_grid));
-    mt_fl_clr = fx_linspecer(length(ar_row_grid), 'sequential');
     
     %% Log Transform
     ar_x = ar_col_grid;
@@ -415,7 +451,7 @@ for it_plot = ar_it_plot
             florst_row_param = ar_row_grid(it_color);
             
             it_graph_counter = it_graph_counter + 1;
-            ar_color = mt_fl_clr(it_color,:);
+            ar_color = cl_color_values{it_color};
             
             % Access Y Values
             ar_y_use = mt_value_use(it_color,:);

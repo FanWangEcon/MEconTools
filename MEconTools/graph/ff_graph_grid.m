@@ -12,15 +12,20 @@
 %
 %    MP_SUPPORT_GRAPH keys and Example Values: 
 %
-%    mp_support_graph = containers.Map('KeyType', 'char', 'ValueType', 'any');
-%    mp_support_graph('cl_st_graph_title') = {'title line main', 'title line 2'};
-%    mp_support_graph('cl_st_ytitle') = {'y title, matrix values', 'y line 2'};
-%    mp_support_graph('cl_st_xtitle') = {'x title, matrix columns', 'x line 2'};
-%    mp_support_graph('st_rowvar_name') = 'category rows';
-%    mp_support_graph('st_legend_loc') = 'northwest';
-%    mp_support_graph('bl_graph_logy') = true;
-%    mp_support_graph('it_legend_select') = 5;
-%    mp_support_graph('st_rounding') = '.2f';
+%    MP_SUPPORT_GRAPH = containers.Map('KeyType', 'char', 'ValueType', 'any');
+%    MP_SUPPORT_GRAPH('cl_st_graph_title') = {'title line main', 'title line 2'};
+%    MP_SUPPORT_GRAPH('cl_st_ytitle') = {'y title, matrix values', 'y line 2'};
+%    MP_SUPPORT_GRAPH('cl_st_xtitle') = {'x title, matrix columns', 'x line 2'};
+%    MP_SUPPORT_GRAPH('st_rowvar_name') = 'category rows';
+%    MP_SUPPORT_GRAPH('st_legend_loc') = 'northwest';
+%    MP_SUPPORT_GRAPH('bl_graph_logy') = true;
+%    MP_SUPPORT_GRAPH('it_legend_select') = 5;
+%    MP_SUPPORT_GRAPH('st_rounding') = '.2f';
+%    MP_SUPPORT_GRAPH('cl_scatter_shapes') = {'s', 'x', 'o', 'd'};
+%    MP_SUPPORT_GRAPH('cl_colors') = {'blue', 'red', 'black', 'green'};
+%      
+%    Possible Colors:
+%    {'blue', 'red', 'black', 'green', 'brown', 'purple', 'gray', 'orange'}
 %
 %    When the number of rows (shocks) is below six, each line will have
 %    a scatter point overlay with different scatter patterns.
@@ -69,7 +74,7 @@ if (~isempty(varargin))
 else
     
     close all;
-    ar_row_grid = linspace(-4, 11, 5);
+    ar_row_grid = linspace(-4, 11, 8);
     ar_col_grid = linspace(-1, 1, 6);
     rng(123);
     mt_value = 0.2*ar_row_grid' + exp(ar_col_grid) + rand([length(ar_row_grid), length(ar_col_grid)]);
@@ -86,19 +91,42 @@ mp_support_graph('st_legend_loc') = 'northwest';
 mp_support_graph('bl_graph_logy') = true;
 mp_support_graph('it_legend_select') = 5;
 mp_support_graph('st_rounding') = '.2f';
+mp_support_graph('cl_scatter_shapes') = ...
+    {'o', 'd', 's', 'p', 'h', 'x', '*', '>', '<'};
+mp_support_graph('cl_colors') = ...
+    {'blue', 'red', 'black', 'green', 'brown', 'purple', 'gray', 'orange'};
+mp_support_graph('cl_colors') = ...
+    {'blue', 'red', 'black', 'green', 'brown', 'purple', 'gray', 'orange'};
 
 % override default support_map values
 if (length(varargin)==4)
     mp_support_graph = [mp_support_graph; mp_support_graph_ext];
 end
 
-% Parse Support_map
+%% Parse Title and Lengends
 cl_params = values(mp_support_graph, {'cl_st_graph_title', ...
     'cl_st_ytitle', 'cl_st_xtitle', 'st_rowvar_name'});
 [cl_st_graph_title, cl_st_ytitle, cl_st_xtitle, st_rowvar_name] = cl_params{:};
 cl_params = values(mp_support_graph, {'st_legend_loc', 'bl_graph_logy', ...
     'it_legend_select', 'st_rounding'});
 [st_legend_loc, bl_graph_logy, it_legend_select, st_rounding] = cl_params{:};
+
+%% Parse Graphing Details
+cl_params = values(mp_support_graph, {'cl_scatter_shapes', 'cl_colors'});
+[cl_scatter_shapes, cl_colors] = cl_params{:};
+
+mp_colors = containers.Map('KeyType', 'char', 'ValueType', 'any');
+mp_colors('blue')   = [57 106 177]./255;
+mp_colors('red')    = [204 37 41]./255;
+mp_colors('black')  = [83 81 84]./255;
+mp_colors('green')  = [62 150 81]./255;
+				    
+mp_colors('brown')  = [146 36 40]./255;
+mp_colors('purple') = [107 76 154]./255;
+mp_colors('gray')   = [128 133 133]./255;
+mp_colors('orange')   = [255 140 0]./255;
+
+cl_color_values = values(mp_colors, cl_colors);
 
 %% Generaet Graph
 
@@ -116,9 +144,6 @@ for it_plot = ar_it_plot
     
     it_graph_counter = 0;
     cl_legend = [];
-    cl_scatter_shapes = {'s', 'x', 'o', 'd', 'p', '*', '^', '<'};
-    %             ar_fl_clr = jet(length(param_grid));
-    mt_fl_clr = fx_linspecer(length(ar_row_grid), 'sequential');
     
     %% Log Transform
     ar_x = ar_col_grid;
@@ -159,7 +184,7 @@ for it_plot = ar_it_plot
             florst_row_param = ar_row_grid(it_color);
             
             it_graph_counter = it_graph_counter + 1;
-            ar_color = mt_fl_clr(it_color,:);
+            ar_color = cl_color_values{it_color};
             
             % Access Y Values
             ar_y_use = mt_value_use(it_color,:);

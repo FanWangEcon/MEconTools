@@ -26,6 +26,29 @@ mp_support_graph('cl_st_ytitle') = {'Values'};
 mp_support_graph('cl_st_xtitle') = {'Periods'};
 mp_support_graph('bl_graph_logy') = false; % do not log
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
+%% Test FF_GRAPH_GRID 6 Lines Pick Marker and Colors
+% Plot many lines, with auto legend. 
+
+% Generate some Data
+rng(456);
+ar_row_grid = linspace(-4, 11, 5);
+ar_col_grid = linspace(-1, 1, 20);
+rng(123);
+mt_value = 0.2*ar_row_grid' + exp(ar_col_grid) + rand([length(ar_row_grid), length(ar_col_grid)]);
+% container map settings
+mp_support_graph = containers.Map('KeyType', 'char', 'ValueType', 'any');
+mp_support_graph('cl_st_graph_title') = {'5 lines, specify marker and color, value(a,z), a=x, z=color'};
+mp_support_graph('cl_st_ytitle') = {'value(a,z)'};
+mp_support_graph('cl_st_xtitle') = {'Savings States, a'};
+mp_support_graph('st_legend_loc') = 'southeast';
+mp_support_graph('bl_graph_logy') = false; % do not log
+mp_support_graph('st_rowvar_name') = 'z=';
+mp_support_graph('it_legend_select') = 3; % how many shock legends to show
+mp_support_graph('st_rounding') = '6.2f'; % format shock legend
+mp_support_graph('cl_scatter_shapes') = {'s', 's', '*', '*', 'p'};
+mp_support_graph('cl_colors') = {'green', 'black', 'green', 'black', 'orange'};
+% Call function
+ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
 %% Test FF_GRAPH_GRID Many Lines
 % Plot many lines, with auto legend. 
 

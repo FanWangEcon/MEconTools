@@ -152,6 +152,7 @@ for i = 1:length(mp_container_map)
             ar_lengthall(it_mat_ctr) = numel(na_cur_val);
             ar_rows_n(it_mat_ctr) = it_row_n;
             ar_cols_n(it_mat_ctr) = it_col_n;
+            ar_sum(it_mat_ctr) = fl_mean*numel(na_cur_val);
             ar_mean(it_mat_ctr) = fl_mean;
             ar_std(it_mat_ctr) = fl_std;
             ar_cv(it_mat_ctr) = fl_std/fl_mean;
@@ -219,10 +220,10 @@ if (it_mat_ctr >= 1)
     
     tb_rowcols_tab = array2table([(1:it_mat_ctr)', ar_mat_i', ...
         ar_dimn', ar_lengthall', ar_rows_n', ar_cols_n', ...
-        ar_mean', ar_std', ar_cv', ar_min', ar_max']);
+        ar_sum', ar_mean', ar_std', ar_cv', ar_min', ar_max']);
     tb_rowcols_tab.Properties.VariableNames = matlab.lang.makeValidName(["i", "idx", ...
         "ndim", "numel", "row n", "col n", ...
-        "mean", "std", "coefvari", "min", "max"]);
+        "sum", "mean", "std", "coefvari", "min", "max"]);
     tb_rowcols_tab.Properties.RowNames = matlab.lang.makeValidName(row_mat_names);
     disp(tb_rowcols_tab);
     

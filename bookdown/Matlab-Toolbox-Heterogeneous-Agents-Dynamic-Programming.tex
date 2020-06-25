@@ -55,7 +55,7 @@
 % Allow footnotes in longtable head/foot
 \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
-\usepackage{graphicx}
+\usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -104,7 +104,7 @@
 
 \title{Matlab Toolbox Heterogeneous Agents Dynamic Programming}
 \author{Fan Wang}
-\date{2020-06-22}
+\date{2020-06-24}
 
 \begin{document}
 \maketitle
@@ -153,17 +153,17 @@ Call the function with defaults.
 ff_summ_nd_array();
 
 xxx  Summ over (a,z), condi age as cols, kids/marriage as rows  xxxxxxxxxxxxxxxxxxxxxxxxxxx
-    group    marry    kids    mn_age_18    mn_age_19    mn_age_20    mn_age_21    cv_age_18    cv_age_19    cv_age_20    cv_age_21
-    _____    _____    ____    _________    _________    _________    _________    _________    _________    _________    _________
+    group    marry    kids    mean_age_18    mean_age_19    mean_age_20    mean_age_21
+    _____    _____    ____    ___________    ___________    ___________    ___________
 
-      1        0       1       0.59079      0.53324      0.55055      0.48708      1.9219       1.8165       1.8001       1.7039  
-      2        1       1       0.49876       0.5033      0.48682      0.45402      1.7356       1.5975       1.5387       1.7105  
-      3        0       2       0.50857       0.4829      0.49712      0.52998      1.7159       1.6774       1.7651       1.9507  
-      4        1       2       0.45619      0.51721      0.50414      0.56312      1.6098       1.7708       1.7753       1.8633  
-      5        0       3       0.52992      0.56536      0.41866      0.50231      1.8123       1.8939       1.5224       1.6115  
-      6        1       3       0.53958      0.54057      0.52793       0.4703      1.8546       1.8906       1.7381       1.6338  
-      7        0       4       0.46439      0.49755      0.52478      0.55786      1.5849       1.8126       1.7073       1.9264  
-      8        1       4        0.4126      0.48144      0.47836      0.48858      1.4588       1.6086       1.6158       1.5872  
+      1        0       1        0.52456        0.51689        0.48412        0.54526  
+      2        1       1        0.49355        0.52906         0.5583        0.47342  
+      3        0       2        0.49085        0.51315        0.45158        0.43201  
+      4        1       2        0.58096        0.50596        0.47985        0.58791  
+      5        0       3        0.57811         0.6068        0.55221        0.50677  
+      6        1       3        0.53023        0.49258        0.48728        0.43352  
+      7        0       4        0.50339        0.48449        0.53618        0.45993  
+      8        1       4        0.44418         0.5223        0.55657        0.48583  
 \end{verbatim}
 
 \hypertarget{test-ff_summ_nd_array-with-random-2-dimensional-matrix}{%
@@ -202,13 +202,13 @@ bl_row = 1;
 ff_summ_nd_array(st_title, mn_polval, bl_print_table, ar_st_stats, it_aggd, bl_row);
 
 xxx  Random 2D dimensional Array Testing Summarizing  xxxxxxxxxxxxxxxxxxxxxxxxxxx
-    group    vardim2    mn_vardim1_1    mn_vardim1_2    mn_vardim1_3    mn_vardim1_4    mn_vardim1_5
-    _____    _______    ____________    ____________    ____________    ____________    ____________
+    group    vardim2    mean_vardim1_1    mean_vardim1_2    mean_vardim1_3    mean_vardim1_4    mean_vardim1_5
+    _____    _______    ______________    ______________    ______________    ______________    ______________
 
-      1         1         0.69647         0.28614         0.22685          0.55131        0.71947   
-      2         2         0.42311         0.98076         0.68483          0.48093        0.39212   
-      3         3         0.34318         0.72905         0.43857         0.059678        0.39804   
-      4         4           0.738         0.18249         0.17545          0.53155        0.53183   
+      1         1          0.69647           0.28614           0.22685            0.55131          0.71947    
+      2         2          0.42311           0.98076           0.68483            0.48093          0.39212    
+      3         3          0.34318           0.72905           0.43857           0.059678          0.39804    
+      4         4            0.738           0.18249           0.17545            0.53155          0.53183    
 \end{verbatim}
 
 Third, rotate row and column, and now with labels:
@@ -221,14 +221,14 @@ ff_summ_nd_array(st_title, mn_polval, bl_print_table, ar_st_stats, it_aggd, bl_r
     cl_mp_datasetdesc, ar_permute);
 
 xxx  Random 2D dimensional Array Testing Summarizing  xxxxxxxxxxxxxxxxxxxxxxxxxxx
-    group     a      mn_z__1    mn_z__0_33333    mn_z_0_33333    mn_z_1 
-    _____    ____    _______    _____________    ____________    _______
+    group     a      mean_z__1    mean_z__0_33333    mean_z_0_33333    mean_z_1
+    _____    ____    _________    _______________    ______________    ________
 
-      1         0    0.69647       0.42311          0.34318        0.738
-      2      0.25    0.28614       0.98076          0.72905      0.18249
-      3       0.5    0.22685       0.68483          0.43857      0.17545
-      4      0.75    0.55131       0.48093         0.059678      0.53155
-      5         1    0.71947       0.39212          0.39804      0.53183
+      1         0     0.69647         0.42311            0.34318         0.738 
+      2      0.25     0.28614         0.98076            0.72905       0.18249 
+      3       0.5     0.22685         0.68483            0.43857       0.17545 
+      4      0.75     0.55131         0.48093           0.059678       0.53155 
+      5         1     0.71947         0.39212            0.39804       0.53183 
 \end{verbatim}
 
 Fourth, dimension one as columns, average over dim 2:
@@ -240,10 +240,10 @@ ff_summ_nd_array(st_title, mn_polval, bl_print_table, ar_st_stats, it_aggd, bl_r
     cl_mp_datasetdesc);
 
 xxx  Random 2D dimensional Array Testing Summarizing  xxxxxxxxxxxxxxxxxxxxxxxxxxx
-    group    x    mn_z__1    mn_z__0_33333    mn_z_0_33333    mn_z_1 
-    _____    _    _______    _____________    ____________    _______
+    group    x    mean_z__1    mean_z__0_33333    mean_z_0_33333    mean_z_1
+    _____    _    _________    _______________    ______________    ________
 
-      1      1    0.49605       0.59235          0.3937       0.43186
+      1      1     0.49605         0.59235            0.3937        0.43186 
 \end{verbatim}
 
 Fifth, dimension one as rows, average over dim 2:
@@ -255,13 +255,13 @@ ff_summ_nd_array(st_title, mn_polval, bl_print_table, ar_st_stats, it_aggd, bl_r
     cl_mp_datasetdesc);
 
 xxx  Random 2D dimensional Array Testing Summarizing  xxxxxxxxxxxxxxxxxxxxxxxxxxx
-    group       z         mean        std      coefvari      min         max  
-    _____    ________    _______    _______    ________    ________    _______
+    group       z         sum       mean        std      coefvari      min         max  
+    _____    ________    ______    _______    _______    ________    ________    _______
 
-      1            -1    0.49605    0.22895     2.1666      0.22685    0.71947
-      2      -0.33333    0.59235    0.24524     2.4154      0.39212    0.98076
-      3       0.33333     0.3937    0.23907     1.6468     0.059678    0.72905
-      4             1    0.43186    0.24575     1.7573      0.17545      0.738
+      1            -1    2.4802    0.49605    0.22895     2.1666      0.22685    0.71947
+      2      -0.33333    2.9617    0.59235    0.24524     2.4154      0.39212    0.98076
+      3       0.33333    1.9685     0.3937    0.23907     1.6468     0.059678    0.72905
+      4             1    2.1593    0.43186    0.24575     1.7573      0.17545      0.738
 \end{verbatim}
 
 Sixth, dimension two as rows, average over dim 1:
@@ -274,14 +274,14 @@ ff_summ_nd_array(st_title, mn_polval, bl_print_table, ar_st_stats, it_aggd, bl_r
     cl_mp_datasetdesc, ar_permute);
 
 xxx  Random 2D dimensional Array Testing Summarizing  xxxxxxxxxxxxxxxxxxxxxxxxxxx
-    group     a       mean        std      coefvari      min         max  
-    _____    ____    _______    _______    ________    ________    _______
+    group     a       sum       mean        std      coefvari      min         max  
+    _____    ____    ______    _______    _______    ________    ________    _______
 
-      1         0    0.55019    0.19636     2.8019      0.34318      0.738
-      2      0.25    0.54461    0.37514     1.4518      0.18249    0.98076
-      3       0.5    0.38143    0.23212     1.6432      0.17545    0.68483
-      4      0.75    0.40587    0.23269     1.7443     0.059678    0.55131
-      5         1    0.51036    0.15361     3.3226      0.39212    0.71947
+      1         0    2.2007    0.55019    0.19636     2.8019      0.34318      0.738
+      2      0.25    2.1784    0.54461    0.37514     1.4518      0.18249    0.98076
+      3       0.5    1.5257    0.38143    0.23212     1.6432      0.17545    0.68483
+      4      0.75    1.6235    0.40587    0.23269     1.7443     0.059678    0.55131
+      5         1    2.0415    0.51036    0.15361     3.3226      0.39212    0.71947
 \end{verbatim}
 
 \hypertarget{test-ff_summ_nd_array-with-random-6-dimensional-matrix}{%
@@ -308,21 +308,21 @@ bl_row = 0;
 ff_summ_nd_array(st_title, mn_polval, bl_print_table, ar_st_stats, it_aggd, bl_row);
 
 xxx  Random ND dimensional Array Testing Summarizing  xxxxxxxxxxxxxxxxxxxxxxxxxxx
-    group    vardim5    vardim6     mean        std      coefvari       min          max  
-    _____    _______    _______    _______    _______    ________    __________    _______
+    group    vardim5    vardim6     sum       mean        std      coefvari       min          max  
+    _____    _______    _______    ______    _______    _______    ________    __________    _______
 
-      1         1          1       0.49808    0.29255     1.7026     8.1888e-05    0.99964
-      2         2          1       0.50128    0.28968     1.7305     6.7838e-05    0.99936
-      3         3          1       0.49491    0.28851     1.7154     0.00091373    0.99989
-      4         4          1       0.50232    0.28154     1.7842     0.00012471    0.99731
-      5         1          2        0.4994     0.2911     1.7156     0.00029749    0.99938
-      6         2          2       0.49453    0.28634     1.7271     0.00027113     0.9992
-      7         3          2       0.49559    0.28682     1.7279     0.00035994    0.99936
-      8         4          2       0.48835    0.29032     1.6821     0.00096259    0.99896
-      9         1          3       0.51819    0.29111     1.7801      0.0010616    0.99951
-     10         2          3       0.50874    0.28458     1.7877       0.001884    0.99965
-     11         3          3       0.49898     0.2891      1.726      0.0019192    0.99945
-     12         4          3       0.50169     0.2877     1.7438     0.00016871    0.99963
+      1         1          1       836.78    0.49808    0.29255     1.7026     8.1888e-05    0.99964
+      2         2          1       842.15    0.50128    0.28968     1.7305     6.7838e-05    0.99936
+      3         3          1       831.45    0.49491    0.28851     1.7154     0.00091373    0.99989
+      4         4          1        843.9    0.50232    0.28154     1.7842     0.00012471    0.99731
+      5         1          2       838.99     0.4994     0.2911     1.7156     0.00029749    0.99938
+      6         2          2       830.81    0.49453    0.28634     1.7271     0.00027113     0.9992
+      7         3          2       832.59    0.49559    0.28682     1.7279     0.00035994    0.99936
+      8         4          2       820.42    0.48835    0.29032     1.6821     0.00096259    0.99896
+      9         1          3       870.56    0.51819    0.29111     1.7801      0.0010616    0.99951
+     10         2          3       854.68    0.50874    0.28458     1.7877       0.001884    0.99965
+     11         3          3       838.29    0.49898     0.2891      1.726      0.0019192    0.99945
+     12         4          3       842.83    0.50169     0.2877     1.7438     0.00016871    0.99963
 \end{verbatim}
 
 Third, summarize over the first four dimensions, column group 5th, and
@@ -331,15 +331,15 @@ row group others:
 \begin{verbatim}
 it_aggd = 4; 
 bl_row = 1; 
-ff_summ_nd_array(st_title, mn_polval, bl_print_table, ar_st_stats, it_aggd, bl_row);
+ff_summ_nd_array(st_title, mn_polval, bl_print_table, ["sum"], it_aggd, bl_row);
 
 xxx  Random ND dimensional Array Testing Summarizing  xxxxxxxxxxxxxxxxxxxxxxxxxxx
-    group    vardim6    mn_vardim5_1    mn_vardim5_2    mn_vardim5_3    mn_vardim5_4
-    _____    _______    ____________    ____________    ____________    ____________
+    group    vardim6    sum_vardim5_1    sum_vardim5_2    sum_vardim5_3    sum_vardim5_4
+    _____    _______    _____________    _____________    _____________    _____________
 
-      1         1         0.49808         0.50128         0.49491         0.50232   
-      2         2          0.4994         0.49453         0.49559         0.48835   
-      3         3         0.51819         0.50874         0.49898         0.50169   
+      1         1          836.78           842.15           831.45            843.9    
+      2         2          838.99           830.81           832.59           820.42    
+      3         3          870.56           854.68           838.29           842.83    
 \end{verbatim}
 
 Fourth, summarize over the first five dimensions, column group 6th, no
@@ -348,13 +348,13 @@ row groups:
 \begin{verbatim}
 it_aggd = 5;
 bl_row = 1; 
-ff_summ_nd_array(st_title, mn_polval, bl_print_table, ar_st_stats, it_aggd, bl_row);
+ff_summ_nd_array(st_title, mn_polval, bl_print_table, ["mean", "std"], it_aggd, bl_row);
 
 xxx  Random ND dimensional Array Testing Summarizing  xxxxxxxxxxxxxxxxxxxxxxxxxxx
-    group    x    mn_vardim6_1    mn_vardim6_2    mn_vardim6_3
-    _____    _    ____________    ____________    ____________
+    group    x    mean_vardim6_1    mean_vardim6_2    mean_vardim6_3    std_vardim6_1    std_vardim6_2    std_vardim6_3
+    _____    _    ______________    ______________    ______________    _____________    _____________    _____________
 
-      1      1      0.49915         0.49447          0.5069   
+      1      1       0.49915           0.49447            0.5069           0.28805          0.28862          0.28816   
 \end{verbatim}
 
 Fifth, summarize over all six dimensions, summary statistics over the
@@ -366,10 +366,10 @@ bl_row = 0;
 ff_summ_nd_array(st_title, mn_polval, bl_print_table, ar_st_stats, it_aggd, bl_row);
 
 xxx  Random ND dimensional Array Testing Summarizing  xxxxxxxxxxxxxxxxxxxxxxxxxxx
-    group    x     mean        std      coefvari       min          max  
-    _____    _    _______    _______    ________    __________    _______
+    group    x     sum      mean        std      coefvari       min          max  
+    _____    _    _____    _______    _______    ________    __________    _______
 
-      1      1    0.50017    0.28831     1.7349     6.7838e-05    0.99989
+      1      1    10083    0.50017    0.28831     1.7349     6.7838e-05    0.99989
 \end{verbatim}
 
 \hypertarget{test-ff_summ_nd_array-with-random-7-dimensional-matrix-with-all-parameters}{%
@@ -377,7 +377,7 @@ xxx  Random ND dimensional Array Testing Summarizing  xxxxxxxxxxxxxxxxxxxxxxxxxx
 
 Given a random seven dimensional matrix, average over the 2nd, 4th and
 5th dimensionals. Show as row groups the 3, 6 and 7th dimensions, and
-row groups the 1st dimension.
+row groups the 1st dimension. Show Coefficient of Variation only.
 
 \begin{verbatim}
 st_title = "avg VALUE 2+4+5th dims. groups 3+6+7th dims, and row groups the 1st dim.";
@@ -385,7 +385,7 @@ rng(123)
 mn_polval = rand(3,10,2,10,10,2,3);
 ar_permute = [2,4,5,1,3,6,7];
 bl_print_table = true;
-ar_st_stats = ["mean", "coefvari"];
+ar_st_stats = ["coefvari"];
 it_aggd = 3; % mean over 3 dims
 bl_row = 1; % one var for row group
 cl_mp_datasetdesc = {};
@@ -407,21 +407,21 @@ cl_mp_datasetdesc{7} = containers.Map({'name', 'labval'}, ...
 ff_summ_nd_array(st_title, mn_polval, bl_print_table, ar_st_stats, it_aggd, bl_row, cl_mp_datasetdesc, ar_permute);
 
 xxx  avg VALUE 2+4+5th dims. groups 3+6+7th dims, and row groups the 1st dim.  xxxxxxxxxxxxxxxxxxxxxxxxxxx
-    group    borrsave    marry    region    mn_age_18    mn_age_19    mn_age_20    cv_age_18    cv_age_19    cv_age_20
-    _____    ________    _____    ______    _________    _________    _________    _________    _________    _________
+    group    borrsave    marry    region    cv_age_18    cv_age_19    cv_age_20
+    _____    ________    _____    ______    _________    _________    _________
 
-      1         -1         0        1        0.50503      0.50389      0.49788      1.7607       1.7534       1.7065  
-      2          1         0        1         0.4829      0.50795      0.49205      1.6566       1.7501       1.7042  
-      3         -1         1        1        0.48123      0.50734      0.50109      1.6608       1.7658       1.7291  
-      4          1         1        1        0.49987      0.49852      0.49519       1.756       1.7479       1.7606  
-      5         -1         0        2        0.49859      0.50866      0.51752      1.7314       1.7506        1.786  
-      6          1         0        2        0.50451      0.49802      0.50439      1.7347        1.728        1.738  
-      7         -1         1        2        0.50967      0.49651      0.50556      1.7811        1.755       1.7568  
-      8          1         1        2        0.50209      0.49224      0.50252      1.7445       1.7398       1.7746  
-      9         -1         0        3        0.48885      0.49229      0.49692      1.7025       1.7286         1.69  
-     10          1         0        3        0.49534      0.50183      0.50266        1.74       1.7549       1.7356  
-     11         -1         1        3        0.50312      0.50535      0.48959      1.7147       1.7287       1.7341  
-     12          1         1        3        0.51204      0.49998      0.50738      1.7919       1.7313       1.7452  
+      1         -1         0        1        1.7607       1.7534       1.7065  
+      2          1         0        1        1.6566       1.7501       1.7042  
+      3         -1         1        1        1.6608       1.7658       1.7291  
+      4          1         1        1         1.756       1.7479       1.7606  
+      5         -1         0        2        1.7314       1.7506        1.786  
+      6          1         0        2        1.7347        1.728        1.738  
+      7         -1         1        2        1.7811        1.755       1.7568  
+      8          1         1        2        1.7445       1.7398       1.7746  
+      9         -1         0        3        1.7025       1.7286         1.69  
+     10          1         0        3          1.74       1.7549       1.7356  
+     11         -1         1        3        1.7147       1.7287       1.7341  
+     12          1         1        3        1.7919       1.7313       1.7452  
 \end{verbatim}
 
 \vspace{1em}
@@ -1543,6 +1543,36 @@ ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
 
 \includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_2.png}
 
+\hypertarget{test-ff_graph_grid-6-lines-pick-marker-and-colors}{%
+\subsection{Test FF\_GRAPH\_GRID 6 Lines Pick Marker and Colors}\label{test-ff_graph_grid-6-lines-pick-marker-and-colors}}
+
+Plot many lines, with auto legend.
+
+\begin{verbatim}
+% Generate some Data
+rng(456);
+ar_row_grid = linspace(-4, 11, 5);
+ar_col_grid = linspace(-1, 1, 20);
+rng(123);
+mt_value = 0.2*ar_row_grid' + exp(ar_col_grid) + rand([length(ar_row_grid), length(ar_col_grid)]);
+% container map settings
+mp_support_graph = containers.Map('KeyType', 'char', 'ValueType', 'any');
+mp_support_graph('cl_st_graph_title') = {'5 lines, specify marker and color, value(a,z), a=x, z=color'};
+mp_support_graph('cl_st_ytitle') = {'value(a,z)'};
+mp_support_graph('cl_st_xtitle') = {'Savings States, a'};
+mp_support_graph('st_legend_loc') = 'southeast';
+mp_support_graph('bl_graph_logy') = false; % do not log
+mp_support_graph('st_rowvar_name') = 'z=';
+mp_support_graph('it_legend_select') = 3; % how many shock legends to show
+mp_support_graph('st_rounding') = '6.2f'; % format shock legend
+mp_support_graph('cl_scatter_shapes') = {'s', 's', '*', '*', 'p'};
+mp_support_graph('cl_colors') = {'green', 'black', 'green', 'black', 'orange'};
+% Call function
+ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
+\end{verbatim}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_3.png}
+
 \hypertarget{test-ff_graph_grid-many-lines}{%
 \subsection{Test FF\_GRAPH\_GRID Many Lines}\label{test-ff_graph_grid-many-lines}}
 
@@ -1569,7 +1599,7 @@ mp_support_graph('st_rounding') = '6.2f'; % format shock legend
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
 \end{verbatim}
 
-\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_3.png}
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_4.png}
 
 \hypertarget{test-ff_graph_grid-many-lines-legend-exogenous}{%
 \subsection{Test FF\_GRAPH\_GRID Many Lines Legend Exogenous}\label{test-ff_graph_grid-many-lines-legend-exogenous}}
@@ -1597,7 +1627,7 @@ mp_support_graph('it_legend_select') = 15;
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
 \end{verbatim}
 
-\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_4.png}
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_5.png}
 
 \hypertarget{support-tools}{%
 \chapter{Support Tools}\label{support-tools}}
@@ -1628,19 +1658,19 @@ ff_container_map_display();
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
  ND Array (Matrix etc)
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                      i     idx    ndim    numel    rowN    colN     mean        std      coefvari       min          max  
-                      __    ___    ____    _____    ____    ____    _______    _______    ________    __________    _______
+                      i     idx    ndim    numel    rowN    colN     sum       mean        std      coefvari       min          max  
+                      __    ___    ____    _____    ____    ____    ______    _______    _______    ________    __________    _______
 
-    mat_1              1     7      2        12       3       4     0.54285     0.2232    0.41115        0.22685    0.98076
-    mat_2              2     8      2      2650      50      53     0.49559    0.29232    0.58985     6.7838e-05    0.99964
-    mat_2_boolean      3     9      2      2650      50      53     0.51358    0.49991    0.97337              0          1
-    mat_3              4    10      2         4       2       2     0.45277    0.45111    0.99635     0.00012471    0.88615
-    tensor_1           5    15      3        16       2       8     0.45652    0.27787    0.60867       0.018091     0.8345
-    tensor_2           6    16      3        75       3      25     0.53593    0.29044    0.54194      0.0024293    0.99731
-    tensor_3           7    17      2         4       1       4     0.42315    0.37389    0.88359         0.1219    0.91553
-    tesseract_1        8    18      4        72       3      24     0.47669    0.26374    0.55327       0.010239    0.96435
-    tesseract_2        9    19      4        20       2      10     0.42096    0.28981    0.68846       0.043114    0.97146
-    tesseract_bl_3    10    20      4        10       1      10         0.3    0.48305     1.6102              0          1
+    mat_1              1     7      2        12       3       4     6.5142    0.54285     0.2232    0.41115        0.22685    0.98076
+    mat_2              2     8      2      2650      50      53     1313.3    0.49559    0.29232    0.58985     6.7838e-05    0.99964
+    mat_2_boolean      3     9      2      2650      50      53       1361    0.51358    0.49991    0.97337              0          1
+    mat_3              4    10      2         4       2       2     1.8111    0.45277    0.45111    0.99635     0.00012471    0.88615
+    tensor_1           5    15      3        16       2       8     7.3043    0.45652    0.27787    0.60867       0.018091     0.8345
+    tensor_2           6    16      3        75       3      25     40.195    0.53593    0.29044    0.54194      0.0024293    0.99731
+    tensor_3           7    17      2         4       1       4     1.6926    0.42315    0.37389    0.88359         0.1219    0.91553
+    tesseract_1        8    18      4        72       3      24     34.321    0.47669    0.26374    0.55327       0.010239    0.96435
+    tesseract_2        9    19      4        20       2      10     8.4191    0.42096    0.28981    0.68846       0.043114    0.97146
+    tesseract_bl_3    10    20      4        10       1      10          3        0.3    0.48305     1.6102              0          1
 
 xxx TABLE:mat_1 xxxxxxxxxxxxxxxxxx
             c1         c2         c3         c4   
@@ -1783,12 +1813,12 @@ ff_container_map_display(mp_container_map);
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_container_map ND Array (Matrix etc)
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                     i    idx    ndim    numel    rowN    colN     mean        std      coefvari       min          max  
-                     _    ___    ____    _____    ____    ____    _______    _______    ________    __________    _______
+                     i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari       min          max  
+                     _    ___    ____    _____    ____    ____    ______    _______    _______    ________    __________    _______
 
-    mat_1            1     1      2      10000    100     100     0.49823    0.28829    0.57863     6.7838e-05    0.99989
-    mat_2            2     2      2      10000    100     100      2.0029    0.57632    0.28774         1.0003     2.9993
-    mat_2_boolean    3     3      2      10000    100     100      0.4995    0.50002     1.0011              0          1
+    mat_1            1     1      2      10000    100     100     4982.3    0.49823    0.28829    0.57863     6.7838e-05    0.99989
+    mat_2            2     2      2      10000    100     100      20029     2.0029    0.57632    0.28774         1.0003     2.9993
+    mat_2_boolean    3     3      2      10000    100     100       4995     0.4995    0.50002     1.0011              0          1
 \end{verbatim}
 
 \hypertarget{test-ff_container_map_display-show-matrix-subset}{%
@@ -1811,12 +1841,12 @@ ff_container_map_display(mp_container_map, 2, 3);
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_container_map ND Array (Matrix etc)
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                     i    idx    ndim    numel    rowN    colN     mean        std      coefvari       min          max  
-                     _    ___    ____    _____    ____    ____    _______    _______    ________    __________    _______
+                     i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari       min          max  
+                     _    ___    ____    _____    ____    ____    ______    _______    _______    ________    __________    _______
 
-    mat_1            1     1      2        12       3       4     0.41564    0.33586    0.80805        0.01062    0.97541
-    mat_2            2     2      2      2650      50      53     0.49973    0.28834    0.57699     0.00046692    0.99985
-    mat_2_boolean    3     3      2      2650      50      53     0.50943    0.50001    0.98149              0          1
+    mat_1            1     1      2        12       3       4     4.9876    0.41564    0.33586    0.80805        0.01062    0.97541
+    mat_2            2     2      2      2650      50      53     1324.3    0.49973    0.28834    0.57699     0.00046692    0.99985
+    mat_2_boolean    3     3      2      2650      50      53       1350    0.50943    0.50001    0.98149              0          1
 
 xxx TABLE:mat_1 xxxxxxxxxxxxxxxxxx
             c1         c2         c3         c4   
