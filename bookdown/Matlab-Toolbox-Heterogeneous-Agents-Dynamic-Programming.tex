@@ -104,7 +104,7 @@
 
 \title{Matlab Toolbox Heterogeneous Agents Dynamic Programming}
 \author{Fan Wang}
-\date{2020-06-24}
+\date{2020-06-25}
 
 \begin{document}
 \maketitle
@@ -1521,6 +1521,28 @@ ff_graph_grid();
 
 \includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_1.png}
 
+\hypertarget{test-ff_graph_grid-random-matrix-pick-markers-and-colors}{%
+\subsection{Test FF\_GRAPH\_GRID Random Matrix Pick Markers and Colors}\label{test-ff_graph_grid-random-matrix-pick-markers-and-colors}}
+
+Call the function with defaults.
+
+\begin{verbatim}
+rng(123);
+mt_value = [normrnd(50,10,[1, 50]); ...
+            normrnd(70,5,[1, 50]);...
+            normrnd(90,10,[1, 50])];
+ar_row_grid = ["shock low", "zero", "shock high"];
+ar_col_grid = 1:50;
+mp_support_graph = containers.Map('KeyType', 'char', 'ValueType', 'any');
+mp_support_graph('cl_scatter_shapes') = { '.', 's' ,'.' };
+mp_support_graph('cl_colors') = {'gray', 'red', 'gray'};
+ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
+\end{verbatim}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_2.png}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_3.png}
+
 \hypertarget{test-ff_graph_grid-two-random-normal-lines-and-labels}{%
 \subsection{Test FF\_GRAPH\_GRID Two Random Normal Lines and Labels}\label{test-ff_graph_grid-two-random-normal-lines-and-labels}}
 
@@ -1541,7 +1563,7 @@ mp_support_graph('bl_graph_logy') = false; % do not log
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
 \end{verbatim}
 
-\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_2.png}
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_4.png}
 
 \hypertarget{test-ff_graph_grid-6-lines-pick-marker-and-colors}{%
 \subsection{Test FF\_GRAPH\_GRID 6 Lines Pick Marker and Colors}\label{test-ff_graph_grid-6-lines-pick-marker-and-colors}}
@@ -1571,7 +1593,7 @@ mp_support_graph('cl_colors') = {'green', 'black', 'green', 'black', 'orange'};
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
 \end{verbatim}
 
-\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_3.png}
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_5.png}
 
 \hypertarget{test-ff_graph_grid-many-lines}{%
 \subsection{Test FF\_GRAPH\_GRID Many Lines}\label{test-ff_graph_grid-many-lines}}
@@ -1595,11 +1617,12 @@ mp_support_graph('bl_graph_logy') = false; % do not log
 mp_support_graph('st_rowvar_name') = 'z=';
 mp_support_graph('it_legend_select') = 3; % how many shock legends to show
 mp_support_graph('st_rounding') = '6.2f'; % format shock legend
+mp_support_graph('cl_colors') = 'jet'; % any predefined matlab colormap
 % Call function
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
 \end{verbatim}
 
-\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_4.png}
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_6.png}
 
 \hypertarget{test-ff_graph_grid-many-lines-legend-exogenous}{%
 \subsection{Test FF\_GRAPH\_GRID Many Lines Legend Exogenous}\label{test-ff_graph_grid-many-lines-legend-exogenous}}
@@ -1623,11 +1646,12 @@ mp_support_graph('cl_st_xtitle') = {'Savings States, a'};
 mp_support_graph('st_legend_loc') = 'eastoutside';
 mp_support_graph('bl_graph_logy') = false; % do not log
 mp_support_graph('it_legend_select') = 15;
+mp_support_graph('cl_colors') = 'winter'; % any predefined matlab colormap
 % Call function
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
 \end{verbatim}
 
-\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_5.png}
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_7.png}
 
 \hypertarget{support-tools}{%
 \chapter{Support Tools}\label{support-tools}}

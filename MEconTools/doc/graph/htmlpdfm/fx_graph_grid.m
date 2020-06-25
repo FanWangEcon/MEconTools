@@ -12,6 +12,19 @@
 % Call the function with defaults.
 
 ff_graph_grid();
+%% Test FF_GRAPH_GRID Random Matrix Pick Markers and Colors
+% Call the function with defaults.
+
+rng(123);
+mt_value = [normrnd(50,10,[1, 50]); ...
+            normrnd(70,5,[1, 50]);...
+            normrnd(90,10,[1, 50])];
+ar_row_grid = ["shock low", "zero", "shock high"];
+ar_col_grid = 1:50;
+mp_support_graph = containers.Map('KeyType', 'char', 'ValueType', 'any');
+mp_support_graph('cl_scatter_shapes') = { '.', 's' ,'.' };
+mp_support_graph('cl_colors') = {'gray', 'red', 'gray'};
+ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
 %% Test FF_GRAPH_GRID Two Random Normal Lines and Labels
 % There are two autoregressive time series, plot out the time two time series. 
 
@@ -68,6 +81,7 @@ mp_support_graph('bl_graph_logy') = false; % do not log
 mp_support_graph('st_rowvar_name') = 'z=';
 mp_support_graph('it_legend_select') = 3; % how many shock legends to show
 mp_support_graph('st_rounding') = '6.2f'; % format shock legend
+mp_support_graph('cl_colors') = 'jet'; % any predefined matlab colormap
 % Call function
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
 %% Test FF_GRAPH_GRID Many Lines Legend Exogenous
@@ -89,5 +103,6 @@ mp_support_graph('cl_st_xtitle') = {'Savings States, a'};
 mp_support_graph('st_legend_loc') = 'eastoutside';
 mp_support_graph('bl_graph_logy') = false; % do not log
 mp_support_graph('it_legend_select') = 15;
+mp_support_graph('cl_colors') = 'winter'; % any predefined matlab colormap
 % Call function
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);

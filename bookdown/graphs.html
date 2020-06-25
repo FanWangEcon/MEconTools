@@ -24,7 +24,7 @@
 <meta name="author" content="Fan Wang" />
 
 
-<meta name="date" content="2020-06-24" />
+<meta name="date" content="2020-06-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -113,10 +113,11 @@
 <li class="chapter" data-level="3" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>3</b> Graphs</a><ul>
 <li class="chapter" data-level="3.1" data-path="graphs.html"><a href="graphs.html#ff_graph_grid-examples-x-y-and-color-line-plots"><i class="fa fa-check"></i><b>3.1</b> FF_GRAPH_GRID Examples: X, Y and Color Line Plots</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-defaults"><i class="fa fa-check"></i><b>3.1.1</b> Test FF_GRAPH_GRID Defaults</a></li>
-<li class="chapter" data-level="3.1.2" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-two-random-normal-lines-and-labels"><i class="fa fa-check"></i><b>3.1.2</b> Test FF_GRAPH_GRID Two Random Normal Lines and Labels</a></li>
-<li class="chapter" data-level="3.1.3" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-6-lines-pick-marker-and-colors"><i class="fa fa-check"></i><b>3.1.3</b> Test FF_GRAPH_GRID 6 Lines Pick Marker and Colors</a></li>
-<li class="chapter" data-level="3.1.4" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-many-lines"><i class="fa fa-check"></i><b>3.1.4</b> Test FF_GRAPH_GRID Many Lines</a></li>
-<li class="chapter" data-level="3.1.5" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-many-lines-legend-exogenous"><i class="fa fa-check"></i><b>3.1.5</b> Test FF_GRAPH_GRID Many Lines Legend Exogenous</a></li>
+<li class="chapter" data-level="3.1.2" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-random-matrix-pick-markers-and-colors"><i class="fa fa-check"></i><b>3.1.2</b> Test FF_GRAPH_GRID Random Matrix Pick Markers and Colors</a></li>
+<li class="chapter" data-level="3.1.3" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-two-random-normal-lines-and-labels"><i class="fa fa-check"></i><b>3.1.3</b> Test FF_GRAPH_GRID Two Random Normal Lines and Labels</a></li>
+<li class="chapter" data-level="3.1.4" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-6-lines-pick-marker-and-colors"><i class="fa fa-check"></i><b>3.1.4</b> Test FF_GRAPH_GRID 6 Lines Pick Marker and Colors</a></li>
+<li class="chapter" data-level="3.1.5" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-many-lines"><i class="fa fa-check"></i><b>3.1.5</b> Test FF_GRAPH_GRID Many Lines</a></li>
+<li class="chapter" data-level="3.1.6" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-many-lines-legend-exogenous"><i class="fa fa-check"></i><b>3.1.6</b> Test FF_GRAPH_GRID Many Lines Legend Exogenous</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="support-tools.html"><a href="support-tools.html"><i class="fa fa-check"></i><b>4</b> Support Tools</a><ul>
@@ -175,8 +176,24 @@ lines (scatter + lines), or many groups (jet spectrum).</p>
 <p><img src="img/fx_graph_grid_images/figure_0.png" width="500" /></p>
 <p><img src="img/fx_graph_grid_images/figure_1.png" width="500" /></p>
 </div>
+<div id="test-ff_graph_grid-random-matrix-pick-markers-and-colors" class="section level3">
+<h3><span class="header-section-number">3.1.2</span> Test FF_GRAPH_GRID Random Matrix Pick Markers and Colors</h3>
+<p>Call the function with defaults.</p>
+<pre><code>rng(123);
+mt_value = [normrnd(50,10,[1, 50]); ...
+            normrnd(70,5,[1, 50]);...
+            normrnd(90,10,[1, 50])];
+ar_row_grid = [&quot;shock low&quot;, &quot;zero&quot;, &quot;shock high&quot;];
+ar_col_grid = 1:50;
+mp_support_graph = containers.Map(&#39;KeyType&#39;, &#39;char&#39;, &#39;ValueType&#39;, &#39;any&#39;);
+mp_support_graph(&#39;cl_scatter_shapes&#39;) = { &#39;.&#39;, &#39;s&#39; ,&#39;.&#39; };
+mp_support_graph(&#39;cl_colors&#39;) = {&#39;gray&#39;, &#39;red&#39;, &#39;gray&#39;};
+ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);</code></pre>
+<p><img src="img/fx_graph_grid_images/figure_2.png" width="500" /></p>
+<p><img src="img/fx_graph_grid_images/figure_3.png" width="500" /></p>
+</div>
 <div id="test-ff_graph_grid-two-random-normal-lines-and-labels" class="section level3">
-<h3><span class="header-section-number">3.1.2</span> Test FF_GRAPH_GRID Two Random Normal Lines and Labels</h3>
+<h3><span class="header-section-number">3.1.3</span> Test FF_GRAPH_GRID Two Random Normal Lines and Labels</h3>
 <p>There are two autoregressive time series, plot out the time two time
 series.</p>
 <pre><code>% Generate the two time series
@@ -190,10 +207,10 @@ mp_support_graph(&#39;cl_st_ytitle&#39;) = {&#39;Values&#39;};
 mp_support_graph(&#39;cl_st_xtitle&#39;) = {&#39;Periods&#39;};
 mp_support_graph(&#39;bl_graph_logy&#39;) = false; % do not log
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);</code></pre>
-<p><img src="img/fx_graph_grid_images/figure_2.png" width="500" /></p>
+<p><img src="img/fx_graph_grid_images/figure_4.png" width="500" /></p>
 </div>
 <div id="test-ff_graph_grid-6-lines-pick-marker-and-colors" class="section level3">
-<h3><span class="header-section-number">3.1.3</span> Test FF_GRAPH_GRID 6 Lines Pick Marker and Colors</h3>
+<h3><span class="header-section-number">3.1.4</span> Test FF_GRAPH_GRID 6 Lines Pick Marker and Colors</h3>
 <p>Plot many lines, with auto legend.</p>
 <pre><code>% Generate some Data
 rng(456);
@@ -215,10 +232,10 @@ mp_support_graph(&#39;cl_scatter_shapes&#39;) = {&#39;s&#39;, &#39;s&#39;, &#39;
 mp_support_graph(&#39;cl_colors&#39;) = {&#39;green&#39;, &#39;black&#39;, &#39;green&#39;, &#39;black&#39;, &#39;orange&#39;};
 % Call function
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);</code></pre>
-<p><img src="img/fx_graph_grid_images/figure_3.png" width="500" /></p>
+<p><img src="img/fx_graph_grid_images/figure_5.png" width="500" /></p>
 </div>
 <div id="test-ff_graph_grid-many-lines" class="section level3">
-<h3><span class="header-section-number">3.1.4</span> Test FF_GRAPH_GRID Many Lines</h3>
+<h3><span class="header-section-number">3.1.5</span> Test FF_GRAPH_GRID Many Lines</h3>
 <p>Plot many lines, with auto legend.</p>
 <pre><code>% Generate some Data
 rng(456);
@@ -236,12 +253,13 @@ mp_support_graph(&#39;bl_graph_logy&#39;) = false; % do not log
 mp_support_graph(&#39;st_rowvar_name&#39;) = &#39;z=&#39;;
 mp_support_graph(&#39;it_legend_select&#39;) = 3; % how many shock legends to show
 mp_support_graph(&#39;st_rounding&#39;) = &#39;6.2f&#39;; % format shock legend
+mp_support_graph(&#39;cl_colors&#39;) = &#39;jet&#39;; % any predefined matlab colormap
 % Call function
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);</code></pre>
-<p><img src="img/fx_graph_grid_images/figure_4.png" width="500" /></p>
+<p><img src="img/fx_graph_grid_images/figure_6.png" width="500" /></p>
 </div>
 <div id="test-ff_graph_grid-many-lines-legend-exogenous" class="section level3">
-<h3><span class="header-section-number">3.1.5</span> Test FF_GRAPH_GRID Many Lines Legend Exogenous</h3>
+<h3><span class="header-section-number">3.1.6</span> Test FF_GRAPH_GRID Many Lines Legend Exogenous</h3>
 <p>Plot many lines, exogenously set legend</p>
 <pre><code>% Generate the two time series
 rng(456);
@@ -259,9 +277,10 @@ mp_support_graph(&#39;cl_st_xtitle&#39;) = {&#39;Savings States, a&#39;};
 mp_support_graph(&#39;st_legend_loc&#39;) = &#39;eastoutside&#39;;
 mp_support_graph(&#39;bl_graph_logy&#39;) = false; % do not log
 mp_support_graph(&#39;it_legend_select&#39;) = 15;
+mp_support_graph(&#39;cl_colors&#39;) = &#39;winter&#39;; % any predefined matlab colormap
 % Call function
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);</code></pre>
-<p><img src="img/fx_graph_grid_images/figure_5.png" width="500" /></p>
+<p><img src="img/fx_graph_grid_images/figure_7.png" width="500" /></p>
 
 </div>
 </div>

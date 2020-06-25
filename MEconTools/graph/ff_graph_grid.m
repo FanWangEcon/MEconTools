@@ -3,14 +3,14 @@
 %    (AR_COL_GRID) as X, and rows (AR_ROW_GRID) as separate lines. For
 %    example columns could be asset points, and rows could be corresponding
 %    to different shocks, and MT_VALUE are different policy optimal chocies
-%    given asset and shock points. The AR_ROW_GRID values can be 
+%    given asset and shock points. The AR_ROW_GRID values can be
 %
 %    * MT_VALUE R by C numeric matrix
 %    * AR_COL_GRID 1 by C array, numeric array
 %    * AR_ROW_GRID 1 by R array, numeric or string array (NOT CHAR array)
 %    * MP_SUPPORT_GRAPH container map
 %
-%    MP_SUPPORT_GRAPH keys and Example Values: 
+%    MP_SUPPORT_GRAPH keys and Example Values:
 %
 %    MP_SUPPORT_GRAPH = containers.Map('KeyType', 'char', 'ValueType', 'any');
 %    MP_SUPPORT_GRAPH('cl_st_graph_title') = {'title line main', 'title line 2'};
@@ -22,10 +22,17 @@
 %    MP_SUPPORT_GRAPH('it_legend_select') = 5;
 %    MP_SUPPORT_GRAPH('st_rounding') = '.2f';
 %    MP_SUPPORT_GRAPH('cl_scatter_shapes') = {'s', 'x', 'o', 'd'};
+%
+%    For Colors:
+%    Either specify a cell array of strings:
 %    MP_SUPPORT_GRAPH('cl_colors') = {'blue', 'red', 'black', 'green'};
-%      
+%    or specify a string with one of the matlab colormap names:
+%    MP_SUPPORT_GRAPH('cl_colors') = 'jet';
+%
 %    Possible Colors:
 %    {'blue', 'red', 'black', 'green', 'brown', 'purple', 'gray', 'orange'}
+%    Color map names include all predefined matlab colormaps:
+%    'parula', 'jet', 'copper', 'winter', etc...
 %
 %    When the number of rows (shocks) is below six, each line will have
 %    a scatter point overlay with different scatter patterns.
@@ -74,7 +81,7 @@ if (~isempty(varargin))
 else
     
     close all;
-    ar_row_grid = linspace(-4, 11, 8);
+    ar_row_grid = linspace(-4, 11, 5);
     ar_col_grid = linspace(-1, 1, 6);
     rng(123);
     mt_value = 0.2*ar_row_grid' + exp(ar_col_grid) + rand([length(ar_row_grid), length(ar_col_grid)]);
@@ -93,10 +100,8 @@ mp_support_graph('it_legend_select') = 5;
 mp_support_graph('st_rounding') = '.2f';
 mp_support_graph('cl_scatter_shapes') = ...
     {'o', 'd', 's', 'p', 'h', 'x', '*', '>', '<'};
-mp_support_graph('cl_colors') = ...
-    {'blue', 'red', 'black', 'green', 'brown', 'purple', 'gray', 'orange'};
-mp_support_graph('cl_colors') = ...
-    {'blue', 'red', 'black', 'green', 'brown', 'purple', 'gray', 'orange'};
+% mp_support_graph('cl_colors') = {'blue', 'red', 'black', 'green', 'brown', 'purple', 'gray', 'orange'};
+mp_support_graph('cl_colors') = 'lines';
 
 % override default support_map values
 if (length(varargin)==4)
@@ -115,18 +120,63 @@ cl_params = values(mp_support_graph, {'st_legend_loc', 'bl_graph_logy', ...
 cl_params = values(mp_support_graph, {'cl_scatter_shapes', 'cl_colors'});
 [cl_scatter_shapes, cl_colors] = cl_params{:};
 
-mp_colors = containers.Map('KeyType', 'char', 'ValueType', 'any');
-mp_colors('blue')   = [57 106 177]./255;
-mp_colors('red')    = [204 37 41]./255;
-mp_colors('black')  = [83 81 84]./255;
-mp_colors('green')  = [62 150 81]./255;
-				    
-mp_colors('brown')  = [146 36 40]./255;
-mp_colors('purple') = [107 76 154]./255;
-mp_colors('gray')   = [128 133 133]./255;
-mp_colors('orange')   = [255 140 0]./255;
+if (iscell(cl_colors))
+    mp_colors = containers.Map('KeyType', 'char', 'ValueType', 'any');
+    mp_colors('blue')   = [57 106 177]./255;
+    mp_colors('red')    = [204 37 41]./255;
+    mp_colors('black')  = [83 81 84]./255;
+    mp_colors('green')  = [62 150 81]./255;
+    
+    mp_colors('brown')  = [146 36 40]./255;
+    mp_colors('purple') = [107 76 154]./255;
+    mp_colors('gray')   = [128 133 133]./255;
+    mp_colors('orange')   = [255 140 0]./255;
+    
+    cl_fl_colors_rgb = values(mp_colors, cl_colors);
+    mt_fl_colors_rgb = reshape(cell2mat(cl_fl_colors_rgb), 3, [])';
+else
+    % color is the number of matrix rows, all matlab colormaps
+    it_colors = size(mt_value,1);
+    if (strcmp(cl_colors, 'jet'))
+        mt_fl_colors_rgb = jet(it_colors);
+    elseif (strcmp(cl_colors, 'winter'))
+        mt_fl_colors_rgb = winter(it_colors);
+    elseif (strcmp(cl_colors, 'summer'))
+        mt_fl_colors_rgb = summer(it_colors);
+    elseif (strcmp(cl_colors, 'spring'))
+        mt_fl_colors_rgb = spring(it_colors);
+    elseif (strcmp(cl_colors, 'autumn'))
+        mt_fl_colors_rgb = autumn(it_colors);
+    elseif (strcmp(cl_colors, 'parula'))
+        mt_fl_colors_rgb = parula(it_colors);
+    elseif (strcmp(cl_colors, 'hsv'))
+        mt_fl_colors_rgb = hsv(it_colors);
+    elseif (strcmp(cl_colors, 'hot'))
+        mt_fl_colors_rgb = hot(it_colors);
+    elseif (strcmp(cl_colors, 'cool'))
+        mt_fl_colors_rgb = cool(it_colors);
+    elseif (strcmp(cl_colors, 'gray'))
+        mt_fl_colors_rgb = gray(it_colors);
+    elseif (strcmp(cl_colors, 'bone'))
+        mt_fl_colors_rgb = bone(it_colors);
+    elseif (strcmp(cl_colors, 'copper'))
+        mt_fl_colors_rgb = copper(it_colors);
+    elseif (strcmp(cl_colors, 'pink'))
+        mt_fl_colors_rgb = pink(it_colors);
+    elseif (strcmp(cl_colors, 'lines'))
+        mt_fl_colors_rgb = lines(it_colors);
+    elseif (strcmp(cl_colors, 'colorcube'))
+        mt_fl_colors_rgb = colorcube(it_colors);
+    elseif (strcmp(cl_colors, 'prism'))
+        mt_fl_colors_rgb = prism(it_colors);
+    elseif (strcmp(cl_colors, 'flag'))
+        mt_fl_colors_rgb = flag(it_colors);
+    elseif (strcmp(cl_colors, 'white'))
+        mt_fl_colors_rgb = white(it_colors);
+    end
+    
+end
 
-cl_color_values = values(mp_colors, cl_colors);
 
 %% Generaet Graph
 
@@ -169,11 +219,10 @@ for it_plot = ar_it_plot
     %% Plot Given Fewer or Many Rows Counts
     if (length(ar_row_grid) > length(cl_scatter_shapes))
         
-        %% Plot Many Rows as Jet Lines        
+        %% Plot Many Rows as Jet Lines
         chart = plot(mt_value_use');
-        clr = jet(numel(chart));
         for m = 1:numel(chart)
-            set(chart(m),'Color',clr(m,:))
+            set(chart(m),'Color',mt_fl_colors_rgb(m,:))
         end
         
     else
@@ -184,7 +233,7 @@ for it_plot = ar_it_plot
             florst_row_param = ar_row_grid(it_color);
             
             it_graph_counter = it_graph_counter + 1;
-            ar_color = cl_color_values{it_color};
+            ar_color = mt_fl_colors_rgb(it_color, :);
             
             % Access Y Values
             ar_y_use = mt_value_use(it_color,:);
@@ -237,8 +286,8 @@ for it_plot = ar_it_plot
         if(isstring(ar_row_grid))
             cl_legend = ar_row_grid;
         else
-            cl_legend = cellstr(num2str(ar_row_grid', strcat(st_rowvar_name, '%', st_rounding)));        
-        end        
+            cl_legend = cellstr(num2str(ar_row_grid', strcat(st_rowvar_name, '%', st_rounding)));
+        end
         legend(chart(ar_it_legend_select), cl_legend(ar_it_legend_select), 'Location', st_legend_loc_use);
     else
         legend(cl_legend, 'Location', st_legend_loc_use);
