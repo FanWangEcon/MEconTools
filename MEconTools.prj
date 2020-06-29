@@ -7,7 +7,7 @@
     <param.summary>Dynamic programming and related.</param.summary>
     <param.description>Dynamic programming and related.</param.description>
     <param.screenshot>${PROJECT_ROOT}\img\toolboxlogo.png</param.screenshot>
-    <param.version>0.1.16</param.version>
+    <param.version>0.1.18</param.version>
     <param.output>${PROJECT_ROOT}\MEconTools.mltbx</param.output>
     <param.products.name />
     <param.products.id />
@@ -68,6 +68,23 @@ htmlpdfm/*
       &lt;example name="ff_simu_stats" type="html"&gt;
          &lt;file type="source"&gt;/stats/html/ff_simu_stats.html&lt;/file&gt;
          &lt;file type="main"&gt;/stats/ff_simu_stats.m&lt;/file&gt;
+         &lt;file type="thumbnail"/&gt;
+      &lt;/example&gt;
+      &lt;example name="ffy_rouwenhorst" type="html"&gt;
+         &lt;file type="source"&gt;/external/stats/html/ffy_rouwenhorst.html&lt;/file&gt;
+         &lt;file type="main"&gt;/external/stats/ffy_rouwenhorst.m&lt;/file&gt;
+         &lt;file type="thumbnail"/&gt;
+      &lt;/example&gt;
+      &lt;example name="ffy_tauchen" type="html"&gt;
+         &lt;file type="source"&gt;/external/stats/html/ffy_tauchen.html&lt;/file&gt;
+         &lt;file type="main"&gt;/external/stats/ffy_tauchen.m&lt;/file&gt;
+         &lt;file type="thumbnail"/&gt;
+      &lt;/example&gt;
+   &lt;/exampleCategory&gt;
+   &lt;exampleCategory name="generate"&gt;
+      &lt;example name="ff_saveborr_grid" type="html"&gt;
+         &lt;file type="source"&gt;/generate/html/ff_saveborr_grid.html&lt;/file&gt;
+         &lt;file type="main"&gt;/generate/ff_saveborr_grid.m&lt;/file&gt;
          &lt;file type="thumbnail"/&gt;
       &lt;/example&gt;
    &lt;/exampleCategory&gt;
@@ -166,12 +183,15 @@ htmlpdfm/*
     <fileset.rootfiles>
       <file>${PROJECT_ROOT}\MEconTools\demos.xml</file>
       <file>${PROJECT_ROOT}\MEconTools\doc</file>
+      <file>${PROJECT_ROOT}\MEconTools\external</file>
+      <file>${PROJECT_ROOT}\MEconTools\generate</file>
       <file>${PROJECT_ROOT}\MEconTools\graph</file>
       <file>${PROJECT_ROOT}\MEconTools\info.xml</file>
       <file>${PROJECT_ROOT}\MEconTools\stats</file>
       <file>${PROJECT_ROOT}\MEconTools\summ</file>
       <file>${PROJECT_ROOT}\MEconTools\table</file>
       <file>${PROJECT_ROOT}\MEconTools\tools</file>
+      <file>${PROJECT_ROOT}\MEconTools\vfi</file>
     </fileset.rootfiles>
     <fileset.depfun.included />
     <fileset.depfun.excluded />

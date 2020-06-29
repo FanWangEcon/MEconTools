@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Common Functions | Matlab Toolbox Heterogeneous Agents Dynamic Programming</title>
+  <meta name="description" content="Chapter 5 Common Functions | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Common Functions | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Chapter 5 Common Functions | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
+  <meta name="github-repo" content="fanwangecon/MEconTools" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Common Functions | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
+  
+  <meta name="twitter:description" content="Chapter 5 Common Functions | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
+  
+
+<meta name="author" content="Fan Wang" />
+
+
+<meta name="date" content="2020-06-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="data-structures.html"/>
+<link rel="next" href="support-tools.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-92953468-6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-92953468-6');
+</script>
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Matlab Toolbox Heterogeneous Agents Dynamic Programming</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html"><i class="fa fa-check"></i><b>1</b> Summarize Policy and Value</a><ul>
+<li class="chapter" data-level="1.1" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#ff_summ_nd_array-examples"><i class="fa fa-check"></i><b>1.1</b> FF_SUMM_ND_ARRAY Examples</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#test-ff_summ_nd_array-defaults"><i class="fa fa-check"></i><b>1.1.1</b> Test FF_SUMM_ND_ARRAY Defaults</a></li>
+<li class="chapter" data-level="1.1.2" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#test-ff_summ_nd_array-with-random-2-dimensional-matrix"><i class="fa fa-check"></i><b>1.1.2</b> Test FF_SUMM_ND_ARRAY with Random 2 Dimensional Matrix</a></li>
+<li class="chapter" data-level="1.1.3" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#test-ff_summ_nd_array-with-random-6-dimensional-matrix"><i class="fa fa-check"></i><b>1.1.3</b> Test FF_SUMM_ND_ARRAY with Random 6 Dimensional Matrix</a></li>
+<li class="chapter" data-level="1.1.4" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#test-ff_summ_nd_array-with-random-7-dimensional-matrix-with-all-parameters"><i class="fa fa-check"></i><b>1.1.4</b> Test FF_SUMM_ND_ARRAY with Random 7 Dimensional Matrix with All Parameters</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="distributional-analysis.html"><a href="distributional-analysis.html"><i class="fa fa-check"></i><b>2</b> Distributional Analysis</a><ul>
+<li class="chapter" data-level="2.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_simu_stats-examples"><i class="fa fa-check"></i><b>2.1</b> FF_SIMU_STATS Examples</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_simu_stats-defaults"><i class="fa fa-check"></i><b>2.1.1</b> Test FF_SIMU_STATS Defaults</a></li>
+<li class="chapter" data-level="2.1.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_simu_stats-four-states-points-matrix"><i class="fa fa-check"></i><b>2.1.2</b> Test FF_SIMU_STATS Four States-Points Matrix</a></li>
+<li class="chapter" data-level="2.1.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_simu_stats-four-states-points-matrix-single-column-inputs"><i class="fa fa-check"></i><b>2.1.3</b> Test FF_SIMU_STATS Four States-Points Matrix Single Column Inputs</a></li>
+<li class="chapter" data-level="2.1.4" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_simu_stats-print-many-details"><i class="fa fa-check"></i><b>2.1.4</b> Test FF_SIMU_STATS Print Many Details</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_disc_rand_var_stats-examples"><i class="fa fa-check"></i><b>2.2</b> FF_DISC_RAND_VAR_STATS Examples</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_stats-defaults"><i class="fa fa-check"></i><b>2.2.1</b> Test FF_DISC_RAND_VAR_STATS Defaults</a></li>
+<li class="chapter" data-level="2.2.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_stats-0-and-1-random-variable"><i class="fa fa-check"></i><b>2.2.2</b> Test FF_DISC_RAND_VAR_STATS 0 and 1 Random Variable</a></li>
+<li class="chapter" data-level="2.2.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_stats-with-poisson"><i class="fa fa-check"></i><b>2.2.3</b> Test FF_DISC_RAND_VAR_STATS with Poisson</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_disc_rand_var_mass2outcomes-examples"><i class="fa fa-check"></i><b>2.3</b> FF_DISC_RAND_VAR_MASS2OUTCOMES Examples</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2outcomes-defaults"><i class="fa fa-check"></i><b>2.3.1</b> Test FF_DISC_RAND_VAR_MASS2OUTCOMES Defaults</a></li>
+<li class="chapter" data-level="2.3.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2outcomes-four-states-points"><i class="fa fa-check"></i><b>2.3.2</b> Test FF_DISC_RAND_VAR_MASS2OUTCOMES Four States-Points</a></li>
+<li class="chapter" data-level="2.3.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2outcomes-conditional-mass-outputs"><i class="fa fa-check"></i><b>2.3.3</b> Test FF_DISC_RAND_VAR_MASS2OUTCOMES Conditional Mass Outputs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_disc_rand_var_mass2covcor-examples"><i class="fa fa-check"></i><b>2.4</b> FF_DISC_RAND_VAR_MASS2COVCOR Examples</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2covcor-defaults"><i class="fa fa-check"></i><b>2.4.1</b> Test FF_DISC_RAND_VAR_MASS2COVCOR Defaults</a></li>
+<li class="chapter" data-level="2.4.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2covcor-four-states-points"><i class="fa fa-check"></i><b>2.4.2</b> Test FF_DISC_RAND_VAR_MASS2COVCOR Four States-Points</a></li>
+<li class="chapter" data-level="2.4.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2covcor-two-random-vectors"><i class="fa fa-check"></i><b>2.4.3</b> Test FF_DISC_RAND_VAR_MASS2COVCOR Two Random Vectors</a></li>
+<li class="chapter" data-level="2.4.4" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2covcor-provide-mean-and-sd"><i class="fa fa-check"></i><b>2.4.4</b> Test FF_DISC_RAND_VAR_MASS2COVCOR Provide Mean and SD</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>3</b> Graphs</a><ul>
+<li class="chapter" data-level="3.1" data-path="graphs.html"><a href="graphs.html#ff_graph_grid-examples-x-y-and-color-line-plots"><i class="fa fa-check"></i><b>3.1</b> FF_GRAPH_GRID Examples: X, Y and Color Line Plots</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-defaults"><i class="fa fa-check"></i><b>3.1.1</b> Test FF_GRAPH_GRID Defaults</a></li>
+<li class="chapter" data-level="3.1.2" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-random-matrix-pick-markers-and-colors"><i class="fa fa-check"></i><b>3.1.2</b> Test FF_GRAPH_GRID Random Matrix Pick Markers and Colors</a></li>
+<li class="chapter" data-level="3.1.3" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-two-random-normal-lines-and-labels"><i class="fa fa-check"></i><b>3.1.3</b> Test FF_GRAPH_GRID Two Random Normal Lines and Labels</a></li>
+<li class="chapter" data-level="3.1.4" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-6-lines-pick-marker-and-colors"><i class="fa fa-check"></i><b>3.1.4</b> Test FF_GRAPH_GRID 6 Lines Pick Marker and Colors</a></li>
+<li class="chapter" data-level="3.1.5" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-many-lines"><i class="fa fa-check"></i><b>3.1.5</b> Test FF_GRAPH_GRID Many Lines</a></li>
+<li class="chapter" data-level="3.1.6" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-many-lines-legend-exogenous"><i class="fa fa-check"></i><b>3.1.6</b> Test FF_GRAPH_GRID Many Lines Legend Exogenous</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-structures.html"><a href="data-structures.html"><i class="fa fa-check"></i><b>4</b> Data Structures</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-structures.html"><a href="data-structures.html#ff_saveborr_grid-example-for-generating-asset-grid"><i class="fa fa-check"></i><b>4.1</b> FF_SAVEBORR_GRID Example for Generating Asset Grid</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-defaults"><i class="fa fa-check"></i><b>4.1.1</b> Test FF_SAVEBORR_GRID Defaults</a></li>
+<li class="chapter" data-level="4.1.2" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-default-linear-grid-log-grid-power-grid-threshold-grid"><i class="fa fa-check"></i><b>4.1.2</b> Test FF_SAVEBORR_GRID Default Linear Grid, Log Grid, Power Grid, Threshold Grid</a></li>
+<li class="chapter" data-level="4.1.3" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-log-grid-changing-parameters"><i class="fa fa-check"></i><b>4.1.3</b> Test FF_SAVEBORR_GRID Log Grid Changing Parameters</a></li>
+<li class="chapter" data-level="4.1.4" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-power-grid-changing-parameters"><i class="fa fa-check"></i><b>4.1.4</b> Test FF_SAVEBORR_GRID Power Grid Changing Parameters</a></li>
+<li class="chapter" data-level="4.1.5" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-threshold-grid-changing-parameters"><i class="fa fa-check"></i><b>4.1.5</b> Test FF_SAVEBORR_GRID Threshold Grid Changing Parameters</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="common-functions.html"><a href="common-functions.html"><i class="fa fa-check"></i><b>5</b> Common Functions</a><ul>
+<li class="chapter" data-level="5.1" data-path="common-functions.html"><a href="common-functions.html#ffy_tauchen-ar1-shock-discretization-example"><i class="fa fa-check"></i><b>5.1</b> FFY_TAUCHEN AR1 Shock Discretization Example</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-defaults"><i class="fa fa-check"></i><b>5.1.1</b> Test FFY_TAUCHEN Defaults</a></li>
+<li class="chapter" data-level="5.1.2" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-specify-parameters"><i class="fa fa-check"></i><b>5.1.2</b> Test FFY_TAUCHEN Specify Parameters</a></li>
+<li class="chapter" data-level="5.1.3" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-high-persistence-low-sd"><i class="fa fa-check"></i><b>5.1.3</b> Test FFY_TAUCHEN High Persistence, Low SD</a></li>
+<li class="chapter" data-level="5.1.4" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-low-persistence-low-sd"><i class="fa fa-check"></i><b>5.1.4</b> Test FFY_TAUCHEN Low Persistence, Low SD</a></li>
+<li class="chapter" data-level="5.1.5" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-high-persistence-high-sd"><i class="fa fa-check"></i><b>5.1.5</b> Test FFY_TAUCHEN High Persistence, High SD</a></li>
+<li class="chapter" data-level="5.1.6" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-low-persistence-low-sd-1"><i class="fa fa-check"></i><b>5.1.6</b> Test FFY_TAUCHEN Low Persistence, Low SD</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="common-functions.html"><a href="common-functions.html#ffy_rouwenhorst-ar1-shock-discretization-example"><i class="fa fa-check"></i><b>5.2</b> FFY_ROUWENHORST AR1 Shock Discretization Example</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="common-functions.html"><a href="common-functions.html#test-ffy_rouwenhorst-defaults"><i class="fa fa-check"></i><b>5.2.1</b> Test FFY_ROUWENHORST Defaults</a></li>
+<li class="chapter" data-level="5.2.2" data-path="common-functions.html"><a href="common-functions.html#test-ffy_rouwenhorst-specify-parameters"><i class="fa fa-check"></i><b>5.2.2</b> Test FFY_ROUWENHORST Specify Parameters</a></li>
+<li class="chapter" data-level="5.2.3" data-path="common-functions.html"><a href="common-functions.html#test-ffy_rouwenhorst-high-persistence-low-sd"><i class="fa fa-check"></i><b>5.2.3</b> Test FFY_ROUWENHORST High Persistence, Low SD</a></li>
+<li class="chapter" data-level="5.2.4" data-path="common-functions.html"><a href="common-functions.html#test-ffy_rouwenhorst-low-persistence-low-sd"><i class="fa fa-check"></i><b>5.2.4</b> Test FFY_ROUWENHORST Low Persistence, Low SD</a></li>
+<li class="chapter" data-level="5.2.5" data-path="common-functions.html"><a href="common-functions.html#test-ffy_rouwenhorst-high-persistence-high-sd"><i class="fa fa-check"></i><b>5.2.5</b> Test FFY_ROUWENHORST High Persistence, High SD</a></li>
+<li class="chapter" data-level="5.2.6" data-path="common-functions.html"><a href="common-functions.html#test-ffy_rouwenhorst-low-persistence-low-sd-1"><i class="fa fa-check"></i><b>5.2.6</b> Test FFY_ROUWENHORST Low Persistence, Low SD</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="support-tools.html"><a href="support-tools.html"><i class="fa fa-check"></i><b>6</b> Support Tools</a><ul>
+<li class="chapter" data-level="6.1" data-path="support-tools.html"><a href="support-tools.html#ff_container_map_display-examples"><i class="fa fa-check"></i><b>6.1</b> FF_CONTAINER_MAP_DISPLAY Examples</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="support-tools.html"><a href="support-tools.html#test-ff_container_map_display-defaults"><i class="fa fa-check"></i><b>6.1.1</b> Test FF_CONTAINER_MAP_DISPLAY Defaults</a></li>
+<li class="chapter" data-level="6.1.2" data-path="support-tools.html"><a href="support-tools.html#test-ff_container_map_display-summarize-matrix-only"><i class="fa fa-check"></i><b>6.1.2</b> Test FF_CONTAINER_MAP_DISPLAY summarize Matrix Only</a></li>
+<li class="chapter" data-level="6.1.3" data-path="support-tools.html"><a href="support-tools.html#test-ff_container_map_display-show-matrix-subset"><i class="fa fa-check"></i><b>6.1.3</b> Test FF_CONTAINER_MAP_DISPLAY Show Matrix Subset</a></li>
+</ul></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="index-and-code-links.html"><a href="index-and-code-links.html"><i class="fa fa-check"></i><b>A</b> Index and Code Links</a><ul>
+<li class="chapter" data-level="A.1" data-path="index-and-code-links.html"><a href="index-and-code-links.html#summarize-policy-and-value-links"><i class="fa fa-check"></i><b>A.1</b> Summarize Policy and Value links</a></li>
+<li class="chapter" data-level="A.2" data-path="index-and-code-links.html"><a href="index-and-code-links.html#distributional-analysis-links"><i class="fa fa-check"></i><b>A.2</b> Distributional Analysis links</a></li>
+<li class="chapter" data-level="A.3" data-path="index-and-code-links.html"><a href="index-and-code-links.html#graphs-links"><i class="fa fa-check"></i><b>A.3</b> Graphs links</a></li>
+<li class="chapter" data-level="A.4" data-path="index-and-code-links.html"><a href="index-and-code-links.html#data-structures-links"><i class="fa fa-check"></i><b>A.4</b> Data Structures links</a></li>
+<li class="chapter" data-level="A.5" data-path="index-and-code-links.html"><a href="index-and-code-links.html#common-functions-links"><i class="fa fa-check"></i><b>A.5</b> Common Functions links</a></li>
+<li class="chapter" data-level="A.6" data-path="index-and-code-links.html"><a href="index-and-code-links.html#support-tools-links"><i class="fa fa-check"></i><b>A.6</b> Support Tools links</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://fanwangecon.github.io/M4Econ/bookdown/index.html" target="blank">M4Econ Bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Matlab Toolbox Heterogeneous Agents Dynamic Programming</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="common-functions" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Common Functions</h1>
+
+<div id="ffy_tauchen-ar1-shock-discretization-example" class="section level2">
+<h2><span class="header-section-number">5.1</span> FFY_TAUCHEN AR1 Shock Discretization Example</h2>
+<blockquote>
+<p>Go back to <a href="http://fanwangecon.github.io/">fan</a>’s <a href="https://fanwangecon.github.io/MEconTools/">MEconTools</a> Toolbox (<a href="https://fanwangecon.github.io/MEconTools/bookdown">bookdown</a>), <a href="https://fanwangecon.github.io/M4Econ/">Matlab Code Examples</a> Repository (<a href="https://fanwangecon.github.io/M4Econ/bookdown">bookdown</a>), or <a href="https://fanwangecon.github.io/Math4Econ/">Math for Econ with Matlab</a> Repository (<a href="https://fanwangecon.github.io/Math4Econ/bookdown">bookdown</a>).</p>
+</blockquote>
+<p>This is the example vignette for function:
+<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/external/stats/ffy_tauchen.m"><strong>ffy_tauchen</strong></a>
+from the <a href="https://fanwangecon.github.io/MEconTools/"><strong>MEconTools
+Package</strong></a><strong>.</strong> : See also
+the
+<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/external/stats/ffy_rouwenhorst.m"><strong>ffy_rouwenhorst</strong></a>
+function from the <a href="https://fanwangecon.github.io/MEconTools/"><strong>MEconTools
+Package</strong></a><strong>.</strong> This function
+discretize a mean zero AR1 process, uses Tauchen (1986). See <a href="https://fanwangecon.github.io/M4Econ/panel/timeseries/htmlpdfm/fs_autoregressive.html">AR 1
+Example</a>
+for some details on how the AR1 process works. And See <a href="https://doi.org/10.1016/j.red.2010.02.002">Kopecky and Suen
+(2010)</a>.</p>
+<div id="test-ffy_tauchen-defaults" class="section level3">
+<h3><span class="header-section-number">5.1.1</span> Test FFY_TAUCHEN Defaults</h3>
+<p>Call the function with defaults. Default sd bounds arer plus and minus
+4. This is used in the following examples, unless otherwise specified as
+the 5th parameter.</p>
+<pre><code>ffy_tauchen();
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN    sum    mean      std      coefvari       min         max  
+                         _    ___    ____    _____    ____    ____    ___    ____    _______    ________    __________    ______
+
+    ar_disc_ar1          1     1      2        5       5       1       0       0     0.79057        Inf             -1         1
+    mt_disc_ar1_trans    2     6      2       25       5       5       5     0.2     0.27623     1.3812     7.3923e-12    0.7887
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+           c1 
+          ____
+
+    r1      -1
+    r2    -0.5
+    r3       0
+    r4     0.5
+    r5       1
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+              c1            c2           c3           c4            c5    
+          __________    __________    ________    __________    __________
+
+    r1       0.22663       0.73331    0.040048    1.0689e-05    7.3923e-12
+    r2      0.012224       0.58648     0.39831     0.0029797     7.605e-08
+    r3    8.8417e-05       0.10556      0.7887       0.10556    8.8417e-05
+    r4     7.605e-08     0.0029797     0.39831       0.58648      0.012224
+    r5    7.3923e-12    1.0689e-05    0.040048       0.73331       0.22663
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx    value
+                          _    ___    _____
+
+    fl_ar1_persistence    1     2      0.6 
+    fl_ar1_step           2     3      0.5 
+    fl_shk_std            3     4      0.2 
+    it_std_bound          4     5        4 </code></pre>
+</div>
+<div id="test-ffy_tauchen-specify-parameters" class="section level3">
+<h3><span class="header-section-number">5.1.2</span> Test FFY_TAUCHEN Specify Parameters</h3>
+<p>With a grid of 10 points, the sd bounds on Tauchen and Rouwenhorst are
+identical. With the not extremely persistent shock process here, the
+Tauchen and Rouwenhorst Results are very similar.</p>
+<pre><code>[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose, it_std_bound] = ...
+    deal(0.60, 0.10, 10, true, 3);
+ffy_tauchen(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose, it_std_bound);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN        sum           mean          std       coefvari         min          max  
+                         _    ___    ____    _____    ____    ____    ___________    ___________    _______    ___________    __________    _______
+
+    ar_disc_ar1          1     1      2        10      10       1     -7.2164e-16    -7.2164e-17     0.2523    -3.4962e+15        -0.375      0.375
+    mt_disc_ar1_trans    2     6      2       100      10      10              10            0.1    0.11456         1.1456    1.1798e-08    0.32308
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+              c1    
+           _________
+
+    r1        -0.375
+    r2      -0.29167
+    r3      -0.20833
+    r4        -0.125
+    r5     -0.041667
+    r6      0.041667
+    r7         0.125
+    r8       0.20833
+    r9       0.29167
+    r10        0.375
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+               c1            c2            c3            c4           c5          c6           c7            c8            c9           c10    
+           __________    __________    __________    __________    ________    ________    __________    __________    __________    __________
+
+    r1        0.13933       0.26196       0.31887       0.20154    0.066066    0.011201    0.00097859    4.3874e-05    1.0053e-06    1.1798e-08
+    r2       0.056673       0.16995       0.30658       0.28713      0.1396    0.035167     0.0045756    0.00030628    1.0503e-05    1.8543e-07
+    r3        0.01861      0.087039       0.23281       0.32308     0.23281    0.087039      0.016841     0.0016806    8.6129e-05    2.2881e-06
+    r4      0.0048925      0.035167        0.1396       0.28713     0.30658     0.16995      0.048841     0.0072547    0.00055483    2.2197e-05
+    r5      0.0010235      0.011201      0.066066       0.20154     0.31887     0.26196       0.11169       0.02466     0.0028101    0.00016962
+    r6     0.00016962     0.0028101       0.02466       0.11169     0.26196     0.31887       0.20154      0.066066      0.011201     0.0010235
+    r7     2.2197e-05    0.00055483     0.0072547      0.048841     0.16995     0.30658       0.28713        0.1396      0.035167     0.0048925
+    r8     2.2881e-06    8.6129e-05     0.0016806      0.016841    0.087039     0.23281       0.32308       0.23281      0.087039       0.01861
+    r9     1.8543e-07    1.0503e-05    0.00030628     0.0045756    0.035167      0.1396       0.28713       0.30658       0.16995      0.056673
+    r10    1.1798e-08    1.0053e-06    4.3874e-05    0.00097859    0.011201    0.066066       0.20154       0.31887       0.26196       0.13933
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx     value  
+                          _    ___    ________
+
+    fl_ar1_persistence    1     2          0.6
+    fl_ar1_step           2     3     0.083333
+    fl_shk_std            3     4          0.1
+    it_std_bound          4     5            3</code></pre>
+</div>
+<div id="test-ffy_tauchen-high-persistence-low-sd" class="section level3">
+<h3><span class="header-section-number">5.1.3</span> Test FFY_TAUCHEN High Persistence, Low SD</h3>
+<pre><code>[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.99, 0.01, 7, true);
+ffy_tauchen(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN        sum           mean          std       coefvari        min         max  
+                         _    ___    ____    _____    ____    ____    ___________    ___________    _______    ___________    ________    _______
+
+    ar_disc_ar1          1     1      2        7       7       1      -5.5511e-17    -7.9302e-18    0.20418    -2.5747e+16    -0.28355    0.28355
+    mt_disc_ar1_trans    2     6      2       49       7       7                7        0.14286    0.35355         2.4749           0          1
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+              c1     
+          ___________
+
+    r1       -0.28355
+    r2       -0.18903
+    r3      -0.094517
+    r4    -2.7756e-17
+    r5       0.094517
+    r6        0.18903
+    r7        0.28355
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+              c1             c2             c3             c4             c5            c6            c7    
+          ___________    ___________    ___________    ___________    __________    __________    __________
+
+    r1              1     4.4497e-06              0              0             0             0             0
+    r2     4.4412e-07              1     2.8552e-06              0             0             0             0
+    r3      1.632e-46     7.1638e-07              1     1.8164e-06             0             0             0
+    r4    9.6185e-124     6.3021e-46     1.1456e-06              1    1.1456e-06             0             0
+    r5    6.3206e-239    8.9712e-123     2.4121e-45     1.8164e-06             1    7.1638e-07             0
+    r6              0     1.426e-237    8.2932e-122     9.1503e-45    2.8552e-06             1    4.4412e-07
+    r7              0              0    3.1885e-236    7.5984e-121    3.4405e-44    4.4497e-06             1
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx     value  
+                          _    ___    ________
+
+    fl_ar1_persistence    1     2         0.99
+    fl_ar1_step           2     3     0.094517
+    fl_shk_std            3     4         0.01
+    it_std_bound          4     5            4</code></pre>
+</div>
+<div id="test-ffy_tauchen-low-persistence-low-sd" class="section level3">
+<h3><span class="header-section-number">5.1.4</span> Test FFY_TAUCHEN Low Persistence, Low SD</h3>
+<pre><code>[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.01, 0.01, 7, true);
+ffy_tauchen(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN    sum     mean        std       coefvari       min          max   
+                         _    ___    ____    _____    ____    ____    ___    _______    ________    ________    __________    ________
+
+    ar_disc_ar1          1     1      2        7       7       1       0           0    0.028805        Inf      -0.040002    0.040002
+    mt_disc_ar1_trans    2     6      2       49       7       7       7     0.14286     0.17448     1.2213     0.00037109     0.49504
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+             c1    
+          _________
+
+    r1    -0.040002
+    r2    -0.026668
+    r3    -0.013334
+    r4            0
+    r5     0.013334
+    r6     0.026668
+    r7     0.040002
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+              c1           c2         c3         c4         c5          c6           c7    
+          __________    ________    _______    _______    _______    ________    __________
+
+    r1    0.00049475    0.024497    0.24044     0.4947    0.21921    0.020299    0.00037109
+    r2    0.00047179    0.023751    0.23685    0.49488     0.2227    0.020954    0.00038948
+    r3    0.00044982    0.023024    0.23329      0.495    0.22621    0.021626     0.0004087
+    r4     0.0004288    0.022316    0.22974    0.49504    0.22974    0.022316     0.0004288
+    r5     0.0004087    0.021626    0.22621      0.495    0.23329    0.023024    0.00044982
+    r6    0.00038948    0.020954     0.2227    0.49488    0.23685    0.023751    0.00047179
+    r7    0.00037109    0.020299    0.21921     0.4947    0.24044    0.024497    0.00049475
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx     value  
+                          _    ___    ________
+
+    fl_ar1_persistence    1     2         0.01
+    fl_ar1_step           2     3     0.013334
+    fl_shk_std            3     4         0.01
+    it_std_bound          4     5            4</code></pre>
+</div>
+<div id="test-ffy_tauchen-high-persistence-high-sd" class="section level3">
+<h3><span class="header-section-number">5.1.5</span> Test FFY_TAUCHEN High Persistence, High SD</h3>
+<pre><code>[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.99, 0.99, 7, true);
+ffy_tauchen(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN        sum           mean          std       coefvari        min       max  
+                         _    ___    ____    _____    ____    ____    ___________    ___________    _______    ___________    _______    ______
+
+    ar_disc_ar1          1     1      2        7       7       1      -3.5527e-15    -5.0753e-16     20.214    -3.9828e+16    -28.072    28.072
+    mt_disc_ar1_trans    2     6      2       49       7       7                7        0.14286    0.35355         2.4749          0         1
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+            c1   
+          _______
+
+    r1    -28.072
+    r2    -18.714
+    r3    -9.3572
+    r4          0
+    r5     9.3572
+    r6     18.714
+    r7     28.072
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+              c1             c2             c3             c4             c5            c6            c7    
+          ___________    ___________    ___________    ___________    __________    __________    __________
+
+    r1              1     4.4497e-06              0              0             0             0             0
+    r2     4.4412e-07              1     2.8552e-06              0             0             0             0
+    r3      1.632e-46     7.1638e-07              1     1.8164e-06             0             0             0
+    r4    9.6185e-124     6.3021e-46     1.1456e-06              1    1.1456e-06             0             0
+    r5    6.3206e-239    8.9712e-123     2.4121e-45     1.8164e-06             1    7.1638e-07             0
+    r6              0     1.426e-237    8.2932e-122     9.1503e-45    2.8552e-06             1    4.4412e-07
+    r7              0              0    3.1885e-236    7.5984e-121    3.4405e-44    4.4497e-06             1
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx    value 
+                          _    ___    ______
+
+    fl_ar1_persistence    1     2       0.99
+    fl_ar1_step           2     3     9.3572
+    fl_shk_std            3     4       0.99
+    it_std_bound          4     5          4</code></pre>
+</div>
+<div id="test-ffy_tauchen-low-persistence-low-sd-1" class="section level3">
+<h3><span class="header-section-number">5.1.6</span> Test FFY_TAUCHEN Low Persistence, Low SD</h3>
+<pre><code>[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.01, 0.01, 7, true);
+ffy_tauchen(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN    sum     mean        std       coefvari       min          max   
+                         _    ___    ____    _____    ____    ____    ___    _______    ________    ________    __________    ________
+
+    ar_disc_ar1          1     1      2        7       7       1       0           0    0.028805        Inf      -0.040002    0.040002
+    mt_disc_ar1_trans    2     6      2       49       7       7       7     0.14286     0.17448     1.2213     0.00037109     0.49504
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+             c1    
+          _________
+
+    r1    -0.040002
+    r2    -0.026668
+    r3    -0.013334
+    r4            0
+    r5     0.013334
+    r6     0.026668
+    r7     0.040002
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+              c1           c2         c3         c4         c5          c6           c7    
+          __________    ________    _______    _______    _______    ________    __________
+
+    r1    0.00049475    0.024497    0.24044     0.4947    0.21921    0.020299    0.00037109
+    r2    0.00047179    0.023751    0.23685    0.49488     0.2227    0.020954    0.00038948
+    r3    0.00044982    0.023024    0.23329      0.495    0.22621    0.021626     0.0004087
+    r4     0.0004288    0.022316    0.22974    0.49504    0.22974    0.022316     0.0004288
+    r5     0.0004087    0.021626    0.22621      0.495    0.23329    0.023024    0.00044982
+    r6    0.00038948    0.020954     0.2227    0.49488    0.23685    0.023751    0.00047179
+    r7    0.00037109    0.020299    0.21921     0.4947    0.24044    0.024497    0.00049475
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx     value  
+                          _    ___    ________
+
+    fl_ar1_persistence    1     2         0.01
+    fl_ar1_step           2     3     0.013334
+    fl_shk_std            3     4         0.01
+    it_std_bound          4     5            4</code></pre>
+
+</div>
+</div>
+<div id="ffy_rouwenhorst-ar1-shock-discretization-example" class="section level2">
+<h2><span class="header-section-number">5.2</span> FFY_ROUWENHORST AR1 Shock Discretization Example</h2>
+<blockquote>
+<p>Go back to <a href="http://fanwangecon.github.io/">fan</a>’s <a href="https://fanwangecon.github.io/MEconTools/">MEconTools</a> Toolbox (<a href="https://fanwangecon.github.io/MEconTools/bookdown">bookdown</a>), <a href="https://fanwangecon.github.io/M4Econ/">Matlab Code Examples</a> Repository (<a href="https://fanwangecon.github.io/M4Econ/bookdown">bookdown</a>), or <a href="https://fanwangecon.github.io/Math4Econ/">Math for Econ with Matlab</a> Repository (<a href="https://fanwangecon.github.io/Math4Econ/bookdown">bookdown</a>).</p>
+</blockquote>
+<p>This is the example vignette for function:
+<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/external/stats/ffy_rouwenhorst.m"><strong>ffy_rouwenhorst</strong></a>
+from the <a href="https://fanwangecon.github.io/MEconTools/"><strong>MEconTools
+Package</strong></a><strong>.</strong> See also
+<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/external/stats/ffy_tauchen.m"><strong>ffy_tauchen</strong></a>
+function from the <a href="https://fanwangecon.github.io/MEconTools/"><strong>MEconTools
+Package</strong></a><strong>.</strong> This function
+discretize a mean zero AR1 process, uses Rouwenhorst (1995). See <a href="https://fanwangecon.github.io/M4Econ/panel/timeseries/htmlpdfm/fs_autoregressive.html">AR 1
+Example</a>
+for some details on how the AR1 process works. And See <a href="https://doi.org/10.1016/j.red.2010.02.002">Kopecky and Suen
+(2010)</a>.</p>
+<div id="test-ffy_rouwenhorst-defaults" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Test FFY_ROUWENHORST Defaults</h3>
+<p>Call the function with defaults.</p>
+<pre><code>ffy_rouwenhorst();
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN    sum    mean      std      coefvari     min       max  
+                         _    ___    ____    _____    ____    ____    ___    ____    _______    ________    ______    ______
+
+    ar_disc_ar1          1     1      2        5       5       1       0       0     0.39528        Inf       -0.5       0.5
+    mt_disc_ar1_trans    2    11      2       25       5       5       5     0.2     0.18246    0.91229     0.0016    0.5136
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+           c1  
+          _____
+
+    r1     -0.5
+    r2    -0.25
+    r3        0
+    r4     0.25
+    r5      0.5
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+            c1        c2        c3        c4        c5  
+          ______    ______    ______    ______    ______
+
+    r1    0.4096    0.4096    0.1536    0.0256    0.0016
+    r2    0.1024    0.4864    0.3264    0.0784    0.0064
+    r3    0.0256    0.2176    0.5136    0.2176    0.0256
+    r4    0.0064    0.0784    0.3264    0.4864    0.1024
+    r5    0.0016    0.0256    0.1536    0.4096    0.4096
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx    value
+                          _    ___    _____
+
+    fl_ar1_beg            1     2     -0.5 
+    fl_ar1_end            2     3      0.5 
+    fl_ar1_persistence    3     4      0.6 
+    fl_ar1_step           4     5     0.25 
+    fl_p0                 5     6      0.8 
+    fl_q0                 6     7      0.8 
+    fl_shk_std            7     8      0.2 
+    fl_sig_ar1            8     9     0.25 
+    it_std_bound          9    10        0 </code></pre>
+</div>
+<div id="test-ffy_rouwenhorst-specify-parameters" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> Test FFY_ROUWENHORST Specify Parameters</h3>
+<p>With a grid of 10 points, the Rwouenhorst bounds on standard deviations
+are equall to Tauchen bounds of 3. With the not extremely persistent
+shock process here, the Tauchen and Rouwenhorst Results are very
+similar.</p>
+<pre><code>[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.60, 0.10, 10, true);
+ffy_rouwenhorst(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN       sum           mean         std       coefvari       min         max  
+                         _    ___    ____    _____    ____    ____    __________    __________    _______    __________    ________    _______
+
+    ar_disc_ar1          1     1      2        10      10       1     5.5511e-17    5.5511e-18     0.2523    4.5451e+16      -0.375      0.375
+    mt_disc_ar1_trans    2    11      2       100      10      10             10           0.1    0.11724        1.1724    5.12e-07    0.33477
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+              c1    
+           _________
+
+    r1        -0.375
+    r2      -0.29167
+    r3      -0.20833
+    r4        -0.125
+    r5     -0.041667
+    r6      0.041667
+    r7         0.125
+    r8       0.20833
+    r9       0.29167
+    r10        0.375
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+               c1            c2            c3           c4           c5          c6          c7            c8            c9           c10    
+           __________    __________    __________    _________    ________    ________    _________    __________    __________    __________
+
+    r1        0.13422       0.30199       0.30199      0.17616     0.06606    0.016515    0.0027525    0.00029491    1.8432e-05      5.12e-07
+    r2       0.033554       0.20133       0.32716      0.26424     0.12662    0.038535    0.0075694    0.00093389    6.6048e-05     2.048e-06
+    r3      0.0083886      0.081789       0.26267      0.32755     0.21401    0.082747     0.019741     0.0028677    0.00023347     8.192e-06
+    r4      0.0020972      0.028312       0.14038      0.30946     0.30369     0.15877     0.047989     0.0084603    0.00081101    3.2768e-05
+    r5     0.00052429      0.009044      0.061145      0.20246     0.33477     0.25969      0.10585      0.023642     0.0027525    0.00013107
+    r6     0.00013107     0.0027525      0.023642      0.10585     0.25969     0.33477      0.20246      0.061145      0.009044    0.00052429
+    r7     3.2768e-05    0.00081101     0.0084603     0.047989     0.15877     0.30369      0.30946       0.14038      0.028312     0.0020972
+    r8      8.192e-06    0.00023347     0.0028677     0.019741    0.082747     0.21401      0.32755       0.26267      0.081789     0.0083886
+    r9      2.048e-06    6.6048e-05    0.00093389    0.0075694    0.038535     0.12662      0.26424       0.32716       0.20133      0.033554
+    r10      5.12e-07    1.8432e-05    0.00029491    0.0027525    0.016515     0.06606      0.17616       0.30199       0.30199       0.13422
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx     value  
+                          _    ___    ________
+
+    fl_ar1_beg            1     2       -0.375
+    fl_ar1_end            2     3        0.375
+    fl_ar1_persistence    3     4          0.6
+    fl_ar1_step           4     5     0.083333
+    fl_p0                 5     6          0.8
+    fl_q0                 6     7          0.8
+    fl_shk_std            7     8          0.1
+    fl_sig_ar1            8     9        0.125
+    it_std_bound          9    10            0</code></pre>
+</div>
+<div id="test-ffy_rouwenhorst-high-persistence-low-sd" class="section level3">
+<h3><span class="header-section-number">5.2.3</span> Test FFY_ROUWENHORST High Persistence, Low SD</h3>
+<pre><code>[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.99, 0.01, 7, true);
+ffy_rouwenhorst(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN    sum     mean        std      coefvari       min          max  
+                         _    ___    ____    _____    ____    ____    ___    _______    _______    ________    __________    _______
+
+    ar_disc_ar1          1     1      2        7       7       1       0           0    0.12503        Inf       -0.17364    0.17364
+    mt_disc_ar1_trans    2    11      2       49       7       7       7     0.14286    0.34148     2.3904     1.5625e-14    0.97059
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+             c1   
+          ________
+
+    r1    -0.17364
+    r2    -0.11576
+    r3    -0.05788
+    r4           0
+    r5     0.05788
+    r6     0.11576
+    r7     0.17364
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+              c1            c2            c3            c4            c5            c6            c7    
+          __________    __________    __________    __________    __________    __________    __________
+
+    r1       0.97037      0.029257    0.00036756    2.4627e-06    9.2815e-09    1.8656e-11    1.5625e-14
+    r2     0.0048762        0.9705      0.024382    0.00024504    1.2314e-06    3.0938e-09    3.1094e-12
+    r3    2.4504e-05      0.009753       0.97057      0.019506    0.00014703    4.9254e-07    6.1877e-10
+    r4    1.2313e-07    7.3513e-05       0.01463       0.97059       0.01463    7.3513e-05    1.2313e-07
+    r5    6.1877e-10    4.9254e-07    0.00014703      0.019506       0.97057      0.009753    2.4504e-05
+    r6    3.1094e-12    3.0938e-09    1.2314e-06    0.00024504      0.024382        0.9705     0.0048762
+    r7    1.5625e-14    1.8656e-11    9.2815e-09    2.4627e-06    0.00036756      0.029257       0.97037
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx     value  
+                          _    ___    ________
+
+    fl_ar1_beg            1     2     -0.17364
+    fl_ar1_end            2     3      0.17364
+    fl_ar1_persistence    3     4         0.99
+    fl_ar1_step           4     5      0.05788
+    fl_p0                 5     6        0.995
+    fl_q0                 6     7        0.995
+    fl_shk_std            7     8         0.01
+    fl_sig_ar1            8     9     0.070888
+    it_std_bound          9    10            0</code></pre>
+</div>
+<div id="test-ffy_rouwenhorst-low-persistence-low-sd" class="section level3">
+<h3><span class="header-section-number">5.2.4</span> Test FFY_ROUWENHORST Low Persistence, Low SD</h3>
+<pre><code>[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.01, 0.01, 7, true);
+ffy_rouwenhorst(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN    sum     mean        std       coefvari       min         max   
+                         _    ___    ____    _____    ____    ____    ___    _______    ________    ________    _________    ________
+
+    ar_disc_ar1          1     1      2        7       7       1       0           0    0.017639        Inf     -0.024496    0.024496
+    mt_disc_ar1_trans    2    11      2       49       7       7       7     0.14286     0.10985    0.76893      0.014711     0.31252
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+              c1    
+          __________
+
+    r1     -0.024496
+    r2     -0.016331
+    r3    -0.0081654
+    r4             0
+    r5     0.0081654
+    r6      0.016331
+    r7      0.024496
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+             c1          c2         c3         c4         c5          c6          c7   
+          ________    ________    _______    _______    _______    ________    ________
+
+    r1    0.016586    0.097547    0.23904    0.31241    0.22966    0.090047    0.014711
+    r2    0.016258    0.096266    0.23749    0.31247    0.23124    0.091266    0.015008
+    r3    0.015936    0.094997    0.23594    0.31251    0.23281    0.092497    0.015311
+    r4     0.01562    0.093741    0.23438    0.31252    0.23438    0.093741     0.01562
+    r5    0.015311    0.092497    0.23281    0.31251    0.23594    0.094997    0.015936
+    r6    0.015008    0.091266    0.23124    0.31247    0.23749    0.096266    0.016258
+    r7    0.014711    0.090047    0.22966    0.31241    0.23904    0.097547    0.016586
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx      value  
+                          _    ___    _________
+
+    fl_ar1_beg            1     2     -0.024496
+    fl_ar1_end            2     3      0.024496
+    fl_ar1_persistence    3     4          0.01
+    fl_ar1_step           4     5     0.0081654
+    fl_p0                 5     6         0.505
+    fl_q0                 6     7         0.505
+    fl_shk_std            7     8          0.01
+    fl_sig_ar1            8     9      0.010001
+    it_std_bound          9    10             0</code></pre>
+</div>
+<div id="test-ffy_rouwenhorst-high-persistence-high-sd" class="section level3">
+<h3><span class="header-section-number">5.2.5</span> Test FFY_ROUWENHORST High Persistence, High SD</h3>
+<pre><code>[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.99, 0.99, 7, true);
+ffy_rouwenhorst(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN       sum           mean         std      coefvari        min          max  
+                         _    ___    ____    _____    ____    ____    __________    __________    _______    _________    __________    _______
+
+    ar_disc_ar1          1     1      2        7       7       1      3.5527e-15    5.0753e-16     12.378    2.439e+16        -17.19      17.19
+    mt_disc_ar1_trans    2    11      2       49       7       7               7       0.14286    0.34148       2.3904    1.5625e-14    0.97059
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+            c1   
+          _______
+
+    r1     -17.19
+    r2     -11.46
+    r3    -5.7301
+    r4          0
+    r5     5.7301
+    r6      11.46
+    r7      17.19
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+              c1            c2            c3            c4            c5            c6            c7    
+          __________    __________    __________    __________    __________    __________    __________
+
+    r1       0.97037      0.029257    0.00036756    2.4627e-06    9.2815e-09    1.8656e-11    1.5625e-14
+    r2     0.0048762        0.9705      0.024382    0.00024504    1.2314e-06    3.0938e-09    3.1094e-12
+    r3    2.4504e-05      0.009753       0.97057      0.019506    0.00014703    4.9254e-07    6.1877e-10
+    r4    1.2313e-07    7.3513e-05       0.01463       0.97059       0.01463    7.3513e-05    1.2313e-07
+    r5    6.1877e-10    4.9254e-07    0.00014703      0.019506       0.97057      0.009753    2.4504e-05
+    r6    3.1094e-12    3.0938e-09    1.2314e-06    0.00024504      0.024382        0.9705     0.0048762
+    r7    1.5625e-14    1.8656e-11    9.2815e-09    2.4627e-06    0.00036756      0.029257       0.97037
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx    value 
+                          _    ___    ______
+
+    fl_ar1_beg            1     2     -17.19
+    fl_ar1_end            2     3      17.19
+    fl_ar1_persistence    3     4       0.99
+    fl_ar1_step           4     5     5.7301
+    fl_p0                 5     6      0.995
+    fl_q0                 6     7      0.995
+    fl_shk_std            7     8       0.99
+    fl_sig_ar1            8     9     7.0179
+    it_std_bound          9    10          0</code></pre>
+</div>
+<div id="test-ffy_rouwenhorst-low-persistence-low-sd-1" class="section level3">
+<h3><span class="header-section-number">5.2.6</span> Test FFY_ROUWENHORST Low Persistence, Low SD</h3>
+<pre><code>[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.01, 0.01, 7, true);
+ffy_rouwenhorst(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN    sum     mean        std       coefvari       min         max   
+                         _    ___    ____    _____    ____    ____    ___    _______    ________    ________    _________    ________
+
+    ar_disc_ar1          1     1      2        7       7       1       0           0    0.017639        Inf     -0.024496    0.024496
+    mt_disc_ar1_trans    2    11      2       49       7       7       7     0.14286     0.10985    0.76893      0.014711     0.31252
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+              c1    
+          __________
+
+    r1     -0.024496
+    r2     -0.016331
+    r3    -0.0081654
+    r4             0
+    r5     0.0081654
+    r6      0.016331
+    r7      0.024496
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+             c1          c2         c3         c4         c5          c6          c7   
+          ________    ________    _______    _______    _______    ________    ________
+
+    r1    0.016586    0.097547    0.23904    0.31241    0.22966    0.090047    0.014711
+    r2    0.016258    0.096266    0.23749    0.31247    0.23124    0.091266    0.015008
+    r3    0.015936    0.094997    0.23594    0.31251    0.23281    0.092497    0.015311
+    r4     0.01562    0.093741    0.23438    0.31252    0.23438    0.093741     0.01562
+    r5    0.015311    0.092497    0.23281    0.31251    0.23594    0.094997    0.015936
+    r6    0.015008    0.091266    0.23124    0.31247    0.23749    0.096266    0.016258
+    r7    0.014711    0.090047    0.22966    0.31241    0.23904    0.097547    0.016586
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx      value  
+                          _    ___    _________
+
+    fl_ar1_beg            1     2     -0.024496
+    fl_ar1_end            2     3      0.024496
+    fl_ar1_persistence    3     4          0.01
+    fl_ar1_step           4     5     0.0081654
+    fl_p0                 5     6         0.505
+    fl_q0                 6     7         0.505
+    fl_shk_std            7     8          0.01
+    fl_sig_ar1            8     9      0.010001
+    it_std_bound          9    10             0</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-structures.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="support-tools.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["Matlab-Toolbox-Heterogeneous-Agents-Dynamic-Programming.pdf", "PDF"]],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

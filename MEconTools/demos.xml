@@ -40,6 +40,27 @@
          <source>ff_simu_stats</source>
          <file>stats/html/ff_simu_stats.html</file>
       </demoitem>
+      <demoitem>
+         <label>ffy_rouwenhorst</label>
+         <type>other</type>
+         <source>ffy_rouwenhorst</source>
+         <file>external/stats/html/ffy_rouwenhorst.html</file>
+      </demoitem>
+      <demoitem>
+         <label>ffy_tauchen</label>
+         <type>other</type>
+         <source>ffy_tauchen</source>
+         <file>external/stats/html/ffy_tauchen.html</file>
+      </demoitem>
+   </demosection>
+   <demosection>
+      <label>generate</label>
+      <demoitem>
+         <label>ff_saveborr_grid</label>
+         <type>other</type>
+         <source>ff_saveborr_grid</source>
+         <file>generate/html/ff_saveborr_grid.html</file>
+      </demoitem>
    </demosection>
    <demosection>
       <label>tools</label>

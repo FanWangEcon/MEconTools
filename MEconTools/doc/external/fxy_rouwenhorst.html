@@ -1,0 +1,375 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB R2019b"><title>FFY_ROUWENHORST AR1 Shock Discretization Example</title><style type="text/css">.rtcContent { padding: 30px; } .S0 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 28.8px; min-height: 0px; white-space: pre-wrap; color: rgb(213, 80, 0); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 24px; font-weight: 400; text-align: left;  }
+.S1 { margin: 2px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(0, 0, 0); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S2 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 20px; min-height: 0px; white-space: pre-wrap; color: rgb(60, 60, 60); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 20px; font-weight: 700; text-align: left;  }
+.CodeBlock { background-color: #F7F7F7; margin: 10px 0 10px 0;}
+.S3 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 1px solid rgb(233, 233, 233); border-bottom: 1px solid rgb(233, 233, 233); border-radius: 4px 4px 0px 0px; padding: 6px 45px 4px 13px; line-height: 16.996px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S4 { color: rgb(64, 64, 64); padding: 10px 0px 6px 17px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px; overflow-x: hidden; line-height: 16.996px;  }
+.embeddedOutputsErrorElement {min-height: 18px; max-height: 250px; overflow: auto;}
+.embeddedOutputsErrorElement.inlineElement {}
+.embeddedOutputsErrorElement.rightPaneElement {}
+.embeddedOutputsWarningElement{min-height: 18px; max-height: 250px; overflow: auto;}
+.embeddedOutputsWarningElement.inlineElement {}
+.embeddedOutputsWarningElement.rightPaneElement {}
+.diagnosticMessage-wrapper {font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 12px;}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType {color: rgb(255,100,0);}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType a {color: rgb(255,100,0); text-decoration: underline;}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType {color: rgb(230,0,0);}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType a {color: rgb(230,0,0); text-decoration: underline;}
+.diagnosticMessage-wrapper .diagnosticMessage-messagePart,.diagnosticMessage-wrapper .diagnosticMessage-causePart {white-space: pre-wrap;}
+.diagnosticMessage-wrapper .diagnosticMessage-stackPart {white-space: pre;}
+.embeddedOutputsTextElement,.embeddedOutputsVariableStringElement {white-space: pre; word-wrap: initial; min-height: 18px; max-height: 250px; overflow: auto;}
+.textElement,.rtcDataTipElement .textElement {padding-top: 3px;}
+.embeddedOutputsTextElement.inlineElement,.embeddedOutputsVariableStringElement.inlineElement {}
+.inlineElement .textElement {}
+.embeddedOutputsTextElement.rightPaneElement,.embeddedOutputsVariableStringElement.rightPaneElement {min-height: 16px;}
+.rightPaneElement .textElement {padding-top: 2px; padding-left: 9px;}
+.S5 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 1px solid rgb(233, 233, 233); border-bottom: 0px none rgb(0, 0, 0); border-radius: 4px 4px 0px 0px; padding: 6px 45px 0px 13px; line-height: 16.996px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S6 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 0px none rgb(0, 0, 0); border-bottom: 0px none rgb(0, 0, 0); border-radius: 0px; padding: 0px 45px 0px 13px; line-height: 16.996px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S7 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 0px none rgb(0, 0, 0); border-bottom: 1px solid rgb(233, 233, 233); border-radius: 0px; padding: 0px 45px 4px 13px; line-height: 16.996px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }</style></head><body><div class = rtcContent><h1  class = 'S0'><span>FFY_ROUWENHORST AR1 Shock Discretization Example</span></h1><div  class = 'S1'><span style=' font-weight: bold;'>back to </span><a href = "https://fanwangecon.github.io"><span style=' font-weight: bold;'>Fan</span></a><span style=' font-weight: bold;'>'s </span><a href = "https://fanwangecon.github.io/Math4Econ/"><span style=' font-weight: bold;'>Intro Math for Econ</span></a><span style=' font-weight: bold;'>,  </span><a href = "https://fanwangecon.github.io/M4Econ/"><span style=' font-weight: bold;'>Matlab Examples</span></a><span style=' font-weight: bold;'>, or </span><a href = "https://fanwangecon.github.io/CodeDynaAsset/"><span style=' font-weight: bold;'>Dynamic Asset</span></a><span style=' font-weight: bold;'> Repositories</span></div><div  class = 'S1'><span>This is the example vignette for function: </span><a href = "https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/external/stats/ffy_rouwenhorst.m"><span style=' font-weight: bold;'>ffy_rouwenhorst</span></a><span> from the </span><a href = "https://fanwangecon.github.io/MEconTools/"><span style=' font-weight: bold;'>MEconTools Package</span></a><span style=' font-weight: bold;'>. </span><span>See also</span><span style=' font-weight: bold;'> </span><a href = "https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/external/stats/ffy_tauchen.m"><span style=' font-weight: bold;'>ffy_tauchen</span></a><span> function from the </span><a href = "https://fanwangecon.github.io/MEconTools/"><span style=' font-weight: bold;'>MEconTools Package</span></a><span style=' font-weight: bold;'>. </span><span>This function discretize a mean zero AR1 process, uses Rouwenhorst (1995). See </span><a href = "https://fanwangecon.github.io/M4Econ/panel/timeseries/htmlpdfm/fs_autoregressive.html"><span>AR 1 Example</span></a><span> for some details on how the AR1 process works. And See </span><a href = "https://doi.org/10.1016/j.red.2010.02.002"><span>Kopecky and Suen (2010)</span></a><span>.</span></div><h2  class = 'S2'><span>Test FFY_ROUWENHORST Defaults</span></h2><div  class = 'S1'><span>Call the function with defaults.</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S3'><span style="white-space: pre;"><span>ffy_rouwenhorst();</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement scrollableOutput" uid="B16A0617" data-testid="output_0" data-width="428" data-height="647" data-hashorizontaloverflow="true" style="width: 458px; max-height: 261px;"><div class="textElement">----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         <strong>i</strong>    <strong>idx</strong>    <strong>ndim</strong>    <strong>numel</strong>    <strong>rowN</strong>    <strong>colN</strong>    <strong>sum</strong>    <strong>mean</strong>      <strong>std</strong>      <strong>coefvari</strong>     <strong>min</strong>       <strong>max</strong>  
+                         <strong>_</strong>    <strong>___</strong>    <strong>____</strong>    <strong>_____</strong>    <strong>____</strong>    <strong>____</strong>    <strong>___</strong>    <strong>____</strong>    <strong>_______</strong>    <strong>________</strong>    <strong>______</strong>    <strong>______</strong>
+
+    <strong>ar_disc_ar1      </strong>    1     1      2        5       5       1       0       0     0.39528        Inf       -0.5       0.5
+    <strong>mt_disc_ar1_trans</strong>    2    11      2       25       5       5       5     0.2     0.18246    0.91229     0.0016    0.5136
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+           <strong>c1</strong>  
+          <strong>_____</strong>
+
+    <strong>r1</strong>     -0.5
+    <strong>r2</strong>    -0.25
+    <strong>r3</strong>        0
+    <strong>r4</strong>     0.25
+    <strong>r5</strong>      0.5
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+            <strong>c1</strong>        <strong>c2</strong>        <strong>c3</strong>        <strong>c4</strong>        <strong>c5</strong>  
+          <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>
+
+    <strong>r1</strong>    0.4096    0.4096    0.1536    0.0256    0.0016
+    <strong>r2</strong>    0.1024    0.4864    0.3264    0.0784    0.0064
+    <strong>r3</strong>    0.0256    0.2176    0.5136    0.2176    0.0256
+    <strong>r4</strong>    0.0064    0.0784    0.3264    0.4864    0.1024
+    <strong>r5</strong>    0.0016    0.0256    0.1536    0.4096    0.4096
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          <strong>i</strong>    <strong>idx</strong>    <strong>value</strong>
+                          <strong>_</strong>    <strong>___</strong>    <strong>_____</strong>
+
+    <strong>fl_ar1_beg        </strong>    1     2     -0.5 
+    <strong>fl_ar1_end        </strong>    2     3      0.5 
+    <strong>fl_ar1_persistence</strong>    3     4      0.6 
+    <strong>fl_ar1_step       </strong>    4     5     0.25 
+    <strong>fl_p0             </strong>    5     6      0.8 
+    <strong>fl_q0             </strong>    6     7      0.8 
+    <strong>fl_shk_std        </strong>    7     8      0.2 
+    <strong>fl_sig_ar1        </strong>    8     9     0.25 
+    <strong>it_std_bound      </strong>    9    10        0 </div></div></div></div></div><h2  class = 'S2'><span>Test FFY_ROUWENHORST Specify Parameters</span></h2><div  class = 'S1'><span>With a grid of 10 points, the Rwouenhorst bounds on standard deviations are equall to Tauchen bounds of 3. With the not extremely persistent shock process here, the Tauchen and Rouwenhorst Results are very similar.</span></div><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S5'><span style="white-space: pre;"><span>[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = </span><span style="color: rgb(0, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>    deal(0.60, 0.10, 10, true);</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S7'><span style="white-space: pre;"><span>ffy_rouwenhorst(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement scrollableOutput" uid="40DA50A8" data-testid="output_1" data-width="428" data-height="787" data-hashorizontaloverflow="true" style="width: 458px; max-height: 261px;"><div class="textElement">----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         <strong>i</strong>    <strong>idx</strong>    <strong>ndim</strong>    <strong>numel</strong>    <strong>rowN</strong>    <strong>colN</strong>       <strong>sum</strong>           <strong>mean</strong>         <strong>std</strong>       <strong>coefvari</strong>       <strong>min</strong>         <strong>max</strong>  
+                         <strong>_</strong>    <strong>___</strong>    <strong>____</strong>    <strong>_____</strong>    <strong>____</strong>    <strong>____</strong>    <strong>__________</strong>    <strong>__________</strong>    <strong>_______</strong>    <strong>__________</strong>    <strong>________</strong>    <strong>_______</strong>
+
+    <strong>ar_disc_ar1      </strong>    1     1      2        10      10       1     5.5511e-17    5.5511e-18     0.2523    4.5451e+16      -0.375      0.375
+    <strong>mt_disc_ar1_trans</strong>    2    11      2       100      10      10             10           0.1    0.11724        1.1724    5.12e-07    0.33477
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+              <strong>c1</strong>    
+           <strong>_________</strong>
+
+    <strong>r1 </strong>       -0.375
+    <strong>r2 </strong>     -0.29167
+    <strong>r3 </strong>     -0.20833
+    <strong>r4 </strong>       -0.125
+    <strong>r5 </strong>    -0.041667
+    <strong>r6 </strong>     0.041667
+    <strong>r7 </strong>        0.125
+    <strong>r8 </strong>      0.20833
+    <strong>r9 </strong>      0.29167
+    <strong>r10</strong>        0.375
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+               <strong>c1</strong>            <strong>c2</strong>            <strong>c3</strong>           <strong>c4</strong>           <strong>c5</strong>          <strong>c6</strong>          <strong>c7</strong>            <strong>c8</strong>            <strong>c9</strong>           <strong>c10</strong>    
+           <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>    <strong>_________</strong>    <strong>________</strong>    <strong>________</strong>    <strong>_________</strong>    <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>
+
+    <strong>r1 </strong>       0.13422       0.30199       0.30199      0.17616     0.06606    0.016515    0.0027525    0.00029491    1.8432e-05      5.12e-07
+    <strong>r2 </strong>      0.033554       0.20133       0.32716      0.26424     0.12662    0.038535    0.0075694    0.00093389    6.6048e-05     2.048e-06
+    <strong>r3 </strong>     0.0083886      0.081789       0.26267      0.32755     0.21401    0.082747     0.019741     0.0028677    0.00023347     8.192e-06
+    <strong>r4 </strong>     0.0020972      0.028312       0.14038      0.30946     0.30369     0.15877     0.047989     0.0084603    0.00081101    3.2768e-05
+    <strong>r5 </strong>    0.00052429      0.009044      0.061145      0.20246     0.33477     0.25969      0.10585      0.023642     0.0027525    0.00013107
+    <strong>r6 </strong>    0.00013107     0.0027525      0.023642      0.10585     0.25969     0.33477      0.20246      0.061145      0.009044    0.00052429
+    <strong>r7 </strong>    3.2768e-05    0.00081101     0.0084603     0.047989     0.15877     0.30369      0.30946       0.14038      0.028312     0.0020972
+    <strong>r8 </strong>     8.192e-06    0.00023347     0.0028677     0.019741    0.082747     0.21401      0.32755       0.26267      0.081789     0.0083886
+    <strong>r9 </strong>     2.048e-06    6.6048e-05    0.00093389    0.0075694    0.038535     0.12662      0.26424       0.32716       0.20133      0.033554
+    <strong>r10</strong>      5.12e-07    1.8432e-05    0.00029491    0.0027525    0.016515     0.06606      0.17616       0.30199       0.30199       0.13422
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          <strong>i</strong>    <strong>idx</strong>     <strong>value</strong>  
+                          <strong>_</strong>    <strong>___</strong>    <strong>________</strong>
+
+    <strong>fl_ar1_beg        </strong>    1     2       -0.375
+    <strong>fl_ar1_end        </strong>    2     3        0.375
+    <strong>fl_ar1_persistence</strong>    3     4          0.6
+    <strong>fl_ar1_step       </strong>    4     5     0.083333
+    <strong>fl_p0             </strong>    5     6          0.8
+    <strong>fl_q0             </strong>    6     7          0.8
+    <strong>fl_shk_std        </strong>    7     8          0.1
+    <strong>fl_sig_ar1        </strong>    8     9        0.125
+    <strong>it_std_bound      </strong>    9    10            0</div></div></div></div></div><h2  class = 'S2'><span>Test FFY_ROUWENHORST High Persistence, Low SD</span></h2><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S5'><span style="white-space: pre;"><span>[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = </span><span style="color: rgb(0, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>    deal(0.99, 0.01, 7, true);</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S7'><span style="white-space: pre;"><span>ffy_rouwenhorst(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement scrollableOutput" uid="89199E4F" data-testid="output_2" data-width="428" data-height="703" data-hashorizontaloverflow="true" style="width: 458px; max-height: 261px;"><div class="textElement">----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         <strong>i</strong>    <strong>idx</strong>    <strong>ndim</strong>    <strong>numel</strong>    <strong>rowN</strong>    <strong>colN</strong>    <strong>sum</strong>     <strong>mean</strong>        <strong>std</strong>      <strong>coefvari</strong>       <strong>min</strong>          <strong>max</strong>  
+                         <strong>_</strong>    <strong>___</strong>    <strong>____</strong>    <strong>_____</strong>    <strong>____</strong>    <strong>____</strong>    <strong>___</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>________</strong>    <strong>__________</strong>    <strong>_______</strong>
+
+    <strong>ar_disc_ar1      </strong>    1     1      2        7       7       1       0           0    0.12503        Inf       -0.17364    0.17364
+    <strong>mt_disc_ar1_trans</strong>    2    11      2       49       7       7       7     0.14286    0.34148     2.3904     1.5625e-14    0.97059
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+             <strong>c1</strong>   
+          <strong>________</strong>
+
+    <strong>r1</strong>    -0.17364
+    <strong>r2</strong>    -0.11576
+    <strong>r3</strong>    -0.05788
+    <strong>r4</strong>           0
+    <strong>r5</strong>     0.05788
+    <strong>r6</strong>     0.11576
+    <strong>r7</strong>     0.17364
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+              <strong>c1</strong>            <strong>c2</strong>            <strong>c3</strong>            <strong>c4</strong>            <strong>c5</strong>            <strong>c6</strong>            <strong>c7</strong>    
+          <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>
+
+    <strong>r1</strong>       0.97037      0.029257    0.00036756    2.4627e-06    9.2815e-09    1.8656e-11    1.5625e-14
+    <strong>r2</strong>     0.0048762        0.9705      0.024382    0.00024504    1.2314e-06    3.0938e-09    3.1094e-12
+    <strong>r3</strong>    2.4504e-05      0.009753       0.97057      0.019506    0.00014703    4.9254e-07    6.1877e-10
+    <strong>r4</strong>    1.2313e-07    7.3513e-05       0.01463       0.97059       0.01463    7.3513e-05    1.2313e-07
+    <strong>r5</strong>    6.1877e-10    4.9254e-07    0.00014703      0.019506       0.97057      0.009753    2.4504e-05
+    <strong>r6</strong>    3.1094e-12    3.0938e-09    1.2314e-06    0.00024504      0.024382        0.9705     0.0048762
+    <strong>r7</strong>    1.5625e-14    1.8656e-11    9.2815e-09    2.4627e-06    0.00036756      0.029257       0.97037
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          <strong>i</strong>    <strong>idx</strong>     <strong>value</strong>  
+                          <strong>_</strong>    <strong>___</strong>    <strong>________</strong>
+
+    <strong>fl_ar1_beg        </strong>    1     2     -0.17364
+    <strong>fl_ar1_end        </strong>    2     3      0.17364
+    <strong>fl_ar1_persistence</strong>    3     4         0.99
+    <strong>fl_ar1_step       </strong>    4     5      0.05788
+    <strong>fl_p0             </strong>    5     6        0.995
+    <strong>fl_q0             </strong>    6     7        0.995
+    <strong>fl_shk_std        </strong>    7     8         0.01
+    <strong>fl_sig_ar1        </strong>    8     9     0.070888
+    <strong>it_std_bound      </strong>    9    10            0</div></div></div></div></div><h2  class = 'S2'><span>Test FFY_ROUWENHORST Low Persistence, Low SD</span></h2><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S5'><span style="white-space: pre;"><span>[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = </span><span style="color: rgb(0, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>    deal(0.01, 0.01, 7, true);</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S7'><span style="white-space: pre;"><span>ffy_rouwenhorst(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement scrollableOutput" uid="31661E5D" data-testid="output_3" data-width="428" data-height="703" data-hashorizontaloverflow="true" style="width: 458px; max-height: 261px;"><div class="textElement">----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         <strong>i</strong>    <strong>idx</strong>    <strong>ndim</strong>    <strong>numel</strong>    <strong>rowN</strong>    <strong>colN</strong>    <strong>sum</strong>     <strong>mean</strong>        <strong>std</strong>       <strong>coefvari</strong>       <strong>min</strong>         <strong>max</strong>   
+                         <strong>_</strong>    <strong>___</strong>    <strong>____</strong>    <strong>_____</strong>    <strong>____</strong>    <strong>____</strong>    <strong>___</strong>    <strong>_______</strong>    <strong>________</strong>    <strong>________</strong>    <strong>_________</strong>    <strong>________</strong>
+
+    <strong>ar_disc_ar1      </strong>    1     1      2        7       7       1       0           0    0.017639        Inf     -0.024496    0.024496
+    <strong>mt_disc_ar1_trans</strong>    2    11      2       49       7       7       7     0.14286     0.10985    0.76893      0.014711     0.31252
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+              <strong>c1</strong>    
+          <strong>__________</strong>
+
+    <strong>r1</strong>     -0.024496
+    <strong>r2</strong>     -0.016331
+    <strong>r3</strong>    -0.0081654
+    <strong>r4</strong>             0
+    <strong>r5</strong>     0.0081654
+    <strong>r6</strong>      0.016331
+    <strong>r7</strong>      0.024496
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+             <strong>c1</strong>          <strong>c2</strong>         <strong>c3</strong>         <strong>c4</strong>         <strong>c5</strong>          <strong>c6</strong>          <strong>c7</strong>   
+          <strong>________</strong>    <strong>________</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>________</strong>    <strong>________</strong>
+
+    <strong>r1</strong>    0.016586    0.097547    0.23904    0.31241    0.22966    0.090047    0.014711
+    <strong>r2</strong>    0.016258    0.096266    0.23749    0.31247    0.23124    0.091266    0.015008
+    <strong>r3</strong>    0.015936    0.094997    0.23594    0.31251    0.23281    0.092497    0.015311
+    <strong>r4</strong>     0.01562    0.093741    0.23438    0.31252    0.23438    0.093741     0.01562
+    <strong>r5</strong>    0.015311    0.092497    0.23281    0.31251    0.23594    0.094997    0.015936
+    <strong>r6</strong>    0.015008    0.091266    0.23124    0.31247    0.23749    0.096266    0.016258
+    <strong>r7</strong>    0.014711    0.090047    0.22966    0.31241    0.23904    0.097547    0.016586
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          <strong>i</strong>    <strong>idx</strong>      <strong>value</strong>  
+                          <strong>_</strong>    <strong>___</strong>    <strong>_________</strong>
+
+    <strong>fl_ar1_beg        </strong>    1     2     -0.024496
+    <strong>fl_ar1_end        </strong>    2     3      0.024496
+    <strong>fl_ar1_persistence</strong>    3     4          0.01
+    <strong>fl_ar1_step       </strong>    4     5     0.0081654
+    <strong>fl_p0             </strong>    5     6         0.505
+    <strong>fl_q0             </strong>    6     7         0.505
+    <strong>fl_shk_std        </strong>    7     8          0.01
+    <strong>fl_sig_ar1        </strong>    8     9      0.010001
+    <strong>it_std_bound      </strong>    9    10             0</div></div></div></div></div><h2  class = 'S2'><span>Test FFY_ROUWENHORST High Persistence, High SD</span></h2><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S5'><span style="white-space: pre;"><span>[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = </span><span style="color: rgb(0, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>    deal(0.99, 0.99, 7, true);</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S7'><span style="white-space: pre;"><span>ffy_rouwenhorst(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement scrollableOutput" uid="62B5620C" data-testid="output_4" data-width="428" data-height="703" data-hashorizontaloverflow="true" style="width: 458px; max-height: 261px;"><div class="textElement">----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         <strong>i</strong>    <strong>idx</strong>    <strong>ndim</strong>    <strong>numel</strong>    <strong>rowN</strong>    <strong>colN</strong>       <strong>sum</strong>           <strong>mean</strong>         <strong>std</strong>      <strong>coefvari</strong>        <strong>min</strong>          <strong>max</strong>  
+                         <strong>_</strong>    <strong>___</strong>    <strong>____</strong>    <strong>_____</strong>    <strong>____</strong>    <strong>____</strong>    <strong>__________</strong>    <strong>__________</strong>    <strong>_______</strong>    <strong>_________</strong>    <strong>__________</strong>    <strong>_______</strong>
+
+    <strong>ar_disc_ar1      </strong>    1     1      2        7       7       1      3.5527e-15    5.0753e-16     12.378    2.439e+16        -17.19      17.19
+    <strong>mt_disc_ar1_trans</strong>    2    11      2       49       7       7               7       0.14286    0.34148       2.3904    1.5625e-14    0.97059
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+            <strong>c1</strong>   
+          <strong>_______</strong>
+
+    <strong>r1</strong>     -17.19
+    <strong>r2</strong>     -11.46
+    <strong>r3</strong>    -5.7301
+    <strong>r4</strong>          0
+    <strong>r5</strong>     5.7301
+    <strong>r6</strong>      11.46
+    <strong>r7</strong>      17.19
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+              <strong>c1</strong>            <strong>c2</strong>            <strong>c3</strong>            <strong>c4</strong>            <strong>c5</strong>            <strong>c6</strong>            <strong>c7</strong>    
+          <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>
+
+    <strong>r1</strong>       0.97037      0.029257    0.00036756    2.4627e-06    9.2815e-09    1.8656e-11    1.5625e-14
+    <strong>r2</strong>     0.0048762        0.9705      0.024382    0.00024504    1.2314e-06    3.0938e-09    3.1094e-12
+    <strong>r3</strong>    2.4504e-05      0.009753       0.97057      0.019506    0.00014703    4.9254e-07    6.1877e-10
+    <strong>r4</strong>    1.2313e-07    7.3513e-05       0.01463       0.97059       0.01463    7.3513e-05    1.2313e-07
+    <strong>r5</strong>    6.1877e-10    4.9254e-07    0.00014703      0.019506       0.97057      0.009753    2.4504e-05
+    <strong>r6</strong>    3.1094e-12    3.0938e-09    1.2314e-06    0.00024504      0.024382        0.9705     0.0048762
+    <strong>r7</strong>    1.5625e-14    1.8656e-11    9.2815e-09    2.4627e-06    0.00036756      0.029257       0.97037
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          <strong>i</strong>    <strong>idx</strong>    <strong>value</strong> 
+                          <strong>_</strong>    <strong>___</strong>    <strong>______</strong>
+
+    <strong>fl_ar1_beg        </strong>    1     2     -17.19
+    <strong>fl_ar1_end        </strong>    2     3      17.19
+    <strong>fl_ar1_persistence</strong>    3     4       0.99
+    <strong>fl_ar1_step       </strong>    4     5     5.7301
+    <strong>fl_p0             </strong>    5     6      0.995
+    <strong>fl_q0             </strong>    6     7      0.995
+    <strong>fl_shk_std        </strong>    7     8       0.99
+    <strong>fl_sig_ar1        </strong>    8     9     7.0179
+    <strong>it_std_bound      </strong>    9    10          0</div></div></div></div></div><h2  class = 'S2'><span>Test FFY_ROUWENHORST Low Persistence, Low SD</span></h2><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S5'><span style="white-space: pre;"><span>[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = </span><span style="color: rgb(0, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>    deal(0.01, 0.01, 7, true);</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S7'><span style="white-space: pre;"><span>ffy_rouwenhorst(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement scrollableOutput" uid="B328EEFA" data-testid="output_5" data-width="428" data-height="703" data-hashorizontaloverflow="true" style="width: 458px; max-height: 261px;"><div class="textElement">----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         <strong>i</strong>    <strong>idx</strong>    <strong>ndim</strong>    <strong>numel</strong>    <strong>rowN</strong>    <strong>colN</strong>    <strong>sum</strong>     <strong>mean</strong>        <strong>std</strong>       <strong>coefvari</strong>       <strong>min</strong>         <strong>max</strong>   
+                         <strong>_</strong>    <strong>___</strong>    <strong>____</strong>    <strong>_____</strong>    <strong>____</strong>    <strong>____</strong>    <strong>___</strong>    <strong>_______</strong>    <strong>________</strong>    <strong>________</strong>    <strong>_________</strong>    <strong>________</strong>
+
+    <strong>ar_disc_ar1      </strong>    1     1      2        7       7       1       0           0    0.017639        Inf     -0.024496    0.024496
+    <strong>mt_disc_ar1_trans</strong>    2    11      2       49       7       7       7     0.14286     0.10985    0.76893      0.014711     0.31252
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+              <strong>c1</strong>    
+          <strong>__________</strong>
+
+    <strong>r1</strong>     -0.024496
+    <strong>r2</strong>     -0.016331
+    <strong>r3</strong>    -0.0081654
+    <strong>r4</strong>             0
+    <strong>r5</strong>     0.0081654
+    <strong>r6</strong>      0.016331
+    <strong>r7</strong>      0.024496
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+             <strong>c1</strong>          <strong>c2</strong>         <strong>c3</strong>         <strong>c4</strong>         <strong>c5</strong>          <strong>c6</strong>          <strong>c7</strong>   
+          <strong>________</strong>    <strong>________</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>________</strong>    <strong>________</strong>
+
+    <strong>r1</strong>    0.016586    0.097547    0.23904    0.31241    0.22966    0.090047    0.014711
+    <strong>r2</strong>    0.016258    0.096266    0.23749    0.31247    0.23124    0.091266    0.015008
+    <strong>r3</strong>    0.015936    0.094997    0.23594    0.31251    0.23281    0.092497    0.015311
+    <strong>r4</strong>     0.01562    0.093741    0.23438    0.31252    0.23438    0.093741     0.01562
+    <strong>r5</strong>    0.015311    0.092497    0.23281    0.31251    0.23594    0.094997    0.015936
+    <strong>r6</strong>    0.015008    0.091266    0.23124    0.31247    0.23749    0.096266    0.016258
+    <strong>r7</strong>    0.014711    0.090047    0.22966    0.31241    0.23904    0.097547    0.016586
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          <strong>i</strong>    <strong>idx</strong>      <strong>value</strong>  
+                          <strong>_</strong>    <strong>___</strong>    <strong>_________</strong>
+
+    <strong>fl_ar1_beg        </strong>    1     2     -0.024496
+    <strong>fl_ar1_end        </strong>    2     3      0.024496
+    <strong>fl_ar1_persistence</strong>    3     4          0.01
+    <strong>fl_ar1_step       </strong>    4     5     0.0081654
+    <strong>fl_p0             </strong>    5     6         0.505
+    <strong>fl_q0             </strong>    6     7         0.505
+    <strong>fl_shk_std        </strong>    7     8          0.01
+    <strong>fl_sig_ar1        </strong>    8     9      0.010001
+    <strong>it_std_bound      </strong>    9    10             0</div></div></div></div></div></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+%% FFY_ROUWENHORST AR1 Shock Discretization Example
+% *back to* <https://fanwangecon.github.io *Fan*>*'s* <https://fanwangecon.github.io/Math4Econ/ 
+% *Intro Math for Econ*>*,*  <https://fanwangecon.github.io/M4Econ/ *Matlab Examples*>*, 
+% or* <https://fanwangecon.github.io/CodeDynaAsset/ *Dynamic Asset*> *Repositories*
+% 
+% This is the example vignette for function: <https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/external/stats/ffy_rouwenhorst.m 
+% *ffy_rouwenhorst*> from the <https://fanwangecon.github.io/MEconTools/ *MEconTools 
+% Package*>*.* See also <https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/external/stats/ffy_tauchen.m 
+% *ffy_tauchen*> function from the <https://fanwangecon.github.io/MEconTools/ 
+% *MEconTools Package*>*.* This function discretize a mean zero AR1 process, uses 
+% Rouwenhorst (1995). See <https://fanwangecon.github.io/M4Econ/panel/timeseries/htmlpdfm/fs_autoregressive.html 
+% AR 1 Example> for some details on how the AR1 process works. And See <https://doi.org/10.1016/j.red.2010.02.002 
+% Kopecky and Suen (2010)>.
+%% Test FFY_ROUWENHORST Defaults
+% Call the function with defaults.
+
+ffy_rouwenhorst();
+%% Test FFY_ROUWENHORST Specify Parameters
+% With a grid of 10 points, the Rwouenhorst bounds on standard deviations are 
+% equall to Tauchen bounds of 3. With the not extremely persistent shock process 
+% here, the Tauchen and Rouwenhorst Results are very similar.
+
+[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.60, 0.10, 10, true);
+ffy_rouwenhorst(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+%% Test FFY_ROUWENHORST High Persistence, Low SD
+
+[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.99, 0.01, 7, true);
+ffy_rouwenhorst(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+%% Test FFY_ROUWENHORST Low Persistence, Low SD
+
+[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.01, 0.01, 7, true);
+ffy_rouwenhorst(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+%% Test FFY_ROUWENHORST High Persistence, High SD
+
+[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.99, 0.99, 7, true);
+ffy_rouwenhorst(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+%% Test FFY_ROUWENHORST Low Persistence, Low SD
+
+[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.01, 0.01, 7, true);
+ffy_rouwenhorst(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+##### SOURCE END #####
+--></body></html>

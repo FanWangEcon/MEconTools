@@ -1,0 +1,333 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>FFY_TAUCHEN Tauchen (1986) AR1 Discretization</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-06-28"><meta name="DC.source" content="ffy_tauchen.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>FFY_TAUCHEN Tauchen (1986) AR1 Discretization</h1><!--introduction--><pre>  Mean Zero AR1 process. (edited from Jan Hannes Lang's code)</pre><pre>  * FL_PERSISTENCE AR1 process persistence
+  * FL_SHOCK_STD AR1 standard deviation
+  * IT_DISC_POINTS number of points to discretize AR1 process to
+  * IT_STD_BOUND shock bounds on AR1 process</pre><pre>  FFY_TAUCHEN() defaults</pre><pre>  [AR_DISC_AR1, MT_DISC_AR1_TRANS] = FFY_TAUCHEN(FL_PERSISTENCE,
+  FL_SHOCK_STD, IT_DISC_POINTS) specify AR 1 parameters.</pre><pre>  [AR_DISC_AR1, MT_DISC_AR1_TRANS] = FFY_TAUCHEN(FL_PERSISTENCE,
+  FL_SHOCK_STD, IT_DISC_POINTS, BL_VERBOSE) add bounds on shocks.</pre><pre>  [AR_DISC_AR1, MT_DISC_AR1_TRANS] = FFY_TAUCHEN(FL_PERSISTENCE,
+  FL_SHOCK_STD, IT_DISC_POINTS, BL_VERBOSE, IT_STD_BOUND) control
+  verbose printing.</pre><pre>  For more information, see &lt;a href="matlab:web('https://fanwangecon.github.io/M4Econ/panel/timeseries/htmlpdfm/fs_autoregressive.html')"&gt;AR1 Process Example&lt;/a&gt;.</pre><pre>  see also FXY_TAUCHEN, FFY_ROUWENHORST, FXY_ROUWENHORST</pre><!--/introduction--><pre class="codeinput"><span class="keyword">function</span> [ar_disc_ar1, mt_disc_ar1_trans] = ffy_tauchen(varargin)
+
+<span class="keyword">if</span> (~isempty(varargin))
+
+    bl_verbose = false;
+    it_std_bound = 4;
+
+    <span class="keyword">if</span> (length(varargin) == 3)
+        [fl_ar1_persistence, fl_shk_std, it_disc_points] = varargin{:};
+    <span class="keyword">elseif</span> (length(varargin) == 4)
+        [fl_ar1_persistence, fl_shk_std, it_disc_points, <span class="keyword">...</span>
+            bl_verbose] = varargin{:};
+    <span class="keyword">elseif</span> (length(varargin) == 5)
+        [fl_ar1_persistence, fl_shk_std, it_disc_points, <span class="keyword">...</span>
+            bl_verbose, it_std_bound] = varargin{:};
+    <span class="keyword">else</span>
+        error(<span class="string">'Must specify three parameters.'</span>);
+    <span class="keyword">end</span>
+
+    <span class="keyword">if</span> (it_disc_points&lt;=1)
+        error(<span class="string">'Must discretize to more than 1 point.'</span>);
+    <span class="keyword">end</span>
+
+<span class="keyword">else</span>
+
+    fl_ar1_persistence = 0.60;
+    fl_shk_std = 0.20;
+    it_disc_points = 5;
+    it_std_bound = 4;
+    bl_verbose = true;
+
+<span class="keyword">end</span>
+
+fl_sig_ar1 = sqrt(fl_shk_std^2/(1-fl_ar1_persistence^2));
+
+ar_disc_ar1 = zeros(it_disc_points,1);
+mt_disc_ar1_trans = zeros(it_disc_points,it_disc_points);
+ar_disc_ar1(1) = -it_std_bound*fl_sig_ar1;
+ar_disc_ar1(it_disc_points) = it_std_bound*fl_sig_ar1;
+fl_ar1_step = (ar_disc_ar1(it_disc_points)-ar_disc_ar1(1))/(it_disc_points-1);
+
+<span class="keyword">for</span> i=2:(it_disc_points-1)
+    ar_disc_ar1(i) = ar_disc_ar1(i-1) + fl_ar1_step;
+<span class="keyword">end</span>
+
+<span class="keyword">for</span> it_j = 1:it_disc_points
+    <span class="keyword">for</span> it_k = 1:it_disc_points
+        <span class="keyword">if</span> it_k == 1
+            mt_disc_ar1_trans(it_j, it_k) = <span class="keyword">...</span>
+                cdf_normal((ar_disc_ar1(1) - fl_ar1_persistence*ar_disc_ar1(it_j) + fl_ar1_step/2) / fl_shk_std);
+        <span class="keyword">elseif</span> it_k == it_disc_points
+            mt_disc_ar1_trans(it_j,it_k) = <span class="keyword">...</span>
+                1 - cdf_normal(<span class="keyword">...</span>
+                (ar_disc_ar1(it_disc_points) <span class="keyword">...</span>
+                - fl_ar1_persistence*ar_disc_ar1(it_j) <span class="keyword">...</span>
+                - fl_ar1_step/2)<span class="keyword">...</span>
+                / fl_shk_std);
+        <span class="keyword">else</span>
+            mt_disc_ar1_trans(it_j,it_k) = <span class="keyword">...</span>
+                cdf_normal((ar_disc_ar1(it_k) - fl_ar1_persistence*ar_disc_ar1(it_j) + fl_ar1_step/2) / fl_shk_std) <span class="keyword">...</span>
+                - cdf_normal((ar_disc_ar1(it_k) - fl_ar1_persistence*ar_disc_ar1(it_j) - fl_ar1_step/2) / fl_shk_std);
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+
+<span class="comment">% print</span>
+<span class="keyword">if</span> (bl_verbose)
+
+    <span class="comment">% gather all info</span>
+    mp_container_map = containers.Map(<span class="string">'KeyType'</span>,<span class="string">'char'</span>, <span class="string">'ValueType'</span>,<span class="string">'any'</span>);
+    mp_container_map(<span class="string">'fl_ar1_persistence'</span>) = fl_ar1_persistence;
+    mp_container_map(<span class="string">'fl_shk_std'</span>) = fl_shk_std;
+    mp_container_map(<span class="string">'it_std_bound'</span>) = it_std_bound;
+    mp_container_map(<span class="string">'fl_ar1_step'</span>) = fl_ar1_step;
+    mp_container_map(<span class="string">'ar_disc_ar1'</span>) = ar_disc_ar1;
+    mp_container_map(<span class="string">'mt_disc_ar1_trans'</span>) = mt_disc_ar1_trans;
+
+    <span class="comment">% print</span>
+    ff_container_map_display(mp_container_map, 50, 50);
+
+<span class="keyword">end</span>
+
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> c = cdf_normal(x)
+c = 0.5 * erfc(-x/sqrt(2));
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN    sum    mean      std      coefvari       min         max  
+                         _    ___    ____    _____    ____    ____    ___    ____    _______    ________    __________    ______
+
+    ar_disc_ar1          1     1      2        5       5       1       0       0     0.79057        Inf             -1         1
+    mt_disc_ar1_trans    2     6      2       25       5       5       5     0.2     0.27623     1.3812     7.3923e-12    0.7887
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+           c1 
+          ____
+
+    r1      -1
+    r2    -0.5
+    r3       0
+    r4     0.5
+    r5       1
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+              c1            c2           c3           c4            c5    
+          __________    __________    ________    __________    __________
+
+    r1       0.22663       0.73331    0.040048    1.0689e-05    7.3923e-12
+    r2      0.012224       0.58648     0.39831     0.0029797     7.605e-08
+    r3    8.8417e-05       0.10556      0.7887       0.10556    8.8417e-05
+    r4     7.605e-08     0.0029797     0.39831       0.58648      0.012224
+    r5    7.3923e-12    1.0689e-05    0.040048       0.73331       0.22663
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx    value
+                          _    ___    _____
+
+    fl_ar1_persistence    1     2      0.6 
+    fl_ar1_step           2     3      0.5 
+    fl_shk_std            3     4      0.2 
+    it_std_bound          4     5        4 
+
+
+ans =
+
+   -1.0000
+   -0.5000
+         0
+    0.5000
+    1.0000
+
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% FFY_TAUCHEN Tauchen (1986) AR1 Discretization
+%
+%    Mean Zero AR1 process. (edited from Jan Hannes Lang's code)
+%
+%    * FL_PERSISTENCE AR1 process persistence
+%    * FL_SHOCK_STD AR1 standard deviation
+%    * IT_DISC_POINTS number of points to discretize AR1 process to
+%    * IT_STD_BOUND shock bounds on AR1 process
+%
+%    FFY_TAUCHEN() defaults
+%
+%    [AR_DISC_AR1, MT_DISC_AR1_TRANS] = FFY_TAUCHEN(FL_PERSISTENCE,
+%    FL_SHOCK_STD, IT_DISC_POINTS) specify AR 1 parameters.
+%
+%    [AR_DISC_AR1, MT_DISC_AR1_TRANS] = FFY_TAUCHEN(FL_PERSISTENCE,
+%    FL_SHOCK_STD, IT_DISC_POINTS, BL_VERBOSE) add bounds on shocks.
+%
+%    [AR_DISC_AR1, MT_DISC_AR1_TRANS] = FFY_TAUCHEN(FL_PERSISTENCE,
+%    FL_SHOCK_STD, IT_DISC_POINTS, BL_VERBOSE, IT_STD_BOUND) control
+%    verbose printing.
+%
+%    For more information, see <a href="matlab:web('https://fanwangecon.github.io/M4Econ/panel/timeseries/htmlpdfm/fs_autoregressive.html')">AR1 Process Example</a>.
+%
+%    see also FXY_TAUCHEN, FFY_ROUWENHORST, FXY_ROUWENHORST
+%
+
+%%
+function [ar_disc_ar1, mt_disc_ar1_trans] = ffy_tauchen(varargin)
+
+if (~isempty(varargin))
+    
+    bl_verbose = false;
+    it_std_bound = 4;
+    
+    if (length(varargin) == 3)
+        [fl_ar1_persistence, fl_shk_std, it_disc_points] = varargin{:};
+    elseif (length(varargin) == 4)
+        [fl_ar1_persistence, fl_shk_std, it_disc_points, ...
+            bl_verbose] = varargin{:};
+    elseif (length(varargin) == 5)
+        [fl_ar1_persistence, fl_shk_std, it_disc_points, ...
+            bl_verbose, it_std_bound] = varargin{:};
+    else
+        error('Must specify three parameters.');
+    end
+    
+    if (it_disc_points<=1)
+        error('Must discretize to more than 1 point.');
+    end
+    
+else
+    
+    fl_ar1_persistence = 0.60;
+    fl_shk_std = 0.20;
+    it_disc_points = 5;
+    it_std_bound = 4;
+    bl_verbose = true;
+    
+end
+
+fl_sig_ar1 = sqrt(fl_shk_std^2/(1-fl_ar1_persistence^2));
+
+ar_disc_ar1 = zeros(it_disc_points,1);
+mt_disc_ar1_trans = zeros(it_disc_points,it_disc_points);
+ar_disc_ar1(1) = -it_std_bound*fl_sig_ar1;
+ar_disc_ar1(it_disc_points) = it_std_bound*fl_sig_ar1;
+fl_ar1_step = (ar_disc_ar1(it_disc_points)-ar_disc_ar1(1))/(it_disc_points-1);
+
+for i=2:(it_disc_points-1)
+    ar_disc_ar1(i) = ar_disc_ar1(i-1) + fl_ar1_step;
+end
+
+for it_j = 1:it_disc_points
+    for it_k = 1:it_disc_points
+        if it_k == 1
+            mt_disc_ar1_trans(it_j, it_k) = ...
+                cdf_normal((ar_disc_ar1(1) - fl_ar1_persistence*ar_disc_ar1(it_j) + fl_ar1_step/2) / fl_shk_std);
+        elseif it_k == it_disc_points
+            mt_disc_ar1_trans(it_j,it_k) = ...
+                1 - cdf_normal(...
+                (ar_disc_ar1(it_disc_points) ...
+                - fl_ar1_persistence*ar_disc_ar1(it_j) ...
+                - fl_ar1_step/2)...
+                / fl_shk_std);
+        else
+            mt_disc_ar1_trans(it_j,it_k) = ...
+                cdf_normal((ar_disc_ar1(it_k) - fl_ar1_persistence*ar_disc_ar1(it_j) + fl_ar1_step/2) / fl_shk_std) ...
+                - cdf_normal((ar_disc_ar1(it_k) - fl_ar1_persistence*ar_disc_ar1(it_j) - fl_ar1_step/2) / fl_shk_std);
+        end
+    end
+end
+
+
+% print
+if (bl_verbose)
+    
+    % gather all info
+    mp_container_map = containers.Map('KeyType','char', 'ValueType','any');
+    mp_container_map('fl_ar1_persistence') = fl_ar1_persistence;
+    mp_container_map('fl_shk_std') = fl_shk_std;
+    mp_container_map('it_std_bound') = it_std_bound;
+    mp_container_map('fl_ar1_step') = fl_ar1_step;
+    mp_container_map('ar_disc_ar1') = ar_disc_ar1;
+    mp_container_map('mt_disc_ar1_trans') = mt_disc_ar1_trans;
+    
+    % print
+    ff_container_map_display(mp_container_map, 50, 50);
+    
+end
+
+end
+
+function c = cdf_normal(x)
+c = 0.5 * erfc(-x/sqrt(2));
+end
+##### SOURCE END #####
+--></body></html>

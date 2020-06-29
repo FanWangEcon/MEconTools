@@ -1,0 +1,45 @@
+- file: fxy_tauchen
+  title: "Matlab Discretize AR1 Normal Shock Tauchen (1986)"
+  titleshort: "Discretize AR1 Normal Shock Tauchen (1986)"
+  description: |
+    Mean zero AR(1) shock discretize following Tauchen (1986).
+  core :
+    - package: MEconTools
+      code: |
+        ffy_tauchen()
+  date: 2020-06-28
+  date_start: 2020-06-28
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue
+
+- file: fxy_rouwenhorst
+  title: "Matlab Discretize AR1 Normal Shock Rouwenhorst (1995)"
+  titleshort: "Discretize AR1 Normal Shock Rouwenhorst (1995)"
+  description: |
+    Mean zero AR(1) shock discretize following Rouwenhorst (1995).
+  core :
+    - package: MEconTools
+      code: |
+        ffy_rouwenhorst()
+  date: 2020-06-28
+  date_start: 2020-06-28
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue

@@ -1,0 +1,22 @@
+- file: fx_saveborr_grid
+  title: "Matlab Generate Log and Power Spaced Asset and Choice Grids"
+  titleshort: "Log and Power Spaced Asset and Choice Grids"
+  description: |
+    Generate linear, log-space, power-space, or threshold-cut asset or choice grids.
+  core :
+    - package: MEconTools
+      code: |
+        ff_saveborr_grid()
+  date: 2020-06-28
+  date_start: 2020-06-28
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue

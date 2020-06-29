@@ -19,6 +19,13 @@ rmd_files:
   - MEconTools/doc/graph/main.Rmd
   - MEconTools/doc/graph/fx_graph_grid.Rmd
 
+  - MEconTools/doc/generate/main.Rmd
+  - MEconTools/doc/generate/fx_saveborr_grid.Rmd
+
+  - MEconTools/doc/external/main.Rmd
+  - MEconTools/doc/external/fxy_tauchen.Rmd
+  - MEconTools/doc/external/fxy_rouwenhorst.Rmd
+
   - MEconTools/doc/tools/main.Rmd
   - MEconTools/doc/tools/fx_container_map_display.Rmd
 

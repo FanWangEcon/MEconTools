@@ -1,0 +1,435 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>FF_SAVEBORR_GRID Saving and Borrowing States/Choice Grid</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-06-28"><meta name="DC.source" content="ff_saveborr_grid.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>FF_SAVEBORR_GRID Saving and Borrowing States/Choice Grid</h1><!--introduction--><pre>  Generate savings/borrowing states and choice grid given minimum,
+  maximum, and various other parameters. In the simplest case, generate
+  an even linspace savings grid from min to max. Or generate a grid with
+  denser points at the lower end with power function, log rule, etc. Or
+  generate a grid where the initial points are evenly spaced, but then
+  after some threshold, the points are nonlinearly spaced.</pre><pre>  * ST_GRID_TYPE String which type of grid to generate: 'grid_linspace',
+  'grid_log10space', 'grid_powerspace', 'grid_evenlog'.</pre><pre>  Each type has type specific options set through key/value of
+  MP_GRID_CONTROL. 'grid_linspace': linspace; 'grid_log10space': log
+  space; 'grid_powerspace': power grid spacing; 'grid_evenlog': even
+  then log space.</pre><pre>  mp_grid_control = containers.Map('KeyType', 'char', 'ValueType', 'any')
+  mp_grid_control('grid_log10space_x1') = first input of logspace();
+  mp_grid_control('grid_log10space_x2') = second input of logspace();
+  mp_grid_control('grid_powerspace_power') = 3;
+  mp_grid_control('grid_evenlog_threshold') = 1;</pre><pre>  FF_SAVEBORR_GRID() generate a default savings grid, output grix is a
+  column array.</pre><pre>  [AR_A_GRID] = FF_SAVEBORR_GRID(FL_A_MIN, FL_A_MAX, IT_A_POINTS)
+  specify min, max and points, this will by default generate a power
+  grid of points: st_grid_type == grid_log10space.</pre><pre>  [AR_A_GRID] = FF_SAVEBORR_GRID(FL_A_MIN, FL_A_MAX, IT_A_POINTS,
+  ST_GRID_TYPE). Can change grid output type via ST_GRID_TYPE.</pre><pre>  [AR_A_GRID] = FF_SAVEBORR_GRID(FL_A_MIN, FL_A_MAX, IT_A_POINTS,
+  ST_GRID_TYPE, MP_GRID_CONTROL). Modify default ST_GRID_TYPE specific
+  parameters via MP_GRID_CONTROL container map.</pre><pre>  see also FX_SAVEBORR_GRID</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Set and Update Support Map</a></li><li><a href="#4">Parse mp_grid_control</a></li><li><a href="#5">Grid Generations</a></li><li><a href="#6">st_grid_type == grid_linspace</a></li><li><a href="#8">st_grid_type == grid_log10space</a></li><li><a href="#10">st_grid_type == grid_powerspace</a></li><li><a href="#12">st_grid_type == grid_evenlog</a></li><li><a href="#14">print details</a></li><li><a href="#15">Return</a></li></ul></div><pre class="codeinput"><span class="keyword">function</span> varargout = ff_saveborr_grid(varargin)
+</pre><pre class="codeinput"><span class="keyword">if</span> (~isempty(varargin))
+
+    st_grid_type = <span class="string">'grid_linspace'</span>;
+    bl_verbose = false;
+
+    <span class="keyword">if</span> (length(varargin) == 3)
+        [fl_a_min, fl_a_max, it_a_points] = varargin{:};
+    <span class="keyword">elseif</span> (length(varargin) == 4)
+        [fl_a_min, fl_a_max, it_a_points, st_grid_type] = varargin{:};
+    <span class="keyword">elseif</span> (length(varargin) == 5)
+        [fl_a_min, fl_a_max, it_a_points, <span class="keyword">...</span>
+            st_grid_type, mp_grid_control_ext] = varargin{:};
+    <span class="keyword">else</span>
+        error(<span class="string">'Must specify three parameters.'</span>);
+    <span class="keyword">end</span>
+
+<span class="keyword">else</span>
+
+    fl_a_min = 0;
+    fl_a_max = 50;
+    it_a_points = 25;
+    bl_verbose = true;
+
+<span class="comment">%     st_grid_type = 'grid_linspace';</span>
+    st_grid_type = <span class="string">'grid_log10space'</span>;
+<span class="comment">%     st_grid_type = 'grid_powerspace';</span>
+<span class="comment">%     st_grid_type = 'grid_evenlog';</span>
+
+<span class="keyword">end</span>
+</pre><h2 id="3">Set and Update Support Map</h2><pre class="codeinput">mp_grid_control = containers.Map(<span class="string">'KeyType'</span>,<span class="string">'char'</span>, <span class="string">'ValueType'</span>,<span class="string">'any'</span>);
+
+<span class="comment">% Options for st_grid_type == grid_linspace</span>
+
+<span class="comment">% Options for st_grid_type == grid_log10space</span>
+mp_grid_control(<span class="string">'grid_log10space_x1'</span>) = 0.3;
+mp_grid_control(<span class="string">'grid_log10space_x2'</span>) = 3;
+
+<span class="comment">% Options for st_grid_type == grid_powerspace</span>
+mp_grid_control(<span class="string">'grid_powerspace_power'</span>) = 3;
+
+<span class="comment">% Options for st_grid_type == grid_evenlog</span>
+mp_grid_control(<span class="string">'grid_evenlog_threshold'</span>) = 1;
+
+<span class="comment">% override default support_map values</span>
+<span class="keyword">if</span> (length(varargin)==3)
+    mp_grid_control = [mp_grid_control; mp_grid_control_ext];
+<span class="keyword">end</span>
+</pre><h2 id="4">Parse mp_grid_control</h2><pre class="codeinput">params_group = values(mp_grid_control, {<span class="string">'grid_log10space_x1'</span>, <span class="string">'grid_log10space_x2'</span>});
+[grid_log10space_x1, grid_log10space_x2] = params_group{:};
+params_group = values(mp_grid_control, {<span class="string">'grid_powerspace_power'</span>});
+[grid_powerspace_power] = params_group{:};
+params_group = values(mp_grid_control, {<span class="string">'grid_evenlog_threshold'</span>});
+[grid_evenlog_threshold] = params_group{:};
+</pre><h2 id="5">Grid Generations</h2><pre class="codeinput"><span class="keyword">if</span> (strcmp(st_grid_type, <span class="string">'grid_linspace'</span>))
+</pre><h2 id="6">st_grid_type == grid_linspace</h2><pre class="codeinput">    ar_fl_saveborr = linspace(fl_a_min, fl_a_max, (it_a_points))';
+</pre><pre class="codeinput"><span class="keyword">elseif</span> (strcmp(st_grid_type, <span class="string">'grid_log10space'</span>))
+</pre><h2 id="8">st_grid_type == grid_log10space</h2><pre class="codeinput">    <span class="comment">% generate logspace</span>
+    ar_fl_logspace = logspace(grid_log10space_x1, grid_log10space_x2, it_a_points)';
+
+    <span class="comment">% use logspace as ratio</span>
+    ar_fl_saveborr_ratio = (ar_fl_logspace -min(ar_fl_logspace))./(max(ar_fl_logspace) - min(ar_fl_logspace));
+
+    <span class="comment">% use ratio with min and max</span>
+    ar_fl_saveborr = ar_fl_saveborr_ratio.*(fl_a_max-fl_a_min) + fl_a_min;
+</pre><pre class="codeinput"><span class="keyword">elseif</span> (strcmp(st_grid_type, <span class="string">'grid_powerspace'</span>))
+</pre><h2 id="10">st_grid_type == grid_powerspace</h2><pre class="codeinput">    ar_fl_saveborr=zeros(it_a_points, 1);
+
+    <span class="keyword">for</span> i=2:(it_a_points)
+        ar_fl_saveborr(i)=fl_a_max*((i-1)/(it_a_points-1))^grid_powerspace_power;
+    <span class="keyword">end</span>
+</pre><pre class="codeinput"><span class="keyword">elseif</span> (strcmp(st_grid_type, <span class="string">'grid_evenlog'</span>))
+</pre><h2 id="12">st_grid_type == grid_evenlog</h2><pre class="codeinput">    it_a_vec_n_log_cur = it_a_points;
+    it_a_vec_n_actual = it_a_points + 99999999;
+
+    <span class="keyword">while</span> (it_a_vec_n_actual &gt;= it_a_points)
+
+        <span class="comment">% After Threshold log space</span>
+        avec_log = logspace(<span class="keyword">...</span>
+            log10(grid_evenlog_threshold),<span class="keyword">...</span>
+            log10(fl_a_max), <span class="keyword">...</span>
+            it_a_vec_n_log_cur);
+        log_space_min_gap = avec_log(2) - avec_log(1);
+
+        <span class="comment">% Before Threshold equi-distance</span>
+        avec_lin = fl_a_min:log_space_min_gap:grid_evenlog_threshold;
+
+        <span class="comment">% combine</span>
+        ar_fl_saveborr = unique([avec_lin';avec_log']);
+
+        <span class="comment">% length check</span>
+        it_a_vec_n_actual = length(ar_fl_saveborr);
+        it_a_vec_n_log_cur = it_a_vec_n_log_cur - 1;
+    <span class="keyword">end</span>
+</pre><pre class="codeinput"><span class="keyword">end</span>
+</pre><h2 id="14">print details</h2><pre class="codeinput"><span class="keyword">if</span> (bl_verbose)
+
+    <span class="comment">% gather all info</span>
+    mp_container_map = containers.Map(<span class="string">'KeyType'</span>,<span class="string">'char'</span>, <span class="string">'ValueType'</span>,<span class="string">'any'</span>);
+    mp_container_map(<span class="string">'ar_fl_saveborr'</span>) = ar_fl_saveborr;
+    mp_container_map = [mp_container_map; mp_grid_control];
+
+    <span class="comment">% print</span>
+    ff_container_map_display(mp_container_map, 50, 50);
+
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                      i    idx    ndim    numel    rowN    colN     sum     mean      std      coefvari    min    max
+                      _    ___    ____    _____    ____    ____    _____    _____    ______    ________    ___    ___
+
+    ar_fl_saveborr    1     1      2       25       25      1      216.7    8.668    13.363     1.5417      0     50 
+
+xxx TABLE:ar_fl_saveborr xxxxxxxxxxxxxxxxxx
+              c1   
+           ________
+
+    r1            0
+    r2     0.029558
+    r3     0.067855
+    r4      0.11748
+    r5      0.18177
+    r6      0.26507
+    r7      0.37301
+    r8      0.51286
+    r9      0.69407
+    r10     0.92885
+    r11      1.2331
+    r12      1.6272
+    r13      2.1379
+    r14      2.7996
+    r15       3.657
+    r16      4.7679
+    r17      6.2072
+    r18      8.0722
+    r19      10.489
+    r20       13.62
+    r21      17.676
+    r22      22.932
+    r23      29.743
+    r24      38.567
+    r25          50
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                              i    idx    value
+                              _    ___    _____
+
+    grid_evenlog_threshold    1     2        1 
+    grid_log10space_x1        2     3      0.3 
+    grid_log10space_x2        3     4        3 
+    grid_powerspace_power     4     5        3 
+
+</pre><h2 id="15">Return</h2><pre class="codeinput">varargout = cell(nargout,0);
+<span class="keyword">for</span> it_k = 1:nargout
+    <span class="keyword">if</span> (it_k==1)
+        ob_out_cur = ar_fl_saveborr;
+    <span class="keyword">end</span>
+    varargout{it_k} = ob_out_cur;
+<span class="keyword">end</span>
+</pre><pre class="codeinput"><span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% FF_SAVEBORR_GRID Saving and Borrowing States/Choice Grid
+%    Generate savings/borrowing states and choice grid given minimum,
+%    maximum, and various other parameters. In the simplest case, generate
+%    an even linspace savings grid from min to max. Or generate a grid with
+%    denser points at the lower end with power function, log rule, etc. Or
+%    generate a grid where the initial points are evenly spaced, but then
+%    after some threshold, the points are nonlinearly spaced.
+%
+%    * ST_GRID_TYPE String which type of grid to generate: 'grid_linspace',
+%    'grid_log10space', 'grid_powerspace', 'grid_evenlog'.
+%    
+%    Each type has type specific options set through key/value of
+%    MP_GRID_CONTROL. 'grid_linspace': linspace; 'grid_log10space': log
+%    space; 'grid_powerspace': power grid spacing; 'grid_evenlog': even
+%    then log space.
+%
+%    mp_grid_control = containers.Map('KeyType', 'char', 'ValueType', 'any')
+%    mp_grid_control('grid_log10space_x1') = first input of logspace();
+%    mp_grid_control('grid_log10space_x2') = second input of logspace();
+%    mp_grid_control('grid_powerspace_power') = 3;
+%    mp_grid_control('grid_evenlog_threshold') = 1;
+%
+%    FF_SAVEBORR_GRID() generate a default savings grid, output grix is a
+%    column array.
+%
+%    [AR_A_GRID] = FF_SAVEBORR_GRID(FL_A_MIN, FL_A_MAX, IT_A_POINTS)
+%    specify min, max and points, this will by default generate a power
+%    grid of points: st_grid_type == grid_log10space.
+%
+%    [AR_A_GRID] = FF_SAVEBORR_GRID(FL_A_MIN, FL_A_MAX, IT_A_POINTS,
+%    ST_GRID_TYPE). Can change grid output type via ST_GRID_TYPE.
+%
+%    [AR_A_GRID] = FF_SAVEBORR_GRID(FL_A_MIN, FL_A_MAX, IT_A_POINTS,
+%    ST_GRID_TYPE, MP_GRID_CONTROL). Modify default ST_GRID_TYPE specific
+%    parameters via MP_GRID_CONTROL container map.
+%
+%    see also FX_SAVEBORR_GRID
+%
+
+%%
+function varargout = ff_saveborr_grid(varargin)
+
+if (~isempty(varargin))
+    
+    st_grid_type = 'grid_linspace';
+    bl_verbose = false;
+    
+    if (length(varargin) == 3)
+        [fl_a_min, fl_a_max, it_a_points] = varargin{:};
+    elseif (length(varargin) == 4)
+        [fl_a_min, fl_a_max, it_a_points, st_grid_type] = varargin{:};
+    elseif (length(varargin) == 5)
+        [fl_a_min, fl_a_max, it_a_points, ...
+            st_grid_type, mp_grid_control_ext] = varargin{:};
+    else
+        error('Must specify three parameters.');
+    end
+
+else
+
+    fl_a_min = 0;
+    fl_a_max = 50;
+    it_a_points = 25;
+    bl_verbose = true;
+    
+%     st_grid_type = 'grid_linspace';
+    st_grid_type = 'grid_log10space';
+%     st_grid_type = 'grid_powerspace';
+%     st_grid_type = 'grid_evenlog';
+    
+end
+
+%% Set and Update Support Map
+mp_grid_control = containers.Map('KeyType','char', 'ValueType','any');
+
+% Options for st_grid_type == grid_linspace
+
+% Options for st_grid_type == grid_log10space
+mp_grid_control('grid_log10space_x1') = 0.3;
+mp_grid_control('grid_log10space_x2') = 3;
+
+% Options for st_grid_type == grid_powerspace
+mp_grid_control('grid_powerspace_power') = 3;
+
+% Options for st_grid_type == grid_evenlog
+mp_grid_control('grid_evenlog_threshold') = 1;
+
+% override default support_map values
+if (length(varargin)==3)
+    mp_grid_control = [mp_grid_control; mp_grid_control_ext];
+end
+
+%% Parse mp_grid_control
+params_group = values(mp_grid_control, {'grid_log10space_x1', 'grid_log10space_x2'});
+[grid_log10space_x1, grid_log10space_x2] = params_group{:};
+params_group = values(mp_grid_control, {'grid_powerspace_power'});
+[grid_powerspace_power] = params_group{:};
+params_group = values(mp_grid_control, {'grid_evenlog_threshold'});
+[grid_evenlog_threshold] = params_group{:};
+
+%% Grid Generations
+if (strcmp(st_grid_type, 'grid_linspace'))
+    %% st_grid_type == grid_linspace
+    
+    ar_fl_saveborr = linspace(fl_a_min, fl_a_max, (it_a_points))';
+    
+elseif (strcmp(st_grid_type, 'grid_log10space'))
+    %% st_grid_type == grid_log10space
+    
+    % generate logspace
+    ar_fl_logspace = logspace(grid_log10space_x1, grid_log10space_x2, it_a_points)';
+    
+    % use logspace as ratio
+    ar_fl_saveborr_ratio = (ar_fl_logspace -min(ar_fl_logspace))./(max(ar_fl_logspace) - min(ar_fl_logspace));
+    
+    % use ratio with min and max
+    ar_fl_saveborr = ar_fl_saveborr_ratio.*(fl_a_max-fl_a_min) + fl_a_min;
+    
+elseif (strcmp(st_grid_type, 'grid_powerspace'))
+    %% st_grid_type == grid_powerspace
+    
+    ar_fl_saveborr=zeros(it_a_points, 1);
+
+    for i=2:(it_a_points)
+        ar_fl_saveborr(i)=fl_a_max*((i-1)/(it_a_points-1))^grid_powerspace_power;
+    end
+                
+elseif (strcmp(st_grid_type, 'grid_evenlog'))
+    %% st_grid_type == grid_evenlog
+
+    it_a_vec_n_log_cur = it_a_points;
+    it_a_vec_n_actual = it_a_points + 99999999;
+
+    while (it_a_vec_n_actual >= it_a_points)
+        
+        % After Threshold log space
+        avec_log = logspace(...
+            log10(grid_evenlog_threshold),...
+            log10(fl_a_max), ...
+            it_a_vec_n_log_cur);
+        log_space_min_gap = avec_log(2) - avec_log(1);
+        
+        % Before Threshold equi-distance
+        avec_lin = fl_a_min:log_space_min_gap:grid_evenlog_threshold;
+        
+        % combine
+        ar_fl_saveborr = unique([avec_lin';avec_log']);
+        
+        % length check
+        it_a_vec_n_actual = length(ar_fl_saveborr);
+        it_a_vec_n_log_cur = it_a_vec_n_log_cur - 1;
+    end
+    
+end
+
+%% print details
+if (bl_verbose)
+
+    % gather all info
+    mp_container_map = containers.Map('KeyType','char', 'ValueType','any');
+    mp_container_map('ar_fl_saveborr') = ar_fl_saveborr;
+    mp_container_map = [mp_container_map; mp_grid_control];
+    
+    % print
+    ff_container_map_display(mp_container_map, 50, 50);
+
+end
+
+
+%% Return
+varargout = cell(nargout,0);
+for it_k = 1:nargout
+    if (it_k==1)
+        ob_out_cur = ar_fl_saveborr;
+    end
+    varargout{it_k} = ob_out_cur;
+end
+end
+
+##### SOURCE END #####
+--></body></html>

@@ -104,7 +104,7 @@
 
 \title{Matlab Toolbox Heterogeneous Agents Dynamic Programming}
 \author{Fan Wang}
-\date{2020-06-25}
+\date{2020-06-28}
 
 \begin{document}
 \maketitle
@@ -1653,6 +1653,988 @@ ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
 
 \includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_7.png}
 
+\hypertarget{data-structures}{%
+\chapter{Data Structures}\label{data-structures}}
+
+\hypertarget{ff_saveborr_grid-example-for-generating-asset-grid}{%
+\section{FF\_SAVEBORR\_GRID Example for Generating Asset Grid}\label{ff_saveborr_grid-example-for-generating-asset-grid}}
+
+\begin{quote}
+Go back to \href{http://fanwangecon.github.io/}{fan}'s \href{https://fanwangecon.github.io/MEconTools/}{MEconTools} Toolbox (\href{https://fanwangecon.github.io/MEconTools/bookdown}{bookdown}), \href{https://fanwangecon.github.io/M4Econ/}{Matlab Code Examples} Repository (\href{https://fanwangecon.github.io/M4Econ/bookdown}{bookdown}), or \href{https://fanwangecon.github.io/Math4Econ/}{Math for Econ with Matlab} Repository (\href{https://fanwangecon.github.io/Math4Econ/bookdown}{bookdown}).
+\end{quote}
+
+This is the example vignette for function:
+\href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/generate/ff_saveborr_grid.m}{\textbf{ff\_saveborr\_grid}}
+from the \href{https://fanwangecon.github.io/MEconTools/}{\textbf{MEconTools
+Package}}\textbf{.} This function
+generates variously spaced savings/borrowing states/choices grid.
+
+\hypertarget{test-ff_saveborr_grid-defaults}{%
+\subsection{Test FF\_SAVEBORR\_GRID Defaults}\label{test-ff_saveborr_grid-defaults}}
+
+Call the function with defaults.
+
+\begin{verbatim}
+ff_saveborr_grid();
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                      i    idx    ndim    numel    rowN    colN     sum     mean      std      coefvari    min    max
+                      _    ___    ____    _____    ____    ____    _____    _____    ______    ________    ___    ___
+
+    ar_fl_saveborr    1     1      2       25       25      1      216.7    8.668    13.363     1.5417      0     50 
+
+xxx TABLE:ar_fl_saveborr xxxxxxxxxxxxxxxxxx
+              c1   
+           ________
+
+    r1            0
+    r2     0.029558
+    r3     0.067855
+    r4      0.11748
+    r5      0.18177
+    r6      0.26507
+    r7      0.37301
+    r8      0.51286
+    r9      0.69407
+    r10     0.92885
+    r11      1.2331
+    r12      1.6272
+    r13      2.1379
+    r14      2.7996
+    r15       3.657
+    r16      4.7679
+    r17      6.2072
+    r18      8.0722
+    r19      10.489
+    r20       13.62
+    r21      17.676
+    r22      22.932
+    r23      29.743
+    r24      38.567
+    r25          50
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                              i    idx    value
+                              _    ___    _____
+
+    grid_evenlog_threshold    1     2        1 
+    grid_log10space_x1        2     3      0.3 
+    grid_log10space_x2        3     4        3 
+    grid_powerspace_power     4     5        3 
+\end{verbatim}
+
+\hypertarget{test-ff_saveborr_grid-default-linear-grid-log-grid-power-grid-threshold-grid}{%
+\subsection{Test FF\_SAVEBORR\_GRID Default Linear Grid, Log Grid, Power Grid, Threshold Grid}\label{test-ff_saveborr_grid-default-linear-grid-log-grid-power-grid-threshold-grid}}
+
+Call the function with defaults.
+
+\begin{verbatim}
+% Same min and max and grid points
+[fl_a_min, fl_a_max, it_a_points] = deal(0,50,25);
+% Four types of grid points
+st_grid_type = 'grid_linspace';
+[ar_fl_saveborr_linspace] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type);
+st_grid_type = 'grid_log10space';
+[ar_fl_saveborr_log10space] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type);
+st_grid_type = 'grid_powerspace';
+[ar_fl_saveborr_powerspace] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type);
+st_grid_type = 'grid_evenlog';
+[ar_fl_saveborr_evenlog] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type);
+% draw four types of lines jointly
+mt_value = [ar_fl_saveborr_linspace'; ar_fl_saveborr_log10space'; ...
+    ar_fl_saveborr_powerspace'; ar_fl_saveborr_evenlog'];
+ar_row_grid = ["grid linspace", "grid log10space", "grid powerspace", "grid evenlog"];
+ar_col_grid = 1:it_a_points;
+mp_support_graph = containers.Map('KeyType', 'char', 'ValueType', 'any');
+mp_support_graph('cl_st_graph_title') = {'Four Asset Grids with Default Parameters'};
+mp_support_graph('cl_st_ytitle') = {'Asset Grid Points'};
+mp_support_graph('cl_st_xtitle') = {'Asset Grid Counter'};
+mp_support_graph('bl_graph_logy') = true; % do not log
+ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
+\end{verbatim}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_0.png}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_1.png}
+
+\hypertarget{test-ff_saveborr_grid-log-grid-changing-parameters}{%
+\subsection{Test FF\_SAVEBORR\_GRID Log Grid Changing Parameters}\label{test-ff_saveborr_grid-log-grid-changing-parameters}}
+
+Log grid, same min and max, change log X1 and X2 points
+
+\begin{verbatim}
+% Same min and max and grid points
+[fl_a_min, fl_a_max, it_a_points] = deal(0,50,25);
+st_grid_type = 'grid_log10space';
+% Four types of grid points
+mp_grid_control = containers.Map('KeyType','char', 'ValueType','any');
+mp_grid_control('grid_log10space_x1') = 0.1;
+mp_grid_control('grid_log10space_x2') = 1;
+[ar_fl_log10space_a] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type, mp_grid_control);
+mp_grid_control('grid_log10space_x1') = 0.1/2;
+mp_grid_control('grid_log10space_x2') = 1*2;
+[ar_fl_log10space_b] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type, mp_grid_control);
+mp_grid_control('grid_log10space_x1') = 0.1/4;
+mp_grid_control('grid_log10space_x2') = 1*4;
+[ar_fl_log10space_c] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type, mp_grid_control);
+mp_grid_control('grid_log10space_x1') = 0.1/6;
+mp_grid_control('grid_log10space_x2') = 1*6;
+[ar_fl_log10space_d] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type, mp_grid_control);
+% draw four types of lines jointly
+mt_value = [ar_fl_log10space_a'; ar_fl_log10space_b'; ...
+    ar_fl_log10space_c'; ar_fl_log10space_d'];
+ar_row_grid = [...
+    "log10space:x1=0.1/1, x2=1", ...
+    "log10space:x1=0.1/2, x2=2", ...
+    "log10space:x1=0.1/4, x2=3", ...
+    "log10space:x1=0.1/6, x2=4"];
+ar_col_grid = 1:it_a_points;
+mp_support_graph = containers.Map('KeyType', 'char', 'ValueType', 'any');
+mp_support_graph('cl_st_graph_title') = {'Asset Grids with Log 10 Grid Varying Controls'};
+mp_support_graph('cl_st_ytitle') = {'Asset Grid Points'};
+mp_support_graph('cl_st_xtitle') = {'Asset Grid Counter'};
+mp_support_graph('bl_graph_logy') = true; % do not log
+ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
+\end{verbatim}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_2.png}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_3.png}
+
+\hypertarget{test-ff_saveborr_grid-power-grid-changing-parameters}{%
+\subsection{Test FF\_SAVEBORR\_GRID Power Grid Changing Parameters}\label{test-ff_saveborr_grid-power-grid-changing-parameters}}
+
+Log grid, same min and max, change log X1 and X2 points
+
+\begin{verbatim}
+% Same min and max and grid points
+[fl_a_min, fl_a_max, it_a_points] = deal(0,50,25);
+st_grid_type = 'grid_powerspace';
+% Four types of grid points
+mp_grid_control = containers.Map('KeyType','char', 'ValueType','any');
+mp_grid_control('grid_powerspace_power') = 1;
+[ar_fl_powerspace_a] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type, mp_grid_control);
+mp_grid_control('grid_powerspace_power') = 2;
+[ar_fl_powerspace_b] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type, mp_grid_control);
+mp_grid_control('grid_powerspace_power') = 4;
+[ar_fl_powerspace_c] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type, mp_grid_control);
+mp_grid_control('grid_powerspace_power') = 6;
+[ar_fl_powerspace_d] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type, mp_grid_control);
+% draw four types of lines jointly
+mt_value = [ar_fl_powerspace_a'; ar_fl_powerspace_b'; ...
+    ar_fl_powerspace_c'; ar_fl_powerspace_d'];
+ar_row_grid = [...
+    "powerspace:power=1", ...
+    "powerspace:power=2", ...
+    "powerspace:power=4", ...
+    "powerspace:power=6"];
+ar_col_grid = 1:it_a_points;
+mp_support_graph = containers.Map('KeyType', 'char', 'ValueType', 'any');
+mp_support_graph('cl_st_graph_title') = {'Asset Grids with Power Grid Varying Controls'};
+mp_support_graph('cl_st_ytitle') = {'Asset Grid Points'};
+mp_support_graph('cl_st_xtitle') = {'Asset Grid Counter'};
+mp_support_graph('bl_graph_logy') = true; % do not log
+ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
+\end{verbatim}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_4.png}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_5.png}
+
+\hypertarget{test-ff_saveborr_grid-threshold-grid-changing-parameters}{%
+\subsection{Test FF\_SAVEBORR\_GRID Threshold Grid Changing Parameters}\label{test-ff_saveborr_grid-threshold-grid-changing-parameters}}
+
+Threshold Grid, Changing Threshold Levels. Initial segments below
+threshold are linspace, then logspace.
+
+\begin{verbatim}
+% Same min and max and grid points
+[fl_a_min, fl_a_max, it_a_points] = deal(0,50,25);
+st_grid_type = 'grid_evenlog';
+% Four types of grid points
+mp_grid_control = containers.Map('KeyType','char', 'ValueType','any');
+mp_grid_control('grid_evenlog_threshold') = 0.50;
+[ar_fl_evenlog_a] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type, mp_grid_control);
+mp_grid_control('grid_evenlog_threshold') = 1.00;
+[ar_fl_evenlog_b] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type, mp_grid_control);
+mp_grid_control('grid_evenlog_threshold') = 2;
+[ar_fl_evenlog_c] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type, mp_grid_control);
+mp_grid_control('grid_evenlog_threshold') = 5;
+[ar_fl_evenlog_d] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type, mp_grid_control);
+% draw four types of lines jointly
+mt_value = [ar_fl_evenlog_a'; ar_fl_evenlog_b'; ...
+    ar_fl_evenlog_c'; ar_fl_evenlog_d'];
+ar_row_grid = [...
+    "evenlog:threshold=0.5", ...
+    "evenlog:threshold=1.0", ...
+    "evenlog:threshold=2.0", ...
+    "evenlog:threshold=5.0"];
+ar_col_grid = 1:it_a_points;
+mp_support_graph = containers.Map('KeyType', 'char', 'ValueType', 'any');
+mp_support_graph('cl_st_graph_title') = {'Asset Grids with Threshold Grid Varying Controls'};
+mp_support_graph('cl_st_ytitle') = {'Asset Grid Points'};
+mp_support_graph('cl_st_xtitle') = {'Asset Grid Counter'};
+mp_support_graph('bl_graph_logy') = true; % do not log
+ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
+\end{verbatim}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_6.png}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_7.png}
+
+\hypertarget{common-functions}{%
+\chapter{Common Functions}\label{common-functions}}
+
+\hypertarget{ffy_tauchen-ar1-shock-discretization-example}{%
+\section{FFY\_TAUCHEN AR1 Shock Discretization Example}\label{ffy_tauchen-ar1-shock-discretization-example}}
+
+\begin{quote}
+Go back to \href{http://fanwangecon.github.io/}{fan}'s \href{https://fanwangecon.github.io/MEconTools/}{MEconTools} Toolbox (\href{https://fanwangecon.github.io/MEconTools/bookdown}{bookdown}), \href{https://fanwangecon.github.io/M4Econ/}{Matlab Code Examples} Repository (\href{https://fanwangecon.github.io/M4Econ/bookdown}{bookdown}), or \href{https://fanwangecon.github.io/Math4Econ/}{Math for Econ with Matlab} Repository (\href{https://fanwangecon.github.io/Math4Econ/bookdown}{bookdown}).
+\end{quote}
+
+This is the example vignette for function:
+\href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/external/stats/ffy_tauchen.m}{\textbf{ffy\_tauchen}}
+from the \href{https://fanwangecon.github.io/MEconTools/}{\textbf{MEconTools
+Package}}\textbf{.} : See also
+the
+\href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/external/stats/ffy_rouwenhorst.m}{\textbf{ffy\_rouwenhorst}}
+function from the \href{https://fanwangecon.github.io/MEconTools/}{\textbf{MEconTools
+Package}}\textbf{.} This function
+discretize a mean zero AR1 process, uses Tauchen (1986). See \href{https://fanwangecon.github.io/M4Econ/panel/timeseries/htmlpdfm/fs_autoregressive.html}{AR 1
+Example}
+for some details on how the AR1 process works. And See \href{https://doi.org/10.1016/j.red.2010.02.002}{Kopecky and Suen
+(2010)}.
+
+\hypertarget{test-ffy_tauchen-defaults}{%
+\subsection{Test FFY\_TAUCHEN Defaults}\label{test-ffy_tauchen-defaults}}
+
+Call the function with defaults. Default sd bounds arer plus and minus
+4. This is used in the following examples, unless otherwise specified as
+the 5th parameter.
+
+\begin{verbatim}
+ffy_tauchen();
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN    sum    mean      std      coefvari       min         max  
+                         _    ___    ____    _____    ____    ____    ___    ____    _______    ________    __________    ______
+
+    ar_disc_ar1          1     1      2        5       5       1       0       0     0.79057        Inf             -1         1
+    mt_disc_ar1_trans    2     6      2       25       5       5       5     0.2     0.27623     1.3812     7.3923e-12    0.7887
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+           c1 
+          ____
+
+    r1      -1
+    r2    -0.5
+    r3       0
+    r4     0.5
+    r5       1
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+              c1            c2           c3           c4            c5    
+          __________    __________    ________    __________    __________
+
+    r1       0.22663       0.73331    0.040048    1.0689e-05    7.3923e-12
+    r2      0.012224       0.58648     0.39831     0.0029797     7.605e-08
+    r3    8.8417e-05       0.10556      0.7887       0.10556    8.8417e-05
+    r4     7.605e-08     0.0029797     0.39831       0.58648      0.012224
+    r5    7.3923e-12    1.0689e-05    0.040048       0.73331       0.22663
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx    value
+                          _    ___    _____
+
+    fl_ar1_persistence    1     2      0.6 
+    fl_ar1_step           2     3      0.5 
+    fl_shk_std            3     4      0.2 
+    it_std_bound          4     5        4 
+\end{verbatim}
+
+\hypertarget{test-ffy_tauchen-specify-parameters}{%
+\subsection{Test FFY\_TAUCHEN Specify Parameters}\label{test-ffy_tauchen-specify-parameters}}
+
+With a grid of 10 points, the sd bounds on Tauchen and Rouwenhorst are
+identical. With the not extremely persistent shock process here, the
+Tauchen and Rouwenhorst Results are very similar.
+
+\begin{verbatim}
+[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose, it_std_bound] = ...
+    deal(0.60, 0.10, 10, true, 3);
+ffy_tauchen(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose, it_std_bound);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN        sum           mean          std       coefvari         min          max  
+                         _    ___    ____    _____    ____    ____    ___________    ___________    _______    ___________    __________    _______
+
+    ar_disc_ar1          1     1      2        10      10       1     -7.2164e-16    -7.2164e-17     0.2523    -3.4962e+15        -0.375      0.375
+    mt_disc_ar1_trans    2     6      2       100      10      10              10            0.1    0.11456         1.1456    1.1798e-08    0.32308
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+              c1    
+           _________
+
+    r1        -0.375
+    r2      -0.29167
+    r3      -0.20833
+    r4        -0.125
+    r5     -0.041667
+    r6      0.041667
+    r7         0.125
+    r8       0.20833
+    r9       0.29167
+    r10        0.375
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+               c1            c2            c3            c4           c5          c6           c7            c8            c9           c10    
+           __________    __________    __________    __________    ________    ________    __________    __________    __________    __________
+
+    r1        0.13933       0.26196       0.31887       0.20154    0.066066    0.011201    0.00097859    4.3874e-05    1.0053e-06    1.1798e-08
+    r2       0.056673       0.16995       0.30658       0.28713      0.1396    0.035167     0.0045756    0.00030628    1.0503e-05    1.8543e-07
+    r3        0.01861      0.087039       0.23281       0.32308     0.23281    0.087039      0.016841     0.0016806    8.6129e-05    2.2881e-06
+    r4      0.0048925      0.035167        0.1396       0.28713     0.30658     0.16995      0.048841     0.0072547    0.00055483    2.2197e-05
+    r5      0.0010235      0.011201      0.066066       0.20154     0.31887     0.26196       0.11169       0.02466     0.0028101    0.00016962
+    r6     0.00016962     0.0028101       0.02466       0.11169     0.26196     0.31887       0.20154      0.066066      0.011201     0.0010235
+    r7     2.2197e-05    0.00055483     0.0072547      0.048841     0.16995     0.30658       0.28713        0.1396      0.035167     0.0048925
+    r8     2.2881e-06    8.6129e-05     0.0016806      0.016841    0.087039     0.23281       0.32308       0.23281      0.087039       0.01861
+    r9     1.8543e-07    1.0503e-05    0.00030628     0.0045756    0.035167      0.1396       0.28713       0.30658       0.16995      0.056673
+    r10    1.1798e-08    1.0053e-06    4.3874e-05    0.00097859    0.011201    0.066066       0.20154       0.31887       0.26196       0.13933
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx     value  
+                          _    ___    ________
+
+    fl_ar1_persistence    1     2          0.6
+    fl_ar1_step           2     3     0.083333
+    fl_shk_std            3     4          0.1
+    it_std_bound          4     5            3
+\end{verbatim}
+
+\hypertarget{test-ffy_tauchen-high-persistence-low-sd}{%
+\subsection{Test FFY\_TAUCHEN High Persistence, Low SD}\label{test-ffy_tauchen-high-persistence-low-sd}}
+
+\begin{verbatim}
+[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.99, 0.01, 7, true);
+ffy_tauchen(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN        sum           mean          std       coefvari        min         max  
+                         _    ___    ____    _____    ____    ____    ___________    ___________    _______    ___________    ________    _______
+
+    ar_disc_ar1          1     1      2        7       7       1      -5.5511e-17    -7.9302e-18    0.20418    -2.5747e+16    -0.28355    0.28355
+    mt_disc_ar1_trans    2     6      2       49       7       7                7        0.14286    0.35355         2.4749           0          1
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+              c1     
+          ___________
+
+    r1       -0.28355
+    r2       -0.18903
+    r3      -0.094517
+    r4    -2.7756e-17
+    r5       0.094517
+    r6        0.18903
+    r7        0.28355
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+              c1             c2             c3             c4             c5            c6            c7    
+          ___________    ___________    ___________    ___________    __________    __________    __________
+
+    r1              1     4.4497e-06              0              0             0             0             0
+    r2     4.4412e-07              1     2.8552e-06              0             0             0             0
+    r3      1.632e-46     7.1638e-07              1     1.8164e-06             0             0             0
+    r4    9.6185e-124     6.3021e-46     1.1456e-06              1    1.1456e-06             0             0
+    r5    6.3206e-239    8.9712e-123     2.4121e-45     1.8164e-06             1    7.1638e-07             0
+    r6              0     1.426e-237    8.2932e-122     9.1503e-45    2.8552e-06             1    4.4412e-07
+    r7              0              0    3.1885e-236    7.5984e-121    3.4405e-44    4.4497e-06             1
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx     value  
+                          _    ___    ________
+
+    fl_ar1_persistence    1     2         0.99
+    fl_ar1_step           2     3     0.094517
+    fl_shk_std            3     4         0.01
+    it_std_bound          4     5            4
+\end{verbatim}
+
+\hypertarget{test-ffy_tauchen-low-persistence-low-sd}{%
+\subsection{Test FFY\_TAUCHEN Low Persistence, Low SD}\label{test-ffy_tauchen-low-persistence-low-sd}}
+
+\begin{verbatim}
+[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.01, 0.01, 7, true);
+ffy_tauchen(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN    sum     mean        std       coefvari       min          max   
+                         _    ___    ____    _____    ____    ____    ___    _______    ________    ________    __________    ________
+
+    ar_disc_ar1          1     1      2        7       7       1       0           0    0.028805        Inf      -0.040002    0.040002
+    mt_disc_ar1_trans    2     6      2       49       7       7       7     0.14286     0.17448     1.2213     0.00037109     0.49504
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+             c1    
+          _________
+
+    r1    -0.040002
+    r2    -0.026668
+    r3    -0.013334
+    r4            0
+    r5     0.013334
+    r6     0.026668
+    r7     0.040002
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+              c1           c2         c3         c4         c5          c6           c7    
+          __________    ________    _______    _______    _______    ________    __________
+
+    r1    0.00049475    0.024497    0.24044     0.4947    0.21921    0.020299    0.00037109
+    r2    0.00047179    0.023751    0.23685    0.49488     0.2227    0.020954    0.00038948
+    r3    0.00044982    0.023024    0.23329      0.495    0.22621    0.021626     0.0004087
+    r4     0.0004288    0.022316    0.22974    0.49504    0.22974    0.022316     0.0004288
+    r5     0.0004087    0.021626    0.22621      0.495    0.23329    0.023024    0.00044982
+    r6    0.00038948    0.020954     0.2227    0.49488    0.23685    0.023751    0.00047179
+    r7    0.00037109    0.020299    0.21921     0.4947    0.24044    0.024497    0.00049475
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx     value  
+                          _    ___    ________
+
+    fl_ar1_persistence    1     2         0.01
+    fl_ar1_step           2     3     0.013334
+    fl_shk_std            3     4         0.01
+    it_std_bound          4     5            4
+\end{verbatim}
+
+\hypertarget{test-ffy_tauchen-high-persistence-high-sd}{%
+\subsection{Test FFY\_TAUCHEN High Persistence, High SD}\label{test-ffy_tauchen-high-persistence-high-sd}}
+
+\begin{verbatim}
+[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.99, 0.99, 7, true);
+ffy_tauchen(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN        sum           mean          std       coefvari        min       max  
+                         _    ___    ____    _____    ____    ____    ___________    ___________    _______    ___________    _______    ______
+
+    ar_disc_ar1          1     1      2        7       7       1      -3.5527e-15    -5.0753e-16     20.214    -3.9828e+16    -28.072    28.072
+    mt_disc_ar1_trans    2     6      2       49       7       7                7        0.14286    0.35355         2.4749          0         1
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+            c1   
+          _______
+
+    r1    -28.072
+    r2    -18.714
+    r3    -9.3572
+    r4          0
+    r5     9.3572
+    r6     18.714
+    r7     28.072
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+              c1             c2             c3             c4             c5            c6            c7    
+          ___________    ___________    ___________    ___________    __________    __________    __________
+
+    r1              1     4.4497e-06              0              0             0             0             0
+    r2     4.4412e-07              1     2.8552e-06              0             0             0             0
+    r3      1.632e-46     7.1638e-07              1     1.8164e-06             0             0             0
+    r4    9.6185e-124     6.3021e-46     1.1456e-06              1    1.1456e-06             0             0
+    r5    6.3206e-239    8.9712e-123     2.4121e-45     1.8164e-06             1    7.1638e-07             0
+    r6              0     1.426e-237    8.2932e-122     9.1503e-45    2.8552e-06             1    4.4412e-07
+    r7              0              0    3.1885e-236    7.5984e-121    3.4405e-44    4.4497e-06             1
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx    value 
+                          _    ___    ______
+
+    fl_ar1_persistence    1     2       0.99
+    fl_ar1_step           2     3     9.3572
+    fl_shk_std            3     4       0.99
+    it_std_bound          4     5          4
+\end{verbatim}
+
+\hypertarget{test-ffy_tauchen-low-persistence-low-sd-1}{%
+\subsection{Test FFY\_TAUCHEN Low Persistence, Low SD}\label{test-ffy_tauchen-low-persistence-low-sd-1}}
+
+\begin{verbatim}
+[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.01, 0.01, 7, true);
+ffy_tauchen(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN    sum     mean        std       coefvari       min          max   
+                         _    ___    ____    _____    ____    ____    ___    _______    ________    ________    __________    ________
+
+    ar_disc_ar1          1     1      2        7       7       1       0           0    0.028805        Inf      -0.040002    0.040002
+    mt_disc_ar1_trans    2     6      2       49       7       7       7     0.14286     0.17448     1.2213     0.00037109     0.49504
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+             c1    
+          _________
+
+    r1    -0.040002
+    r2    -0.026668
+    r3    -0.013334
+    r4            0
+    r5     0.013334
+    r6     0.026668
+    r7     0.040002
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+              c1           c2         c3         c4         c5          c6           c7    
+          __________    ________    _______    _______    _______    ________    __________
+
+    r1    0.00049475    0.024497    0.24044     0.4947    0.21921    0.020299    0.00037109
+    r2    0.00047179    0.023751    0.23685    0.49488     0.2227    0.020954    0.00038948
+    r3    0.00044982    0.023024    0.23329      0.495    0.22621    0.021626     0.0004087
+    r4     0.0004288    0.022316    0.22974    0.49504    0.22974    0.022316     0.0004288
+    r5     0.0004087    0.021626    0.22621      0.495    0.23329    0.023024    0.00044982
+    r6    0.00038948    0.020954     0.2227    0.49488    0.23685    0.023751    0.00047179
+    r7    0.00037109    0.020299    0.21921     0.4947    0.24044    0.024497    0.00049475
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx     value  
+                          _    ___    ________
+
+    fl_ar1_persistence    1     2         0.01
+    fl_ar1_step           2     3     0.013334
+    fl_shk_std            3     4         0.01
+    it_std_bound          4     5            4
+\end{verbatim}
+
+\hypertarget{ffy_rouwenhorst-ar1-shock-discretization-example}{%
+\section{FFY\_ROUWENHORST AR1 Shock Discretization Example}\label{ffy_rouwenhorst-ar1-shock-discretization-example}}
+
+\begin{quote}
+Go back to \href{http://fanwangecon.github.io/}{fan}'s \href{https://fanwangecon.github.io/MEconTools/}{MEconTools} Toolbox (\href{https://fanwangecon.github.io/MEconTools/bookdown}{bookdown}), \href{https://fanwangecon.github.io/M4Econ/}{Matlab Code Examples} Repository (\href{https://fanwangecon.github.io/M4Econ/bookdown}{bookdown}), or \href{https://fanwangecon.github.io/Math4Econ/}{Math for Econ with Matlab} Repository (\href{https://fanwangecon.github.io/Math4Econ/bookdown}{bookdown}).
+\end{quote}
+
+This is the example vignette for function:
+\href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/external/stats/ffy_rouwenhorst.m}{\textbf{ffy\_rouwenhorst}}
+from the \href{https://fanwangecon.github.io/MEconTools/}{\textbf{MEconTools
+Package}}\textbf{.} See also
+\href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/external/stats/ffy_tauchen.m}{\textbf{ffy\_tauchen}}
+function from the \href{https://fanwangecon.github.io/MEconTools/}{\textbf{MEconTools
+Package}}\textbf{.} This function
+discretize a mean zero AR1 process, uses Rouwenhorst (1995). See \href{https://fanwangecon.github.io/M4Econ/panel/timeseries/htmlpdfm/fs_autoregressive.html}{AR 1
+Example}
+for some details on how the AR1 process works. And See \href{https://doi.org/10.1016/j.red.2010.02.002}{Kopecky and Suen
+(2010)}.
+
+\hypertarget{test-ffy_rouwenhorst-defaults}{%
+\subsection{Test FFY\_ROUWENHORST Defaults}\label{test-ffy_rouwenhorst-defaults}}
+
+Call the function with defaults.
+
+\begin{verbatim}
+ffy_rouwenhorst();
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN    sum    mean      std      coefvari     min       max  
+                         _    ___    ____    _____    ____    ____    ___    ____    _______    ________    ______    ______
+
+    ar_disc_ar1          1     1      2        5       5       1       0       0     0.39528        Inf       -0.5       0.5
+    mt_disc_ar1_trans    2    11      2       25       5       5       5     0.2     0.18246    0.91229     0.0016    0.5136
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+           c1  
+          _____
+
+    r1     -0.5
+    r2    -0.25
+    r3        0
+    r4     0.25
+    r5      0.5
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+            c1        c2        c3        c4        c5  
+          ______    ______    ______    ______    ______
+
+    r1    0.4096    0.4096    0.1536    0.0256    0.0016
+    r2    0.1024    0.4864    0.3264    0.0784    0.0064
+    r3    0.0256    0.2176    0.5136    0.2176    0.0256
+    r4    0.0064    0.0784    0.3264    0.4864    0.1024
+    r5    0.0016    0.0256    0.1536    0.4096    0.4096
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx    value
+                          _    ___    _____
+
+    fl_ar1_beg            1     2     -0.5 
+    fl_ar1_end            2     3      0.5 
+    fl_ar1_persistence    3     4      0.6 
+    fl_ar1_step           4     5     0.25 
+    fl_p0                 5     6      0.8 
+    fl_q0                 6     7      0.8 
+    fl_shk_std            7     8      0.2 
+    fl_sig_ar1            8     9     0.25 
+    it_std_bound          9    10        0 
+\end{verbatim}
+
+\hypertarget{test-ffy_rouwenhorst-specify-parameters}{%
+\subsection{Test FFY\_ROUWENHORST Specify Parameters}\label{test-ffy_rouwenhorst-specify-parameters}}
+
+With a grid of 10 points, the Rwouenhorst bounds on standard deviations
+are equall to Tauchen bounds of 3. With the not extremely persistent
+shock process here, the Tauchen and Rouwenhorst Results are very
+similar.
+
+\begin{verbatim}
+[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.60, 0.10, 10, true);
+ffy_rouwenhorst(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN       sum           mean         std       coefvari       min         max  
+                         _    ___    ____    _____    ____    ____    __________    __________    _______    __________    ________    _______
+
+    ar_disc_ar1          1     1      2        10      10       1     5.5511e-17    5.5511e-18     0.2523    4.5451e+16      -0.375      0.375
+    mt_disc_ar1_trans    2    11      2       100      10      10             10           0.1    0.11724        1.1724    5.12e-07    0.33477
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+              c1    
+           _________
+
+    r1        -0.375
+    r2      -0.29167
+    r3      -0.20833
+    r4        -0.125
+    r5     -0.041667
+    r6      0.041667
+    r7         0.125
+    r8       0.20833
+    r9       0.29167
+    r10        0.375
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+               c1            c2            c3           c4           c5          c6          c7            c8            c9           c10    
+           __________    __________    __________    _________    ________    ________    _________    __________    __________    __________
+
+    r1        0.13422       0.30199       0.30199      0.17616     0.06606    0.016515    0.0027525    0.00029491    1.8432e-05      5.12e-07
+    r2       0.033554       0.20133       0.32716      0.26424     0.12662    0.038535    0.0075694    0.00093389    6.6048e-05     2.048e-06
+    r3      0.0083886      0.081789       0.26267      0.32755     0.21401    0.082747     0.019741     0.0028677    0.00023347     8.192e-06
+    r4      0.0020972      0.028312       0.14038      0.30946     0.30369     0.15877     0.047989     0.0084603    0.00081101    3.2768e-05
+    r5     0.00052429      0.009044      0.061145      0.20246     0.33477     0.25969      0.10585      0.023642     0.0027525    0.00013107
+    r6     0.00013107     0.0027525      0.023642      0.10585     0.25969     0.33477      0.20246      0.061145      0.009044    0.00052429
+    r7     3.2768e-05    0.00081101     0.0084603     0.047989     0.15877     0.30369      0.30946       0.14038      0.028312     0.0020972
+    r8      8.192e-06    0.00023347     0.0028677     0.019741    0.082747     0.21401      0.32755       0.26267      0.081789     0.0083886
+    r9      2.048e-06    6.6048e-05    0.00093389    0.0075694    0.038535     0.12662      0.26424       0.32716       0.20133      0.033554
+    r10      5.12e-07    1.8432e-05    0.00029491    0.0027525    0.016515     0.06606      0.17616       0.30199       0.30199       0.13422
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx     value  
+                          _    ___    ________
+
+    fl_ar1_beg            1     2       -0.375
+    fl_ar1_end            2     3        0.375
+    fl_ar1_persistence    3     4          0.6
+    fl_ar1_step           4     5     0.083333
+    fl_p0                 5     6          0.8
+    fl_q0                 6     7          0.8
+    fl_shk_std            7     8          0.1
+    fl_sig_ar1            8     9        0.125
+    it_std_bound          9    10            0
+\end{verbatim}
+
+\hypertarget{test-ffy_rouwenhorst-high-persistence-low-sd}{%
+\subsection{Test FFY\_ROUWENHORST High Persistence, Low SD}\label{test-ffy_rouwenhorst-high-persistence-low-sd}}
+
+\begin{verbatim}
+[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.99, 0.01, 7, true);
+ffy_rouwenhorst(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN    sum     mean        std      coefvari       min          max  
+                         _    ___    ____    _____    ____    ____    ___    _______    _______    ________    __________    _______
+
+    ar_disc_ar1          1     1      2        7       7       1       0           0    0.12503        Inf       -0.17364    0.17364
+    mt_disc_ar1_trans    2    11      2       49       7       7       7     0.14286    0.34148     2.3904     1.5625e-14    0.97059
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+             c1   
+          ________
+
+    r1    -0.17364
+    r2    -0.11576
+    r3    -0.05788
+    r4           0
+    r5     0.05788
+    r6     0.11576
+    r7     0.17364
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+              c1            c2            c3            c4            c5            c6            c7    
+          __________    __________    __________    __________    __________    __________    __________
+
+    r1       0.97037      0.029257    0.00036756    2.4627e-06    9.2815e-09    1.8656e-11    1.5625e-14
+    r2     0.0048762        0.9705      0.024382    0.00024504    1.2314e-06    3.0938e-09    3.1094e-12
+    r3    2.4504e-05      0.009753       0.97057      0.019506    0.00014703    4.9254e-07    6.1877e-10
+    r4    1.2313e-07    7.3513e-05       0.01463       0.97059       0.01463    7.3513e-05    1.2313e-07
+    r5    6.1877e-10    4.9254e-07    0.00014703      0.019506       0.97057      0.009753    2.4504e-05
+    r6    3.1094e-12    3.0938e-09    1.2314e-06    0.00024504      0.024382        0.9705     0.0048762
+    r7    1.5625e-14    1.8656e-11    9.2815e-09    2.4627e-06    0.00036756      0.029257       0.97037
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx     value  
+                          _    ___    ________
+
+    fl_ar1_beg            1     2     -0.17364
+    fl_ar1_end            2     3      0.17364
+    fl_ar1_persistence    3     4         0.99
+    fl_ar1_step           4     5      0.05788
+    fl_p0                 5     6        0.995
+    fl_q0                 6     7        0.995
+    fl_shk_std            7     8         0.01
+    fl_sig_ar1            8     9     0.070888
+    it_std_bound          9    10            0
+\end{verbatim}
+
+\hypertarget{test-ffy_rouwenhorst-low-persistence-low-sd}{%
+\subsection{Test FFY\_ROUWENHORST Low Persistence, Low SD}\label{test-ffy_rouwenhorst-low-persistence-low-sd}}
+
+\begin{verbatim}
+[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.01, 0.01, 7, true);
+ffy_rouwenhorst(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN    sum     mean        std       coefvari       min         max   
+                         _    ___    ____    _____    ____    ____    ___    _______    ________    ________    _________    ________
+
+    ar_disc_ar1          1     1      2        7       7       1       0           0    0.017639        Inf     -0.024496    0.024496
+    mt_disc_ar1_trans    2    11      2       49       7       7       7     0.14286     0.10985    0.76893      0.014711     0.31252
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+              c1    
+          __________
+
+    r1     -0.024496
+    r2     -0.016331
+    r3    -0.0081654
+    r4             0
+    r5     0.0081654
+    r6      0.016331
+    r7      0.024496
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+             c1          c2         c3         c4         c5          c6          c7   
+          ________    ________    _______    _______    _______    ________    ________
+
+    r1    0.016586    0.097547    0.23904    0.31241    0.22966    0.090047    0.014711
+    r2    0.016258    0.096266    0.23749    0.31247    0.23124    0.091266    0.015008
+    r3    0.015936    0.094997    0.23594    0.31251    0.23281    0.092497    0.015311
+    r4     0.01562    0.093741    0.23438    0.31252    0.23438    0.093741     0.01562
+    r5    0.015311    0.092497    0.23281    0.31251    0.23594    0.094997    0.015936
+    r6    0.015008    0.091266    0.23124    0.31247    0.23749    0.096266    0.016258
+    r7    0.014711    0.090047    0.22966    0.31241    0.23904    0.097547    0.016586
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx      value  
+                          _    ___    _________
+
+    fl_ar1_beg            1     2     -0.024496
+    fl_ar1_end            2     3      0.024496
+    fl_ar1_persistence    3     4          0.01
+    fl_ar1_step           4     5     0.0081654
+    fl_p0                 5     6         0.505
+    fl_q0                 6     7         0.505
+    fl_shk_std            7     8          0.01
+    fl_sig_ar1            8     9      0.010001
+    it_std_bound          9    10             0
+\end{verbatim}
+
+\hypertarget{test-ffy_rouwenhorst-high-persistence-high-sd}{%
+\subsection{Test FFY\_ROUWENHORST High Persistence, High SD}\label{test-ffy_rouwenhorst-high-persistence-high-sd}}
+
+\begin{verbatim}
+[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.99, 0.99, 7, true);
+ffy_rouwenhorst(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN       sum           mean         std      coefvari        min          max  
+                         _    ___    ____    _____    ____    ____    __________    __________    _______    _________    __________    _______
+
+    ar_disc_ar1          1     1      2        7       7       1      3.5527e-15    5.0753e-16     12.378    2.439e+16        -17.19      17.19
+    mt_disc_ar1_trans    2    11      2       49       7       7               7       0.14286    0.34148       2.3904    1.5625e-14    0.97059
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+            c1   
+          _______
+
+    r1     -17.19
+    r2     -11.46
+    r3    -5.7301
+    r4          0
+    r5     5.7301
+    r6      11.46
+    r7      17.19
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+              c1            c2            c3            c4            c5            c6            c7    
+          __________    __________    __________    __________    __________    __________    __________
+
+    r1       0.97037      0.029257    0.00036756    2.4627e-06    9.2815e-09    1.8656e-11    1.5625e-14
+    r2     0.0048762        0.9705      0.024382    0.00024504    1.2314e-06    3.0938e-09    3.1094e-12
+    r3    2.4504e-05      0.009753       0.97057      0.019506    0.00014703    4.9254e-07    6.1877e-10
+    r4    1.2313e-07    7.3513e-05       0.01463       0.97059       0.01463    7.3513e-05    1.2313e-07
+    r5    6.1877e-10    4.9254e-07    0.00014703      0.019506       0.97057      0.009753    2.4504e-05
+    r6    3.1094e-12    3.0938e-09    1.2314e-06    0.00024504      0.024382        0.9705     0.0048762
+    r7    1.5625e-14    1.8656e-11    9.2815e-09    2.4627e-06    0.00036756      0.029257       0.97037
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx    value 
+                          _    ___    ______
+
+    fl_ar1_beg            1     2     -17.19
+    fl_ar1_end            2     3      17.19
+    fl_ar1_persistence    3     4       0.99
+    fl_ar1_step           4     5     5.7301
+    fl_p0                 5     6      0.995
+    fl_q0                 6     7      0.995
+    fl_shk_std            7     8       0.99
+    fl_sig_ar1            8     9     7.0179
+    it_std_bound          9    10          0
+\end{verbatim}
+
+\hypertarget{test-ffy_rouwenhorst-low-persistence-low-sd-1}{%
+\subsection{Test FFY\_ROUWENHORST Low Persistence, Low SD}\label{test-ffy_rouwenhorst-low-persistence-low-sd-1}}
+
+\begin{verbatim}
+[fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
+    deal(0.01, 0.01, 7, true);
+ffy_rouwenhorst(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN    sum     mean        std       coefvari       min         max   
+                         _    ___    ____    _____    ____    ____    ___    _______    ________    ________    _________    ________
+
+    ar_disc_ar1          1     1      2        7       7       1       0           0    0.017639        Inf     -0.024496    0.024496
+    mt_disc_ar1_trans    2    11      2       49       7       7       7     0.14286     0.10985    0.76893      0.014711     0.31252
+
+xxx TABLE:ar_disc_ar1 xxxxxxxxxxxxxxxxxx
+              c1    
+          __________
+
+    r1     -0.024496
+    r2     -0.016331
+    r3    -0.0081654
+    r4             0
+    r5     0.0081654
+    r6      0.016331
+    r7      0.024496
+
+xxx TABLE:mt_disc_ar1_trans xxxxxxxxxxxxxxxxxx
+             c1          c2         c3         c4         c5          c6          c7   
+          ________    ________    _______    _______    _______    ________    ________
+
+    r1    0.016586    0.097547    0.23904    0.31241    0.22966    0.090047    0.014711
+    r2    0.016258    0.096266    0.23749    0.31247    0.23124    0.091266    0.015008
+    r3    0.015936    0.094997    0.23594    0.31251    0.23281    0.092497    0.015311
+    r4     0.01562    0.093741    0.23438    0.31252    0.23438    0.093741     0.01562
+    r5    0.015311    0.092497    0.23281    0.31251    0.23594    0.094997    0.015936
+    r6    0.015008    0.091266    0.23124    0.31247    0.23749    0.096266    0.016258
+    r7    0.014711    0.090047    0.22966    0.31241    0.23904    0.097547    0.016586
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i    idx      value  
+                          _    ___    _________
+
+    fl_ar1_beg            1     2     -0.024496
+    fl_ar1_end            2     3      0.024496
+    fl_ar1_persistence    3     4          0.01
+    fl_ar1_step           4     5     0.0081654
+    fl_p0                 5     6         0.505
+    fl_q0                 6     7         0.505
+    fl_shk_std            7     8          0.01
+    fl_sig_ar1            8     9      0.010001
+    it_std_bound          9    10             0
+\end{verbatim}
+
 \hypertarget{support-tools}{%
 \chapter{Support Tools}\label{support-tools}}
 
@@ -1990,6 +2972,52 @@ xxx TABLE:mat_2_boolean xxxxxxxxxxxxxxxxxx
     Grid based Graph, x-axis one param, color another param, over outcomes.
   \item
     \textbf{MEconTools}: \emph{ff\_graph\_grid()}
+  \end{itemize}
+\end{enumerate}
+
+\hypertarget{data-structures-links}{%
+\section{Data Structures links}\label{data-structures-links}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/generate/htmlpdfm/fx_saveborr_grid.html}{Log and Power Spaced Asset and Choice Grids}: \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/generate/fx_saveborr_grid.mlx}{\textbf{mlx}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/generate/htmlpdfm/fx_saveborr_grid.m}{\textbf{m}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/generate/htmlpdfm/fx_saveborr_grid.pdf}{\textbf{pdf}} \textbar{} \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/generate/htmlpdfm/fx_saveborr_grid.html}{\textbf{html}}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Generate linear, log-space, power-space, or threshold-cut asset or choice grids.
+  \item
+    \textbf{MEconTools}: \emph{ff\_saveborr\_grid()}
+  \end{itemize}
+\end{enumerate}
+
+\hypertarget{common-functions-links}{%
+\section{Common Functions links}\label{common-functions-links}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/external/htmlpdfm/fxy_tauchen.html}{Discretize AR1 Normal Shock Tauchen (1986)}: \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/external/fxy_tauchen.mlx}{\textbf{mlx}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/external/htmlpdfm/fxy_tauchen.m}{\textbf{m}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/external/htmlpdfm/fxy_tauchen.pdf}{\textbf{pdf}} \textbar{} \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/external/htmlpdfm/fxy_tauchen.html}{\textbf{html}}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Mean zero AR(1) shock discretize following Tauchen (1986).
+  \item
+    \textbf{MEconTools}: \emph{ffy\_tauchen()}
+  \end{itemize}
+\item
+  \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/external/htmlpdfm/fxy_rouwenhorst.html}{Discretize AR1 Normal Shock Rouwenhorst (1995)}: \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/external/fxy_rouwenhorst.mlx}{\textbf{mlx}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/external/htmlpdfm/fxy_rouwenhorst.m}{\textbf{m}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/external/htmlpdfm/fxy_rouwenhorst.pdf}{\textbf{pdf}} \textbar{} \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/external/htmlpdfm/fxy_rouwenhorst.html}{\textbf{html}}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Mean zero AR(1) shock discretize following Rouwenhorst (1995).
+  \item
+    \textbf{MEconTools}: \emph{ffy\_rouwenhorst()}
   \end{itemize}
 \end{enumerate}
 
