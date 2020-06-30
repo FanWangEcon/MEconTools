@@ -1,6 +1,6 @@
 - file: fx_vfi_az_loop
   title: "Matlab FF_VFI_AZ_LOOP Looped Solution for Optimal Savings Dynamic Programming Problem in Infinite Horizon"
-  titleshort: "Looped Solution for Infinite Horizon Optimal Savings Dynamic Programming Problem"
+  titleshort: "Looped Infinite Horizon Dynamic Savings Problem"
   description: |
     Slow looped solution.
     Given preferences, some AR(1) shock process, solve the infinite horizon household savings dynamic programming problem. The state-space and choice-space share the same asset grid.
@@ -24,7 +24,7 @@
 
 - file: fx_vfi_az_vec
   title: "Matlab FF_VFI_AZ_VEC Vectorized Solution for Optimal Savings Dynamic Programming Problem in Infinite Horizon"
-  titleshort: "Vectorized Solution for Infinite Horizon Optimal Savings Dynamic Programming Problem"
+  titleshort: "Vectorized Infinite Horizon Dynamic Savings Problem"
   description: |
     Faster vectorized solution.
     Given preferences, some AR(1) shock process, solve the infinite horizon household savings dynamic programming problem. The state-space and choice-space share the same asset grid.

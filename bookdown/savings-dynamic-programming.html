@@ -219,7 +219,7 @@ larger state-space problems.</p>
 <div id="test-ff_vfi_az_loop-defaults" class="section level3">
 <h3><span class="header-section-number">1.1.1</span> Test FF_VFI_AZ_LOOP Defaults</h3>
 <p>Call the function with defaults. By default, shows the asset policy
-function summary.</p>
+function summary. Model parameters can be changed by the mp_params.</p>
 <pre><code>%mp_params
 mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
 mp_params(&#39;fl_crra&#39;) = 1.5;
@@ -227,7 +227,7 @@ mp_params(&#39;fl_beta&#39;) = 0.94;
 % call function
 ff_vfi_az_loop(mp_params);
 
-Elapsed time is 0.438199 seconds.
+Elapsed time is 0.446290 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -262,16 +262,22 @@ mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39
 mp_support(&#39;bl_timer&#39;) = false;
 mp_support(&#39;bl_print_params&#39;) = false;
 mp_support(&#39;bl_print_iterinfo&#39;) = false;</code></pre>
-<p>Run the function and show policy function for savings choice:</p>
+<p>Run the function and show policy function for savings choice. For
+ls_ffcmd, ls_ffsna, ls_ffgrh, can include these: ‘v’, ‘ap’, ‘c’, ‘y’,
+‘coh’, ‘savefraccoh’. These are value, aprime savings choice,
+consumption, income, cash on hand, and savings fraction as cash-on-hand.</p>
 <pre><code>mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
 mp_support(&#39;bl_print_params&#39;) = false;
 mp_support(&#39;bl_print_iterinfo&#39;) = false;
+% ls_ffcmd: summary print which outcomes
 mp_support(&#39;ls_ffcmd&#39;) = {};
+% ls_ffsna: detail print which outcomes
 mp_support(&#39;ls_ffsna&#39;) = {&#39;ap&#39;};
+% ls_ffgrh: graphical print which outcomes
 mp_support(&#39;ls_ffgrh&#39;) = {&#39;ap&#39;};
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.245489 seconds.
+Elapsed time is 0.252449 seconds.
 xxx  ff_vfi_az_vec, outcome=ap  xxxxxxxxxxxxxxxxxxxxxxxxxxx
     group      a       mean_z_0_54195    mean_z_0_66401    mean_z_0_88162    mean_z_1_3095    mean_z_2_2745
     _____    ______    ______________    ______________    ______________    _____________    _____________
@@ -338,7 +344,7 @@ mp_support(&#39;ls_ffgrh&#39;) = {};
 mp_support(&#39;bl_vfi_store_all&#39;) = true; % store c(a,z), y(a,z)
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 1.633068 seconds.
+Elapsed time is 1.625022 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -400,7 +406,7 @@ mp_params(&#39;fl_beta&#39;) = 0.80;
 mp_params(&#39;fl_r&#39;) = 0;
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.079084 seconds.
+Elapsed time is 0.068015 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -430,7 +436,7 @@ mp_params(&#39;fl_beta&#39;) = 0.95;
 mp_params(&#39;fl_r&#39;) = 0.04;
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.290307 seconds.
+Elapsed time is 0.291535 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -476,7 +482,7 @@ for risk:</p>
 mp_params(&#39;fl_crra&#39;) = 0.5;
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.580227 seconds.
+Elapsed time is 0.546316 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -508,7 +514,7 @@ wants to save more.</p>
 mp_params(&#39;fl_crra&#39;) = 5;
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.906648 seconds.
+Elapsed time is 0.925980 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -554,7 +560,7 @@ mp_params(&#39;st_grid_type&#39;) = &#39;grid_powerspace&#39;;</code></pre>
 mp_params(&#39;fl_shk_std&#39;) = 0.05;
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.942299 seconds.
+Elapsed time is 0.933647 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -584,7 +590,7 @@ shock more asset save less, high shock low asset save more:</p>
 mp_params(&#39;fl_shk_std&#39;) = 0.25;
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.908385 seconds.
+Elapsed time is 0.894904 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -627,15 +633,14 @@ much faster than the looped code.</p>
 <div id="test-ff_vfi_az_vec-defaults" class="section level3">
 <h3><span class="header-section-number">1.2.1</span> Test FF_VFI_AZ_VEC Defaults</h3>
 <p>Call the function with defaults. By default, shows the asset policy
-function summary.</p>
+function summary. Model parameters can be changed by the mp_params.</p>
 <pre><code>%mp_params
 mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
 mp_params(&#39;fl_crra&#39;) = 1.5;
 mp_params(&#39;fl_beta&#39;) = 0.94;
-% call function
 ff_vfi_az_vec(mp_params);
 
-Elapsed time is 0.407936 seconds.
+Elapsed time is 0.380397 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -670,16 +675,22 @@ mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39
 mp_support(&#39;bl_timer&#39;) = false;
 mp_support(&#39;bl_print_params&#39;) = false;
 mp_support(&#39;bl_print_iterinfo&#39;) = false;</code></pre>
-<p>Run the function and show policy function for savings choice:</p>
+<p>Run the function and show policy function for savings choice. For
+ls_ffcmd, ls_ffsna, ls_ffgrh, can include these: ‘v’, ‘ap’, ‘c’, ‘y’,
+‘coh’, ‘savefraccoh’. These are value, aprime savings choice,
+consumption, income, cash on hand, and savings fraction as cash-on-hand.</p>
 <pre><code>mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
 mp_support(&#39;bl_print_params&#39;) = false;
 mp_support(&#39;bl_print_iterinfo&#39;) = false;
+% ls_ffcmd: summary print which outcomes
 mp_support(&#39;ls_ffcmd&#39;) = {};
+% ls_ffsna: detail print which outcomes
 mp_support(&#39;ls_ffsna&#39;) = {&#39;ap&#39;};
+% ls_ffgrh: graphical print which outcomes
 mp_support(&#39;ls_ffgrh&#39;) = {&#39;ap&#39;};
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 0.020296 seconds.
+Elapsed time is 0.016286 seconds.
 xxx  ff_vfi_az_vec, outcome=ap  xxxxxxxxxxxxxxxxxxxxxxxxxxx
     group      a       mean_z_0_54195    mean_z_0_66401    mean_z_0_88162    mean_z_1_3095    mean_z_2_2745
     _____    ______    ______________    ______________    ______________    _____________    _____________
@@ -746,7 +757,7 @@ mp_support(&#39;ls_ffgrh&#39;) = {};
 mp_support(&#39;bl_vfi_store_all&#39;) = true; % store c(a,z), y(a,z)
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 0.126640 seconds.
+Elapsed time is 0.120582 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -808,7 +819,7 @@ mp_params(&#39;fl_beta&#39;) = 0.80;
 mp_params(&#39;fl_r&#39;) = 0;
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 0.711562 seconds.
+Elapsed time is 0.745276 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -838,7 +849,7 @@ mp_params(&#39;fl_beta&#39;) = 0.95;
 mp_params(&#39;fl_r&#39;) = 0.04;
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 2.436171 seconds.
+Elapsed time is 2.419509 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -884,7 +895,7 @@ for risk:</p>
 mp_params(&#39;fl_crra&#39;) = 0.5;
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 2.064222 seconds.
+Elapsed time is 1.950318 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -916,7 +927,7 @@ wants to save more.</p>
 mp_params(&#39;fl_crra&#39;) = 5;
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 1.900222 seconds.
+Elapsed time is 2.480325 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -962,7 +973,7 @@ mp_params(&#39;st_grid_type&#39;) = &#39;grid_powerspace&#39;;</code></pre>
 mp_params(&#39;fl_shk_std&#39;) = 0.05;
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 2.123001 seconds.
+Elapsed time is 1.980327 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -992,7 +1003,7 @@ shock more asset save less, high shock low asset save more:</p>
 mp_params(&#39;fl_shk_std&#39;) = 0.25;
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 1.968323 seconds.
+Elapsed time is 1.941686 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)

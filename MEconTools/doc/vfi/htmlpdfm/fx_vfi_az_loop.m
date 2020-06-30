@@ -11,7 +11,7 @@
 % larger state-space problems.
 %% Test FF_VFI_AZ_LOOP Defaults
 % Call the function with defaults. By default, shows the asset policy function 
-% summary.
+% summary. Model parameters can be changed by the mp_params.
 
 %mp_params
 mp_params = containers.Map('KeyType','char', 'ValueType','any');
@@ -30,13 +30,19 @@ mp_support('bl_timer') = false;
 mp_support('bl_print_params') = false;
 mp_support('bl_print_iterinfo') = false;
 %% 
-% Run the function and show policy function for savings choice:
+% Run the function and show policy function for savings choice. For ls_ffcmd, 
+% ls_ffsna, ls_ffgrh, can include these: 'v', 'ap', 'c', 'y', 'coh', 'savefraccoh'. 
+% These are value, aprime savings choice, consumption, income, cash on hand, and 
+% savings fraction as cash-on-hand.
 
 mp_support = containers.Map('KeyType','char', 'ValueType','any');
 mp_support('bl_print_params') = false;
 mp_support('bl_print_iterinfo') = false;
+% ls_ffcmd: summary print which outcomes
 mp_support('ls_ffcmd') = {};
+% ls_ffsna: detail print which outcomes
 mp_support('ls_ffsna') = {'ap'};
+% ls_ffgrh: graphical print which outcomes
 mp_support('ls_ffgrh') = {'ap'};
 ff_vfi_az_loop(mp_params, mp_support);
 %% 

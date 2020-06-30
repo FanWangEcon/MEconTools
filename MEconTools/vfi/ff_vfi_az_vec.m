@@ -31,15 +31,17 @@
 %    mp_support('bl_timer') = true;
 %    mp_support('bl_print_params') = false; 
 %    mp_support('bl_print_iterinfo') = false; 
-%    % These names must match keys of mp_solu: v, ap, c, y
-%    % what outcomes to store in the mp_solu for export
-%    mp_support('ls_slout') = {'v', 'ap', 'c', 'y', 'coh'}; 
+%    % These names must match keys of mp_solu: v=value, ap=savings choice,
+%    c=consumption, y=income, coh=cash-on-hand (income + savings),
+%    savefraccoh = ap/coh.
+%    % what outcomes to store in the mp_solu for export  
+%    mp_support('ls_slout') = {'v', 'ap', 'c', 'y', 'coh', 'savefraccoh'}; 
 %    % outcome for ff_container_map_display
-%    mp_support('ls_ffcmd') = {'ap'}; 
+%    mp_support('ls_ffcmd') = {'v', 'ap', 'c', 'y', 'coh', 'savefraccoh'}; 
 %    % outcome for ff_summ_nd_array
-%    mp_support('ls_ffsna') = {}; 
+%    mp_support('ls_ffsna') = {'v', 'ap', 'c', 'y', 'coh', 'savefraccoh'}; 
 %    % outcome for ff_graph_grid
-%    mp_support('ls_ffgrh') = {}; 
+%    mp_support('ls_ffgrh') = {'v', 'ap', 'c', 'y', 'coh', 'savefraccoh'}; 
 %    % outcome for ff_summ_nd_array
 %    mp_support('ffsna_opt_it_row_n_keep') = 10;
 %    % outcome for ff_summ_nd_array
@@ -155,9 +157,9 @@ mp_support('bl_timer') = true;
 mp_support('bl_print_params') = false; 
 mp_support('bl_print_iterinfo') = false; 
 
-% These names must match keys of mp_solu: v, ap, c, y
+% These names must match keys of mp_solu: v, ap, c, y, savefraccoh
 % what outcomes to store in the mp_solu for export
-mp_support('ls_slout') = {'v', 'ap', 'c', 'y', 'coh'}; 
+mp_support('ls_slout') = {'v', 'ap', 'c', 'y', 'coh', 'savefraccoh'}; 
 % outcome for ff_container_map_display
 mp_support('ls_ffcmd') = {'ap'}; 
 % outcome for ff_summ_nd_array

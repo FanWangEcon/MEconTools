@@ -151,7 +151,7 @@ larger state-space problems.
 \subsection{Test FF\_VFI\_AZ\_LOOP Defaults}\label{test-ff_vfi_az_loop-defaults}}
 
 Call the function with defaults. By default, shows the asset policy
-function summary.
+function summary. Model parameters can be changed by the mp\_params.
 
 \begin{verbatim}
 %mp_params
@@ -161,7 +161,7 @@ mp_params('fl_beta') = 0.94;
 % call function
 ff_vfi_az_loop(mp_params);
 
-Elapsed time is 0.438199 seconds.
+Elapsed time is 0.446290 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -202,18 +202,24 @@ mp_support('bl_print_params') = false;
 mp_support('bl_print_iterinfo') = false;
 \end{verbatim}
 
-Run the function and show policy function for savings choice:
+Run the function and show policy function for savings choice. For
+ls\_ffcmd, ls\_ffsna, ls\_ffgrh, can include these: `v', `ap', `c', `y',
+`coh', `savefraccoh'. These are value, aprime savings choice,
+consumption, income, cash on hand, and savings fraction as cash-on-hand.
 
 \begin{verbatim}
 mp_support = containers.Map('KeyType','char', 'ValueType','any');
 mp_support('bl_print_params') = false;
 mp_support('bl_print_iterinfo') = false;
+% ls_ffcmd: summary print which outcomes
 mp_support('ls_ffcmd') = {};
+% ls_ffsna: detail print which outcomes
 mp_support('ls_ffsna') = {'ap'};
+% ls_ffgrh: graphical print which outcomes
 mp_support('ls_ffgrh') = {'ap'};
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.245489 seconds.
+Elapsed time is 0.252449 seconds.
 xxx  ff_vfi_az_vec, outcome=ap  xxxxxxxxxxxxxxxxxxxxxxxxxxx
     group      a       mean_z_0_54195    mean_z_0_66401    mean_z_0_88162    mean_z_1_3095    mean_z_2_2745
     _____    ______    ______________    ______________    ______________    _____________    _____________
@@ -286,7 +292,7 @@ mp_support('ls_ffgrh') = {};
 mp_support('bl_vfi_store_all') = true; % store c(a,z), y(a,z)
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 1.633068 seconds.
+Elapsed time is 1.625022 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -356,7 +362,7 @@ mp_params('fl_beta') = 0.80;
 mp_params('fl_r') = 0;
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.079084 seconds.
+Elapsed time is 0.068015 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -386,7 +392,7 @@ mp_params('fl_beta') = 0.95;
 mp_params('fl_r') = 0.04;
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.290307 seconds.
+Elapsed time is 0.291535 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -440,7 +446,7 @@ for risk:
 mp_params('fl_crra') = 0.5;
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.580227 seconds.
+Elapsed time is 0.546316 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -478,7 +484,7 @@ wants to save more.
 mp_params('fl_crra') = 5;
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.906648 seconds.
+Elapsed time is 0.925980 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -534,7 +540,7 @@ Lower standard deviation of shock:
 mp_params('fl_shk_std') = 0.05;
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.942299 seconds.
+Elapsed time is 0.933647 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -568,7 +574,7 @@ shock more asset save less, high shock low asset save more:
 mp_params('fl_shk_std') = 0.25;
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.908385 seconds.
+Elapsed time is 0.894904 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -614,17 +620,16 @@ much faster than the looped code.
 \subsection{Test FF\_VFI\_AZ\_VEC Defaults}\label{test-ff_vfi_az_vec-defaults}}
 
 Call the function with defaults. By default, shows the asset policy
-function summary.
+function summary. Model parameters can be changed by the mp\_params.
 
 \begin{verbatim}
 %mp_params
 mp_params = containers.Map('KeyType','char', 'ValueType','any');
 mp_params('fl_crra') = 1.5;
 mp_params('fl_beta') = 0.94;
-% call function
 ff_vfi_az_vec(mp_params);
 
-Elapsed time is 0.407936 seconds.
+Elapsed time is 0.380397 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -665,18 +670,24 @@ mp_support('bl_print_params') = false;
 mp_support('bl_print_iterinfo') = false;
 \end{verbatim}
 
-Run the function and show policy function for savings choice:
+Run the function and show policy function for savings choice. For
+ls\_ffcmd, ls\_ffsna, ls\_ffgrh, can include these: `v', `ap', `c', `y',
+`coh', `savefraccoh'. These are value, aprime savings choice,
+consumption, income, cash on hand, and savings fraction as cash-on-hand.
 
 \begin{verbatim}
 mp_support = containers.Map('KeyType','char', 'ValueType','any');
 mp_support('bl_print_params') = false;
 mp_support('bl_print_iterinfo') = false;
+% ls_ffcmd: summary print which outcomes
 mp_support('ls_ffcmd') = {};
+% ls_ffsna: detail print which outcomes
 mp_support('ls_ffsna') = {'ap'};
+% ls_ffgrh: graphical print which outcomes
 mp_support('ls_ffgrh') = {'ap'};
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 0.020296 seconds.
+Elapsed time is 0.016286 seconds.
 xxx  ff_vfi_az_vec, outcome=ap  xxxxxxxxxxxxxxxxxxxxxxxxxxx
     group      a       mean_z_0_54195    mean_z_0_66401    mean_z_0_88162    mean_z_1_3095    mean_z_2_2745
     _____    ______    ______________    ______________    ______________    _____________    _____________
@@ -749,7 +760,7 @@ mp_support('ls_ffgrh') = {};
 mp_support('bl_vfi_store_all') = true; % store c(a,z), y(a,z)
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 0.126640 seconds.
+Elapsed time is 0.120582 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -819,7 +830,7 @@ mp_params('fl_beta') = 0.80;
 mp_params('fl_r') = 0;
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 0.711562 seconds.
+Elapsed time is 0.745276 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -849,7 +860,7 @@ mp_params('fl_beta') = 0.95;
 mp_params('fl_r') = 0.04;
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 2.436171 seconds.
+Elapsed time is 2.419509 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -903,7 +914,7 @@ for risk:
 mp_params('fl_crra') = 0.5;
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 2.064222 seconds.
+Elapsed time is 1.950318 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -941,7 +952,7 @@ wants to save more.
 mp_params('fl_crra') = 5;
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 1.900222 seconds.
+Elapsed time is 2.480325 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -997,7 +1008,7 @@ Lower standard deviation of shock:
 mp_params('fl_shk_std') = 0.05;
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 2.123001 seconds.
+Elapsed time is 1.980327 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -1031,7 +1042,7 @@ shock more asset save less, high shock low asset save more:
 mp_params('fl_shk_std') = 0.25;
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 1.968323 seconds.
+Elapsed time is 1.941686 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -3819,7 +3830,7 @@ xxx TABLE:mat_2_boolean xxxxxxxxxxxxxxxxxx
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.html}{Looped Solution for Infinite Horizon Optimal Savings Dynamic Programming Problem}: \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/fx_vfi_az_loop.mlx}{\textbf{mlx}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.m}{\textbf{m}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.pdf}{\textbf{pdf}} \textbar{} \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.html}{\textbf{html}}
+  \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.html}{Looped Infinite Horizon Dynamic Savings Problem}: \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/fx_vfi_az_loop.mlx}{\textbf{mlx}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.m}{\textbf{m}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.pdf}{\textbf{pdf}} \textbar{} \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.html}{\textbf{html}}
 
   \begin{itemize}
   \tightlist
@@ -3831,7 +3842,7 @@ xxx TABLE:mat_2_boolean xxxxxxxxxxxxxxxxxx
     \textbf{MEconTools}: \emph{ff\_vfi\_az\_loop()}
   \end{itemize}
 \item
-  \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.html}{Vectorized Solution for Infinite Horizon Optimal Savings Dynamic Programming Problem}: \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/fx_vfi_az_vec.mlx}{\textbf{mlx}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.m}{\textbf{m}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.pdf}{\textbf{pdf}} \textbar{} \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.html}{\textbf{html}}
+  \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.html}{Vectorized Infinite Horizon Dynamic Savings Problem}: \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/fx_vfi_az_vec.mlx}{\textbf{mlx}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.m}{\textbf{m}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.pdf}{\textbf{pdf}} \textbar{} \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.html}{\textbf{html}}
 
   \begin{itemize}
   \tightlist
