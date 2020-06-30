@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>FF_CONTAINER_MAP_DISPLAY organizes and prints container map key/values</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-06-24"><meta name="DC.source" content="ff_container_map_display.m"><style type="text/css">
+      --><title>FF_CONTAINER_MAP_DISPLAY organizes and prints container map key/values</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-06-30"><meta name="DC.source" content="ff_container_map_display.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -91,7 +91,11 @@ it_row_n_keep = 10;
         bl_print_matrix_detail = false;
     <span class="keyword">elseif</span> (length(varargin) == 3)
         [mp_container_map, it_row_n_keep, it_col_n_keep] = varargin{:};
-        bl_print_matrix_detail = true;
+        <span class="keyword">if</span> (it_row_n_keep == 0 || it_col_n_keep == 0)
+            bl_print_matrix_detail = false;
+        <span class="keyword">else</span>
+            bl_print_matrix_detail = true;
+        <span class="keyword">end</span>
     <span class="keyword">end</span>
 
 <span class="keyword">else</span>
@@ -152,11 +156,15 @@ it_function_ctr = 0;
     it_ndims = ndims(na_cur_val);
     it_numel = numel(na_cur_val);
 
-    <span class="keyword">if</span>(iscell(na_cur_val))
-        na_cur_val = na_cur_val{1};
-    <span class="keyword">end</span>
-    <span class="keyword">if</span>(istable(na_cur_val))
-        na_cur_val = table2array(na_cur_val);
+    <span class="keyword">if</span> (length(na_cur_val)&gt;1)
+        <span class="keyword">if</span>(iscell(na_cur_val) &amp;&amp; (isstring(na_cur_val{1}) || ischar(na_cur_val{1})))
+            na_cur_val = string(na_cur_val);
+        <span class="keyword">elseif</span>(iscell(na_cur_val))
+            na_cur_val = na_cur_val{1};
+        <span class="keyword">end</span>
+        <span class="keyword">if</span>(istable(na_cur_val))
+            na_cur_val = table2array(na_cur_val);
+        <span class="keyword">end</span>
     <span class="keyword">end</span>
 </pre><h2 id="9">Various Types of Values</h2><pre class="codeinput">    <span class="keyword">if</span> (( ismatrix(na_cur_val) &amp;&amp; (isnumeric(na_cur_val) || islogical(na_cur_val)) ) <span class="keyword">...</span>
             || (it_ndims &gt;= 3  &amp;&amp; (isnumeric(na_cur_val) || islogical(na_cur_val)) ) )
@@ -226,7 +234,11 @@ it_function_ctr = 0;
 </pre><h2 id="20">E. String</h2><pre class="codeinput">        it_string_ctr = it_string_ctr + 1;
         row_string_names{it_string_ctr} = st_cur_key;
         ar_string_i(it_string_ctr) = i;
-        ar_string_val(it_string_ctr) = strjoin(na_cur_val, <span class="string">';'</span>);
+        <span class="keyword">if</span> (isstring(na_cur_val))
+            ar_string_val(it_string_ctr) = strjoin(na_cur_val, <span class="string">';'</span>);
+        <span class="keyword">else</span>
+            ar_string_val(it_string_ctr) = string(na_cur_val);
+        <span class="keyword">end</span>
 
         <span class="comment">%         st_display = strjoin(['pos =' num2str(i) '; key =' string(st_cur_key) '; val =' string(na_cur_val)]);</span>
         <span class="comment">%         disp(st_display);</span>
@@ -491,7 +503,11 @@ if (~isempty(varargin))
         bl_print_matrix_detail = false;
     elseif (length(varargin) == 3)
         [mp_container_map, it_row_n_keep, it_col_n_keep] = varargin{:};
-        bl_print_matrix_detail = true;
+        if (it_row_n_keep == 0 || it_col_n_keep == 0)
+            bl_print_matrix_detail = false;
+        else
+            bl_print_matrix_detail = true;
+        end        
     end
     
 else
@@ -560,12 +576,16 @@ for i = 1:length(mp_container_map)
     na_cur_val = param_map_vals{i};
     it_ndims = ndims(na_cur_val);
     it_numel = numel(na_cur_val);
-
-    if(iscell(na_cur_val))
-        na_cur_val = na_cur_val{1};
-    end
-    if(istable(na_cur_val))
-        na_cur_val = table2array(na_cur_val);
+    
+    if (length(na_cur_val)>1)
+        if(iscell(na_cur_val) && (isstring(na_cur_val{1}) || ischar(na_cur_val{1})))
+            na_cur_val = string(na_cur_val);
+        elseif(iscell(na_cur_val))
+            na_cur_val = na_cur_val{1};
+        end
+        if(istable(na_cur_val))
+            na_cur_val = table2array(na_cur_val);
+        end
     end
     
     %% Various Types of Values
@@ -647,7 +667,11 @@ for i = 1:length(mp_container_map)
         it_string_ctr = it_string_ctr + 1;
         row_string_names{it_string_ctr} = st_cur_key;
         ar_string_i(it_string_ctr) = i;
-        ar_string_val(it_string_ctr) = strjoin(na_cur_val, ';');
+        if (isstring(na_cur_val))
+            ar_string_val(it_string_ctr) = strjoin(na_cur_val, ';');
+        else
+            ar_string_val(it_string_ctr) = string(na_cur_val);
+        end        
         
         %         st_display = strjoin(['pos =' num2str(i) '; key =' string(st_cur_key) '; val =' string(na_cur_val)]);
         %         disp(st_display);

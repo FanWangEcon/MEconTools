@@ -1,0 +1,47 @@
+- file: fx_vfi_az_loop
+  title: "Matlab FF_VFI_AZ_LOOP Looped Solution for Optimal Savings Dynamic Programming Problem in Infinite Horizon"
+  titleshort: "Looped Solution for Infinite Horizon Optimal Savings Dynamic Programming Problem"
+  description: |
+    Slow looped solution.
+    Given preferences, some AR(1) shock process, solve the infinite horizon household savings dynamic programming problem. The state-space and choice-space share the same asset grid.
+  core :
+    - package: MEconTools
+      code: |
+        ff_vfi_az_loop()
+  date: 2020-06-30
+  date_start: 2020-06-30
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue
+
+- file: fx_vfi_az_vec
+  title: "Matlab FF_VFI_AZ_VEC Vectorized Solution for Optimal Savings Dynamic Programming Problem in Infinite Horizon"
+  titleshort: "Vectorized Solution for Infinite Horizon Optimal Savings Dynamic Programming Problem"
+  description: |
+    Faster vectorized solution.
+    Given preferences, some AR(1) shock process, solve the infinite horizon household savings dynamic programming problem. The state-space and choice-space share the same asset grid.
+  core :
+    - package: MEconTools
+      code: |
+        ff_vfi_az_vec()
+  date: 2020-06-30
+  date_start: 2020-06-30
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue

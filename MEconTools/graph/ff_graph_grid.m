@@ -220,7 +220,7 @@ for it_plot = ar_it_plot
     if (length(ar_row_grid) > length(cl_scatter_shapes))
         
         %% Plot Many Rows as Jet Lines
-        chart = plot(mt_value_use');
+        chart = plot(reshape(ar_x, [], 1), mt_value_use');
         for m = 1:numel(chart)
             set(chart(m),'Color',mt_fl_colors_rgb(m,:))
         end

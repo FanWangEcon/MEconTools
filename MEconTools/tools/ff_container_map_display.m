@@ -40,7 +40,11 @@ if (~isempty(varargin))
         bl_print_matrix_detail = false;
     elseif (length(varargin) == 3)
         [mp_container_map, it_row_n_keep, it_col_n_keep] = varargin{:};
-        bl_print_matrix_detail = true;
+        if (it_row_n_keep == 0 || it_col_n_keep == 0)
+            bl_print_matrix_detail = false;
+        else
+            bl_print_matrix_detail = true;
+        end        
     end
     
 else
@@ -109,12 +113,16 @@ for i = 1:length(mp_container_map)
     na_cur_val = param_map_vals{i};
     it_ndims = ndims(na_cur_val);
     it_numel = numel(na_cur_val);
-
-    if(iscell(na_cur_val))
-        na_cur_val = na_cur_val{1};
-    end
-    if(istable(na_cur_val))
-        na_cur_val = table2array(na_cur_val);
+    
+    if (length(na_cur_val)>1)
+        if(iscell(na_cur_val) && (isstring(na_cur_val{1}) || ischar(na_cur_val{1})))
+            na_cur_val = string(na_cur_val);
+        elseif(iscell(na_cur_val))
+            na_cur_val = na_cur_val{1};
+        end
+        if(istable(na_cur_val))
+            na_cur_val = table2array(na_cur_val);
+        end
     end
     
     %% Various Types of Values
@@ -196,7 +204,11 @@ for i = 1:length(mp_container_map)
         it_string_ctr = it_string_ctr + 1;
         row_string_names{it_string_ctr} = st_cur_key;
         ar_string_i(it_string_ctr) = i;
-        ar_string_val(it_string_ctr) = strjoin(na_cur_val, ';');
+        if (isstring(na_cur_val))
+            ar_string_val(it_string_ctr) = strjoin(na_cur_val, ';');
+        else
+            ar_string_val(it_string_ctr) = string(na_cur_val);
+        end        
         
         %         st_display = strjoin(['pos =' num2str(i) '; key =' string(st_cur_key) '; val =' string(na_cur_val)]);
         %         disp(st_display);

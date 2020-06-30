@@ -7,7 +7,7 @@
     <param.summary>Dynamic programming and related.</param.summary>
     <param.description>Dynamic programming and related.</param.description>
     <param.screenshot>${PROJECT_ROOT}\img\toolboxlogo.png</param.screenshot>
-    <param.version>0.1.18</param.version>
+    <param.version>0.1.20</param.version>
     <param.output>${PROJECT_ROOT}\MEconTools.mltbx</param.output>
     <param.products.name />
     <param.products.id />
@@ -79,6 +79,47 @@ htmlpdfm/*
          &lt;file type="source"&gt;/external/stats/html/ffy_tauchen.html&lt;/file&gt;
          &lt;file type="main"&gt;/external/stats/ffy_tauchen.m&lt;/file&gt;
          &lt;file type="thumbnail"/&gt;
+      &lt;/example&gt;
+   &lt;/exampleCategory&gt;
+   &lt;exampleCategory name="optim"&gt;
+      &lt;example name="ff_optim_bisec_savezrone" type="html"&gt;
+         &lt;file type="source"&gt;/optim/html/ff_optim_bisec_savezrone.html&lt;/file&gt;
+         &lt;file type="main"&gt;/optim/ff_optim_bisec_savezrone.m&lt;/file&gt;
+         &lt;file type="thumbnail"&gt;/optim/html/ff_optim_bisec_savezrone.png&lt;/file&gt;
+         &lt;file type="image"&gt;/optim/html/ff_optim_bisec_savezrone_01.png&lt;/file&gt;
+      &lt;/example&gt;
+   &lt;/exampleCategory&gt;
+   &lt;exampleCategory name="vfi"&gt;
+      &lt;example name="ff_vfi_az_loop" type="html"&gt;
+         &lt;file type="source"&gt;/vfi/html/ff_vfi_az_loop.html&lt;/file&gt;
+         &lt;file type="main"&gt;/vfi/ff_vfi_az_loop.m&lt;/file&gt;
+         &lt;file type="thumbnail"&gt;/vfi/html/ff_vfi_az_loop.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_01.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_02.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_03.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_04.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_05.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_06.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_07.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_08.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_09.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_10.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_11.png&lt;/file&gt;
+      &lt;/example&gt;
+      &lt;example name="ff_vfi_az_vec" type="html"&gt;
+         &lt;file type="source"&gt;/vfi/html/ff_vfi_az_vec.html&lt;/file&gt;
+         &lt;file type="main"&gt;/vfi/ff_vfi_az_vec.m&lt;/file&gt;
+         &lt;file type="thumbnail"&gt;/vfi/html/ff_vfi_az_vec.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_vec_01.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_vec_02.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_vec_03.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_vec_04.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_vec_05.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_vec_06.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_vec_07.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_vec_08.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_vec_09.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_vec_10.png&lt;/file&gt;
       &lt;/example&gt;
    &lt;/exampleCategory&gt;
    &lt;exampleCategory name="generate"&gt;
@@ -187,6 +228,7 @@ htmlpdfm/*
       <file>${PROJECT_ROOT}\MEconTools\generate</file>
       <file>${PROJECT_ROOT}\MEconTools\graph</file>
       <file>${PROJECT_ROOT}\MEconTools\info.xml</file>
+      <file>${PROJECT_ROOT}\MEconTools\optim</file>
       <file>${PROJECT_ROOT}\MEconTools\stats</file>
       <file>${PROJECT_ROOT}\MEconTools\summ</file>
       <file>${PROJECT_ROOT}\MEconTools\table</file>
