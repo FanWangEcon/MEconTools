@@ -7,6 +7,10 @@ delete_merged_file: true
 rmd_files:
   - index.Rmd
 
+  - MEconTools/doc/vfi/main.Rmd
+  - MEconTools/doc/vfi/fx_vfi_az_loop.Rmd
+  - MEconTools/doc/vfi/fx_vfi_az_vec.Rmd
+
   - MEconTools/doc/summ/main.Rmd
   - MEconTools/doc/summ/fx_summ_nd_array.Rmd
 

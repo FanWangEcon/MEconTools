@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 1 Savings Dynamic Programming | Matlab Toolbox Heterogeneous Agents Dynamic Programming</title>
+  <meta name="description" content="Chapter 1 Savings Dynamic Programming | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 1 Savings Dynamic Programming | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Chapter 1 Savings Dynamic Programming | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
+  <meta name="github-repo" content="fanwangecon/MEconTools" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 1 Savings Dynamic Programming | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
+  
+  <meta name="twitter:description" content="Chapter 1 Savings Dynamic Programming | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
+  
+
+<meta name="author" content="Fan Wang" />
+
+
+<meta name="date" content="2020-06-30" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="summarize-policy-and-value.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-92953468-6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-92953468-6');
+</script>
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Matlab Toolbox Heterogeneous Agents Dynamic Programming</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html"><i class="fa fa-check"></i><b>1</b> Savings Dynamic Programming</a><ul>
+<li class="chapter" data-level="1.1" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#ff_vfi_az_loop-dynamic-programming-asset-problem-with-shocks-loop"><i class="fa fa-check"></i><b>1.1</b> FF_VFI_AZ_LOOP Dynamic Programming Asset Problem with Shocks Loop</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_loop-defaults"><i class="fa fa-check"></i><b>1.1.1</b> Test FF_VFI_AZ_LOOP Defaults</a></li>
+<li class="chapter" data-level="1.1.2" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_loop-control-outputs"><i class="fa fa-check"></i><b>1.1.2</b> Test FF_VFI_AZ_LOOP Control Outputs</a></li>
+<li class="chapter" data-level="1.1.3" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_loop-change-interest-rate-and-discount"><i class="fa fa-check"></i><b>1.1.3</b> Test FF_VFI_AZ_LOOP Change Interest Rate and Discount</a></li>
+<li class="chapter" data-level="1.1.4" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_loop-changing-risk-aversion"><i class="fa fa-check"></i><b>1.1.4</b> Test FF_VFI_AZ_LOOP Changing Risk Aversion</a></li>
+<li class="chapter" data-level="1.1.5" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_loop-with-higher-uncertainty"><i class="fa fa-check"></i><b>1.1.5</b> Test FF_VFI_AZ_LOOP with Higher Uncertainty</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#ff_vfi_az_vec-dynamic-programming-asset-problem-with-shocks-vectorized"><i class="fa fa-check"></i><b>1.2</b> FF_VFI_AZ_VEC Dynamic Programming Asset Problem with Shocks Vectorized</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_vec-defaults"><i class="fa fa-check"></i><b>1.2.1</b> Test FF_VFI_AZ_VEC Defaults</a></li>
+<li class="chapter" data-level="1.2.2" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_vec-control-outputs"><i class="fa fa-check"></i><b>1.2.2</b> Test FF_VFI_AZ_VEC Control Outputs</a></li>
+<li class="chapter" data-level="1.2.3" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_vec-change-interest-rate-and-discount"><i class="fa fa-check"></i><b>1.2.3</b> Test FF_VFI_AZ_VEC Change Interest Rate and Discount</a></li>
+<li class="chapter" data-level="1.2.4" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_vec-changing-risk-aversion"><i class="fa fa-check"></i><b>1.2.4</b> Test FF_VFI_AZ_VEC Changing Risk Aversion</a></li>
+<li class="chapter" data-level="1.2.5" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_vec-with-higher-uncertainty"><i class="fa fa-check"></i><b>1.2.5</b> Test FF_VFI_AZ_VEC with Higher Uncertainty</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html"><i class="fa fa-check"></i><b>2</b> Summarize Policy and Value</a><ul>
+<li class="chapter" data-level="2.1" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#ff_summ_nd_array-examples"><i class="fa fa-check"></i><b>2.1</b> FF_SUMM_ND_ARRAY Examples</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#test-ff_summ_nd_array-defaults"><i class="fa fa-check"></i><b>2.1.1</b> Test FF_SUMM_ND_ARRAY Defaults</a></li>
+<li class="chapter" data-level="2.1.2" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#test-ff_summ_nd_array-with-random-2-dimensional-matrix"><i class="fa fa-check"></i><b>2.1.2</b> Test FF_SUMM_ND_ARRAY with Random 2 Dimensional Matrix</a></li>
+<li class="chapter" data-level="2.1.3" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#test-ff_summ_nd_array-with-random-6-dimensional-matrix"><i class="fa fa-check"></i><b>2.1.3</b> Test FF_SUMM_ND_ARRAY with Random 6 Dimensional Matrix</a></li>
+<li class="chapter" data-level="2.1.4" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#test-ff_summ_nd_array-with-random-7-dimensional-matrix-with-all-parameters"><i class="fa fa-check"></i><b>2.1.4</b> Test FF_SUMM_ND_ARRAY with Random 7 Dimensional Matrix with All Parameters</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="distributional-analysis.html"><a href="distributional-analysis.html"><i class="fa fa-check"></i><b>3</b> Distributional Analysis</a><ul>
+<li class="chapter" data-level="3.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_simu_stats-examples"><i class="fa fa-check"></i><b>3.1</b> FF_SIMU_STATS Examples</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_simu_stats-defaults"><i class="fa fa-check"></i><b>3.1.1</b> Test FF_SIMU_STATS Defaults</a></li>
+<li class="chapter" data-level="3.1.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_simu_stats-four-states-points-matrix"><i class="fa fa-check"></i><b>3.1.2</b> Test FF_SIMU_STATS Four States-Points Matrix</a></li>
+<li class="chapter" data-level="3.1.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_simu_stats-four-states-points-matrix-single-column-inputs"><i class="fa fa-check"></i><b>3.1.3</b> Test FF_SIMU_STATS Four States-Points Matrix Single Column Inputs</a></li>
+<li class="chapter" data-level="3.1.4" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_simu_stats-print-many-details"><i class="fa fa-check"></i><b>3.1.4</b> Test FF_SIMU_STATS Print Many Details</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_disc_rand_var_stats-examples"><i class="fa fa-check"></i><b>3.2</b> FF_DISC_RAND_VAR_STATS Examples</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_stats-defaults"><i class="fa fa-check"></i><b>3.2.1</b> Test FF_DISC_RAND_VAR_STATS Defaults</a></li>
+<li class="chapter" data-level="3.2.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_stats-0-and-1-random-variable"><i class="fa fa-check"></i><b>3.2.2</b> Test FF_DISC_RAND_VAR_STATS 0 and 1 Random Variable</a></li>
+<li class="chapter" data-level="3.2.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_stats-with-poisson"><i class="fa fa-check"></i><b>3.2.3</b> Test FF_DISC_RAND_VAR_STATS with Poisson</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_disc_rand_var_mass2outcomes-examples"><i class="fa fa-check"></i><b>3.3</b> FF_DISC_RAND_VAR_MASS2OUTCOMES Examples</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2outcomes-defaults"><i class="fa fa-check"></i><b>3.3.1</b> Test FF_DISC_RAND_VAR_MASS2OUTCOMES Defaults</a></li>
+<li class="chapter" data-level="3.3.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2outcomes-four-states-points"><i class="fa fa-check"></i><b>3.3.2</b> Test FF_DISC_RAND_VAR_MASS2OUTCOMES Four States-Points</a></li>
+<li class="chapter" data-level="3.3.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2outcomes-conditional-mass-outputs"><i class="fa fa-check"></i><b>3.3.3</b> Test FF_DISC_RAND_VAR_MASS2OUTCOMES Conditional Mass Outputs</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_disc_rand_var_mass2covcor-examples"><i class="fa fa-check"></i><b>3.4</b> FF_DISC_RAND_VAR_MASS2COVCOR Examples</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2covcor-defaults"><i class="fa fa-check"></i><b>3.4.1</b> Test FF_DISC_RAND_VAR_MASS2COVCOR Defaults</a></li>
+<li class="chapter" data-level="3.4.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2covcor-four-states-points"><i class="fa fa-check"></i><b>3.4.2</b> Test FF_DISC_RAND_VAR_MASS2COVCOR Four States-Points</a></li>
+<li class="chapter" data-level="3.4.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2covcor-two-random-vectors"><i class="fa fa-check"></i><b>3.4.3</b> Test FF_DISC_RAND_VAR_MASS2COVCOR Two Random Vectors</a></li>
+<li class="chapter" data-level="3.4.4" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2covcor-provide-mean-and-sd"><i class="fa fa-check"></i><b>3.4.4</b> Test FF_DISC_RAND_VAR_MASS2COVCOR Provide Mean and SD</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>4</b> Graphs</a><ul>
+<li class="chapter" data-level="4.1" data-path="graphs.html"><a href="graphs.html#ff_graph_grid-examples-x-y-and-color-line-plots"><i class="fa fa-check"></i><b>4.1</b> FF_GRAPH_GRID Examples: X, Y and Color Line Plots</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-defaults"><i class="fa fa-check"></i><b>4.1.1</b> Test FF_GRAPH_GRID Defaults</a></li>
+<li class="chapter" data-level="4.1.2" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-random-matrix-pick-markers-and-colors"><i class="fa fa-check"></i><b>4.1.2</b> Test FF_GRAPH_GRID Random Matrix Pick Markers and Colors</a></li>
+<li class="chapter" data-level="4.1.3" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-two-random-normal-lines-and-labels"><i class="fa fa-check"></i><b>4.1.3</b> Test FF_GRAPH_GRID Two Random Normal Lines and Labels</a></li>
+<li class="chapter" data-level="4.1.4" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-6-lines-pick-marker-and-colors"><i class="fa fa-check"></i><b>4.1.4</b> Test FF_GRAPH_GRID 6 Lines Pick Marker and Colors</a></li>
+<li class="chapter" data-level="4.1.5" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-many-lines"><i class="fa fa-check"></i><b>4.1.5</b> Test FF_GRAPH_GRID Many Lines</a></li>
+<li class="chapter" data-level="4.1.6" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-many-lines-legend-exogenous"><i class="fa fa-check"></i><b>4.1.6</b> Test FF_GRAPH_GRID Many Lines Legend Exogenous</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-structures.html"><a href="data-structures.html"><i class="fa fa-check"></i><b>5</b> Data Structures</a><ul>
+<li class="chapter" data-level="5.1" data-path="data-structures.html"><a href="data-structures.html#ff_saveborr_grid-example-for-generating-asset-grid"><i class="fa fa-check"></i><b>5.1</b> FF_SAVEBORR_GRID Example for Generating Asset Grid</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-defaults"><i class="fa fa-check"></i><b>5.1.1</b> Test FF_SAVEBORR_GRID Defaults</a></li>
+<li class="chapter" data-level="5.1.2" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-default-linear-grid-log-grid-power-grid-threshold-grid"><i class="fa fa-check"></i><b>5.1.2</b> Test FF_SAVEBORR_GRID Default Linear Grid, Log Grid, Power Grid, Threshold Grid</a></li>
+<li class="chapter" data-level="5.1.3" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-log-grid-changing-parameters"><i class="fa fa-check"></i><b>5.1.3</b> Test FF_SAVEBORR_GRID Log Grid Changing Parameters</a></li>
+<li class="chapter" data-level="5.1.4" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-power-grid-changing-parameters"><i class="fa fa-check"></i><b>5.1.4</b> Test FF_SAVEBORR_GRID Power Grid Changing Parameters</a></li>
+<li class="chapter" data-level="5.1.5" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-threshold-grid-changing-parameters"><i class="fa fa-check"></i><b>5.1.5</b> Test FF_SAVEBORR_GRID Threshold Grid Changing Parameters</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="common-functions.html"><a href="common-functions.html"><i class="fa fa-check"></i><b>6</b> Common Functions</a><ul>
+<li class="chapter" data-level="6.1" data-path="common-functions.html"><a href="common-functions.html#ffy_tauchen-ar1-shock-discretization-example"><i class="fa fa-check"></i><b>6.1</b> FFY_TAUCHEN AR1 Shock Discretization Example</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-defaults"><i class="fa fa-check"></i><b>6.1.1</b> Test FFY_TAUCHEN Defaults</a></li>
+<li class="chapter" data-level="6.1.2" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-specify-parameters"><i class="fa fa-check"></i><b>6.1.2</b> Test FFY_TAUCHEN Specify Parameters</a></li>
+<li class="chapter" data-level="6.1.3" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-high-persistence-low-sd"><i class="fa fa-check"></i><b>6.1.3</b> Test FFY_TAUCHEN High Persistence, Low SD</a></li>
+<li class="chapter" data-level="6.1.4" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-low-persistence-low-sd"><i class="fa fa-check"></i><b>6.1.4</b> Test FFY_TAUCHEN Low Persistence, Low SD</a></li>
+<li class="chapter" data-level="6.1.5" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-high-persistence-high-sd"><i class="fa fa-check"></i><b>6.1.5</b> Test FFY_TAUCHEN High Persistence, High SD</a></li>
+<li class="chapter" data-level="6.1.6" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-low-persistence-low-sd-1"><i class="fa fa-check"></i><b>6.1.6</b> Test FFY_TAUCHEN Low Persistence, Low SD</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="common-functions.html"><a href="common-functions.html#ffy_rouwenhorst-ar1-shock-discretization-example"><i class="fa fa-check"></i><b>6.2</b> FFY_ROUWENHORST AR1 Shock Discretization Example</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="common-functions.html"><a href="common-functions.html#test-ffy_rouwenhorst-defaults"><i class="fa fa-check"></i><b>6.2.1</b> Test FFY_ROUWENHORST Defaults</a></li>
+<li class="chapter" data-level="6.2.2" data-path="common-functions.html"><a href="common-functions.html#test-ffy_rouwenhorst-specify-parameters"><i class="fa fa-check"></i><b>6.2.2</b> Test FFY_ROUWENHORST Specify Parameters</a></li>
+<li class="chapter" data-level="6.2.3" data-path="common-functions.html"><a href="common-functions.html#test-ffy_rouwenhorst-high-persistence-low-sd"><i class="fa fa-check"></i><b>6.2.3</b> Test FFY_ROUWENHORST High Persistence, Low SD</a></li>
+<li class="chapter" data-level="6.2.4" data-path="common-functions.html"><a href="common-functions.html#test-ffy_rouwenhorst-low-persistence-low-sd"><i class="fa fa-check"></i><b>6.2.4</b> Test FFY_ROUWENHORST Low Persistence, Low SD</a></li>
+<li class="chapter" data-level="6.2.5" data-path="common-functions.html"><a href="common-functions.html#test-ffy_rouwenhorst-high-persistence-high-sd"><i class="fa fa-check"></i><b>6.2.5</b> Test FFY_ROUWENHORST High Persistence, High SD</a></li>
+<li class="chapter" data-level="6.2.6" data-path="common-functions.html"><a href="common-functions.html#test-ffy_rouwenhorst-low-persistence-low-sd-1"><i class="fa fa-check"></i><b>6.2.6</b> Test FFY_ROUWENHORST Low Persistence, Low SD</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="support-tools.html"><a href="support-tools.html"><i class="fa fa-check"></i><b>7</b> Support Tools</a><ul>
+<li class="chapter" data-level="7.1" data-path="support-tools.html"><a href="support-tools.html#ff_container_map_display-examples"><i class="fa fa-check"></i><b>7.1</b> FF_CONTAINER_MAP_DISPLAY Examples</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="support-tools.html"><a href="support-tools.html#test-ff_container_map_display-defaults"><i class="fa fa-check"></i><b>7.1.1</b> Test FF_CONTAINER_MAP_DISPLAY Defaults</a></li>
+<li class="chapter" data-level="7.1.2" data-path="support-tools.html"><a href="support-tools.html#test-ff_container_map_display-summarize-matrix-only"><i class="fa fa-check"></i><b>7.1.2</b> Test FF_CONTAINER_MAP_DISPLAY summarize Matrix Only</a></li>
+<li class="chapter" data-level="7.1.3" data-path="support-tools.html"><a href="support-tools.html#test-ff_container_map_display-show-matrix-subset"><i class="fa fa-check"></i><b>7.1.3</b> Test FF_CONTAINER_MAP_DISPLAY Show Matrix Subset</a></li>
+</ul></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="index-and-code-links.html"><a href="index-and-code-links.html"><i class="fa fa-check"></i><b>A</b> Index and Code Links</a><ul>
+<li class="chapter" data-level="A.1" data-path="index-and-code-links.html"><a href="index-and-code-links.html#savings-dynamic-programming-links"><i class="fa fa-check"></i><b>A.1</b> Savings Dynamic Programming links</a></li>
+<li class="chapter" data-level="A.2" data-path="index-and-code-links.html"><a href="index-and-code-links.html#summarize-policy-and-value-links"><i class="fa fa-check"></i><b>A.2</b> Summarize Policy and Value links</a></li>
+<li class="chapter" data-level="A.3" data-path="index-and-code-links.html"><a href="index-and-code-links.html#distributional-analysis-links"><i class="fa fa-check"></i><b>A.3</b> Distributional Analysis links</a></li>
+<li class="chapter" data-level="A.4" data-path="index-and-code-links.html"><a href="index-and-code-links.html#graphs-links"><i class="fa fa-check"></i><b>A.4</b> Graphs links</a></li>
+<li class="chapter" data-level="A.5" data-path="index-and-code-links.html"><a href="index-and-code-links.html#data-structures-links"><i class="fa fa-check"></i><b>A.5</b> Data Structures links</a></li>
+<li class="chapter" data-level="A.6" data-path="index-and-code-links.html"><a href="index-and-code-links.html#common-functions-links"><i class="fa fa-check"></i><b>A.6</b> Common Functions links</a></li>
+<li class="chapter" data-level="A.7" data-path="index-and-code-links.html"><a href="index-and-code-links.html#support-tools-links"><i class="fa fa-check"></i><b>A.7</b> Support Tools links</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://fanwangecon.github.io/M4Econ/bookdown/index.html" target="blank">M4Econ Bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Matlab Toolbox Heterogeneous Agents Dynamic Programming</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="savings-dynamic-programming" class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> Savings Dynamic Programming</h1>
+
+<div id="ff_vfi_az_loop-dynamic-programming-asset-problem-with-shocks-loop" class="section level2">
+<h2><span class="header-section-number">1.1</span> FF_VFI_AZ_LOOP Dynamic Programming Asset Problem with Shocks Loop</h2>
+<blockquote>
+<p>Go back to <a href="http://fanwangecon.github.io/">fan</a>’s <a href="https://fanwangecon.github.io/MEconTools/">MEconTools</a> Toolbox (<a href="https://fanwangecon.github.io/MEconTools/bookdown">bookdown</a>), <a href="https://fanwangecon.github.io/M4Econ/">Matlab Code Examples</a> Repository (<a href="https://fanwangecon.github.io/M4Econ/bookdown">bookdown</a>), or <a href="https://fanwangecon.github.io/Math4Econ/">Math for Econ with Matlab</a> Repository (<a href="https://fanwangecon.github.io/Math4Econ/bookdown">bookdown</a>).</p>
+</blockquote>
+<p>This is the example vignette for function:
+<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_loop.m"><strong>ff_vfi_az_loop</strong></a>
+from the <a href="https://fanwangecon.github.io/MEconTools/"><strong>MEconTools
+Package</strong></a><strong>.</strong> This function
+solves the dynamica programming problem for a (a,z) model. Households
+can save a, and face AR(1) shock z. The problem is solved over the
+infinite horizon. This is the looped code, it is extremely slow for
+larger state-space problems.</p>
+<div id="test-ff_vfi_az_loop-defaults" class="section level3">
+<h3><span class="header-section-number">1.1.1</span> Test FF_VFI_AZ_LOOP Defaults</h3>
+<p>Call the function with defaults. By default, shows the asset policy
+function summary.</p>
+<pre><code>%mp_params
+mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_params(&#39;fl_crra&#39;) = 1.5;
+mp_params(&#39;fl_beta&#39;) = 0.94;
+% call function
+ff_vfi_az_loop(mp_params);
+
+Elapsed time is 0.438199 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+          i    idx    ndim    numel    rowN    colN     sum       mean      std     coefvari    min    max
+          _    ___    ____    _____    ____    ____    ______    ______    _____    ________    ___    ___
+
+    ap    1     1      2       350      50      7      8427.6    24.079    14.27    0.59263      0     50 
+
+xxx TABLE:ap xxxxxxxxxxxxxxxxxx
+             c1        c2        c3        c4        c5        c6        c7  
+           ______    ______    ______    ______    ______    ______    ______
+
+    r1          0         0         0         0         0         0    2.0408
+    r2          0         0         0    1.0204    1.0204    1.0204    3.0612
+    r3     1.0204    1.0204    1.0204    2.0408    2.0408    2.0408    4.0816
+    r4     2.0408    2.0408    2.0408    2.0408    3.0612    3.0612     5.102
+    r5     3.0612    3.0612    3.0612    3.0612    4.0816    4.0816    6.1224
+    r46    43.878    43.878    43.878    43.878    43.878    44.898    45.918
+    r47    44.898    44.898    44.898    44.898    44.898    45.918    46.939
+    r48    45.918    45.918    45.918    45.918    45.918    46.939    47.959
+    r49    46.939    46.939    46.939    46.939    46.939    47.959     48.98
+    r50    47.959    47.959    47.959    47.959    47.959     48.98        50</code></pre>
+</div>
+<div id="test-ff_vfi_az_loop-control-outputs" class="section level3">
+<h3><span class="header-section-number">1.1.2</span> Test FF_VFI_AZ_LOOP Control Outputs</h3>
+<p>Run the function first without any outputs;</p>
+<pre><code>mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_params(&#39;it_a_n&#39;) = 50;
+mp_params(&#39;it_z_n&#39;) = 5;
+mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_support(&#39;bl_timer&#39;) = false;
+mp_support(&#39;bl_print_params&#39;) = false;
+mp_support(&#39;bl_print_iterinfo&#39;) = false;</code></pre>
+<p>Run the function and show policy function for savings choice:</p>
+<pre><code>mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_support(&#39;bl_print_params&#39;) = false;
+mp_support(&#39;bl_print_iterinfo&#39;) = false;
+mp_support(&#39;ls_ffcmd&#39;) = {};
+mp_support(&#39;ls_ffsna&#39;) = {&#39;ap&#39;};
+mp_support(&#39;ls_ffgrh&#39;) = {&#39;ap&#39;};
+ff_vfi_az_loop(mp_params, mp_support);
+
+Elapsed time is 0.245489 seconds.
+xxx  ff_vfi_az_vec, outcome=ap  xxxxxxxxxxxxxxxxxxxxxxxxxxx
+    group      a       mean_z_0_54195    mean_z_0_66401    mean_z_0_88162    mean_z_1_3095    mean_z_2_2745
+    _____    ______    ______________    ______________    ______________    _____________    _____________
+
+      1           0             0                 0                 0                0           1.0204    
+      2      1.0204             0                 0            1.0204           1.0204           2.0408    
+      3      2.0408        1.0204            1.0204            2.0408           2.0408           3.0612    
+      4      3.0612        2.0408            2.0408            2.0408           3.0612           4.0816    
+      5      4.0816        3.0612            3.0612            3.0612           4.0816            5.102    
+      6       5.102        4.0816            4.0816            4.0816            5.102           6.1224    
+      7      6.1224         5.102             5.102             5.102           6.1224           7.1429    
+      8      7.1429        6.1224            6.1224            6.1224           7.1429           8.1633    
+      9      8.1633        7.1429            7.1429            7.1429           8.1633           9.1837    
+     10      9.1837        8.1633            8.1633            8.1633           9.1837           10.204    
+     11      10.204        9.1837            9.1837            9.1837           10.204           11.224    
+     12      11.224        10.204            10.204            10.204           11.224           12.245    
+     13      12.245        11.224            11.224            11.224           12.245           13.265    
+     14      13.265        12.245            12.245            12.245           12.245           14.286    
+     15      14.286        13.265            13.265            13.265           13.265           15.306    
+     16      15.306        14.286            14.286            14.286           14.286           15.306    
+     17      16.327        15.306            15.306            15.306           15.306           16.327    
+     18      17.347        16.327            16.327            16.327           16.327           17.347    
+     19      18.367        17.347            17.347            17.347           17.347           18.367    
+     20      19.388        18.367            18.367            18.367           18.367           19.388    
+     21      20.408        19.388            19.388            19.388           19.388           20.408    
+     22      21.429        19.388            20.408            20.408           20.408           21.429    
+     23      22.449        20.408            21.429            21.429           21.429           22.449    
+     24      23.469        21.429            22.449            22.449           22.449           23.469    
+     25       24.49        22.449            22.449            23.469           23.469            24.49    
+     26       25.51        23.469            23.469             24.49            24.49            25.51    
+     27      26.531         24.49             24.49             25.51            25.51           26.531    
+     28      27.551         25.51             25.51            26.531           26.531           27.551    
+     29      28.571        26.531            26.531            27.551           27.551           28.571    
+     30      29.592        27.551            27.551            28.571           28.571           29.592    
+     31      30.612        28.571            28.571            28.571           29.592           30.612    
+     32      31.633        29.592            29.592            29.592           30.612           31.633    
+     33      32.653        30.612            30.612            30.612           31.633           32.653    
+     34      33.673        31.633            31.633            31.633           32.653           33.673    
+     35      34.694        32.653            32.653            32.653           33.673           34.694    
+     36      35.714        33.673            33.673            33.673           34.694           35.714    
+     37      36.735        34.694            34.694            34.694           35.714           36.735    
+     38      37.755        35.714            35.714            35.714           36.735           37.755    
+     39      38.776        36.735            36.735            36.735           37.755           38.776    
+     40      39.796        37.755            37.755            37.755           38.776           39.796    
+     41      40.816        38.776            38.776            38.776           39.796           40.816    
+     42      41.837        39.796            39.796            39.796           40.816           41.837    
+     43      42.857        40.816            40.816            40.816           41.837           42.857    
+     44      43.878        41.837            41.837            41.837           41.837           42.857    
+     45      44.898        42.857            42.857            42.857           42.857           43.878    
+     46      45.918        43.878            43.878            43.878           43.878           44.898    
+     47      46.939        44.898            44.898            44.898           44.898           45.918    
+     48      47.959        45.918            45.918            45.918           45.918           46.939    
+     49       48.98        46.939            46.939            46.939           46.939           47.959    
+     50          50        47.959            47.959            47.959           47.959            48.98    </code></pre>
+<p><img src="img/fx_vfi_az_loop_images/figure_0.png" width="500" /></p>
+<p><img src="img/fx_vfi_az_loop_images/figure_1.png" width="500" /></p>
+<p>Run the function and show summaries for savings and fraction of coh
+saved:</p>
+<pre><code>mp_params(&#39;it_a_n&#39;) = 100;
+mp_params(&#39;it_z_n&#39;) = 9;
+mp_support(&#39;ls_ffcmd&#39;) = {&#39;ap&#39;, &#39;savefraccoh&#39;};
+mp_support(&#39;ls_ffsna&#39;) = {};
+mp_support(&#39;ls_ffgrh&#39;) = {};
+mp_support(&#39;bl_vfi_store_all&#39;) = true; % store c(a,z), y(a,z)
+ff_vfi_az_loop(mp_params, mp_support);
+
+Elapsed time is 1.633068 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean      std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    ______    ______    ________    ___    _______
+
+    ap             1     1      2       900     100      9       21825     24.25    14.089      0.581      0          50
+    savefraccoh    2     2      2       900     100      9      411.21    0.4569    0.2651    0.58022      0     0.91609
+
+xxx TABLE:ap xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4         c5         c6         c7         c8        c9  
+            _______    _______    _______    _______    _______    _______    _______    ______    ______
+
+    r1            0          0          0          0          0          0    0.50505    1.5152    3.0303
+    r2            0          0          0          0    0.50505    0.50505     1.0101    1.5152    3.5354
+    r3      0.50505    0.50505    0.50505    0.50505    0.50505     1.0101     1.5152    2.0202    4.0404
+    r4       1.0101     1.0101     1.0101     1.0101     1.0101     1.5152     2.0202    2.5253    4.5455
+    r5       1.5152     1.5152     1.5152     1.5152     1.5152     2.0202     2.5253    3.0303    5.0505
+    r96      45.455     45.455     45.455      45.96      45.96      45.96     46.465    47.475    49.495
+    r97       45.96      45.96      45.96     46.465     46.465     46.465      46.97     47.98    49.495
+    r98      46.465     46.465     46.465     46.465      46.97      46.97     47.475    48.485        50
+    r99       46.97      46.97      46.97      46.97     47.475     47.475      47.98     48.99        50
+    r100     47.475     47.475     47.475     47.475      47.98      47.98     48.485    49.495        50
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+               c1           c2           c3           c4           c5          c6           c7           c8          c9   
+            _________    _________    _________    _________    ________    _________    _________    ________    ________
+
+    r1              0            0            0            0           0            0    0.0094749    0.027855      0.0535
+    r2              0            0            0            0    0.009643    0.0095804      0.01895    0.027855    0.062417
+    r3      0.0097386    0.0097261    0.0097083    0.0096824    0.009643     0.019161     0.028425     0.03714    0.071333
+    r4       0.019477     0.019452     0.019417     0.019365    0.019286     0.028741       0.0379    0.046425     0.08025
+    r5       0.029216     0.029178     0.029125     0.029047    0.028929     0.038321     0.047374     0.05571    0.089167
+    r96       0.87647      0.87535      0.87375       0.8811     0.87751      0.87181      0.87169     0.87278     0.87383
+    r97       0.88621      0.88507      0.88346      0.89078     0.88716      0.88139      0.88116     0.88207     0.87383
+    r98       0.89595       0.8948      0.89317      0.89078      0.8968      0.89097      0.89064     0.89135     0.88275
+    r99       0.90569      0.90452      0.90287      0.90046     0.90644      0.90055      0.90011     0.90064     0.88275
+    r100      0.91543      0.91425      0.91258      0.91014     0.91609      0.91013      0.90959     0.90992     0.88275</code></pre>
+</div>
+<div id="test-ff_vfi_az_loop-change-interest-rate-and-discount" class="section level3">
+<h3><span class="header-section-number">1.1.3</span> Test FF_VFI_AZ_LOOP Change Interest Rate and Discount</h3>
+<p>Show only save fraction of cash on hand:</p>
+<pre><code>mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_support(&#39;bl_print_params&#39;) = false;
+mp_support(&#39;bl_print_iterinfo&#39;) = false;
+mp_support(&#39;ls_ffcmd&#39;) = {&#39;savefraccoh&#39;};
+mp_support(&#39;ls_ffsna&#39;) = {};
+mp_support(&#39;ls_ffgrh&#39;) = {};
+mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_params(&#39;it_a_n&#39;) = 50;
+mp_params(&#39;it_z_n&#39;) = 5;
+mp_params(&#39;fl_a_max&#39;) = 50;
+mp_params(&#39;st_grid_type&#39;) = &#39;grid_powerspace&#39;;</code></pre>
+<p>Solve the model with several different interest rates and discount
+factor:</p>
+<pre><code>% Lower Savings Incentives
+mp_params(&#39;fl_beta&#39;) = 0.80;
+mp_params(&#39;fl_r&#39;) = 0;
+ff_vfi_az_loop(mp_params, mp_support);
+
+Elapsed time is 0.079084 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean       std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    ______    _______    ________    ___    _______
+
+    savefraccoh    1     1      2       250      50      5      48.774    0.1951    0.23298     1.1942      0     0.81602
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+             c1         c2         c3         c4          c5    
+           _______    _______    _______    _______    _________
+
+    r1           0          0          0          0    0.0058555
+    r2           0          0          0          0    0.0058555
+    r3           0          0          0          0    0.0058555
+    r4           0          0          0          0    0.0058555
+    r5           0          0          0          0    0.0058555
+    r46    0.62112    0.61921    0.61584    0.60931      0.59509
+    r47    0.66655     0.6645    0.66088    0.65388      0.63861
+    r48    0.71414    0.71195    0.70807    0.70057      0.68421
+    r49    0.76395     0.7616    0.75745    0.74943      0.73193
+    r50    0.81602    0.81351    0.80908    0.80051      0.78182
+
+% Higher Savings Incentives
+mp_params(&#39;fl_beta&#39;) = 0.95;
+mp_params(&#39;fl_r&#39;) = 0.04;
+ff_vfi_az_loop(mp_params, mp_support);
+
+Elapsed time is 0.290307 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean       std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    ______    _______    ________    ___    _______
+
+    savefraccoh    1     1      2       250      50      5      59.526    0.2381    0.27148     1.1402      0     0.94888
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+             c1         c2           c3           c4           c5   
+           _______    _______    __________    _________    ________
+
+    r1           0          0    0.00051196     0.005772    0.021238
+    r2           0          0    0.00051196     0.005772    0.021238
+    r3           0          0    0.00051196     0.005772    0.021238
+    r4           0          0    0.00099992     0.005772    0.021238
+    r5           0          0    0.00099992    0.0079177    0.021238
+    r46    0.73495    0.73278       0.72894       0.7215     0.70527
+    r47    0.78505    0.78273       0.77862      0.77068     0.75334
+    r48    0.83737    0.83489       0.83052      0.82204     0.80355
+    r49    0.89196    0.88933       0.88466      0.87564     0.85594
+    r50    0.94888    0.94608       0.94111      0.93151     0.91056</code></pre>
+</div>
+<div id="test-ff_vfi_az_loop-changing-risk-aversion" class="section level3">
+<h3><span class="header-section-number">1.1.4</span> Test FF_VFI_AZ_LOOP Changing Risk Aversion</h3>
+<p>Here, again, show fraction of coh saved in summary tabular form, but
+also show it graphically.</p>
+<pre><code>mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_support(&#39;bl_print_params&#39;) = false;
+mp_support(&#39;bl_print_iterinfo&#39;) = false;
+mp_support(&#39;ls_ffcmd&#39;) = {&#39;savefraccoh&#39;};
+mp_support(&#39;ls_ffsna&#39;) = {};
+mp_support(&#39;ls_ffgrh&#39;) = {&#39;savefraccoh&#39;};
+mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_params(&#39;it_a_n&#39;) = 100;
+mp_params(&#39;it_z_n&#39;) = 5;
+mp_params(&#39;fl_a_max&#39;) = 50;
+mp_params(&#39;st_grid_type&#39;) = &#39;grid_powerspace&#39;;</code></pre>
+<p>Solve the model with different risk aversion levels, higher preferences
+for risk:</p>
+<pre><code>% Lower Risk Aversion
+mp_params(&#39;fl_crra&#39;) = 0.5;
+ff_vfi_az_loop(mp_params, mp_support);
+
+Elapsed time is 0.580227 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
+
+    savefraccoh    1     1      2       500     100      5      104.98    0.20996    0.24341     1.1593      0     0.86141
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2         c3           c4           c5   
+            _______    _______    _______    __________    ________
+
+    r1            0          0          0     0.0004985    0.010131
+    r2            0          0          0     0.0004985    0.010131
+    r3            0          0          0     0.0004985    0.010131
+    r4            0          0          0     0.0004985    0.010131
+    r5            0          0          0    0.00070978    0.010131
+    r96     0.74758    0.74533    0.74137       0.75815     0.74086
+    r97     0.77249    0.77018    0.76608       0.78315     0.76529
+    r98     0.79796    0.79557    0.79134       0.80868     0.79024
+    r99     0.82398    0.82151    0.81714       0.83477     0.81573
+    r100    0.85055      0.848    0.84349       0.86141     0.84176</code></pre>
+<p><img src="img/fx_vfi_az_loop_images/figure_2.png" width="500" /></p>
+<p><img src="img/fx_vfi_az_loop_images/figure_3.png" width="500" /></p>
+<p>When risk aversion increases, at every state-space point, the household
+wants to save more.</p>
+<pre><code>% Higher Risk Aversion
+mp_params(&#39;fl_crra&#39;) = 5;
+ff_vfi_az_loop(mp_params, mp_support);
+
+Elapsed time is 0.906648 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
+
+    savefraccoh    1     1      2       500     100      5      119.58    0.23916    0.26719     1.1172      0     0.94471
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2         c3          c4           c5   
+            _______    _______    _______    _________    ________
+
+    r1            0          0     0.0017    0.0090168    0.028344
+    r2            0          0     0.0017    0.0090168    0.028344
+    r3            0          0     0.0017    0.0090168    0.028344
+    r4            0          0     0.0017    0.0090168    0.028344
+    r5            0          0     0.0017    0.0090168    0.028344
+    r96     0.82398    0.82151    0.81714      0.83477     0.84176
+    r97     0.85055      0.848    0.84349      0.86141     0.86834
+    r98      0.8777    0.87507    0.87041      0.88861     0.89548
+    r99     0.90541     0.9027     0.8979      0.91637     0.89548
+    r100    0.93371    0.93091    0.92595      0.94471     0.92317</code></pre>
+<p><img src="img/fx_vfi_az_loop_images/figure_4.png" width="500" /></p>
+<p><img src="img/fx_vfi_az_loop_images/figure_5.png" width="500" /></p>
+</div>
+<div id="test-ff_vfi_az_loop-with-higher-uncertainty" class="section level3">
+<h3><span class="header-section-number">1.1.5</span> Test FF_VFI_AZ_LOOP with Higher Uncertainty</h3>
+<p>Increase the standard deviation of the Shock.</p>
+<pre><code>mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_support(&#39;bl_print_params&#39;) = false;
+mp_support(&#39;bl_print_iterinfo&#39;) = false;
+mp_support(&#39;ls_ffcmd&#39;) = {&#39;savefraccoh&#39;};
+mp_support(&#39;ls_ffsna&#39;) = {};
+mp_support(&#39;ls_ffgrh&#39;) = {};
+mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_params(&#39;it_a_n&#39;) = 100;
+mp_params(&#39;it_z_n&#39;) = 5;
+mp_params(&#39;fl_a_max&#39;) = 50;
+mp_params(&#39;st_grid_type&#39;) = &#39;grid_powerspace&#39;;</code></pre>
+<p>Lower standard deviation of shock:</p>
+<pre><code>% Lower Risk Aversion
+mp_params(&#39;fl_shk_std&#39;) = 0.05;
+ff_vfi_az_loop(mp_params, mp_support);
+
+Elapsed time is 0.942299 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum      mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    _____    _______    _______    ________    ___    _______
+
+    savefraccoh    1     1      2       500     100      5      112.7    0.22539    0.26207     1.1627      0     0.92344
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4           c5    
+            _______    _______    _______    _______    __________
+
+    r1            0          0          0          0    0.00049994
+    r2            0          0          0          0    0.00049994
+    r3            0          0          0          0    0.00049994
+    r4            0          0          0          0    0.00049994
+    r5            0          0          0          0    0.00049994
+    r96     0.79191    0.79066    0.81492    0.81313       0.81102
+    r97     0.81774    0.81644     0.8412    0.83936       0.83718
+    r98     0.84411    0.84277    0.86805    0.86615       0.86389
+    r99     0.87105    0.86967    0.89546     0.8935       0.89117
+    r100    0.89855    0.89713    0.92344    0.92142       0.91902</code></pre>
+<p>Higher shock standard deviation: low shock high asset save more, high
+shock more asset save less, high shock low asset save more:</p>
+<pre><code>% Higher Risk Aversion
+mp_params(&#39;fl_shk_std&#39;) = 0.25;
+ff_vfi_az_loop(mp_params, mp_support);
+
+Elapsed time is 0.908385 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum      mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    _____    _______    _______    ________    ___    _______
+
+    savefraccoh    1     1      2       500     100      5      115.6    0.23119    0.25857     1.1184      0     0.91536
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2           c3           c4           c5   
+            _______    _______    __________    _________    ________
+
+    r1            0          0    0.00021288    0.0066707    0.033639
+    r2            0          0    0.00021288    0.0066707    0.033639
+    r3            0          0    0.00021288    0.0066707    0.033639
+    r4            0          0    0.00021288    0.0066707    0.033639
+    r5            0          0    0.00021288    0.0066707    0.033639
+    r96     0.79959    0.79731       0.79275      0.80778     0.80256
+    r97     0.82566    0.82331        0.8186      0.83384     0.82817
+    r98     0.85229    0.84986       0.84501      0.86045     0.85432
+    r99     0.87949    0.87699       0.87197      0.88762     0.88101
+    r100    0.90726    0.90468       0.89951      0.91536     0.90826</code></pre>
+
+</div>
+</div>
+<div id="ff_vfi_az_vec-dynamic-programming-asset-problem-with-shocks-vectorized" class="section level2">
+<h2><span class="header-section-number">1.2</span> FF_VFI_AZ_VEC Dynamic Programming Asset Problem with Shocks Vectorized</h2>
+<blockquote>
+<p>Go back to <a href="http://fanwangecon.github.io/">fan</a>’s <a href="https://fanwangecon.github.io/MEconTools/">MEconTools</a> Toolbox (<a href="https://fanwangecon.github.io/MEconTools/bookdown">bookdown</a>), <a href="https://fanwangecon.github.io/M4Econ/">Matlab Code Examples</a> Repository (<a href="https://fanwangecon.github.io/M4Econ/bookdown">bookdown</a>), or <a href="https://fanwangecon.github.io/Math4Econ/">Math for Econ with Matlab</a> Repository (<a href="https://fanwangecon.github.io/Math4Econ/bookdown">bookdown</a>).</p>
+</blockquote>
+<p>This is the example vignette for function:
+<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_vec.m"><strong>ff_vfi_az_vec</strong></a>
+from the <a href="https://fanwangecon.github.io/MEconTools/"><strong>MEconTools
+Package</strong></a><strong>.</strong> This function
+solves (vectorized) the dynamica programming problem for a (a,z) model.
+Households can save a, and face AR(1) shock z. The problem is solved
+over the infinite horizon. This is the vectorized code, its speed is
+much faster than the looped code.</p>
+<div id="test-ff_vfi_az_vec-defaults" class="section level3">
+<h3><span class="header-section-number">1.2.1</span> Test FF_VFI_AZ_VEC Defaults</h3>
+<p>Call the function with defaults. By default, shows the asset policy
+function summary.</p>
+<pre><code>%mp_params
+mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_params(&#39;fl_crra&#39;) = 1.5;
+mp_params(&#39;fl_beta&#39;) = 0.94;
+% call function
+ff_vfi_az_vec(mp_params);
+
+Elapsed time is 0.407936 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+          i    idx    ndim    numel    rowN    colN     sum      mean      std      coefvari    min    max
+          _    ___    ____    _____    ____    ____    _____    ______    ______    ________    ___    ___
+
+    ap    1     1      2      2100     300      7      50584    24.088    13.973    0.58008      0     50 
+
+xxx TABLE:ap xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4         c5         c6         c7  
+            _______    _______    _______    _______    _______    _______    ______
+
+    r1            0          0          0          0    0.16722     0.6689    2.0067
+    r2            0          0          0    0.16722    0.33445    0.83612    2.1739
+    r3      0.16722    0.16722    0.16722    0.16722    0.50167     1.0033    2.3411
+    r4      0.33445    0.33445    0.33445    0.33445     0.6689     1.1706    2.5084
+    r5      0.33445    0.33445    0.50167    0.50167    0.83612     1.3378    2.5084
+    r296     46.823      46.99      46.99     47.157     47.492     48.161    49.498
+    r297      46.99     47.157     47.157     47.324     47.659     48.328    49.666
+    r298     47.157     47.324     47.324     47.492     47.826     48.495    49.833
+    r299     47.324     47.492     47.492     47.659     47.993     48.662        50
+    r300     47.492     47.659     47.659     47.826     48.161     48.829        50</code></pre>
+</div>
+<div id="test-ff_vfi_az_vec-control-outputs" class="section level3">
+<h3><span class="header-section-number">1.2.2</span> Test FF_VFI_AZ_VEC Control Outputs</h3>
+<p>Run the function first without any outputs;</p>
+<pre><code>mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_params(&#39;it_a_n&#39;) = 50;
+mp_params(&#39;it_z_n&#39;) = 5;
+mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_support(&#39;bl_timer&#39;) = false;
+mp_support(&#39;bl_print_params&#39;) = false;
+mp_support(&#39;bl_print_iterinfo&#39;) = false;</code></pre>
+<p>Run the function and show policy function for savings choice:</p>
+<pre><code>mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_support(&#39;bl_print_params&#39;) = false;
+mp_support(&#39;bl_print_iterinfo&#39;) = false;
+mp_support(&#39;ls_ffcmd&#39;) = {};
+mp_support(&#39;ls_ffsna&#39;) = {&#39;ap&#39;};
+mp_support(&#39;ls_ffgrh&#39;) = {&#39;ap&#39;};
+ff_vfi_az_vec(mp_params, mp_support);
+
+Elapsed time is 0.020296 seconds.
+xxx  ff_vfi_az_vec, outcome=ap  xxxxxxxxxxxxxxxxxxxxxxxxxxx
+    group      a       mean_z_0_54195    mean_z_0_66401    mean_z_0_88162    mean_z_1_3095    mean_z_2_2745
+    _____    ______    ______________    ______________    ______________    _____________    _____________
+
+      1           0             0                 0                 0                0           1.0204    
+      2      1.0204             0                 0            1.0204           1.0204           2.0408    
+      3      2.0408        1.0204            1.0204            2.0408           2.0408           3.0612    
+      4      3.0612        2.0408            2.0408            2.0408           3.0612           4.0816    
+      5      4.0816        3.0612            3.0612            3.0612           4.0816            5.102    
+      6       5.102        4.0816            4.0816            4.0816            5.102           6.1224    
+      7      6.1224         5.102             5.102             5.102           6.1224           7.1429    
+      8      7.1429        6.1224            6.1224            6.1224           7.1429           8.1633    
+      9      8.1633        7.1429            7.1429            7.1429           8.1633           9.1837    
+     10      9.1837        8.1633            8.1633            8.1633           9.1837           10.204    
+     11      10.204        9.1837            9.1837            9.1837           10.204           11.224    
+     12      11.224        10.204            10.204            10.204           11.224           12.245    
+     13      12.245        11.224            11.224            11.224           12.245           13.265    
+     14      13.265        12.245            12.245            12.245           12.245           14.286    
+     15      14.286        13.265            13.265            13.265           13.265           15.306    
+     16      15.306        14.286            14.286            14.286           14.286           15.306    
+     17      16.327        15.306            15.306            15.306           15.306           16.327    
+     18      17.347        16.327            16.327            16.327           16.327           17.347    
+     19      18.367        17.347            17.347            17.347           17.347           18.367    
+     20      19.388        18.367            18.367            18.367           18.367           19.388    
+     21      20.408        19.388            19.388            19.388           19.388           20.408    
+     22      21.429        19.388            20.408            20.408           20.408           21.429    
+     23      22.449        20.408            21.429            21.429           21.429           22.449    
+     24      23.469        21.429            22.449            22.449           22.449           23.469    
+     25       24.49        22.449            22.449            23.469           23.469            24.49    
+     26       25.51        23.469            23.469             24.49            24.49            25.51    
+     27      26.531         24.49             24.49             25.51            25.51           26.531    
+     28      27.551         25.51             25.51            26.531           26.531           27.551    
+     29      28.571        26.531            26.531            27.551           27.551           28.571    
+     30      29.592        27.551            27.551            28.571           28.571           29.592    
+     31      30.612        28.571            28.571            28.571           29.592           30.612    
+     32      31.633        29.592            29.592            29.592           30.612           31.633    
+     33      32.653        30.612            30.612            30.612           31.633           32.653    
+     34      33.673        31.633            31.633            31.633           32.653           33.673    
+     35      34.694        32.653            32.653            32.653           33.673           34.694    
+     36      35.714        33.673            33.673            33.673           34.694           35.714    
+     37      36.735        34.694            34.694            34.694           35.714           36.735    
+     38      37.755        35.714            35.714            35.714           36.735           37.755    
+     39      38.776        36.735            36.735            36.735           37.755           38.776    
+     40      39.796        37.755            37.755            37.755           38.776           39.796    
+     41      40.816        38.776            38.776            38.776           39.796           40.816    
+     42      41.837        39.796            39.796            39.796           40.816           41.837    
+     43      42.857        40.816            40.816            40.816           41.837           42.857    
+     44      43.878        41.837            41.837            41.837           41.837           42.857    
+     45      44.898        42.857            42.857            42.857           42.857           43.878    
+     46      45.918        43.878            43.878            43.878           43.878           44.898    
+     47      46.939        44.898            44.898            44.898           44.898           45.918    
+     48      47.959        45.918            45.918            45.918           45.918           46.939    
+     49       48.98        46.939            46.939            46.939           46.939           47.959    
+     50          50        47.959            47.959            47.959           47.959            48.98    </code></pre>
+<p><img src="img/fx_vfi_az_vec_images/figure_0.png" width="500" /></p>
+<p><img src="img/fx_vfi_az_vec_images/figure_1.png" width="500" /></p>
+<p>Run the function and show summaries for savings and fraction of coh
+saved:</p>
+<pre><code>mp_params(&#39;it_a_n&#39;) = 100;
+mp_params(&#39;it_z_n&#39;) = 9;
+mp_support(&#39;ls_ffcmd&#39;) = {&#39;ap&#39;, &#39;savefraccoh&#39;};
+mp_support(&#39;ls_ffsna&#39;) = {};
+mp_support(&#39;ls_ffgrh&#39;) = {};
+mp_support(&#39;bl_vfi_store_all&#39;) = true; % store c(a,z), y(a,z)
+ff_vfi_az_vec(mp_params, mp_support);
+
+Elapsed time is 0.126640 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
+
+    ap             1     1      2       900     100      9       21825      24.25     14.089      0.581      0          50
+    savefraccoh    2     2      2       900     100      9      752.38    0.83597    0.13497    0.16145      0     0.91812
+
+xxx TABLE:ap xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4         c5         c6         c7         c8        c9  
+            _______    _______    _______    _______    _______    _______    _______    ______    ______
+
+    r1            0          0          0          0          0          0    0.50505    1.5152    3.0303
+    r2            0          0          0          0    0.50505    0.50505     1.0101    1.5152    3.5354
+    r3      0.50505    0.50505    0.50505    0.50505    0.50505     1.0101     1.5152    2.0202    4.0404
+    r4       1.0101     1.0101     1.0101     1.0101     1.0101     1.5152     2.0202    2.5253    4.5455
+    r5       1.5152     1.5152     1.5152     1.5152     1.5152     2.0202     2.5253    3.0303    5.0505
+    r96      45.455     45.455     45.455      45.96      45.96      45.96     46.465    47.475    49.495
+    r97       45.96      45.96      45.96     46.465     46.465     46.465      46.97     47.98    49.495
+    r98      46.465     46.465     46.465     46.465      46.97      46.97     47.475    48.485        50
+    r99       46.97      46.97      46.97      46.97     47.475     47.475      47.98     48.99        50
+    r100     47.475     47.475     47.475     47.475      47.98      47.98     48.485    49.495        50
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4         c5         c6         c7         c8         c9   
+            _______    _______    _______    _______    _______    _______    _______    _______    _______
+
+    r1            0          0          0          0          0          0    0.24587    0.48182    0.56208
+    r2            0          0          0          0     0.3075    0.25444    0.39276    0.41371    0.59831
+    r3      0.30679    0.29486    0.27938    0.25939     0.2338    0.40362    0.49043     0.4833     0.6287
+    r4       0.4668    0.45285    0.43438    0.40981    0.37721    0.50166    0.56006    0.53755    0.65456
+    r5      0.56502    0.55132    0.53293    0.50802    0.47415    0.57101    0.61221    0.58103    0.67683
+    r96     0.91292     0.9117    0.90997    0.91752    0.91364    0.90746    0.90692    0.90732    0.90699
+    r97     0.91357    0.91236    0.91064    0.91812    0.91427    0.90815    0.90761    0.90799    0.89847
+    r98      0.9142      0.913     0.9113    0.90882    0.91489    0.90882    0.90828    0.90865    0.89919
+    r99     0.91482    0.91363    0.91195    0.90949    0.91549    0.90949    0.90894    0.90929    0.89089
+    r100    0.91543    0.91425    0.91258    0.91014    0.91609    0.91013    0.90959    0.90992    0.88275</code></pre>
+</div>
+<div id="test-ff_vfi_az_vec-change-interest-rate-and-discount" class="section level3">
+<h3><span class="header-section-number">1.2.3</span> Test FF_VFI_AZ_VEC Change Interest Rate and Discount</h3>
+<p>Show only save fraction of cash on hand:</p>
+<pre><code>mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_support(&#39;bl_print_params&#39;) = false;
+mp_support(&#39;bl_print_iterinfo&#39;) = false;
+mp_support(&#39;ls_ffcmd&#39;) = {&#39;savefraccoh&#39;};
+mp_support(&#39;ls_ffsna&#39;) = {};
+mp_support(&#39;ls_ffgrh&#39;) = {};
+mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_params(&#39;it_a_n&#39;) = 750;
+mp_params(&#39;it_z_n&#39;) = 9;
+mp_params(&#39;fl_a_max&#39;) = 50;
+mp_params(&#39;st_grid_type&#39;) = &#39;grid_powerspace&#39;;</code></pre>
+<p>Solve the model with several different interest rates and discount
+factor:</p>
+<pre><code>% Lower Savings Incentives
+mp_params(&#39;fl_beta&#39;) = 0.80;
+mp_params(&#39;fl_r&#39;) = 0;
+ff_vfi_az_vec(mp_params, mp_support);
+
+Elapsed time is 0.711562 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
+
+    savefraccoh    1     1      2      6750     750      9      3291.4    0.48762    0.27804    0.57021      0     0.80538
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4         c5         c6         c7         c8         c9   
+            _______    _______    _______    _______    _______    _______    _______    _______    _______
+
+    r1            0          0          0          0          0          0    0.01987    0.12517    0.29012
+    r2            0          0          0          0          0          0    0.01987    0.12517    0.29012
+    r3            0          0          0          0          0          0    0.01987    0.12517    0.29012
+    r4            0          0          0          0          0          0    0.01987    0.12517    0.29012
+    r5            0          0          0          0          0          0    0.01987    0.12517    0.29012
+    r746    0.80538    0.80084    0.79932     0.7971    0.79372    0.79177    0.78608    0.77969    0.77353
+    r747    0.80218    0.80112     0.7996    0.79739    0.79402    0.79208    0.78643    0.78008      0.774
+    r748    0.80245    0.80139    0.79988    0.79767    0.79432     0.7924    0.78677    0.78046    0.77447
+    r749    0.80272    0.80167    0.80016    0.79796    0.79462    0.79271    0.78711    0.78085    0.77493
+    r750    0.80299    0.80194    0.80044    0.79825    0.79492    0.79303    0.78745    0.78124     0.7754
+
+% Higher Savings Incentives
+mp_params(&#39;fl_beta&#39;) = 0.95;
+mp_params(&#39;fl_r&#39;) = 0.04;
+ff_vfi_az_vec(mp_params, mp_support);
+
+Elapsed time is 2.436171 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
+
+    savefraccoh    1     1      2      6750     750      9      4491.9    0.66547    0.28771    0.43234      0     0.93029
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4          c5         c6         c7         c8         c9   
+            _______    _______    _______    _______    ________    _______    _______    _______    _______
+
+    r1            0          0          0          0    0.031818    0.14726    0.31047    0.48484    0.64489
+    r2            0          0          0          0    0.031818    0.14726    0.31047    0.48484    0.64489
+    r3            0          0          0          0    0.031818    0.14726    0.31047    0.48484    0.64489
+    r4            0          0          0          0    0.031818    0.14726    0.31047    0.48484    0.64489
+    r5            0          0          0          0    0.031818    0.14726    0.31047    0.48484    0.64489
+    r746    0.92742       0.93     0.9283    0.92581     0.92578    0.92349    0.92443    0.91686    0.88398
+    r747     0.9275    0.93007    0.92838     0.9259     0.92588    0.92361    0.92457    0.91706    0.88076
+    r748    0.92757    0.93014    0.92846    0.92599     0.92598    0.92373    0.92472    0.91359    0.87757
+    r749    0.92764    0.93022    0.92854    0.92608     0.92608    0.92384    0.92115    0.91014    0.87438
+    r750    0.92772    0.93029    0.92862    0.92617     0.92618    0.92396     0.9213    0.90671    0.87121</code></pre>
+</div>
+<div id="test-ff_vfi_az_vec-changing-risk-aversion" class="section level3">
+<h3><span class="header-section-number">1.2.4</span> Test FF_VFI_AZ_VEC Changing Risk Aversion</h3>
+<p>Here, again, show fraction of coh saved in summary tabular form, but
+also show it graphically.</p>
+<pre><code>mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_support(&#39;bl_print_params&#39;) = false;
+mp_support(&#39;bl_print_iterinfo&#39;) = false;
+mp_support(&#39;ls_ffcmd&#39;) = {&#39;savefraccoh&#39;};
+mp_support(&#39;ls_ffsna&#39;) = {};
+mp_support(&#39;ls_ffgrh&#39;) = {&#39;savefraccoh&#39;};
+mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_params(&#39;it_a_n&#39;) = 750;
+mp_params(&#39;it_z_n&#39;) = 9;
+mp_params(&#39;fl_a_max&#39;) = 50;
+mp_params(&#39;st_grid_type&#39;) = &#39;grid_powerspace&#39;;</code></pre>
+<p>Solve the model with different risk aversion levels, higher preferences
+for risk:</p>
+<pre><code>% Lower Risk Aversion
+mp_params(&#39;fl_crra&#39;) = 0.5;
+ff_vfi_az_vec(mp_params, mp_support);
+
+Elapsed time is 2.064222 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean       std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    _______    ______    ________    ___    _______
+
+    savefraccoh    1     1      2      6750     750      9      3735.9    0.55347    0.2897    0.52343      0     0.85998
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4         c5         c6          c7         c8         c9   
+            _______    _______    _______    _______    _______    _______    ________    _______    _______
+
+    r1            0          0          0          0          0          0    0.075021    0.22812    0.41075
+    r2            0          0          0          0          0          0    0.075021    0.22812    0.41075
+    r3            0          0          0          0          0          0    0.075021    0.22812    0.41075
+    r4            0          0          0          0          0          0    0.075021    0.22812    0.41075
+    r5            0          0          0          0          0          0    0.075021    0.22812    0.41075
+    r746    0.85928    0.85816    0.85657    0.85425    0.85428     0.8522     0.84972    0.84635    0.84292
+    r747    0.85946    0.85834    0.85676    0.85444    0.85449    0.85242     0.84997    0.84665     0.8433
+    r748    0.85963    0.85852    0.85694    0.85464    0.85469    0.85264     0.85021    0.84694    0.84368
+    r749    0.85981     0.8587    0.85713    0.85483    0.85489    0.85286     0.85046    0.84723    0.84405
+    r750    0.85998    0.85888    0.85731    0.85502    0.85509    0.85307      0.8507    0.84752    0.84442</code></pre>
+<p><img src="img/fx_vfi_az_vec_images/figure_2.png" width="500" /></p>
+<p><img src="img/fx_vfi_az_vec_images/figure_3.png" width="500" /></p>
+<p>When risk aversion increases, at every state-space point, the household
+wants to save more.</p>
+<pre><code>% Higher Risk Aversion
+mp_params(&#39;fl_crra&#39;) = 5;
+ff_vfi_az_vec(mp_params, mp_support);
+
+Elapsed time is 1.900222 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean       std      coefvari    min     max 
+                   _    ___    ____    _____    ____    ____    ______    ______    _______    ________    ___    _____
+
+    savefraccoh    1     1      2      6750     750      9      4639.3    0.6873    0.28204    0.41036      0     0.942
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2         c3          c4           c5         c6         c7         c8         c9   
+            _______    _______    _______    _________    ________    _______    _______    _______    _______
+
+    r1            0          0          0     0.008995    0.085095    0.21314    0.37277    0.53628    0.68332
+    r2            0          0          0     0.008995    0.085095    0.21314    0.37277    0.53628    0.68332
+    r3            0          0          0     0.008995    0.085095    0.21314    0.37277    0.53628    0.68332
+    r4            0          0          0     0.008995    0.085095    0.21314    0.37277    0.53628    0.68332
+    r5            0          0          0    0.0089949    0.085094    0.21314    0.37277    0.53628    0.68332
+    r746    0.94083     0.9396    0.94168      0.93912     0.93904    0.94041    0.93743    0.92949    0.89566
+    r747    0.94091    0.93969    0.94176      0.93921     0.93914    0.93674    0.93758    0.92969    0.89241
+    r748    0.94098    0.93977    0.94184      0.93931     0.93924    0.93686    0.93772    0.92618    0.88918
+    r749    0.94106    0.93985    0.94192       0.9394     0.93934    0.93699    0.93787    0.92269    0.88596
+    r750    0.94113    0.93993      0.942      0.93949     0.93944    0.93711    0.93801    0.91921    0.88275</code></pre>
+<p><img src="img/fx_vfi_az_vec_images/figure_4.png" width="500" /></p>
+<p><img src="img/fx_vfi_az_vec_images/figure_5.png" width="500" /></p>
+</div>
+<div id="test-ff_vfi_az_vec-with-higher-uncertainty" class="section level3">
+<h3><span class="header-section-number">1.2.5</span> Test FF_VFI_AZ_VEC with Higher Uncertainty</h3>
+<p>Increase the standard deviation of the Shock.</p>
+<pre><code>mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_support(&#39;bl_print_params&#39;) = false;
+mp_support(&#39;bl_print_iterinfo&#39;) = false;
+mp_support(&#39;ls_ffcmd&#39;) = {&#39;savefraccoh&#39;};
+mp_support(&#39;ls_ffsna&#39;) = {};
+mp_support(&#39;ls_ffgrh&#39;) = {};
+mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_params(&#39;it_a_n&#39;) = 750;
+mp_params(&#39;it_z_n&#39;) = 9;
+mp_params(&#39;fl_a_max&#39;) = 50;
+mp_params(&#39;st_grid_type&#39;) = &#39;grid_powerspace&#39;;</code></pre>
+<p>Lower standard deviation of shock:</p>
+<pre><code>% Lower Risk Aversion
+mp_params(&#39;fl_shk_std&#39;) = 0.05;
+ff_vfi_az_vec(mp_params, mp_support);
+
+Elapsed time is 2.123001 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
+
+    savefraccoh    1     1      2      6750     750      9      3935.8    0.58309    0.32813    0.56274      0     0.91299
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4         c5         c6          c7           c8          c9   
+            _______    _______    _______    _______    _______    _______    _________    ________    ________
+
+    r1            0          0          0          0          0          0    0.0035419    0.022183    0.050593
+    r2            0          0          0          0          0          0    0.0035419    0.022183    0.050593
+    r3            0          0          0          0          0          0    0.0035419    0.022183    0.050593
+    r4            0          0          0          0          0          0    0.0035419    0.022182    0.050593
+    r5            0          0          0          0          0          0    0.0035419    0.022182    0.050593
+    r746    0.91062    0.90972    0.91245    0.91134    0.91009    0.91241      0.91083     0.90905     0.91074
+    r747    0.91075    0.90986    0.91259    0.91148    0.91024    0.91256      0.91099     0.90921      0.9109
+    r748    0.91088       0.91    0.91272    0.91162    0.91038     0.9127      0.91114     0.90937     0.91106
+    r749    0.91102    0.91013    0.91286    0.91176    0.91053    0.91285      0.91129     0.90952     0.91122
+    r750    0.91115    0.91027    0.91299     0.9119    0.91067    0.90929      0.91144     0.90968     0.91138</code></pre>
+<p>Higher shock standard deviation: low shock high asset save more, high
+shock more asset save less, high shock low asset save more:</p>
+<pre><code>% Higher Risk Aversion
+mp_params(&#39;fl_shk_std&#39;) = 0.25;
+ff_vfi_az_vec(mp_params, mp_support);
+
+Elapsed time is 1.968323 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
+
+    savefraccoh    1     1      2      6750     750      9      4429.3    0.65619    0.28387    0.43261      0     0.91926
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4          c5         c6         c7         c8         c9   
+            _______    _______    _______    _______    ________    _______    _______    _______    _______
+
+    r1            0          0          0          0    0.011319    0.12886    0.32464    0.53487    0.72181
+    r2            0          0          0          0    0.011319    0.12886    0.32464    0.53487    0.72181
+    r3            0          0          0          0    0.011319    0.12886    0.32464    0.53487    0.72181
+    r4            0          0          0          0    0.011319    0.12886    0.32464    0.53487    0.72181
+    r5            0          0          0          0    0.011319    0.12886    0.32464    0.53487    0.72181
+    r746    0.91612    0.91885     0.9173    0.91484     0.91448    0.91454    0.91098    0.90731    0.83143
+    r747    0.91622    0.91896    0.91741    0.91496      0.9146    0.91469    0.91117    0.90394    0.82863
+    r748    0.91633    0.91906    0.91751    0.91507     0.91473    0.91483    0.91136    0.90422    0.82584
+    r749    0.91643    0.91916    0.91762    0.91519     0.91486    0.91498    0.91154    0.90449    0.82306
+    r750    0.91653    0.91926    0.91773    0.91531     0.91498    0.91512    0.91173    0.90115    0.82029</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="summarize-policy-and-value.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["Matlab-Toolbox-Heterogeneous-Agents-Dynamic-Programming.pdf", "PDF"]],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
