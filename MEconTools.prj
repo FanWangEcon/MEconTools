@@ -7,7 +7,7 @@
     <param.summary>Dynamic programming and related.</param.summary>
     <param.description>Dynamic programming and related.</param.description>
     <param.screenshot>${PROJECT_ROOT}\img\toolboxlogo.png</param.screenshot>
-    <param.version>0.1.20</param.version>
+    <param.version>0.1.21</param.version>
     <param.output>${PROJECT_ROOT}\MEconTools.mltbx</param.output>
     <param.products.name />
     <param.products.id />
@@ -104,7 +104,6 @@ htmlpdfm/*
          &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_08.png&lt;/file&gt;
          &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_09.png&lt;/file&gt;
          &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_10.png&lt;/file&gt;
-         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_11.png&lt;/file&gt;
       &lt;/example&gt;
       &lt;example name="ff_vfi_az_vec" type="html"&gt;
          &lt;file type="source"&gt;/vfi/html/ff_vfi_az_vec.html&lt;/file&gt;
