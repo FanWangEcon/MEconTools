@@ -7,7 +7,7 @@
     <param.summary>Dynamic programming and related.</param.summary>
     <param.description>Dynamic programming and related.</param.description>
     <param.screenshot>${PROJECT_ROOT}\img\toolboxlogo.png</param.screenshot>
-    <param.version>0.1.21</param.version>
+    <param.version>0.1.22</param.version>
     <param.output>${PROJECT_ROOT}\MEconTools.mltbx</param.output>
     <param.products.name />
     <param.products.id />
@@ -90,6 +90,36 @@ htmlpdfm/*
       &lt;/example&gt;
    &lt;/exampleCategory&gt;
    &lt;exampleCategory name="vfi"&gt;
+      &lt;example name="ff_vfi_az_bisec_loop" type="html"&gt;
+         &lt;file type="source"&gt;/vfi/html/ff_vfi_az_bisec_loop.html&lt;/file&gt;
+         &lt;file type="main"&gt;/vfi/ff_vfi_az_bisec_loop.m&lt;/file&gt;
+         &lt;file type="thumbnail"&gt;/vfi/html/ff_vfi_az_bisec_loop.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_bisec_loop_01.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_bisec_loop_02.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_bisec_loop_03.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_bisec_loop_04.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_bisec_loop_05.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_bisec_loop_06.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_bisec_loop_07.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_bisec_loop_08.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_bisec_loop_09.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_bisec_loop_10.png&lt;/file&gt;
+      &lt;/example&gt;
+      &lt;example name="ff_vfi_az_bisec_vec" type="html"&gt;
+         &lt;file type="source"&gt;/vfi/html/ff_vfi_az_bisec_vec.html&lt;/file&gt;
+         &lt;file type="main"&gt;/vfi/ff_vfi_az_bisec_vec.m&lt;/file&gt;
+         &lt;file type="thumbnail"&gt;/vfi/html/ff_vfi_az_bisec_vec.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_bisec_vec_01.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_bisec_vec_02.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_bisec_vec_03.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_bisec_vec_04.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_bisec_vec_05.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_bisec_vec_06.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_bisec_vec_07.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_bisec_vec_08.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_bisec_vec_09.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_bisec_vec_10.png&lt;/file&gt;
+      &lt;/example&gt;
       &lt;example name="ff_vfi_az_loop" type="html"&gt;
          &lt;file type="source"&gt;/vfi/html/ff_vfi_az_loop.html&lt;/file&gt;
          &lt;file type="main"&gt;/vfi/ff_vfi_az_loop.m&lt;/file&gt;
@@ -104,6 +134,9 @@ htmlpdfm/*
          &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_08.png&lt;/file&gt;
          &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_09.png&lt;/file&gt;
          &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_10.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_11.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_12.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_13.png&lt;/file&gt;
       &lt;/example&gt;
       &lt;example name="ff_vfi_az_vec" type="html"&gt;
          &lt;file type="source"&gt;/vfi/html/ff_vfi_az_vec.html&lt;/file&gt;

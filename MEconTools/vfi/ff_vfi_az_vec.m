@@ -105,7 +105,7 @@ mp_params('fl_r') = 0.025;
 
 mp_params('fl_a_min') = 0;
 mp_params('fl_a_max') = 50;
-mp_params('it_a_n') = 300;
+mp_params('it_a_n') = 100;
 mp_params('st_grid_type') = 'grid_linspace';
 
 mp_params('fl_z_persist') = 0.80;
@@ -245,6 +245,7 @@ bl_converged = false;
 
 while bl_continue
     
+    % A. Loop over endo and exo states, solve for ap(a,z)
     % loop 1: over exogenous states
     % incorporating these shocks into vectorization has high memory burden
     % but insignificant speed gains. Keeping this loop allows for large
@@ -318,6 +319,7 @@ while bl_continue
         end
     end    
     
+    % B. Various Continuous Conditions
     % Continuation Conditions:
     it_iter = it_iter + 1;
     fl_diff = norm(mt_val_cur-mt_val_lst);
@@ -341,15 +343,25 @@ while bl_continue
         bl_converged = true;
     end
     
+    % C. Print Iteration Record
+    if(bl_print_iterinfo)
+        disp(['ff_vfi_az_bisec_loop, it_iter:' num2str(it_iter) ...
+            ', fl_diff:' num2str(fl_diff)]);
+    end    
+    
 end
 
 
 %% Convergence Results
 it_iter_last = it_iter;
-if fl_diff <= fl_tol_val && it_iter<=it_maxiter_val
+if fl_diff <= fl_tol_val || it_iter>=it_maxiter_val
     mt_val_cur = mt_val_lst;
     mt_aprime = mt_aprime_lst;
-    flag = 1;
+    if (it_iter>=it_maxiter_val)
+        flag = 2;
+    else
+        flag = 1;
+    end
 else
     mt_val_cur = zeros(size(mt_val_cur));
     mt_aprime = zeros(size(mt_val_cur));

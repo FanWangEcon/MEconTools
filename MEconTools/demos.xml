@@ -65,6 +65,18 @@
    <demosection>
       <label>vfi</label>
       <demoitem>
+         <label>ff_vfi_az_bisec_loop</label>
+         <type>other</type>
+         <source>ff_vfi_az_bisec_loop</source>
+         <file>vfi/html/ff_vfi_az_bisec_loop.html</file>
+      </demoitem>
+      <demoitem>
+         <label>ff_vfi_az_bisec_vec</label>
+         <type>other</type>
+         <source>ff_vfi_az_bisec_vec</source>
+         <file>vfi/html/ff_vfi_az_bisec_vec.html</file>
+      </demoitem>
+      <demoitem>
          <label>ff_vfi_az_loop</label>
          <type>other</type>
          <source>ff_vfi_az_loop</source>

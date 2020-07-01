@@ -1,4 +1,4 @@
-%% FF_VFI_AZ_LOOP (looped) solves the Savings and Shock Dynamic Programming Problem
+%% FF_VFI_AZ_LOOP (looped grid choice) Dynamic Savings Problem
 %    Slow looped solution for solving the dynamic programming problem with
 %    fixed assets grid using value function iteration. Obtains policy and
 %    value functions. Shock is AR(1). This function is looped, and
@@ -31,23 +31,23 @@
 %    mp_support('fl_tol_val') = 10e-5;
 %    % printer various information
 %    mp_support('bl_timer') = true;
-%    mp_support('bl_print_params') = false; 
-%    mp_support('bl_print_iterinfo') = false; 
+%    mp_support('bl_print_params') = false;
+%    mp_support('bl_print_iterinfo') = false;
 %    % These names must match keys of mp_solu: v=value, ap=savings choice,
 %    c=consumption, y=income, coh=cash-on-hand (income + savings),
 %    savefraccoh = ap/coh.
 %    % what outcomes to store in the mp_solu for export
-%    mp_support('ls_slout') = {'v', 'ap', 'c', 'y', 'coh', 'savefraccoh'}; 
+%    mp_support('ls_slout') = {'v', 'ap', 'c', 'y', 'coh', 'savefraccoh'};
 %    % outcome for ff_container_map_display
-%    mp_support('ls_ffcmd') = {'v', 'ap', 'c', 'y', 'coh', 'savefraccoh'}; 
+%    mp_support('ls_ffcmd') = {'v', 'ap', 'c', 'y', 'coh', 'savefraccoh'};
 %    % outcome for ff_summ_nd_array
-%    mp_support('ls_ffsna') = {'v', 'ap', 'c', 'y', 'coh', 'savefraccoh'}; 
+%    mp_support('ls_ffsna') = {'v', 'ap', 'c', 'y', 'coh', 'savefraccoh'};
 %    % outcome for ff_graph_grid
-%    mp_support('ls_ffgrh') = {'v', 'ap', 'c', 'y', 'coh', 'savefraccoh'}; 
+%    mp_support('ls_ffgrh') = {'v', 'ap', 'c', 'y', 'coh', 'savefraccoh'};
 %    % outcome for ff_summ_nd_array
 %    mp_support('ffsna_opt_it_row_n_keep') = 10;
 %    % outcome for ff_summ_nd_array
-%    mp_support('ffsna_opt_it_col_n_keep') = 9; 
+%    mp_support('ffsna_opt_it_col_n_keep') = 9;
 %
 %    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_LOOP() default savings and shock
 %    model simulation
@@ -82,8 +82,8 @@ else
     close all;
     mp_support_ext = containers.Map('KeyType','char', 'ValueType','any');
     mp_support_ext('bl_timer') = true;
-    mp_support_ext('bl_print_params') = true; 
-    mp_support_ext('bl_print_iterinfo') = true;     
+    mp_support_ext('bl_print_params') = true;
+    mp_support_ext('bl_print_iterinfo') = true;
     mp_support_ext('ls_ffcmd') = {'v', 'ap', 'c', 'y', 'coh', 'savefraccoh'};
     mp_support_ext('ls_ffsna') = {'ap'};
     mp_support_ext('ls_ffgrh') = {'v', 'ap', 'c', 'y', 'savefraccoh'};
@@ -104,7 +104,7 @@ mp_params('fl_r') = 0.025;
 
 mp_params('fl_a_min') = 0;
 mp_params('fl_a_max') = 50;
-mp_params('it_a_n') = 50;
+mp_params('it_a_n') = 100;
 mp_params('st_grid_type') = 'grid_linspace';
 
 mp_params('fl_z_persist') = 0.80;
@@ -153,22 +153,22 @@ mp_support('fl_tol_val') = 10e-5;
 
 % printer various information
 mp_support('bl_timer') = true;
-mp_support('bl_print_params') = false; 
-mp_support('bl_print_iterinfo') = false; 
+mp_support('bl_print_params') = false;
+mp_support('bl_print_iterinfo') = false;
 
-% These names must match keys of mp_solu: 
+% These names must match keys of mp_solu:
 % what outcomes to store in the mp_solu for export
-mp_support('ls_slout') = {'v', 'ap', 'c', 'y', 'coh', 'savefraccoh'}; 
+mp_support('ls_slout') = {'v', 'ap', 'c', 'y', 'coh', 'savefraccoh'};
 % outcome for ff_container_map_display
-mp_support('ls_ffcmd') = {'ap'}; 
+mp_support('ls_ffcmd') = {'ap'};
 % outcome for ff_summ_nd_array
-mp_support('ls_ffsna') = {}; 
+mp_support('ls_ffsna') = {};
 % outcome for ff_graph_grid
-mp_support('ls_ffgrh') = {}; 
+mp_support('ls_ffgrh') = {};
 % outcome for ff_summ_nd_array
 mp_support('ffsna_opt_it_row_n_keep') = 10;
 % outcome for ff_summ_nd_array
-mp_support('ffsna_opt_it_col_n_keep') = 9; 
+mp_support('ffsna_opt_it_col_n_keep') = 9;
 
 % override default support_map values
 if (length(varargin)>=2 || isempty(varargin))
@@ -235,14 +235,17 @@ it_iter = 0;
 bl_continue = true;
 bl_converged = false;
 
+% Loop 0, continuous VFI iteration until convergence
 while bl_continue
     
+    % Loop 1, loop of exogenous shocks
     for it_z_ctr = 1:length(ar_z)
         fl_z = ar_z(it_z_ctr);
         
+        % Loop 2, loop over endogenous asset states
         for it_a_ctr = 1:length(ar_a)
             fl_a = ar_a(it_a_ctr);
-            ar_vnew = zeros(size(ar_a));
+            ar_ev = zeros(size(ar_a));
             
             if(bl_store_more && bl_converged)
                 ar_c = zeros(size(ar_a));
@@ -250,23 +253,28 @@ while bl_continue
             
             fl_y = fl_w*fl_z + (fl_r)*fl_a;
             
+            % Loop 3, loop over asset choices
             for it_ap_ctr = 1:length(ar_a)
                 fl_aprime = ar_a(it_ap_ctr);
                 fl_c = fl_y + fl_a - fl_aprime;
                 
                 if fl_c > 0
+                    
                     if (fl_crra == 1)
-                        ar_vnew(it_ap_ctr) = log(fl_c);
+                        ar_ev(it_ap_ctr) = log(fl_c);
                     else
-                        ar_vnew(it_ap_ctr) = ((fl_c)^(1-fl_crra)-1)/(1-fl_crra);
+                        ar_ev(it_ap_ctr) = ((fl_c)^(1-fl_crra)-1)/(1-fl_crra);
                     end
-                    for y = 1:length(ar_z)
-                        ar_vnew(it_ap_ctr) = ar_vnew(it_ap_ctr) + ...
-                            fl_beta*mt_z_trans(it_z_ctr,y)*mt_val_lst(it_ap_ctr,y);
+                    
+                    % Loop 4, loop over future shocks
+                    for it_zprime_ctr = 1:length(ar_z)
+                        ar_ev(it_ap_ctr) = ar_ev(it_ap_ctr) ...
+                            + fl_beta*mt_z_trans(it_z_ctr,it_zprime_ctr)*mt_val_lst(it_ap_ctr,it_zprime_ctr);
                     end
+                    
                 else
                     fl_c = fl_lowestc;
-                    ar_vnew(it_ap_ctr) = fl_lowestc;
+                    ar_ev(it_ap_ctr) = fl_lowestc;
                 end
                 
                 if(bl_store_more && bl_converged)
@@ -274,8 +282,8 @@ while bl_continue
                 end
             end
             
-            it_opti_a_idx = find(ar_vnew == max(ar_vnew));
-            mt_val_cur(it_a_ctr,it_z_ctr) = ar_vnew(it_opti_a_idx(1));            
+            it_opti_a_idx = find(ar_ev == max(ar_ev));
+            mt_val_cur(it_a_ctr,it_z_ctr) = ar_ev(it_opti_a_idx(1));
             mt_aprime_cur(it_a_ctr,it_z_ctr) = ar_a(it_opti_a_idx(1));
             
             % Save Additional Results
@@ -284,11 +292,10 @@ while bl_continue
                 if (bl_store_more)
                     mt_c(it_a_ctr,it_z_ctr) = ar_c(it_opti_a_idx(1));
                     mt_y(it_a_ctr,it_z_ctr) = fl_y;
-                    mt_coh(:,it_z_ctr) = fl_y + fl_a;
+                    mt_coh(it_a_ctr,it_z_ctr) = fl_y + fl_a;
                 end
             end
         end
-        
     end
     
     % Continuation Conditions:
@@ -314,14 +321,24 @@ while bl_continue
         bl_converged = true;
     end
     
+    % Print Iteration Record
+    if(bl_print_iterinfo)
+        disp(['ff_vfi_az_bisec_loop, it_iter:' num2str(it_iter) ...
+            ', fl_diff:' num2str(fl_diff)]);
+    end
+    
 end
 
 %% Convergence Results
 it_iter_last = it_iter;
-if fl_diff <= fl_tol_val && it_iter<=it_maxiter_val
-    mt_val = mt_val_cur;
-    mt_aprime = mt_aprime_cur;
-    flag = 1;
+if fl_diff <= fl_tol_val || it_iter>=it_maxiter_val
+    mt_val_cur = mt_val_lst;
+    mt_aprime = mt_aprime_lst;
+    if (it_iter>=it_maxiter_val)
+        flag = 2;
+    else
+        flag = 1;
+    end
 else
     mt_val = zeros(size(mt_val_lst));
     mt_aprime = zeros(size(mt_val_lst));
@@ -344,9 +361,9 @@ if (bl_store_more)
 end
 
 %% Print Parameter Information
-if (bl_print_params)    
+if (bl_print_params)
     ff_container_map_display(mp_params);
-    ff_container_map_display(mp_support);    
+    ff_container_map_display(mp_support);
 end
 
 %% Show Value Function Convergence Information
@@ -355,12 +372,12 @@ if (bl_print_iterinfo)
     it_z_select = unique(round(linspace(1,length(ar_z), 7)));
     ar_z_select = ar_z(it_z_select);
     tb_valpol_alliter = array2table([ar_val_diff_norm(1:it_iter_last)';...
-                                     ar_pol_diff_norm(1:it_iter_last)';...
-                                     mt_pol_perc_change(1:it_iter_last,it_z_select)']');
-    ar_st_col_zs = matlab.lang.makeValidName(strcat('z=', string(ar_z_select)));                                 
+        ar_pol_diff_norm(1:it_iter_last)';...
+        mt_pol_perc_change(1:it_iter_last,it_z_select)']');
+    ar_st_col_zs = matlab.lang.makeValidName(strcat('z=', string(ar_z_select)));
     cl_col_names = ['valgap', 'polgap', ar_st_col_zs];
     cl_row_names = strcat('iter=', string(1:it_iter_last));
-    tb_valpol_alliter.Properties.VariableNames = cl_col_names;    
+    tb_valpol_alliter.Properties.VariableNames = cl_col_names;
     tb_valpol_alliter.Properties.RowNames = cl_row_names;
     disp('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
     disp('Value Function Iteration Per Iteration Changes');
@@ -368,15 +385,15 @@ if (bl_print_iterinfo)
     disp('valgap = norm(mt_val - mt_val_cur): value function difference across iterations');
     disp('polgap = norm(mt_pol_a - mt_pol_a_cur): policy function difference across iterations');
     disp(['z1 = z1 perc change: sum((mt_pol_a ~= mt_pol_a_cur))/(it_a_n): percentage of state space'...
-          ' points conditional on shock where the policy function is changing across iterations']);
-        disp(tb_valpol_alliter);
+        ' points conditional on shock where the policy function is changing across iterations']);
+    disp(tb_valpol_alliter);
     
 end
 
 %% ls_ffcmd summary
-if (~isempty(ls_ffcmd))    
+if (~isempty(ls_ffcmd))
     mp_ffcmd = containers.Map(ls_ffcmd, values(mp_print_graph, ls_ffcmd));
-    ff_container_map_display(mp_ffcmd, ffsna_opt_it_row_n_keep, ffsna_opt_it_col_n_keep);    
+    ff_container_map_display(mp_ffcmd, ffsna_opt_it_row_n_keep, ffsna_opt_it_col_n_keep);
 end
 
 %% ls_ffsna summarize full
@@ -395,23 +412,23 @@ if (~isempty(ls_ffsna))
     cl_mp_datasetdesc{1} = containers.Map({'name', 'labval'}, {'a', ar_a});
     cl_mp_datasetdesc{2} = containers.Map({'name', 'labval'}, {'z', ar_z});
     
-    % summarize 
+    % summarize
     param_map_keys = keys(mp_ffsna);
     param_map_vals = values(mp_ffsna);
     for i = 1:length(mp_ffsna)
         st_mt_name = param_map_keys{i};
         mt_cur = param_map_vals{i};
-        st_title = ['ff_vfi_az_vec, outcome=' st_mt_name];        
+        st_title = ['ff_vfi_az_vec, outcome=' st_mt_name];
         ff_summ_nd_array(st_title, mt_cur, ...
             bl_print_table, ar_st_stats, it_aggd, bl_row, ...
-            cl_mp_datasetdesc, ar_permute);        
+            cl_mp_datasetdesc, ar_permute);
     end
     
 end
 
 %% ls_ffgrh graph
 if (~isempty(ls_ffgrh))
-
+    
     % container map subseting
     mp_ffgrh = containers.Map(ls_ffgrh, values(mp_print_graph, ls_ffgrh));
     
@@ -430,7 +447,7 @@ if (~isempty(ls_ffgrh))
         mp_support_graph = [mp_support_graph; mp_support_graph_ext];
     end
     
-    % summarize 
+    % summarize
     param_map_keys = keys(mp_ffgrh);
     param_map_vals = values(mp_ffgrh);
     for i = 1:length(mp_ffgrh)
@@ -452,4 +469,3 @@ end
 mp_valpol_out = containers.Map(ls_slout, values(mp_print_graph, ls_slout));
 
 end
-

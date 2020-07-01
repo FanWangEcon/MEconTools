@@ -21,18 +21,22 @@
 %    mp_bisec_ctrlinfo('it_bisect_max_iter') = 10;
 %    mp_bisec_ctrlinfo('fl_bisect_tol') = 10e-6;
 %
-%    [AR_OPTI_SAVEBORR_FRAC] = FF_OPTIM_BISEC_SAVEZRONE() default optimal
+%    [AR_OPTI_SAVE_FRAC] = FF_OPTIM_BISEC_SAVEZRONE() default optimal
 %    saving and borrowing fractions.
 %
-%    [AR_OPTI_SAVEBORR_FRAC, AR_OPTI_SAVEBORR_LEVEL] =
+%    [AR_OPTI_SAVE_FRAC, AR_OPTI_SAVE_LEVEL] =
 %    FF_OPTIM_BISEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) given function handle
 %    for savings borrowing function derivative with an array of outputs,
 %    each representing a different set of state-space points, solve for
 %    optimal savings levels and savings fractions.
 %
-%    [AR_OPTI_SAVEBORR_FRAC, AR_OPTI_SAVEBORR_LEVEL, TB_BISEC_INFO] =
-%    FF_OPTIM_BISEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) also output convergence
-%    iteration information.
+%    [AR_OPTI_SAVE_FRAC, AR_OPTI_SAVE_LEVEL, AR_OPTI_FOC_OBJ] =
+%    FF_OPTIM_BISEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) also output FOC
+%    objective.
+%
+%    [AR_OPTI_SAVE_FRAC, AR_OPTI_SAVE_LEVEL, AR_OPTI_FOC_OBJ,
+%    TB_BISEC_INFO] = FF_OPTIM_BISEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) also
+%    output convergence iteration information.
 %
 %    see also FX_OPTIM_BISEC_SAVEZRONE
 %
@@ -168,7 +172,7 @@ end
 mp_bisec_ctrlinfo = containers.Map('KeyType','char', 'ValueType','any');
 mp_bisec_ctrlinfo('st_cur_bisec_info') = 'savings bisection';
 mp_bisec_ctrlinfo('it_bisect_min_iter') = 1;
-mp_bisec_ctrlinfo('it_bisect_max_iter') = 10;
+mp_bisec_ctrlinfo('it_bisect_max_iter') = 16;
 mp_bisec_ctrlinfo('fl_bisect_tol') = 10e-6;
 mp_bisec_ctrlinfo('fl_x_left_start') = 10e-6;
 mp_bisec_ctrlinfo('fl_x_right_start') = 1-10e-6;
@@ -189,6 +193,8 @@ params_group = values(mp_bisec_ctrlinfo, {'fl_x_left_start', 'fl_x_right_start'}
 %% Evaluate At lower and Upper Savings Bounds
 [ar_lower_fx, ~] = fc_deri_wth_uniroot(fl_x_left_start);
 [ar_upper_fx, ~] = fc_deri_wth_uniroot(fl_x_right_start);
+ar_lower_fx_init = ar_lower_fx;
+ar_upper_fx_init = ar_upper_fx;
 ar_lower_x = fl_x_left_start + zeros(size(ar_lower_fx));
 ar_upper_x = fl_x_right_start + zeros(size(ar_upper_fx));
 if (bl_verbose)
@@ -254,6 +260,25 @@ while (it_ctr_bisec <= it_bisect_max_iter)
     it_ctr_bisec = it_ctr_bisec + 1;
 end
 
+%% Return 
+
+ar_opti_save_frac = ar_mid_x;
+ar_opti_save_level = ar_mid_saveborr_level;
+ar_opti_foc_obj = ar_mid_fx;
+
+if(isscalar(ar_opti_save_frac))
+    if (ar_lower_fx_init*ar_upper_fx_init > 0)
+        ar_opti_save_frac = NaN;
+        ar_opti_save_level = NaN;
+        ar_opti_foc_obj = NaN;
+    end
+else
+    ar_nosolu = (ar_lower_fx_init.*ar_upper_fx_init);
+    ar_opti_save_frac(ar_nosolu>0) = NaN;
+    ar_opti_save_level(ar_nosolu>0) = NaN;
+    ar_opti_foc_obj(ar_nosolu>0) = NaN;
+end
+
 %% print details
 if (bl_verbose)
     
@@ -311,15 +336,16 @@ if (bl_verbose)
 %     end
 end
 
-
 %% Return
 varargout = cell(nargout,0);
 for it_k = 1:nargout
     if (it_k==1)
-        ob_out_cur = ar_opti_saveborr_frac;
+        ob_out_cur = ar_opti_save_frac;
     elseif (it_k==2)
-        ob_out_cur = ar_opti_saveborr_level;
-    elseif (it_k==3 && bl_verbose)
+        ob_out_cur = ar_opti_save_level;
+    elseif (it_k==3)
+        ob_out_cur = ar_opti_foc_obj;
+    elseif (it_k==4 && bl_verbose)
         ob_out_cur = tb_bisec_info;
     end
     varargout{it_k} = ob_out_cur;

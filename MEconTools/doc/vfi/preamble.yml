@@ -1,13 +1,14 @@
 - file: fx_vfi_az_loop
   title: "Matlab FF_VFI_AZ_LOOP Looped Solution for Optimal Savings Dynamic Programming Problem in Infinite Horizon"
-  titleshort: "Looped Infinite Horizon Dynamic Savings Problem"
+  titleshort: "Looped Grid Infinite Horizon Dynamic Savings Problem"
   description: |
-    Slow looped solution.
+    Common grid looped solution
+    Slow, but easy to modify, useful for developing new models
     Given preferences, some AR(1) shock process, solve the infinite horizon household savings dynamic programming problem. The state-space and choice-space share the same asset grid.
   core :
     - package: MEconTools
       code: |
-        ff_vfi_az_loop()
+        [ff_vfi_az_loop()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_loop.m)
   date: 2020-06-30
   date_start: 2020-06-30
   output:
@@ -24,14 +25,65 @@
 
 - file: fx_vfi_az_vec
   title: "Matlab FF_VFI_AZ_VEC Vectorized Solution for Optimal Savings Dynamic Programming Problem in Infinite Horizon"
-  titleshort: "Vectorized Infinite Horizon Dynamic Savings Problem"
+  titleshort: "Vectorized Grid Infinite Horizon Dynamic Savings Problem"
   description: |
-    Faster vectorized solution.
+    Common grid vectorized solution
+    Fast, sufficiently approximate value(a,z), but c(a,z) not precise
     Given preferences, some AR(1) shock process, solve the infinite horizon household savings dynamic programming problem. The state-space and choice-space share the same asset grid.
   core :
     - package: MEconTools
       code: |
-        ff_vfi_az_vec()
+        [ff_vfi_az_vec()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_vec.m)
+  date: 2020-06-30
+  date_start: 2020-06-30
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue
+
+- file: fx_vfi_az_bisec_loop
+  title: "Matlab FF_VFI_AZ_LOOP Looped Solution for Optimal Savings Dynamic Programming Problem in Infinite Horizon"
+  titleshort: "Looped Grid Infinite Horizon Dynamic Savings Problem"
+  description: |
+    Exact choice looped solution
+    Slow, but high precision at low grid size (given value grid, accurate up to 0.001525878 percent of individual-specific cash-on-hand)
+    Given preferences, some AR(1) shock process, solve the infinite horizon household savings dynamic programming problem. The state-space is on a grid. The choice space are continuous percentages of cash-on-hand.
+  core :
+    - package: MEconTools
+      code: |
+        [ff_vfi_az_bisec_loop()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_loop.m)
+  date: 2020-06-30
+  date_start: 2020-06-30
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue
+
+- file: fx_vfi_az_bisec_vec
+  title: "Matlab FF_VFI_AZ_VEC Vectorized Solution for Optimal Savings Dynamic Programming Problem in Infinite Horizon"
+  titleshort: "Vectorized Grid Infinite Horizon Dynamic Savings Problem"
+  description: |
+    Exact choice vectorized solution
+    Fast, approximates choices with higher precision (given value grid, accurate up to 0.001525878 percent of individual-specific cash-on-hand)
+    Given preferences, some AR(1) shock process, solve the infinite horizon household savings dynamic programming problem.  The state-space is on a grid. The choice space are continuous percentages of cash-on-hand.
+  core :
+    - package: MEconTools
+      code: |
+        [ff_vfi_az_bisec_vec()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_vec.m)
   date: 2020-06-30
   date_start: 2020-06-30
   output:

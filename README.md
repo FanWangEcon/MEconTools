@@ -1,8 +1,8 @@
 [![HitCount](http://hits.dwyl.io/fanwangecon/MEconTools.svg)](https://github.com/FanWangEcon/MEconTools)  [![Star](https://img.shields.io/github/stars/fanwangecon/MEconTools?style=social)](https://github.com/FanWangEcon/MEconTools/stargazers) [![Fork](https://img.shields.io/github/forks/fanwangecon/MEconTools?style=social)](https://github.com/FanWangEcon/MEconTools/network/members) [![Star](https://img.shields.io/github/watchers/fanwangecon/MEconTools?style=social)](https://github.com/FanWangEcon/MEconTools/watchers)
 
-This is a work-in-progress Matlab package consisting of functions that facilitate Dynamic Programming and Related Tasks. Materials gathered from various [projects](https://fanwangecon.github.io/research) in which Matlab code is used. Files are the [MEconTools](https://github.com/FanWangEcon/MEconTools) repository. Matlab files are linked below by section with livescript files. Tested with [Matlab](https://www.mathworks.com/products/matlab.html) 2019a.
+This is a work-in-progress Matlab package consisting of functions that facilitate Dynamic Programming and Related Tasks. Materials gathered from various [projects](https://fanwangecon.github.io/research) in which Matlab code is used. Some of the solutions/algorithms are research outputs developed for specific research [papers](https://fanwangecon.github.io/research), other algorithms and methods are commonly-used. Files are the [MEconTools](https://github.com/FanWangEcon/MEconTools) repository. Matlab files are linked below by section with livescript files. Tested with [Matlab](https://www.mathworks.com/products/matlab.html) 2019a.
 
-> Download and install the Matlabtool: [MEconTools.mltbx](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools.mltbx),
+> Download and install the Matlab toolbox: [MEconTools.mltbx](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools.mltbx),
 > Toolbox Vignette Manual: [**bookdown site**](https://fanwangecon.github.io/MEconTools/bookdown) and [**bookdown pdf**](https://fanwangecon.github.io/MEconTools/bookdown/Matlab-Toolbox-Heterogeneous-Agents-Dynamic-Programming.pdf).
 
 Bullet points below show vignette files for functions that are available from [MEconTools](https://github.com/FanWangEcon/MEconTools). Each Vignette file contains various examples for invoking each function. The goal of this repository is to make it easier to find/re-use codes produced for various projects. The vignette files are also collected in the bookdown file:
@@ -35,14 +35,26 @@ installedToolbox = matlab.addons.toolbox.installToolbox(toolboxFile, agreeToLice
 
 # 1  Savings Dynamic Programming
 
-1. [Looped Infinite Horizon Dynamic Savings Problem](https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.html): [**mlx**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/fx_vfi_az_loop.mlx) \| [**m**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.m) \| [**pdf**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.pdf) \| [**html**](https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.html)
-	+ Slow looped solution.
+1. [Looped Grid Infinite Horizon Dynamic Savings Problem](https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.html): [**mlx**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/fx_vfi_az_loop.mlx) \| [**m**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.m) \| [**pdf**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.pdf) \| [**html**](https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.html)
+	+ Common grid looped solution
+	+ Slow, but easy to modify, useful for developing new models
 	+ Given preferences, some AR(1) shock process, solve the infinite horizon household savings dynamic programming problem. The state-space and choice-space share the same asset grid.
-	+ **MEconTools**: *ff_vfi_az_loop()*
-2. [Vectorized Infinite Horizon Dynamic Savings Problem](https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.html): [**mlx**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/fx_vfi_az_vec.mlx) \| [**m**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.m) \| [**pdf**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.pdf) \| [**html**](https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.html)
-	+ Faster vectorized solution.
+	+ **MEconTools**: *[ff_vfi_az_loop()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_loop.m)*
+2. [Vectorized Grid Infinite Horizon Dynamic Savings Problem](https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.html): [**mlx**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/fx_vfi_az_vec.mlx) \| [**m**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.m) \| [**pdf**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.pdf) \| [**html**](https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.html)
+	+ Common grid vectorized solution
+	+ Fast, sufficiently approximate value(a,z), but c(a,z) not precise
 	+ Given preferences, some AR(1) shock process, solve the infinite horizon household savings dynamic programming problem. The state-space and choice-space share the same asset grid.
-	+ **MEconTools**: *ff_vfi_az_vec()*
+	+ **MEconTools**: *[ff_vfi_az_vec()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_vec.m)*
+3. [Looped Grid Infinite Horizon Dynamic Savings Problem](https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_bisec_loop.html): [**mlx**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/fx_vfi_az_bisec_loop.mlx) \| [**m**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_bisec_loop.m) \| [**pdf**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_bisec_loop.pdf) \| [**html**](https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_bisec_loop.html)
+	+ Exact choice looped solution
+	+ Slow, but high precision at low grid size (given value grid, accurate up to 0.001525878 percent of individual-specific cash-on-hand)
+	+ Given preferences, some AR(1) shock process, solve the infinite horizon household savings dynamic programming problem. The state-space is on a grid. The choice space are continuous percentages of cash-on-hand.
+	+ **MEconTools**: *[ff_vfi_az_bisec_loop()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_loop.m)*
+4. [Vectorized Grid Infinite Horizon Dynamic Savings Problem](https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_bisec_vec.html): [**mlx**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/fx_vfi_az_bisec_vec.mlx) \| [**m**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_bisec_vec.m) \| [**pdf**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_bisec_vec.pdf) \| [**html**](https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_bisec_vec.html)
+	+ Exact choice vectorized solution
+	+ Fast, approximates choices with higher precision (given value grid, accurate up to 0.001525878 percent of individual-specific cash-on-hand)
+	+ Given preferences, some AR(1) shock process, solve the infinite horizon household savings dynamic programming problem.  The state-space is on a grid. The choice space are continuous percentages of cash-on-hand.
+	+ **MEconTools**: *[ff_vfi_az_bisec_vec()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_vec.m)*
 
 # 2  Summarize Policy and Value
 

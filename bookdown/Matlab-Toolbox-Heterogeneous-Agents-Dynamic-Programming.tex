@@ -104,7 +104,7 @@
 
 \title{Matlab Toolbox Heterogeneous Agents Dynamic Programming}
 \author{Fan Wang}
-\date{2020-06-30}
+\date{2020-07-01}
 
 \begin{document}
 \maketitle
@@ -118,7 +118,11 @@
 \chapter*{Preface}\label{preface}}
 \addcontentsline{toc}{chapter}{Preface}
 
-This is a work-in-progress Matlab package consisting of functions that facilitate Dynamic Programming and Related Tasks. Materials gathered from various \href{https://fanwangecon.github.io/research}{projects} in which Matlab code is used. Files are the \href{https://github.com/FanWangEcon/MEconTools}{MEconTools} repository. Matlab files are linked below by section with livescript files. Tested with \href{https://www.mathworks.com/products/matlab.html}{Matlab} 2019a \citep{matlab}.
+This is a work-in-progress Matlab package consisting of functions that facilitate Dynamic Programming and Related Tasks. Materials gathered from various \href{https://fanwangecon.github.io/research}{projects} in which Matlab code is used. Some of the solutions/algorithms are research outputs developed for specific research \href{https://fanwangecon.github.io/research}{papers}, other algorithms and methods are commonly-used. Files are the \href{https://github.com/FanWangEcon/MEconTools}{MEconTools} repository. Matlab files are linked below by section with livescript files. Tested with \href{https://www.mathworks.com/products/matlab.html}{Matlab} 2019a \citep{matlab}.
+
+\begin{quote}
+Download and install the Matlab toolbox: \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools.mltbx}{MEconTools.mltbx}
+\end{quote}
 
 This bookdown file is a collection of mlx based vignettes for functions that are available from \href{https://github.com/FanWangEcon/MEconTools}{MEconTools}. Each Vignette file contains various examples for invoking each function. The goal of this repository is to make it easier to find/re-use codes produced for various projects.
 
@@ -131,8 +135,8 @@ Please contact \href{https://fanwangecon.github.io/}{FanWangEcon} for issues or 
 \hypertarget{savings-dynamic-programming}{%
 \chapter{Savings Dynamic Programming}\label{savings-dynamic-programming}}
 
-\hypertarget{ff_vfi_az_loop-dynamic-programming-asset-problem-with-shocks-loop}{%
-\section{FF\_VFI\_AZ\_LOOP Dynamic Programming Asset Problem with Shocks Loop}\label{ff_vfi_az_loop-dynamic-programming-asset-problem-with-shocks-loop}}
+\hypertarget{ff_vfi_az_loop-dynamic-savings-problem-loop-common-grid}{%
+\section{FF\_VFI\_AZ\_LOOP Dynamic Savings Problem Loop Common Grid}\label{ff_vfi_az_loop-dynamic-savings-problem-loop-common-grid}}
 
 \begin{quote}
 Go back to \href{http://fanwangecon.github.io/}{fan}'s \href{https://fanwangecon.github.io/MEconTools/}{MEconTools} Toolbox (\href{https://fanwangecon.github.io/MEconTools/bookdown}{bookdown}), \href{https://fanwangecon.github.io/M4Econ/}{Matlab Code Examples} Repository (\href{https://fanwangecon.github.io/M4Econ/bookdown}{bookdown}), or \href{https://fanwangecon.github.io/Math4Econ/}{Math for Econ with Matlab} Repository (\href{https://fanwangecon.github.io/Math4Econ/bookdown}{bookdown}).
@@ -142,10 +146,45 @@ This is the example vignette for function:
 \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_loop.m}{\textbf{ff\_vfi\_az\_loop}}
 from the \href{https://fanwangecon.github.io/MEconTools/}{\textbf{MEconTools
 Package}}\textbf{.} This function
-solves the dynamica programming problem for a (a,z) model. Households
-can save a, and face AR(1) shock z. The problem is solved over the
-infinite horizon. This is the looped code, it is extremely slow for
-larger state-space problems.
+solves the dynamic programming problem for a (a,z) model. Households can
+save a, and face AR(1) shock z. The problem is solved over the infinite
+horizon. This is the looped code, it is slow for larger state-space
+problems. The code uses common grid, with the same state space and
+choice space grids.
+
+\textbf{Links to Four Code:}
+
+Four Core Savings/Borrowing Dynamic Programming Solution Functions that
+are functions in the \href{https://fanwangecon.github.io/MEconTools/}{\textbf{MEconTools
+Package}}\textbf{.} :
+
+\begin{itemize}
+\item
+  Common Choice and States Grid :
+  \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_loop.m}{\textbf{ff\_vfi\_az\_loop}},
+  slow should use for testing new models
+\item
+  Common Choice and States Grid :
+  \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_vec.m}{\textbf{ff\_vfi\_az\_vec}},
+  fast good for many purposes
+\item
+  States Grid + Continuous Exact Savings as Share of Cash-on-Hand :\href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_loop.m}{\textbf{ff\_vfi\_az\_bisec\_loop}},
+  high precision even with small grid
+\item
+  States Grid + Continuous Exact Savings as Share of Cash-on-Hand :
+  \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_vec.m}{\textbf{ff\_vfi\_az\_bisec\_vec}},
+  precision and speed
+\end{itemize}
+
+The four sample codes are written for the standard dynamic savings
+problem with AR(1) shock that is one of the core problems introduced in
+first sessions of graduate Economics courses. The code can be easily
+adapted to accomand multiple assets, savings and borrowing, discrete and
+continuous choice, etc. A large proportion of dynamic economic models
+are based on the underlying structure of solving a model with endogenous
+states and exogenous shocks, and that is what the (a,z) model does. In
+general, one should write looped code first to make sure the economics
+is correct, then vectorized code can be adopted to increase speed.
 
 \hypertarget{test-ff_vfi_az_loop-defaults}{%
 \subsection{Test FF\_VFI\_AZ\_LOOP Defaults}\label{test-ff_vfi_az_loop-defaults}}
@@ -161,30 +200,74 @@ mp_params('fl_beta') = 0.94;
 % call function
 ff_vfi_az_loop(mp_params);
 
-Elapsed time is 0.446290 seconds.
+Elapsed time is 1.291175 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-          i    idx    ndim    numel    rowN    colN     sum       mean      std     coefvari    min    max
-          _    ___    ____    _____    ____    ____    ______    ______    _____    ________    ___    ___
+          i    idx    ndim    numel    rowN    colN     sum      mean      std     coefvari    min    max
+          _    ___    ____    _____    ____    ____    _____    ______    _____    ________    ___    ___
 
-    ap    1     1      2       350      50      7      8427.6    24.079    14.27    0.59263      0     50 
+    ap    1     1      2       700     100      7      16864    24.091    14.08    0.58446      0     50 
 
 xxx TABLE:ap xxxxxxxxxxxxxxxxxx
-             c1        c2        c3        c4        c5        c6        c7  
-           ______    ______    ______    ______    ______    ______    ______
+              c1         c2         c3         c4         c5         c6         c7  
+            _______    _______    _______    _______    _______    _______    ______
 
-    r1          0         0         0         0         0         0    2.0408
-    r2          0         0         0    1.0204    1.0204    1.0204    3.0612
-    r3     1.0204    1.0204    1.0204    2.0408    2.0408    2.0408    4.0816
-    r4     2.0408    2.0408    2.0408    2.0408    3.0612    3.0612     5.102
-    r5     3.0612    3.0612    3.0612    3.0612    4.0816    4.0816    6.1224
-    r46    43.878    43.878    43.878    43.878    43.878    44.898    45.918
-    r47    44.898    44.898    44.898    44.898    44.898    45.918    46.939
-    r48    45.918    45.918    45.918    45.918    45.918    46.939    47.959
-    r49    46.939    46.939    46.939    46.939    46.939    47.959     48.98
-    r50    47.959    47.959    47.959    47.959    47.959     48.98        50
+    r1            0          0          0          0          0    0.50505    2.0202
+    r2            0          0          0    0.50505    0.50505     1.0101    2.5253
+    r3      0.50505    0.50505    0.50505    0.50505     1.0101     1.5152    3.0303
+    r4       1.0101     1.0101     1.0101     1.0101     1.5152     2.0202    3.5354
+    r5       1.5152     1.5152     1.5152     1.5152     2.0202     2.5253    4.0404
+    r96      45.455     45.455      45.96      45.96      45.96      46.97    48.485
+    r97       45.96      45.96      45.96     46.465     46.465     47.475     48.99
+    r98      46.465     46.465     46.465      46.97      46.97      47.98     48.99
+    r99       46.97      46.97      46.97     47.475     47.475     48.485    49.495
+    r100     47.475     47.475     47.475      47.98      47.98      48.99        50
+\end{verbatim}
+
+\hypertarget{test-ff_vfi_az_loop-speed-tests}{%
+\subsection{Test FF\_VFI\_AZ\_LOOP Speed Tests}\label{test-ff_vfi_az_loop-speed-tests}}
+
+Call the function with different a and z grid size, print out speed:
+
+\begin{verbatim}
+mp_support = containers.Map('KeyType','char', 'ValueType','any');
+mp_support('bl_timer') = true;
+mp_support('ls_ffcmd') = {};
+\end{verbatim}
+
+A grid 50, shock grid 5:
+
+\begin{verbatim}
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 50;
+mp_params('it_z_n') = 5;
+ff_vfi_az_loop(mp_params, mp_support);
+
+Elapsed time is 0.223217 seconds.
+\end{verbatim}
+
+A grid 100, shock grid 7:
+
+\begin{verbatim}
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 100;
+mp_params('it_z_n') = 7;
+ff_vfi_az_loop(mp_params, mp_support);
+
+Elapsed time is 1.284511 seconds.
+\end{verbatim}
+
+A grid 200, shock grid 9:
+
+\begin{verbatim}
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 200;
+mp_params('it_z_n') = 9;
+ff_vfi_az_loop(mp_params, mp_support);
+
+Elapsed time is 6.325330 seconds.
 \end{verbatim}
 
 \hypertarget{test-ff_vfi_az_loop-control-outputs}{%
@@ -219,7 +302,7 @@ mp_support('ls_ffsna') = {'ap'};
 mp_support('ls_ffgrh') = {'ap'};
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.252449 seconds.
+Elapsed time is 0.313830 seconds.
 xxx  ff_vfi_az_vec, outcome=ap  xxxxxxxxxxxxxxxxxxxxxxxxxxx
     group      a       mean_z_0_54195    mean_z_0_66401    mean_z_0_88162    mean_z_1_3095    mean_z_2_2745
     _____    ______    ______________    ______________    ______________    _____________    _____________
@@ -292,16 +375,16 @@ mp_support('ls_ffgrh') = {};
 mp_support('bl_vfi_store_all') = true; % store c(a,z), y(a,z)
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 1.625022 seconds.
+Elapsed time is 1.867278 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                   i    idx    ndim    numel    rowN    colN     sum       mean      std      coefvari    min      max  
-                   _    ___    ____    _____    ____    ____    ______    ______    ______    ________    ___    _______
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
 
-    ap             1     1      2       900     100      9       21825     24.25    14.089      0.581      0          50
-    savefraccoh    2     2      2       900     100      9      411.21    0.4569    0.2651    0.58022      0     0.91609
+    ap             1     1      2       900     100      9       21825      24.25     14.089      0.581      0          50
+    savefraccoh    2     2      2       900     100      9      752.38    0.83597    0.13497    0.16145      0     0.91812
 
 xxx TABLE:ap xxxxxxxxxxxxxxxxxx
               c1         c2         c3         c4         c5         c6         c7         c8        c9  
@@ -319,19 +402,19 @@ xxx TABLE:ap xxxxxxxxxxxxxxxxxx
     r100     47.475     47.475     47.475     47.475      47.98      47.98     48.485    49.495        50
 
 xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
-               c1           c2           c3           c4           c5          c6           c7           c8          c9   
-            _________    _________    _________    _________    ________    _________    _________    ________    ________
+              c1         c2         c3         c4         c5         c6         c7         c8         c9   
+            _______    _______    _______    _______    _______    _______    _______    _______    _______
 
-    r1              0            0            0            0           0            0    0.0094749    0.027855      0.0535
-    r2              0            0            0            0    0.009643    0.0095804      0.01895    0.027855    0.062417
-    r3      0.0097386    0.0097261    0.0097083    0.0096824    0.009643     0.019161     0.028425     0.03714    0.071333
-    r4       0.019477     0.019452     0.019417     0.019365    0.019286     0.028741       0.0379    0.046425     0.08025
-    r5       0.029216     0.029178     0.029125     0.029047    0.028929     0.038321     0.047374     0.05571    0.089167
-    r96       0.87647      0.87535      0.87375       0.8811     0.87751      0.87181      0.87169     0.87278     0.87383
-    r97       0.88621      0.88507      0.88346      0.89078     0.88716      0.88139      0.88116     0.88207     0.87383
-    r98       0.89595       0.8948      0.89317      0.89078      0.8968      0.89097      0.89064     0.89135     0.88275
-    r99       0.90569      0.90452      0.90287      0.90046     0.90644      0.90055      0.90011     0.90064     0.88275
-    r100      0.91543      0.91425      0.91258      0.91014     0.91609      0.91013      0.90959     0.90992     0.88275
+    r1            0          0          0          0          0          0    0.24587    0.48182    0.56208
+    r2            0          0          0          0     0.3075    0.25444    0.39276    0.41371    0.59831
+    r3      0.30679    0.29486    0.27938    0.25939     0.2338    0.40362    0.49043     0.4833     0.6287
+    r4       0.4668    0.45285    0.43438    0.40981    0.37721    0.50166    0.56006    0.53755    0.65456
+    r5      0.56502    0.55132    0.53293    0.50802    0.47415    0.57101    0.61221    0.58103    0.67683
+    r96     0.91292     0.9117    0.90997    0.91752    0.91364    0.90746    0.90692    0.90732    0.90699
+    r97     0.91357    0.91236    0.91064    0.91812    0.91427    0.90815    0.90761    0.90799    0.89847
+    r98      0.9142      0.913     0.9113    0.90882    0.91489    0.90882    0.90828    0.90865    0.89919
+    r99     0.91482    0.91363    0.91195    0.90949    0.91549    0.90949    0.90894    0.90929    0.89089
+    r100    0.91543    0.91425    0.91258    0.91014    0.91609    0.91013    0.90959    0.90992    0.88275
 \end{verbatim}
 
 \hypertarget{test-ff_vfi_az_loop-change-interest-rate-and-discount}{%
@@ -359,63 +442,63 @@ factor:
 \begin{verbatim}
 % Lower Savings Incentives
 mp_params('fl_beta') = 0.80;
-mp_params('fl_r') = 0;
+mp_params('fl_r') = 0.01;
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.068015 seconds.
+Elapsed time is 0.113265 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                    i    idx    ndim    numel    rowN    colN     sum       mean       std      coefvari    min      max  
-                   _    ___    ____    _____    ____    ____    ______    ______    _______    ________    ___    _______
+                   _    ___    ____    _____    ____    ____    ______    _______    ______    ________    ___    _______
 
-    savefraccoh    1     1      2       250      50      5      48.774    0.1951    0.23298     1.1942      0     0.81602
+    savefraccoh    1     1      2       250      50      5      118.68    0.47472    0.2843    0.59887      0     0.80805
 
 xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
-             c1         c2         c3         c4          c5    
-           _______    _______    _______    _______    _________
+             c1         c2         c3         c4         c5   
+           _______    _______    _______    _______    _______
 
-    r1           0          0          0          0    0.0058555
-    r2           0          0          0          0    0.0058555
-    r3           0          0          0          0    0.0058555
-    r4           0          0          0          0    0.0058555
-    r5           0          0          0          0    0.0058555
-    r46    0.62112    0.61921    0.61584    0.60931      0.59509
-    r47    0.66655     0.6645    0.66088    0.65388      0.63861
-    r48    0.71414    0.71195    0.70807    0.70057      0.68421
-    r49    0.76395     0.7616    0.75745    0.74943      0.73193
-    r50    0.81602    0.81351    0.80908    0.80051      0.78182
+    r1           0          0          0          0    0.10642
+    r2           0          0          0          0     0.1064
+    r3           0          0          0          0    0.10629
+    r4           0          0          0          0      0.106
+    r5           0          0          0          0    0.10543
+    r46    0.79096    0.78787    0.78241    0.77191    0.74922
+    r47    0.79553    0.79262    0.78747    0.77755    0.75606
+    r48     0.7999    0.79715    0.79229     0.7829    0.76254
+    r49    0.80407    0.80147    0.79687    0.78799    0.76868
+    r50    0.80805    0.80559    0.80125    0.79284     0.7745
 
 % Higher Savings Incentives
 mp_params('fl_beta') = 0.95;
 mp_params('fl_r') = 0.04;
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.291535 seconds.
+Elapsed time is 0.327279 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                   i    idx    ndim    numel    rowN    colN     sum       mean       std      coefvari    min      max  
-                   _    ___    ____    _____    ____    ____    ______    ______    _______    ________    ___    _______
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
 
-    savefraccoh    1     1      2       250      50      5      59.526    0.2381    0.27148     1.1402      0     0.94888
+    savefraccoh    1     1      2       250      50      5      160.99    0.64394    0.29947    0.46506      0     0.94888
 
 xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
-             c1         c2           c3           c4           c5   
-           _______    _______    __________    _________    ________
+             c1         c2          c3         c4         c5   
+           _______    _______    ________    _______    _______
 
-    r1           0          0    0.00051196     0.005772    0.021238
-    r2           0          0    0.00051196     0.005772    0.021238
-    r3           0          0    0.00051196     0.005772    0.021238
-    r4           0          0    0.00099992     0.005772    0.021238
-    r5           0          0    0.00099992    0.0079177    0.021238
-    r46    0.73495    0.73278       0.72894       0.7215     0.70527
-    r47    0.78505    0.78273       0.77862      0.77068     0.75334
-    r48    0.83737    0.83489       0.83052      0.82204     0.80355
-    r49    0.89196    0.88933       0.88466      0.87564     0.85594
-    r50    0.94888    0.94608       0.94111      0.93151     0.91056
+    r1           0          0    0.024103    0.18484    0.40057
+    r2           0          0    0.024094     0.1848    0.40051
+    r3           0          0    0.024028    0.18446    0.40008
+    r4           0          0    0.046583    0.18354    0.39894
+    r5           0          0    0.045925    0.24935    0.39672
+    r46    0.94526    0.94167     0.93533    0.92312    0.89672
+    r47    0.94628    0.94291     0.93696    0.92548    0.90059
+    r48    0.94722    0.94405     0.93846    0.92766    0.90418
+    r49    0.94808    0.94511     0.93984    0.92966    0.90749
+    r50    0.94888    0.94608     0.94111    0.93151    0.91056
 \end{verbatim}
 
 \hypertarget{test-ff_vfi_az_loop-changing-risk-aversion}{%
@@ -446,7 +529,7 @@ for risk:
 mp_params('fl_crra') = 0.5;
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.546316 seconds.
+Elapsed time is 0.581794 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -454,22 +537,22 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                    i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
                    _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
 
-    savefraccoh    1     1      2       500     100      5      104.98    0.20996    0.24341     1.1593      0     0.86141
+    savefraccoh    1     1      2       500     100      5      268.82    0.53764    0.29852    0.55524      0     0.86141
 
 xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
-              c1         c2         c3           c4           c5   
-            _______    _______    _______    __________    ________
+              c1         c2         c3          c4         c5   
+            _______    _______    _______    ________    _______
 
-    r1            0          0          0     0.0004985    0.010131
-    r2            0          0          0     0.0004985    0.010131
-    r3            0          0          0     0.0004985    0.010131
-    r4            0          0          0     0.0004985    0.010131
-    r5            0          0          0    0.00070978    0.010131
-    r96     0.74758    0.74533    0.74137       0.75815     0.74086
-    r97     0.77249    0.77018    0.76608       0.78315     0.76529
-    r98     0.79796    0.79557    0.79134       0.80868     0.79024
-    r99     0.82398    0.82151    0.81714       0.83477     0.81573
-    r100    0.85055      0.848    0.84349       0.86141     0.84176
+    r1            0          0          0    0.015741    0.18847
+    r2            0          0          0     0.01574    0.18847
+    r3            0          0          0    0.015737    0.18844
+    r4            0          0          0    0.015728    0.18838
+    r5            0          0          0    0.022367    0.18825
+    r96     0.84455    0.84169    0.83664     0.85445    0.83255
+    r97     0.84611    0.84333    0.83842     0.85626    0.83496
+    r98     0.84763    0.84493    0.84016     0.85803    0.83729
+    r99     0.84911    0.84648    0.84185     0.85974    0.83956
+    r100    0.85055      0.848    0.84349     0.86141    0.84176
 \end{verbatim}
 
 \includegraphics[width=5.20833in,height=\textheight]{img/fx_vfi_az_loop_images/figure_2.png}
@@ -484,30 +567,30 @@ wants to save more.
 mp_params('fl_crra') = 5;
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.925980 seconds.
+Elapsed time is 0.937495 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
-                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min     max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    ______
 
-    savefraccoh    1     1      2       500     100      5      119.58    0.23916    0.26719     1.1172      0     0.94471
+    savefraccoh    1     1      2       500     100      5      335.64    0.67129    0.28688    0.42735      0     0.9488
 
 xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
-              c1         c2         c3          c4           c5   
-            _______    _______    _______    _________    ________
+              c1         c2          c3         c4         c5   
+            _______    _______    ________    _______    _______
 
-    r1            0          0     0.0017    0.0090168    0.028344
-    r2            0          0     0.0017    0.0090168    0.028344
-    r3            0          0     0.0017    0.0090168    0.028344
-    r4            0          0     0.0017    0.0090168    0.028344
-    r5            0          0     0.0017    0.0090168    0.028344
-    r96     0.82398    0.82151    0.81714      0.83477     0.84176
-    r97     0.85055      0.848    0.84349      0.86141     0.86834
-    r98      0.8777    0.87507    0.87041      0.88861     0.89548
-    r99     0.90541     0.9027     0.8979      0.91637     0.89548
-    r100    0.93371    0.93091    0.92595      0.94471     0.92317
+    r1            0          0    0.078907    0.28472    0.52731
+    r2            0          0    0.078904    0.28471     0.5273
+    r3            0          0    0.078878    0.28465    0.52723
+    r4            0          0    0.078808    0.28448    0.52705
+    r5            0          0    0.078672    0.28415    0.52669
+    r96     0.93086    0.92771     0.92215    0.94079    0.94593
+    r97     0.93161    0.92855     0.92315    0.94183    0.94739
+    r98     0.93233    0.92936     0.92411    0.94283     0.9488
+    r99     0.93303    0.93015     0.92505    0.94379    0.92164
+    r100    0.93371    0.93091     0.92595    0.94471    0.92317
 \end{verbatim}
 
 \includegraphics[width=5.20833in,height=\textheight]{img/fx_vfi_az_loop_images/figure_4.png}
@@ -537,33 +620,33 @@ Lower standard deviation of shock:
 
 \begin{verbatim}
 % Lower Risk Aversion
-mp_params('fl_shk_std') = 0.05;
+mp_params('fl_shk_std') = 0.10;
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.933647 seconds.
+Elapsed time is 0.957457 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                   i    idx    ndim    numel    rowN    colN     sum      mean        std      coefvari    min      max  
-                   _    ___    ____    _____    ____    ____    _____    _______    _______    ________    ___    _______
+                   i    idx    ndim    numel    rowN    colN     sum      mean       std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    _____    ______    _______    ________    ___    _______
 
-    savefraccoh    1     1      2       500     100      5      112.7    0.22539    0.26207     1.1627      0     0.92344
+    savefraccoh    1     1      2       500     100      5      294.1    0.5882    0.32083    0.54544      0     0.92392
 
 xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
-              c1         c2         c3         c4           c5    
-            _______    _______    _______    _______    __________
+              c1         c2         c3          c4         c5   
+            _______    _______    _______    ________    _______
 
-    r1            0          0          0          0    0.00049994
-    r2            0          0          0          0    0.00049994
-    r3            0          0          0          0    0.00049994
-    r4            0          0          0          0    0.00049994
-    r5            0          0          0          0    0.00049994
-    r96     0.79191    0.79066    0.81492    0.81313       0.81102
-    r97     0.81774    0.81644     0.8412    0.83936       0.83718
-    r98     0.84411    0.84277    0.86805    0.86615       0.86389
-    r99     0.87105    0.86967    0.89546     0.8935       0.89117
-    r100    0.89855    0.89713    0.92344    0.92142       0.91902
+    r1            0          0          0    0.034556    0.11424
+    r2            0          0          0    0.034555    0.11424
+    r3            0          0          0    0.034546    0.11422
+    r4            0          0          0    0.034523    0.11416
+    r5            0          0          0    0.034478    0.11404
+    r96     0.89673    0.89421    0.91986     0.91499    0.90808
+    r97     0.89789    0.89545    0.92093      0.9162    0.90948
+    r98     0.89903    0.89665    0.92196     0.91737    0.91084
+    r99     0.90013    0.89782    0.92295      0.9185    0.91215
+    r100    0.90119    0.89896    0.92392     0.91959    0.91342
 \end{verbatim}
 
 Higher shock standard deviation: low shock high asset save more, high
@@ -571,37 +654,37 @@ shock more asset save less, high shock low asset save more:
 
 \begin{verbatim}
 % Higher Risk Aversion
-mp_params('fl_shk_std') = 0.25;
+mp_params('fl_shk_std') = 0.40;
 ff_vfi_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.894904 seconds.
+Elapsed time is 0.923630 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                   i    idx    ndim    numel    rowN    colN     sum      mean        std      coefvari    min      max  
-                   _    ___    ____    _____    ____    ____    _____    _______    _______    ________    ___    _______
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
 
-    savefraccoh    1     1      2       500     100      5      115.6    0.23119    0.25857     1.1184      0     0.91536
+    savefraccoh    1     1      2       500     100      5      350.37    0.70073    0.26741    0.38162      0     0.93257
 
 xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
-              c1         c2           c3           c4           c5   
-            _______    _______    __________    _________    ________
+              c1         c2          c3         c4         c5   
+            _______    _______    ________    _______    _______
 
-    r1            0          0    0.00021288    0.0066707    0.033639
-    r2            0          0    0.00021288    0.0066707    0.033639
-    r3            0          0    0.00021288    0.0066707    0.033639
-    r4            0          0    0.00021288    0.0066707    0.033639
-    r5            0          0    0.00021288    0.0066707    0.033639
-    r96     0.79959    0.79731       0.79275      0.80778     0.80256
-    r97     0.82566    0.82331        0.8186      0.83384     0.82817
-    r98     0.85229    0.84986       0.84501      0.86045     0.85432
-    r99     0.87949    0.87699       0.87197      0.88762     0.88101
-    r100    0.90726    0.90468       0.89951      0.91536     0.90826
+    r1            0          0    0.030722    0.36969    0.77072
+    r2            0          0     0.03072    0.36967    0.77071
+    r3            0          0      0.0307    0.36958    0.77068
+    r4            0          0    0.030646    0.36933     0.7706
+    r5            0          0    0.030543    0.36885    0.77044
+    r96     0.90975    0.90819      0.9038    0.91513    0.88687
+    r97     0.91053    0.90902     0.90476    0.91633    0.89076
+    r98     0.91129    0.90982     0.90569     0.9175    0.86794
+    r99     0.91204    0.91061      0.9066    0.91862    0.84583
+    r100    0.91276    0.91138     0.90748    0.91971    0.82439
 \end{verbatim}
 
-\hypertarget{ff_vfi_az_vec-dynamic-programming-asset-problem-with-shocks-vectorized}{%
-\section{FF\_VFI\_AZ\_VEC Dynamic Programming Asset Problem with Shocks Vectorized}\label{ff_vfi_az_vec-dynamic-programming-asset-problem-with-shocks-vectorized}}
+\hypertarget{ff_vfi_az_vec-dynamic-savings-problem-vectorized-common-grid}{%
+\section{FF\_VFI\_AZ\_VEC Dynamic Savings Problem Vectorized Common Grid}\label{ff_vfi_az_vec-dynamic-savings-problem-vectorized-common-grid}}
 
 \begin{quote}
 Go back to \href{http://fanwangecon.github.io/}{fan}'s \href{https://fanwangecon.github.io/MEconTools/}{MEconTools} Toolbox (\href{https://fanwangecon.github.io/MEconTools/bookdown}{bookdown}), \href{https://fanwangecon.github.io/M4Econ/}{Matlab Code Examples} Repository (\href{https://fanwangecon.github.io/M4Econ/bookdown}{bookdown}), or \href{https://fanwangecon.github.io/Math4Econ/}{Math for Econ with Matlab} Repository (\href{https://fanwangecon.github.io/Math4Econ/bookdown}{bookdown}).
@@ -611,10 +694,45 @@ This is the example vignette for function:
 \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_vec.m}{\textbf{ff\_vfi\_az\_vec}}
 from the \href{https://fanwangecon.github.io/MEconTools/}{\textbf{MEconTools
 Package}}\textbf{.} This function
-solves (vectorized) the dynamica programming problem for a (a,z) model.
+solves (vectorized) the dynamic programming problem for a (a,z) model.
 Households can save a, and face AR(1) shock z. The problem is solved
-over the infinite horizon. This is the vectorized code, its speed is
-much faster than the looped code.
+over the infinite horizon.
+
+The code uses common grid, with the same state space and choice space
+grids.
+\href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_vec.m}{\textbf{ff\_vfi\_az\_bisec\_vec}}
+from the \href{https://fanwangecon.github.io/MEconTools/}{\textbf{MEconTools
+Package}} solves the same
+problem but using continuous exact percentage asset choices, which is
+more precise than the solution here, and perhaps a little bit slower.
+
+This is the vectorized code, its speed is much faster than the looped
+code. The function is designed to have small memory footprint and
+requires low computing resources, yet is fast.
+
+\textbf{Links to Four Code:}
+
+Four Core Savings/Borrowing Dynamic Programming Solution Functions that
+are functions in the \href{https://fanwangecon.github.io/MEconTools/}{\textbf{MEconTools
+Package}}\textbf{.} :
+
+\begin{itemize}
+\item
+  Common Choice and States Grid :
+  \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_loop.m}{\textbf{ff\_vfi\_az\_loop}},
+  slow should use for testing new models
+\item
+  Common Choice and States Grid :
+  \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_vec.m}{\textbf{ff\_vfi\_az\_vec}},
+  fast good for many purposes
+\item
+  States Grid + Continuous Exact Savings as Share of Cash-on-Hand :\href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_loop.m}{\textbf{ff\_vfi\_az\_bisec\_loop}},
+  high precision even with small grid
+\item
+  States Grid + Continuous Exact Savings as Share of Cash-on-Hand :
+  \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_vec.m}{\textbf{ff\_vfi\_az\_bisec\_vec}},
+  precision and speed
+\end{itemize}
 
 \hypertarget{test-ff_vfi_az_vec-defaults}{%
 \subsection{Test FF\_VFI\_AZ\_VEC Defaults}\label{test-ff_vfi_az_vec-defaults}}
@@ -629,30 +747,74 @@ mp_params('fl_crra') = 1.5;
 mp_params('fl_beta') = 0.94;
 ff_vfi_az_vec(mp_params);
 
-Elapsed time is 0.380397 seconds.
+Elapsed time is 0.128918 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-          i    idx    ndim    numel    rowN    colN     sum      mean      std      coefvari    min    max
-          _    ___    ____    _____    ____    ____    _____    ______    ______    ________    ___    ___
+          i    idx    ndim    numel    rowN    colN     sum      mean      std     coefvari    min    max
+          _    ___    ____    _____    ____    ____    _____    ______    _____    ________    ___    ___
 
-    ap    1     1      2      2100     300      7      50584    24.088    13.973    0.58008      0     50 
+    ap    1     1      2       700     100      7      16864    24.091    14.08    0.58446      0     50 
 
 xxx TABLE:ap xxxxxxxxxxxxxxxxxx
               c1         c2         c3         c4         c5         c6         c7  
             _______    _______    _______    _______    _______    _______    ______
 
-    r1            0          0          0          0    0.16722     0.6689    2.0067
-    r2            0          0          0    0.16722    0.33445    0.83612    2.1739
-    r3      0.16722    0.16722    0.16722    0.16722    0.50167     1.0033    2.3411
-    r4      0.33445    0.33445    0.33445    0.33445     0.6689     1.1706    2.5084
-    r5      0.33445    0.33445    0.50167    0.50167    0.83612     1.3378    2.5084
-    r296     46.823      46.99      46.99     47.157     47.492     48.161    49.498
-    r297      46.99     47.157     47.157     47.324     47.659     48.328    49.666
-    r298     47.157     47.324     47.324     47.492     47.826     48.495    49.833
-    r299     47.324     47.492     47.492     47.659     47.993     48.662        50
-    r300     47.492     47.659     47.659     47.826     48.161     48.829        50
+    r1            0          0          0          0          0    0.50505    2.0202
+    r2            0          0          0    0.50505    0.50505     1.0101    2.5253
+    r3      0.50505    0.50505    0.50505    0.50505     1.0101     1.5152    3.0303
+    r4       1.0101     1.0101     1.0101     1.0101     1.5152     2.0202    3.5354
+    r5       1.5152     1.5152     1.5152     1.5152     2.0202     2.5253    4.0404
+    r96      45.455     45.455      45.96      45.96      45.96      46.97    48.485
+    r97       45.96      45.96      45.96     46.465     46.465     47.475     48.99
+    r98      46.465     46.465     46.465      46.97      46.97      47.98     48.99
+    r99       46.97      46.97      46.97     47.475     47.475     48.485    49.495
+    r100     47.475     47.475     47.475      47.98      47.98      48.99        50
+\end{verbatim}
+
+\hypertarget{test-ff_vfi_az_bisec_vec-speed-tests}{%
+\subsection{Test FF\_VFI\_AZ\_BISEC\_VEC Speed Tests}\label{test-ff_vfi_az_bisec_vec-speed-tests}}
+
+Call the function with different a and z grid size, print out speed:
+
+\begin{verbatim}
+mp_support = containers.Map('KeyType','char', 'ValueType','any');
+mp_support('bl_timer') = true;
+mp_support('ls_ffcmd') = {};
+\end{verbatim}
+
+A grid 200, shock grid 9:
+
+\begin{verbatim}
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 200;
+mp_params('it_z_n') = 9;
+ff_vfi_az_vec(mp_params, mp_support);
+
+Elapsed time is 0.220867 seconds.
+\end{verbatim}
+
+A grid 750, shock grid 15:
+
+\begin{verbatim}
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 750;
+mp_params('it_z_n') = 15;
+ff_vfi_az_vec(mp_params, mp_support);
+
+Elapsed time is 3.573648 seconds.
+\end{verbatim}
+
+A grid 600, shock grid 45:
+
+\begin{verbatim}
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 600;
+mp_params('it_z_n') = 45;
+ff_vfi_az_vec(mp_params, mp_support);
+
+Elapsed time is 8.398580 seconds.
 \end{verbatim}
 
 \hypertarget{test-ff_vfi_az_vec-control-outputs}{%
@@ -682,66 +844,66 @@ mp_support('bl_print_iterinfo') = false;
 % ls_ffcmd: summary print which outcomes
 mp_support('ls_ffcmd') = {};
 % ls_ffsna: detail print which outcomes
-mp_support('ls_ffsna') = {'ap'};
+mp_support('ls_ffsna') = {'savefraccoh'};
 % ls_ffgrh: graphical print which outcomes
-mp_support('ls_ffgrh') = {'ap'};
+mp_support('ls_ffgrh') = {'savefraccoh'};
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 0.016286 seconds.
-xxx  ff_vfi_az_vec, outcome=ap  xxxxxxxxxxxxxxxxxxxxxxxxxxx
+Elapsed time is 0.014484 seconds.
+xxx  ff_vfi_az_vec, outcome=savefraccoh  xxxxxxxxxxxxxxxxxxxxxxxxxxx
     group      a       mean_z_0_54195    mean_z_0_66401    mean_z_0_88162    mean_z_1_3095    mean_z_2_2745
     _____    ______    ______________    ______________    ______________    _____________    _____________
 
-      1           0             0                 0                 0                0           1.0204    
-      2      1.0204             0                 0            1.0204           1.0204           2.0408    
-      3      2.0408        1.0204            1.0204            2.0408           2.0408           3.0612    
-      4      3.0612        2.0408            2.0408            2.0408           3.0612           4.0816    
-      5      4.0816        3.0612            3.0612            3.0612           4.0816            5.102    
-      6       5.102        4.0816            4.0816            4.0816            5.102           6.1224    
-      7      6.1224         5.102             5.102             5.102           6.1224           7.1429    
-      8      7.1429        6.1224            6.1224            6.1224           7.1429           8.1633    
-      9      8.1633        7.1429            7.1429            7.1429           8.1633           9.1837    
-     10      9.1837        8.1633            8.1633            8.1633           9.1837           10.204    
-     11      10.204        9.1837            9.1837            9.1837           10.204           11.224    
-     12      11.224        10.204            10.204            10.204           11.224           12.245    
-     13      12.245        11.224            11.224            11.224           12.245           13.265    
-     14      13.265        12.245            12.245            12.245           12.245           14.286    
-     15      14.286        13.265            13.265            13.265           13.265           15.306    
-     16      15.306        14.286            14.286            14.286           14.286           15.306    
-     17      16.327        15.306            15.306            15.306           15.306           16.327    
-     18      17.347        16.327            16.327            16.327           16.327           17.347    
-     19      18.367        17.347            17.347            17.347           17.347           18.367    
-     20      19.388        18.367            18.367            18.367           18.367           19.388    
-     21      20.408        19.388            19.388            19.388           19.388           20.408    
-     22      21.429        19.388            20.408            20.408           20.408           21.429    
-     23      22.449        20.408            21.429            21.429           21.429           22.449    
-     24      23.469        21.429            22.449            22.449           22.449           23.469    
-     25       24.49        22.449            22.449            23.469           23.469            24.49    
-     26       25.51        23.469            23.469             24.49            24.49            25.51    
-     27      26.531         24.49             24.49             25.51            25.51           26.531    
-     28      27.551         25.51             25.51            26.531           26.531           27.551    
-     29      28.571        26.531            26.531            27.551           27.551           28.571    
-     30      29.592        27.551            27.551            28.571           28.571           29.592    
-     31      30.612        28.571            28.571            28.571           29.592           30.612    
-     32      31.633        29.592            29.592            29.592           30.612           31.633    
-     33      32.653        30.612            30.612            30.612           31.633           32.653    
-     34      33.673        31.633            31.633            31.633           32.653           33.673    
-     35      34.694        32.653            32.653            32.653           33.673           34.694    
-     36      35.714        33.673            33.673            33.673           34.694           35.714    
-     37      36.735        34.694            34.694            34.694           35.714           36.735    
-     38      37.755        35.714            35.714            35.714           36.735           37.755    
-     39      38.776        36.735            36.735            36.735           37.755           38.776    
-     40      39.796        37.755            37.755            37.755           38.776           39.796    
-     41      40.816        38.776            38.776            38.776           39.796           40.816    
-     42      41.837        39.796            39.796            39.796           40.816           41.837    
-     43      42.857        40.816            40.816            40.816           41.837           42.857    
-     44      43.878        41.837            41.837            41.837           41.837           42.857    
-     45      44.898        42.857            42.857            42.857           42.857           43.878    
-     46      45.918        43.878            43.878            43.878           43.878           44.898    
-     47      46.939        44.898            44.898            44.898           44.898           45.918    
-     48      47.959        45.918            45.918            45.918           45.918           46.939    
-     49       48.98        46.939            46.939            46.939           46.939           47.959    
-     50          50        47.959            47.959            47.959           47.959            48.98    
+      1           0             0                 0                 0                 0           0.3505   
+      2      1.0204             0                 0           0.46928           0.37487          0.51572   
+      3      2.0408       0.36632           0.34687           0.63373           0.54163          0.61186   
+      4      3.0612       0.53265           0.51178           0.47837           0.63592          0.67476   
+      5      4.0816       0.62764           0.60816           0.57627           0.69655          0.71911   
+      6       5.102       0.68908           0.67137           0.64196           0.73882          0.75206   
+      7      6.1224       0.73208           0.71603           0.68909           0.76996          0.77751   
+      8      7.1429       0.76386           0.74926           0.72456           0.79387          0.79776   
+      9      8.1633        0.7883           0.77494           0.75221           0.81279          0.81425   
+     10      9.1837       0.80769           0.79539           0.77438           0.82815          0.82795   
+     11      10.204       0.82343           0.81206           0.79254           0.84086           0.8395   
+     12      11.224       0.83648           0.82591            0.8077           0.85155          0.84937   
+     13      12.245       0.84747           0.83759           0.82053           0.86067          0.85791   
+     14      13.265       0.85685           0.84758           0.83155           0.80173          0.86537   
+     15      14.286       0.86495           0.85622            0.8411           0.81288          0.87194   
+     16      15.306       0.87201           0.86377           0.84947           0.82268          0.82291   
+     17      16.327       0.87823           0.87043           0.85685           0.83137          0.83104   
+     18      17.347       0.88374           0.87633           0.86342           0.83912          0.83834   
+     19      18.367       0.88866           0.88161            0.8693           0.84608          0.84495   
+     20      19.388       0.89309           0.88635            0.8746           0.85237          0.85095   
+     21      20.408       0.89708           0.89064           0.87939           0.85807          0.85642   
+     22      21.429       0.85567           0.89454           0.88375           0.86327          0.86143   
+     23      22.449       0.86096           0.89809           0.88773           0.86803          0.86604   
+     24      23.469       0.86581           0.90135           0.89138           0.87241          0.87029   
+     25       24.49       0.87026           0.86502           0.89474           0.87644          0.87422   
+     26       25.51       0.87436            0.8693           0.89784           0.88017          0.87787   
+     27      26.531       0.87816           0.87327           0.90071           0.88362          0.88126   
+     28      27.551       0.88168           0.87695           0.90338           0.88684          0.88443   
+     29      28.571       0.88496           0.88037           0.90586           0.88984          0.88739   
+     30      29.592       0.88802           0.88357           0.90818           0.89264          0.89017   
+     31      30.612       0.89087           0.88655           0.87896           0.89527          0.89278   
+     32      31.633       0.89355           0.88935           0.88197           0.89773          0.89523   
+     33      32.653       0.89606           0.89198            0.8848           0.90005          0.89754   
+     34      33.673       0.89843           0.89446           0.88747           0.90223          0.89972   
+     35      34.694       0.90065           0.89679           0.88998           0.90429          0.90178   
+     36      35.714       0.90275           0.89899           0.89235           0.90624          0.90374   
+     37      36.735       0.90474           0.90107            0.8946           0.90809          0.90559   
+     38      37.755       0.90662           0.90304           0.89673           0.90984          0.90735   
+     39      38.776       0.90841           0.90491           0.89874            0.9115          0.90902   
+     40      39.796        0.9101           0.90669           0.90066           0.91308          0.91062   
+     41      40.816       0.91171           0.90838           0.90249           0.91458          0.91214   
+     42      41.837       0.91325           0.90998           0.90422           0.91601          0.91359   
+     43      42.857       0.91471           0.91152           0.90588           0.91738          0.91497   
+     44      43.878        0.9161           0.91298           0.90746           0.89681          0.89499   
+     45      44.898       0.91743           0.91438           0.90897           0.89854          0.89671   
+     46      45.918       0.91871           0.91571           0.91042           0.90019          0.89836   
+     47      46.939       0.91993           0.91699           0.91181           0.90178          0.89994   
+     48      47.959        0.9211           0.91822           0.91313            0.9033          0.90146   
+     49       48.98       0.92222           0.91939           0.91441           0.90475          0.90292   
+     50          50       0.92329           0.92052           0.91563           0.90615          0.90433   
 \end{verbatim}
 
 \includegraphics[width=5.20833in,height=\textheight]{img/fx_vfi_az_vec_images/figure_0.png}
@@ -760,7 +922,7 @@ mp_support('ls_ffgrh') = {};
 mp_support('bl_vfi_store_all') = true; % store c(a,z), y(a,z)
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 0.120582 seconds.
+Elapsed time is 0.127807 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -827,10 +989,10 @@ factor:
 \begin{verbatim}
 % Lower Savings Incentives
 mp_params('fl_beta') = 0.80;
-mp_params('fl_r') = 0;
+mp_params('fl_r') = 0.01;
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 0.745276 seconds.
+Elapsed time is 0.771613 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -838,29 +1000,29 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                    i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
                    _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
 
-    savefraccoh    1     1      2      6750     750      9      3291.4    0.48762    0.27804    0.57021      0     0.80538
+    savefraccoh    1     1      2      6750     750      9      3318.8    0.49167    0.27768    0.56477      0     0.80542
 
 xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
-              c1         c2         c3         c4         c5         c6         c7         c8         c9   
-            _______    _______    _______    _______    _______    _______    _______    _______    _______
+              c1         c2         c3         c4         c5         c6          c7         c8         c9   
+            _______    _______    _______    _______    _______    _______    ________    _______    _______
 
-    r1            0          0          0          0          0          0    0.01987    0.12517    0.29012
-    r2            0          0          0          0          0          0    0.01987    0.12517    0.29012
-    r3            0          0          0          0          0          0    0.01987    0.12517    0.29012
-    r4            0          0          0          0          0          0    0.01987    0.12517    0.29012
-    r5            0          0          0          0          0          0    0.01987    0.12517    0.29012
-    r746    0.80538    0.80084    0.79932     0.7971    0.79372    0.79177    0.78608    0.77969    0.77353
-    r747    0.80218    0.80112     0.7996    0.79739    0.79402    0.79208    0.78643    0.78008      0.774
-    r748    0.80245    0.80139    0.79988    0.79767    0.79432     0.7924    0.78677    0.78046    0.77447
-    r749    0.80272    0.80167    0.80016    0.79796    0.79462    0.79271    0.78711    0.78085    0.77493
-    r750    0.80299    0.80194    0.80044    0.79825    0.79492    0.79303    0.78745    0.78124     0.7754
+    r1            0          0          0          0          0          0    0.023475    0.13289    0.29755
+    r2            0          0          0          0          0          0    0.023475    0.13289    0.29755
+    r3            0          0          0          0          0          0    0.023475    0.13289    0.29755
+    r4            0          0          0          0          0          0    0.023475    0.13289    0.29755
+    r5            0          0          0          0          0          0    0.023475    0.13289    0.29755
+    r746     0.8044    0.80333    0.80182    0.79961    0.79626    0.79093      0.7887     0.7824    0.77641
+    r747    0.80465    0.80359    0.80209    0.79989    0.79655    0.79124     0.78903    0.78277    0.77686
+    r748    0.80491    0.80385    0.80235    0.80016    0.79683    0.79154     0.78936    0.78315    0.77731
+    r749    0.80517    0.80411    0.80262    0.80043    0.79712    0.79185     0.78969    0.78352    0.77776
+    r750    0.80542    0.80437    0.80288    0.80071     0.7974    0.79215     0.79002    0.78389    0.77821
 
 % Higher Savings Incentives
 mp_params('fl_beta') = 0.95;
 mp_params('fl_r') = 0.04;
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 2.419509 seconds.
+Elapsed time is 2.484993 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -914,7 +1076,7 @@ for risk:
 mp_params('fl_crra') = 0.5;
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 1.950318 seconds.
+Elapsed time is 1.991475 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -952,7 +1114,7 @@ wants to save more.
 mp_params('fl_crra') = 5;
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 2.480325 seconds.
+Elapsed time is 2.026442 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -1005,33 +1167,33 @@ Lower standard deviation of shock:
 
 \begin{verbatim}
 % Lower Risk Aversion
-mp_params('fl_shk_std') = 0.05;
+mp_params('fl_shk_std') = 0.10;
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 1.980327 seconds.
+Elapsed time is 2.065989 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
-                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
+                   i    idx    ndim    numel    rowN    colN    sum      mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ____    _______    _______    ________    ___    _______
 
-    savefraccoh    1     1      2      6750     750      9      3935.8    0.58309    0.32813    0.56274      0     0.91299
+    savefraccoh    1     1      2      6750     750      9      4026    0.59644    0.31533    0.52869      0     0.91423
 
 xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
-              c1         c2         c3         c4         c5         c6          c7           c8          c9   
-            _______    _______    _______    _______    _______    _______    _________    ________    ________
+              c1         c2         c3         c4         c5          c6          c7         c8         c9   
+            _______    _______    _______    _______    _______    ________    ________    _______    _______
 
-    r1            0          0          0          0          0          0    0.0035419    0.022183    0.050593
-    r2            0          0          0          0          0          0    0.0035419    0.022183    0.050593
-    r3            0          0          0          0          0          0    0.0035419    0.022183    0.050593
-    r4            0          0          0          0          0          0    0.0035419    0.022182    0.050593
-    r5            0          0          0          0          0          0    0.0035419    0.022182    0.050593
-    r746    0.91062    0.90972    0.91245    0.91134    0.91009    0.91241      0.91083     0.90905     0.91074
-    r747    0.91075    0.90986    0.91259    0.91148    0.91024    0.91256      0.91099     0.90921      0.9109
-    r748    0.91088       0.91    0.91272    0.91162    0.91038     0.9127      0.91114     0.90937     0.91106
-    r749    0.91102    0.91013    0.91286    0.91176    0.91053    0.91285      0.91129     0.90952     0.91122
-    r750    0.91115    0.91027    0.91299     0.9119    0.91067    0.90929      0.91144     0.90968     0.91138
+    r1            0          0          0          0          0    0.012569    0.062884    0.13754    0.22274
+    r2            0          0          0          0          0    0.012569    0.062884    0.13754    0.22274
+    r3            0          0          0          0          0    0.012569    0.062884    0.13754    0.22274
+    r4            0          0          0          0          0    0.012569    0.062884    0.13754    0.22274
+    r5            0          0          0          0          0    0.012569    0.062884    0.13754    0.22274
+    r746    0.91375    0.91251    0.91101    0.91289    0.91057     0.91138     0.91136    0.91021     0.9075
+    r747    0.91387    0.91264    0.91114    0.91302    0.91072     0.91153     0.91152    0.91039    0.90769
+    r748    0.91399    0.91277    0.91127    0.91315    0.91086     0.91168     0.91168    0.91056    0.90788
+    r749    0.91411    0.91289     0.9114    0.91329      0.911     0.91183     0.91183    0.91073    0.90807
+    r750    0.91423    0.91302    0.91153    0.91342    0.91114     0.91197     0.91199     0.9109    0.90826
 \end{verbatim}
 
 Higher shock standard deviation: low shock high asset save more, high
@@ -1039,10 +1201,266 @@ shock more asset save less, high shock low asset save more:
 
 \begin{verbatim}
 % Higher Risk Aversion
-mp_params('fl_shk_std') = 0.25;
+mp_params('fl_shk_std') = 0.40;
 ff_vfi_az_vec(mp_params, mp_support);
 
-Elapsed time is 1.941686 seconds.
+Elapsed time is 2.184888 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min     max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    ______
+
+    savefraccoh    1     1      2      6750     750      9      4687.4    0.69442    0.27109    0.39038      0     0.9339
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4          c5         c6         c7         c8         c9   
+            _______    _______    _______    _______    ________    _______    _______    _______    _______
+
+    r1            0          0          0          0    0.030619    0.24561    0.55369    0.80189    0.46265
+    r2            0          0          0          0    0.030619    0.24561    0.55369    0.80189    0.46265
+    r3            0          0          0          0    0.030619     0.2456    0.55369    0.80189    0.46265
+    r4            0          0          0          0    0.030619     0.2456    0.55369    0.80189    0.46265
+    r5            0          0          0          0    0.030618     0.2456    0.55369    0.80189    0.46265
+    r746    0.93365    0.93335     0.9328    0.93173     0.92941    0.92713    0.92079     0.8402    0.31544
+    r747    0.93371    0.93341    0.93286     0.9318     0.92949    0.92723    0.92095    0.83734    0.31504
+    r748    0.93378    0.93348    0.93293    0.93187     0.92957    0.92733    0.92111    0.83449    0.31463
+    r749    0.93384    0.93354      0.933    0.93194     0.92965    0.92743    0.92127    0.83166    0.31423
+    r750     0.9339     0.9336    0.93306    0.93201     0.92973    0.92753    0.92143    0.82883    0.31383
+\end{verbatim}
+
+\hypertarget{ff_vfi_az_bisec_loop-dynamic-savings-problem-loop-continuous-choice}{%
+\section{FF\_VFI\_AZ\_BISEC\_LOOP Dynamic Savings Problem Loop Continuous Choice}\label{ff_vfi_az_bisec_loop-dynamic-savings-problem-loop-continuous-choice}}
+
+\begin{quote}
+Go back to \href{http://fanwangecon.github.io/}{fan}'s \href{https://fanwangecon.github.io/MEconTools/}{MEconTools} Toolbox (\href{https://fanwangecon.github.io/MEconTools/bookdown}{bookdown}), \href{https://fanwangecon.github.io/M4Econ/}{Matlab Code Examples} Repository (\href{https://fanwangecon.github.io/M4Econ/bookdown}{bookdown}), or \href{https://fanwangecon.github.io/Math4Econ/}{Math for Econ with Matlab} Repository (\href{https://fanwangecon.github.io/Math4Econ/bookdown}{bookdown}).
+\end{quote}
+
+This is the example vignette for function:\href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_loop.m}{\textbf{ff\_vfi\_az\_bisec\_loop}}from
+the \href{https://fanwangecon.github.io/MEconTools/}{\textbf{MEconTools
+Package}}\textbf{.} This function
+solves the dynamic programming problem for a (a,z) model. Households can
+save a, and face AR(1) shock z. The problem is solved over the infinite
+horizon. This is the looped code, it is slow for larger state-space
+problems. The code uses continuous choices, solved with bisection. The
+state-space is on a grid, but choice grids are in terms of percentage of
+resources to save and solved exactly.
+
+\textbf{Links to Four Code:}
+
+Four Core Savings/Borrowing Dynamic Programming Solution Functions that
+are functions in the \href{https://fanwangecon.github.io/MEconTools/}{\textbf{MEconTools
+Package}}\textbf{.} :
+
+\begin{itemize}
+\item
+  Common Choice and States Grid :
+  \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_loop.m}{\textbf{ff\_vfi\_az\_loop}},
+  slow should use for testing new models
+\item
+  Common Choice and States Grid :
+  \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_vec.m}{\textbf{ff\_vfi\_az\_vec}},
+  fast good for many purposes
+\item
+  States Grid + Continuous Exact Savings as Share of Cash-on-Hand :\href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_loop.m}{\textbf{ff\_vfi\_az\_bisec\_loop}},
+  high precision even with small grid
+\item
+  States Grid + Continuous Exact Savings as Share of Cash-on-Hand :
+  \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_vec.m}{\textbf{ff\_vfi\_az\_bisec\_vec}},
+  precision and speed
+\end{itemize}
+
+\hypertarget{test-ff_vfi_az_bisec_loop-defaults}{%
+\subsection{Test FF\_VFI\_AZ\_BISEC\_LOOP Defaults}\label{test-ff_vfi_az_bisec_loop-defaults}}
+
+Call the function with defaults. By default, shows the asset policy
+function summary. Model parameters can be changed by the mp\_params.
+
+\begin{verbatim}
+%mp_params
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('fl_crra') = 1.5;
+mp_params('fl_beta') = 0.94;
+% call function
+ff_vfi_az_bisec_loop(mp_params);
+
+Elapsed time is 13.575906 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+          i    idx    ndim    numel    rowN    colN     sum      mean      std      coefvari    min     max  
+          _    ___    ____    _____    ____    ____    _____    ______    ______    ________    ___    ______
+
+    ap    1     1      2       700     100      7      15835    22.621    13.367    0.59091      0     47.273
+
+xxx TABLE:ap xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4         c5         c6         c7  
+            _______    _______    _______    _______    _______    _______    ______
+
+    r1            0          0          0          0          0    0.38021    1.4609
+    r2      0.19477    0.18872    0.19731    0.24709    0.41492    0.79311    1.8893
+    r3      0.54595    0.54109    0.55664    0.62239    0.81173     1.2132    2.3195
+    r4       1.0101     1.0101     1.0101     1.0189     1.2217     1.6363    2.7464
+    r5       1.4388     1.4362      1.459     1.5151     1.6354     2.0602    3.1804
+    r96      43.225     43.246       43.3     43.422     43.632     44.155    45.413
+    r97       43.69      43.71     43.765     43.887     44.096     44.618    45.879
+    r98      44.154     44.174     44.228     44.352     44.559     45.083    46.344
+    r99      44.618     44.638     44.693     44.815     45.024     45.548    46.809
+    r100      45.08     45.101     45.156      45.28     45.487     46.012    47.273
+\end{verbatim}
+
+\hypertarget{test-ff_vfi_az_bisec_loop-speed-tests}{%
+\subsection{Test FF\_VFI\_AZ\_BISEC\_LOOP Speed Tests}\label{test-ff_vfi_az_bisec_loop-speed-tests}}
+
+Call the function with different a and z grid size, print out speed:
+
+\begin{verbatim}
+mp_support = containers.Map('KeyType','char', 'ValueType','any');
+mp_support('bl_timer') = true;
+mp_support('ls_ffcmd') = {};
+\end{verbatim}
+
+A grid 50, shock grid 5:
+
+\begin{verbatim}
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 50;
+mp_params('it_z_n') = 5;
+ff_vfi_az_bisec_loop(mp_params, mp_support);
+
+Elapsed time is 4.733351 seconds.
+\end{verbatim}
+
+A grid 100, shock grid 7:
+
+\begin{verbatim}
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 100;
+mp_params('it_z_n') = 7;
+ff_vfi_az_bisec_loop(mp_params, mp_support);
+
+Elapsed time is 13.889250 seconds.
+\end{verbatim}
+
+A grid 200, shock grid 9:
+
+\begin{verbatim}
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 200;
+mp_params('it_z_n') = 9;
+ff_vfi_az_bisec_loop(mp_params, mp_support);
+
+Elapsed time is 38.195963 seconds.
+\end{verbatim}
+
+\hypertarget{test-ff_vfi_az_bisec_loop-control-outputs}{%
+\subsection{Test FF\_VFI\_AZ\_BISEC\_LOOP Control Outputs}\label{test-ff_vfi_az_bisec_loop-control-outputs}}
+
+Run the function first without any outputs;
+
+\begin{verbatim}
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 50;
+mp_params('it_z_n') = 5;
+mp_support = containers.Map('KeyType','char', 'ValueType','any');
+mp_support('bl_timer') = false;
+mp_support('bl_print_params') = false;
+mp_support('bl_print_iterinfo') = false;
+\end{verbatim}
+
+Run the function and show policy function for savings choice. For
+ls\_ffcmd, ls\_ffsna, ls\_ffgrh, can include these: `v', `ap', `c', `y',
+`coh', `savefraccoh'. These are value, aprime savings choice,
+consumption, income, cash on hand, and savings fraction as cash-on-hand.
+
+\begin{verbatim}
+mp_support = containers.Map('KeyType','char', 'ValueType','any');
+mp_support('bl_print_params') = false;
+mp_support('bl_print_iterinfo') = false;
+% ls_ffcmd: summary print which outcomes
+mp_support('ls_ffcmd') = {};
+% ls_ffsna: detail print which outcomes
+mp_support('ls_ffsna') = {'ap'};
+% ls_ffgrh: graphical print which outcomes
+mp_support('ls_ffgrh') = {'ap'};
+ff_vfi_az_bisec_loop(mp_params, mp_support);
+
+Elapsed time is 4.728102 seconds.
+xxx  ff_vfi_az_vec, outcome=ap  xxxxxxxxxxxxxxxxxxxxxxxxxxx
+    group      a       mean_z_0_54195    mean_z_0_66401    mean_z_0_88162    mean_z_1_3095    mean_z_2_2745
+    _____    ______    ______________    ______________    ______________    _____________    _____________
+
+      1           0             0                 0                 0                 0          0.70914   
+      2      1.0204       0.58666            0.5889           0.64782           0.89696           1.5821   
+      3      2.0408        1.3824            1.3926            1.4723            1.7501           2.4674   
+      4      3.0612        2.2189            2.2357            2.3281            2.6228           3.3608   
+      5      4.0816        3.0774            3.0995            3.2007            3.5069           4.2595   
+      6       5.102        4.0815            4.0816            4.0833            4.3986           5.1595   
+      7      6.1224        4.9896            5.0184            5.1021            5.2928           6.1223   
+      8      7.1429        5.8564            5.8902            6.0116            6.1873           7.0951   
+      9      8.1633        6.7406            6.7749            6.8956            7.1428           7.9989   
+     10      9.1837        7.6346            7.6706            7.7922            8.1324           8.9028   
+     11      10.204        8.5353             8.572            8.6944            9.0301           9.8113   
+     12      11.224        9.4411            9.4787            9.6014            9.9343           10.726   
+     13      12.245         10.35            10.389            10.512            10.845           11.644   
+     14      13.265        11.263            11.302            11.427            11.761           12.565   
+     15      14.286        12.245            12.245            12.344             12.68           13.488   
+     16      15.306        13.224            13.264            13.265              13.6           14.413   
+     17      16.327        14.141            14.182            14.286            14.523           15.339   
+     18      17.347        15.052            15.097            15.228            15.446           16.327   
+     19      18.367        15.971            16.014            16.147             16.37           17.311   
+     20      19.388        16.889            16.933            17.065            17.347           18.233   
+     21      20.408        17.811            17.856            17.989             18.34           19.157   
+     22      21.429        18.735            18.779            18.912            19.265           20.083   
+     23      22.449         19.66            19.705            19.838            20.187            21.01   
+     24      23.469        20.586            20.632            20.765            21.113           21.938   
+     25       24.49        21.513            21.559            21.693            22.041           22.869   
+     26       25.51        22.449            22.488            22.622             22.97             23.8   
+     27      26.531        23.469             23.47            23.551              23.9           24.732   
+     28      27.551        24.418            24.464             24.49            24.831           25.665   
+     29      28.571        25.348            25.394             25.51            25.763           26.599   
+     30      29.592        26.276            26.325             26.46            26.696           27.551   
+     31      30.612        27.203            27.252            27.392            27.629           28.572   
+     32      31.633        28.135            28.182            28.321            28.571           29.514   
+     33      32.653        29.067            29.115            29.251            29.592           30.446   
+     34      33.673        29.998            30.047            30.185            30.542           31.379   
+     35      34.694        30.931            30.979            31.118            31.476           32.312   
+     36      35.714        31.866            31.913             32.05            32.407           33.246   
+     37      36.735        32.799            32.848            32.985             33.34           34.182   
+     38      37.755        33.733            33.782            33.921            34.276           35.118   
+     39      38.776        34.694            34.718            34.856            35.211           36.054   
+     40      39.796        35.714            35.714            35.792            36.145            36.99   
+     41      40.816        36.651              36.7            36.735            37.082           37.929   
+     42      41.837        37.587            37.636            37.755             38.02           38.865   
+     43      42.857        38.523            38.573            38.712            38.957           39.805   
+     44      43.878        39.457            39.508            39.648            39.894           40.816   
+     45      44.898        40.391            40.441            40.585            40.832           41.788   
+     46      45.918        41.328            41.379            41.519            41.836           42.727   
+     47      46.939        42.266            42.316            42.455            42.816           43.665   
+     48      47.959        43.204            43.254            43.393            43.754           44.601   
+     49       48.98         44.14            44.191            44.332            44.693           45.539   
+     50          50        45.077            45.128            45.269            45.631           46.478   
+\end{verbatim}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_vfi_az_bisec_loop_images/figure_0.png}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_vfi_az_bisec_loop_images/figure_1.png}
+
+Run the function and show summaries for savings and fraction of coh
+saved:
+
+\begin{verbatim}
+mp_params('it_a_n') = 100;
+mp_params('it_z_n') = 9;
+mp_support('ls_ffcmd') = {'ap', 'savefraccoh'};
+mp_support('ls_ffsna') = {};
+mp_support('ls_ffgrh') = {};
+mp_support('bl_vfi_store_all') = true; % store c(a,z), y(a,z)
+ff_vfi_az_bisec_loop(mp_params, mp_support);
+
+Elapsed time is 18.110812 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -1050,22 +1468,857 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                    i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
                    _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
 
-    savefraccoh    1     1      2      6750     750      9      4429.3    0.65619    0.28387    0.43261      0     0.91926
+    ap             1     1      2       900     100      9       20493      22.77     13.386     0.5879      0      48.391
+    savefraccoh    2     2      2       900     100      9      701.94    0.77994    0.13136    0.16842      0     0.86927
+
+xxx TABLE:ap xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4        c5         c6         c7         c8         c9  
+            _______    _______    _______    ______    _______    _______    _______    _______    ______
+
+    r1            0          0          0         0          0          0    0.20716    0.89208    2.4759
+    r2      0.19971    0.19144    0.18896    0.2007    0.24755    0.38215    0.61592     1.3126    2.9098
+    r3      0.55145    0.54262    0.54255    0.5618    0.62321    0.77699     1.0303     1.7326    3.3477
+    r4       1.0101     1.0101     1.0101    1.0101     1.0198     1.1844     1.5151     2.1613    3.7899
+    r5       1.4445      1.436     1.4393    1.4657     1.5152     1.5944     1.9615     2.5895    4.2337
+    r96      43.226     43.233     43.257    43.313     43.424     43.584     43.951     44.764    46.479
+    r97       43.69     43.697     43.722    43.776     43.888     44.048     44.444     45.227     46.97
+    r98      44.155     44.161     44.186    44.241     44.352     44.512     44.933     45.692    47.461
+    r99      44.619     44.626      44.65    44.707     44.817     44.976     45.398     46.156    47.927
+    r100     45.081     45.088     45.114    45.169      45.28     45.454     45.861     46.621    48.391
 
 xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
-              c1         c2         c3         c4          c5         c6         c7         c8         c9   
-            _______    _______    _______    _______    ________    _______    _______    _______    _______
+              c1         c2         c3         c4         c5         c6         c7         c8         c9   
+            _______    _______    _______    _______    _______    _______    _______    _______    _______
 
-    r1            0          0          0          0    0.011319    0.12886    0.32464    0.53487    0.72181
-    r2            0          0          0          0    0.011319    0.12886    0.32464    0.53487    0.72181
-    r3            0          0          0          0    0.011319    0.12886    0.32464    0.53487    0.72181
-    r4            0          0          0          0    0.011319    0.12886    0.32464    0.53487    0.72181
-    r5            0          0          0          0    0.011319    0.12886    0.32464    0.53487    0.72181
-    r746    0.91612    0.91885     0.9173    0.91484     0.91448    0.91454    0.91098    0.90731    0.83143
-    r747    0.91622    0.91896    0.91741    0.91496      0.9146    0.91469    0.91117    0.90394    0.82863
-    r748    0.91633    0.91906    0.91751    0.91507     0.91473    0.91483    0.91136    0.90422    0.82584
-    r749    0.91643    0.91916    0.91762    0.91519     0.91486    0.91498    0.91154    0.90449    0.82306
-    r750    0.91653    0.91926    0.91773    0.91531     0.91498    0.91512    0.91173    0.90115    0.82029
+    r1            0          0          0          0          0          0    0.10085    0.28368    0.45924
+    r2      0.17696    0.16018    0.14648     0.1404    0.15072    0.19253    0.23949    0.35842    0.49245
+    r3      0.33498    0.31679    0.30013    0.28853     0.2885    0.31047    0.33348    0.41451    0.52092
+    r4      0.46678    0.45284    0.43437    0.40981    0.38082    0.39214    0.42003    0.46007    0.54576
+    r5      0.53868    0.52254    0.50624    0.49144    0.47417    0.45067    0.47554    0.49651    0.56737
+    r96     0.86817    0.86713    0.86597    0.86469    0.86323    0.86054    0.85786    0.85551    0.85172
+    r97     0.86845    0.86744    0.86631      0.865    0.86356    0.86091     0.8588     0.8559    0.85264
+    r98     0.86875    0.86774    0.86662    0.86533     0.8639    0.86128    0.85966     0.8563    0.85352
+    r99     0.86903    0.86805    0.86692    0.86567    0.86424    0.86161    0.86002     0.8567    0.85395
+    r100    0.86927    0.86829     0.8672    0.86594    0.86454    0.86222    0.86036    0.85709    0.85435
+\end{verbatim}
+
+\hypertarget{test-ff_vfi_az_bisec_loop-change-interest-rate-and-discount}{%
+\subsection{Test FF\_VFI\_AZ\_BISEC\_LOOP Change Interest Rate and Discount}\label{test-ff_vfi_az_bisec_loop-change-interest-rate-and-discount}}
+
+Show only save fraction of cash on hand:
+
+\begin{verbatim}
+mp_support = containers.Map('KeyType','char', 'ValueType','any');
+mp_support('bl_print_params') = false;
+mp_support('bl_print_iterinfo') = false;
+mp_support('ls_ffcmd') = {'savefraccoh'};
+mp_support('ls_ffsna') = {};
+mp_support('ls_ffgrh') = {};
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 50;
+mp_params('it_z_n') = 5;
+mp_params('fl_a_max') = 50;
+mp_params('st_grid_type') = 'grid_powerspace';
+\end{verbatim}
+
+Solve the model with several different interest rates and discount
+factor:
+
+\begin{verbatim}
+% Lower Savings Incentives
+mp_params('fl_beta') = 0.80;
+mp_params('fl_r') = 0.01;
+ff_vfi_az_bisec_loop(mp_params, mp_support);
+
+Elapsed time is 1.421696 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
+
+    savefraccoh    1     1      2       250      50      5      94.272    0.37709    0.25552    0.67761      0     0.68364
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+             c1         c2         c3         c4           c5    
+           _______    _______    _______    _______    __________
+
+    r1           0          0          0          0    0.00014733
+    r2           0          0          0          0    0.00014733
+    r3           0          0          0          0     0.0011239
+    r4           0          0          0          0     0.0011544
+    r5           0          0          0          0     0.0039009
+    r46    0.67805    0.67137    0.66298     0.6526       0.64094
+    r47    0.67964    0.67329    0.66536     0.6555       0.64439
+    r48     0.6811    0.67506    0.66752    0.65818        0.6476
+    r49    0.68242    0.67671     0.6696    0.66075       0.65059
+    r50    0.68364    0.67826    0.67158    0.66319       0.65336
+
+% Higher Savings Incentives
+mp_params('fl_beta') = 0.95;
+mp_params('fl_r') = 0.04;
+ff_vfi_az_bisec_loop(mp_params, mp_support);
+
+Elapsed time is 5.579251 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
+
+    savefraccoh    1     1      2       250      50      5      146.44    0.58575    0.29994    0.51206      0     0.88761
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+             c1         c2           c3           c4         c5   
+           _______    _______    __________    ________    _______
+
+    r1           0          0             0    0.086968     0.3134
+    r2           0          0             0    0.086938     0.3135
+    r3           0          0             0    0.086877    0.31423
+    r4           0          0             0    0.091393    0.31621
+    r5           0          0    0.00036095     0.10012    0.31765
+    r46    0.87894     0.8773       0.87437     0.86796    0.86643
+    r47    0.88136     0.8798       0.87717     0.87083    0.86933
+    r48    0.88358    0.88215       0.87983     0.87348    0.87202
+    r49    0.88566    0.88432        0.8823     0.87595    0.87455
+    r50    0.88761    0.88633       0.88465     0.87827    0.87687
+\end{verbatim}
+
+\hypertarget{test-ff_vfi_az_bisec_loop-changing-risk-aversion}{%
+\subsection{Test FF\_VFI\_AZ\_BISEC\_LOOP Changing Risk Aversion}\label{test-ff_vfi_az_bisec_loop-changing-risk-aversion}}
+
+Here, again, show fraction of coh saved in summary tabular form, but
+also show it graphically.
+
+\begin{verbatim}
+mp_support = containers.Map('KeyType','char', 'ValueType','any');
+mp_support('bl_print_params') = false;
+mp_support('bl_print_iterinfo') = false;
+mp_support('ls_ffcmd') = {'savefraccoh'};
+mp_support('ls_ffsna') = {};
+mp_support('ls_ffgrh') = {'savefraccoh'};
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 100;
+mp_params('it_z_n') = 5;
+mp_params('fl_a_max') = 50;
+mp_params('st_grid_type') = 'grid_powerspace';
+\end{verbatim}
+
+Solve the model with different risk aversion levels, higher preferences
+for risk:
+
+\begin{verbatim}
+% Lower Risk Aversion
+mp_params('fl_crra') = 0.5;
+ff_vfi_az_bisec_loop(mp_params, mp_support);
+
+Elapsed time is 9.991698 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
+
+    savefraccoh    1     1      2       500     100      5      214.05    0.42811    0.27486    0.64204      0     0.74757
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4          c5   
+            _______    _______    _______    _______    ________
+
+    r1            0          0          0          0    0.023554
+    r2            0          0          0          0    0.023554
+    r3            0          0          0          0    0.023554
+    r4            0          0          0          0    0.023615
+    r5            0          0          0          0    0.024256
+    r96      0.7393    0.73551    0.73109    0.72261     0.71525
+    r97     0.74049    0.73805    0.73374    0.72544     0.71702
+    r98      0.7429    0.74052    0.73634    0.72825      0.7187
+    r99     0.74525    0.74296    0.73887      0.731     0.72032
+    r100    0.74757    0.74534    0.74113    0.73371     0.72187
+\end{verbatim}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_vfi_az_bisec_loop_images/figure_2.png}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_vfi_az_bisec_loop_images/figure_3.png}
+
+When risk aversion increases, at every state-space point, the household
+wants to save more.
+
+\begin{verbatim}
+% Higher Risk Aversion
+mp_params('fl_crra') = 5;
+ff_vfi_az_bisec_loop(mp_params, mp_support);
+
+Elapsed time is 8.955693 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
+
+    savefraccoh    1     1      2       500     100      5      323.21    0.64642    0.28954    0.44792      0     0.92356
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2          c3         c4         c5   
+            _______    _______    ________    _______    _______
+
+    r1            0          0    0.053308    0.22219    0.44872
+    r2            0          0    0.053338    0.22222    0.44875
+    r3            0          0    0.053644     0.2224    0.44881
+    r4            0          0    0.054498    0.22286    0.44899
+    r5            0          0    0.056115    0.22378    0.44936
+    r96     0.91981    0.91901     0.91813    0.91575    0.91523
+    r97     0.92081    0.92002     0.91914    0.91682     0.9163
+    r98     0.92176      0.921     0.92014    0.91785     0.9173
+    r99     0.92268    0.92194     0.92112    0.91883    0.91831
+    r100    0.92356    0.92286     0.92203    0.91981    0.91926
+\end{verbatim}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_vfi_az_bisec_loop_images/figure_4.png}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_vfi_az_bisec_loop_images/figure_5.png}
+
+\hypertarget{test-ff_vfi_az_bisec_loop-with-higher-uncertainty}{%
+\subsection{Test FF\_VFI\_AZ\_BISEC\_LOOP with Higher Uncertainty}\label{test-ff_vfi_az_bisec_loop-with-higher-uncertainty}}
+
+Increase the standard deviation of the Shock.
+
+\begin{verbatim}
+mp_support = containers.Map('KeyType','char', 'ValueType','any');
+mp_support('bl_print_params') = false;
+mp_support('bl_print_iterinfo') = false;
+mp_support('ls_ffcmd') = {'savefraccoh'};
+mp_support('ls_ffsna') = {};
+mp_support('ls_ffgrh') = {};
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 100;
+mp_params('it_z_n') = 5;
+mp_params('fl_a_max') = 50;
+mp_params('st_grid_type') = 'grid_powerspace';
+\end{verbatim}
+
+Lower standard deviation of shock:
+
+\begin{verbatim}
+% Lower Risk Aversion
+mp_params('fl_shk_std') = 0.10;
+ff_vfi_az_bisec_loop(mp_params, mp_support);
+
+Elapsed time is 10.016136 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
+
+    savefraccoh    1     1      2       500     100      5      266.09    0.53217    0.31606    0.59389      0     0.86448
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4          c5   
+            _______    _______    _______    _______    ________
+
+    r1            0          0          0          0    0.027887
+    r2            0          0          0          0    0.027887
+    r3            0          0          0          0    0.027887
+    r4            0          0          0          0    0.027857
+    r5            0          0          0          0    0.027826
+    r96     0.85941    0.85841    0.85734    0.85621     0.85218
+    r97     0.86076    0.85978    0.85871    0.85764     0.85368
+    r98     0.86204    0.86109    0.86008    0.85902     0.85511
+    r99     0.86329    0.86234    0.86137    0.86036     0.85688
+    r100    0.86448    0.86359    0.86262    0.86164     0.85862
+\end{verbatim}
+
+Higher shock standard deviation: low shock high asset save more, high
+shock more asset save less, high shock low asset save more:
+
+\begin{verbatim}
+% Higher Risk Aversion
+mp_params('fl_shk_std') = 0.40;
+ff_vfi_az_bisec_loop(mp_params, mp_support);
+
+Elapsed time is 10.186494 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
+
+    savefraccoh    1     1      2       500     100      5      324.66    0.64932    0.26596    0.40959      0     0.88483
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4         c5   
+            _______    _______    _______    _______    _______
+
+    r1            0          0          0    0.26564    0.67546
+    r2            0          0          0    0.26568    0.67549
+    r3            0          0          0    0.26586    0.67549
+    r4            0          0          0    0.26635    0.67552
+    r5            0          0          0    0.26732    0.67558
+    r96     0.88071    0.87922    0.87495    0.86723    0.85859
+    r97     0.88178    0.88032     0.8762    0.86826    0.86085
+    r98     0.88282    0.88139    0.87739    0.86927    0.86317
+    r99     0.88383    0.88212    0.87855    0.87028    0.86668
+    r100    0.88483    0.88279    0.87937    0.87128    0.87003
+\end{verbatim}
+
+\hypertarget{ff_vfi_az_bisec_vec-dynamic-savings-problem-vectorized-continuous-exact}{%
+\section{FF\_VFI\_AZ\_BISEC\_VEC Dynamic Savings Problem Vectorized Continuous Exact}\label{ff_vfi_az_bisec_vec-dynamic-savings-problem-vectorized-continuous-exact}}
+
+\begin{quote}
+Go back to \href{http://fanwangecon.github.io/}{fan}'s \href{https://fanwangecon.github.io/MEconTools/}{MEconTools} Toolbox (\href{https://fanwangecon.github.io/MEconTools/bookdown}{bookdown}), \href{https://fanwangecon.github.io/M4Econ/}{Matlab Code Examples} Repository (\href{https://fanwangecon.github.io/M4Econ/bookdown}{bookdown}), or \href{https://fanwangecon.github.io/Math4Econ/}{Math for Econ with Matlab} Repository (\href{https://fanwangecon.github.io/Math4Econ/bookdown}{bookdown}).
+\end{quote}
+
+This is the example vignette for function:
+\href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_vec.m}{\textbf{ff\_vfi\_az\_bisec\_vec}}
+from the \href{https://fanwangecon.github.io/MEconTools/}{\textbf{MEconTools
+Package}}\textbf{.} This function
+solves the dynamic programming problem for a (a,z) model. Households can
+save a, and face AR(1) shock z. The problem is solved over the infinite
+horizon. This is a vectorized code, it is much faster for larger
+state-space problems then looped code.
+
+The code uses continuous choices, solved with bi(multi)section. The
+state-space is on a grid, but choice grids are in terms of percentage of
+resources available, which is individual specific, to save and solved
+exactly up to ((1/(2)\^{}16)*100=0.001525878) percentage of cash on hand.
+THe
+\href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_vec.m}{\textbf{ff\_vfi\_az\_vec}}
+from the \href{https://fanwangecon.github.io/MEconTools/}{\textbf{MEconTools
+Package}} solves the same
+problem using vectorized common grid code where the choice set and state
+space share the same grid.
+
+This is the vectorized code, its speed is much faster than the looped
+code. The function is designed to have small memory footprint and
+requires low computing resources, yet is fast.
+
+\textbf{Links to Four Code:}
+
+Four Core Savings/Borrowing Dynamic Programming Solution Functions that
+are functions in the \href{https://fanwangecon.github.io/MEconTools/}{\textbf{MEconTools
+Package}}\textbf{.} :
+
+\begin{itemize}
+\item
+  Common Choice and States Grid :
+  \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_loop.m}{\textbf{ff\_vfi\_az\_loop}},
+  slow should use for testing new models
+\item
+  Common Choice and States Grid :
+  \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_vec.m}{\textbf{ff\_vfi\_az\_vec}},
+  fast good for many purposes
+\item
+  States Grid + Continuous Exact Savings as Share of Cash-on-Hand :\href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_loop.m}{\textbf{ff\_vfi\_az\_bisec\_loop}},
+  high precision even with small grid
+\item
+  States Grid + Continuous Exact Savings as Share of Cash-on-Hand :
+  \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_vec.m}{\textbf{ff\_vfi\_az\_bisec\_vec}},
+  precision and speed
+\end{itemize}
+
+\hypertarget{test-ff_vfi_az_bisec_vec-defaults}{%
+\subsection{Test FF\_VFI\_AZ\_BISEC\_VEC Defaults}\label{test-ff_vfi_az_bisec_vec-defaults}}
+
+Call the function with defaults. By default, shows the asset policy
+function summary. Model parameters can be changed by the mp\_params.
+
+\begin{verbatim}
+%mp_params
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('fl_crra') = 1.5;
+mp_params('fl_beta') = 0.94;
+% call function
+ff_vfi_az_bisec_vec(mp_params);
+
+Elapsed time is 0.341348 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+          i    idx    ndim    numel    rowN    colN     sum      mean      std      coefvari    min     max  
+          _    ___    ____    _____    ____    ____    _____    ______    ______    ________    ___    ______
+
+    ap    1     1      2       700     100      7      15835    22.621    13.367    0.59091      0     47.273
+
+xxx TABLE:ap xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4         c5         c6         c7  
+            _______    _______    _______    _______    _______    _______    ______
+
+    r1            0          0          0          0          0    0.38021    1.4609
+    r2      0.19477    0.18872    0.19731    0.24709    0.41492    0.79311    1.8893
+    r3      0.54595    0.54109    0.55664    0.62239    0.81173     1.2132    2.3195
+    r4       1.0101     1.0101     1.0101     1.0189     1.2217     1.6363    2.7464
+    r5       1.4388     1.4362      1.459     1.5151     1.6354     2.0602    3.1804
+    r96      43.225     43.246       43.3     43.422     43.632     44.155    45.413
+    r97       43.69      43.71     43.765     43.887     44.096     44.618    45.879
+    r98      44.154     44.174     44.228     44.352     44.559     45.083    46.344
+    r99      44.618     44.638     44.693     44.815     45.024     45.548    46.809
+    r100      45.08     45.101     45.156      45.28     45.487     46.012    47.273
+\end{verbatim}
+
+\hypertarget{test-ff_vfi_az_bisec_vec-speed-tests-1}{%
+\subsection{Test FF\_VFI\_AZ\_BISEC\_VEC Speed Tests}\label{test-ff_vfi_az_bisec_vec-speed-tests-1}}
+
+Call the function with defaults. By default, shows the asset policy
+function summary. Model parameters can be changed by the mp\_params.
+
+\begin{verbatim}
+mp_support = containers.Map('KeyType','char', 'ValueType','any');
+mp_support('bl_timer') = true;
+mp_support('ls_ffcmd') = {};
+\end{verbatim}
+
+A grid 50, shock grid 5:
+
+\begin{verbatim}
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 50;
+mp_params('it_z_n') = 5;
+ff_vfi_az_bisec_vec(mp_params, mp_support);
+
+Elapsed time is 0.188450 seconds.
+\end{verbatim}
+
+A grid 750, shock grid 15:
+
+\begin{verbatim}
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 750;
+mp_params('it_z_n') = 15;
+ff_vfi_az_bisec_vec(mp_params, mp_support);
+
+Elapsed time is 12.017243 seconds.
+\end{verbatim}
+
+A grid 600, shock grid 45:
+
+\begin{verbatim}
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 600;
+mp_params('it_z_n') = 45;
+ff_vfi_az_bisec_vec(mp_params, mp_support);
+
+Elapsed time is 22.719622 seconds.
+\end{verbatim}
+
+\hypertarget{test-ff_vfi_az_bisec_vec-control-outputs}{%
+\subsection{Test FF\_VFI\_AZ\_BISEC\_VEC Control Outputs}\label{test-ff_vfi_az_bisec_vec-control-outputs}}
+
+Run the function first without any outputs;
+
+\begin{verbatim}
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 50;
+mp_params('it_z_n') = 5;
+mp_support = containers.Map('KeyType','char', 'ValueType','any');
+mp_support('bl_timer') = false;
+mp_support('bl_print_params') = false;
+mp_support('bl_print_iterinfo') = false;
+\end{verbatim}
+
+Run the function and show policy function for savings choice. For
+ls\_ffcmd, ls\_ffsna, ls\_ffgrh, can include these: `v', `ap', `c', `y',
+`coh', `savefraccoh'. These are value, aprime savings choice,
+consumption, income, cash on hand, and savings fraction as cash-on-hand.
+
+\begin{verbatim}
+mp_support = containers.Map('KeyType','char', 'ValueType','any');
+mp_support('bl_print_params') = false;
+mp_support('bl_print_iterinfo') = false;
+% ls_ffcmd: summary print which outcomes
+mp_support('ls_ffcmd') = {};
+% ls_ffsna: detail print which outcomes
+mp_support('ls_ffsna') = {'savefraccoh'};
+% ls_ffgrh: graphical print which outcomes
+mp_support('ls_ffgrh') = {'savefraccoh'};
+ff_vfi_az_bisec_vec(mp_params, mp_support);
+
+Elapsed time is 0.160923 seconds.
+xxx  ff_vfi_az_vec, outcome=savefraccoh  xxxxxxxxxxxxxxxxxxxxxxxxxxx
+    group      a       mean_z_0_54195    mean_z_0_66401    mean_z_0_88162    mean_z_1_3095    mean_z_2_2745
+    _____    ______    ______________    ______________    ______________    _____________    _____________
+
+      1           0             0                 0                 0                 0          0.24358   
+      2      1.0204       0.33724           0.31063           0.29793           0.32952           0.3998   
+      3      2.0408       0.49626           0.47337            0.4572           0.46446          0.49318   
+      4      3.0612       0.57912           0.56065            0.5457           0.54484          0.55559   
+      5      4.0816       0.63096           0.61577           0.60252           0.59846          0.60036   
+      6       5.102       0.68907           0.67137           0.64222           0.63694          0.63377   
+      7      6.1224       0.71595            0.7043            0.6891           0.66563          0.66642   
+      8      7.1429       0.73066           0.72084           0.71144           0.68766          0.69337   
+      9      8.1633       0.74391           0.73503           0.72618           0.71119          0.70921   
+     10      9.1837       0.75538           0.74739           0.73918           0.73335          0.72236   
+     11      10.204        0.7653           0.75798           0.75032           0.74412          0.73381   
+     12      11.224       0.77394           0.76719           0.75999           0.75367          0.74403   
+     13      12.245       0.78147           0.77525           0.76847           0.76231          0.75306   
+     14      13.265       0.78816           0.78233           0.77598           0.77006          0.76115   
+     15      14.286       0.79841           0.79035           0.78266           0.77699          0.76838   
+     16      15.306       0.80723           0.80201            0.7888           0.78321          0.77488   
+     17      16.327       0.81135            0.8065           0.79972           0.78883          0.78077   
+     18      17.347       0.81474           0.81031           0.80534           0.79386          0.78904   
+     19      18.367       0.81815           0.81388           0.80918           0.79841          0.79634   
+     20      19.388       0.82121           0.81715            0.8126             0.805          0.80027   
+     21      20.408       0.82414           0.82026           0.81596           0.81172          0.80393   
+     22      21.429       0.82685           0.82313           0.81898           0.81492          0.80732   
+     23      22.449       0.82938           0.82584           0.82182           0.81776          0.81053   
+     24      23.469       0.83177           0.82838            0.8245            0.8205          0.81352   
+     25       24.49       0.83399           0.83073             0.827            0.8231          0.81635   
+     26       25.51       0.83634           0.83296           0.82935           0.82554          0.81901   
+     27      26.531       0.84156           0.83689           0.83155           0.82786          0.82151   
+     28      27.551       0.84394           0.84098            0.8339           0.83003          0.82389   
+     29      28.571       0.84553           0.84266           0.83875            0.8321          0.82612   
+     30      29.592       0.84693           0.84425           0.84107           0.83405          0.82877   
+     31      30.612       0.84821           0.84562           0.84266           0.83589          0.83326   
+     32      31.633       0.84956           0.84699           0.84409           0.83787          0.83527   
+     33      32.653       0.85084           0.84837           0.84547           0.84199          0.83686   
+     34      33.673         0.852           0.84962           0.84684           0.84391          0.83842   
+     35      34.694       0.85316           0.85081           0.84815           0.84528          0.83988   
+     36      35.714       0.85429             0.852           0.84934            0.8465          0.84129   
+     37      36.735       0.85532           0.85313           0.85053           0.84773          0.84266   
+     38      37.755       0.85633            0.8542           0.85169           0.84895          0.84397   
+     39      38.776       0.85795           0.85523           0.85279           0.85008          0.84522   
+     40      39.796       0.86091           0.85767           0.85383           0.85114          0.84641   
+     41      40.816       0.86176           0.85975           0.85499           0.85221           0.8476   
+     42      41.837       0.86256            0.8606           0.85786           0.85325           0.8487   
+     43      42.857       0.86332           0.86143           0.85917           0.85423           0.8498   
+     44      43.878       0.86399           0.86216           0.85999           0.85517          0.85236   
+     45      44.898       0.86463           0.86283           0.86079           0.85609          0.85401   
+     46      45.918       0.86533           0.86356           0.86149           0.85831          0.85493   
+     47      46.939       0.86601           0.86427           0.86219           0.85996          0.85578   
+     48      47.959       0.86665           0.86494           0.86292           0.86073          0.85658   
+     49       48.98       0.86723           0.86558           0.86362           0.86146          0.85737   
+     50          50       0.86781           0.86619           0.86427           0.86216          0.85813   
+\end{verbatim}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_vfi_az_bisec_vec_images/figure_0.png}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_vfi_az_bisec_vec_images/figure_1.png}
+
+Run the function and show summaries for savings and fraction of coh
+saved:
+
+\begin{verbatim}
+mp_params('it_a_n') = 100;
+mp_params('it_z_n') = 9;
+mp_support('ls_ffcmd') = {'ap', 'savefraccoh'};
+mp_support('ls_ffsna') = {};
+mp_support('ls_ffgrh') = {};
+mp_support('bl_vfi_store_all') = true; % store c(a,z), y(a,z)
+ff_vfi_az_bisec_vec(mp_params, mp_support);
+
+Elapsed time is 0.443544 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
+
+    ap             1     1      2       900     100      9       20493      22.77     13.386     0.5879      0      48.391
+    savefraccoh    2     2      2       900     100      9      701.94    0.77994    0.13136    0.16842      0     0.86927
+
+xxx TABLE:ap xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4        c5         c6         c7         c8         c9  
+            _______    _______    _______    ______    _______    _______    _______    _______    ______
+
+    r1            0          0          0         0          0          0    0.20716    0.89208    2.4759
+    r2      0.19971    0.19144    0.18896    0.2007    0.24755    0.38215    0.61592     1.3126    2.9098
+    r3      0.55145    0.54262    0.54255    0.5618    0.62321    0.77699     1.0303     1.7326    3.3477
+    r4       1.0101     1.0101     1.0101    1.0101     1.0198     1.1844     1.5151     2.1613    3.7899
+    r5       1.4445      1.436     1.4393    1.4657     1.5152     1.5944     1.9615     2.5895    4.2337
+    r96      43.226     43.233     43.257    43.313     43.424     43.584     43.951     44.764    46.479
+    r97       43.69     43.697     43.722    43.776     43.888     44.048     44.444     45.227     46.97
+    r98      44.155     44.161     44.186    44.241     44.352     44.512     44.933     45.692    47.461
+    r99      44.619     44.626      44.65    44.707     44.817     44.976     45.398     46.156    47.927
+    r100     45.081     45.088     45.114    45.169      45.28     45.454     45.861     46.621    48.391
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4         c5         c6         c7         c8         c9   
+            _______    _______    _______    _______    _______    _______    _______    _______    _______
+
+    r1            0          0          0          0          0          0    0.10085    0.28368    0.45924
+    r2      0.17696    0.16018    0.14648     0.1404    0.15072    0.19253    0.23949    0.35842    0.49245
+    r3      0.33498    0.31679    0.30013    0.28853     0.2885    0.31047    0.33348    0.41451    0.52092
+    r4      0.46678    0.45284    0.43437    0.40981    0.38082    0.39214    0.42003    0.46007    0.54576
+    r5      0.53868    0.52254    0.50624    0.49144    0.47417    0.45067    0.47554    0.49651    0.56737
+    r96     0.86817    0.86713    0.86597    0.86469    0.86323    0.86054    0.85786    0.85551    0.85172
+    r97     0.86845    0.86744    0.86631      0.865    0.86356    0.86091     0.8588     0.8559    0.85264
+    r98     0.86875    0.86774    0.86662    0.86533     0.8639    0.86128    0.85966     0.8563    0.85352
+    r99     0.86903    0.86805    0.86692    0.86567    0.86424    0.86161    0.86002     0.8567    0.85395
+    r100    0.86927    0.86829     0.8672    0.86594    0.86454    0.86222    0.86036    0.85709    0.85435
+\end{verbatim}
+
+\hypertarget{test-ff_vfi_az_bisec_vec-change-interest-rate-and-discount}{%
+\subsection{Test FF\_VFI\_AZ\_BISEC\_VEC Change Interest Rate and Discount}\label{test-ff_vfi_az_bisec_vec-change-interest-rate-and-discount}}
+
+Show only save fraction of cash on hand:
+
+\begin{verbatim}
+mp_support = containers.Map('KeyType','char', 'ValueType','any');
+mp_support('bl_print_params') = false;
+mp_support('bl_print_iterinfo') = false;
+mp_support('ls_ffcmd') = {'savefraccoh'};
+mp_support('ls_ffsna') = {};
+mp_support('ls_ffgrh') = {};
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 750;
+mp_params('it_z_n') = 9;
+mp_params('fl_a_max') = 50;
+mp_params('st_grid_type') = 'grid_powerspace';
+\end{verbatim}
+
+Solve the model with several different interest rates and discount
+factor:
+
+\begin{verbatim}
+% Lower Savings Incentives
+mp_params('fl_beta') = 0.80;
+mp_params('fl_r') = 0.01;
+ff_vfi_az_bisec_vec(mp_params, mp_support);
+
+Elapsed time is 2.064615 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min     max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    ______
+
+    savefraccoh    1     1      2      6750     750      9      2573.6    0.38127    0.24694    0.64767      0     0.6869
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4         c5         c6         c7          c8         c9   
+            _______    _______    _______    _______    _______    _______    _______    ________    _______
+
+    r1            0          0          0          0          0          0          0    0.014734    0.11626
+    r2            0          0          0          0          0          0          0    0.014734    0.11626
+    r3            0          0          0          0          0          0          0    0.014734    0.11626
+    r4            0          0          0          0          0          0          0    0.014734    0.11626
+    r5            0          0          0          0          0          0          0    0.014734    0.11626
+    r746    0.68623    0.68354    0.68095    0.67686    0.67308    0.66722    0.66044     0.65098    0.63987
+    r747    0.68663    0.68364    0.68119    0.67698     0.6732    0.66734    0.66063     0.65117    0.64009
+    r748    0.68675     0.6837    0.68129    0.67711    0.67332    0.66749    0.66078     0.65138    0.64027
+    r749    0.68681    0.68379    0.68141     0.6772    0.67344    0.66764    0.66096     0.65184    0.64048
+    r750     0.6869    0.68385     0.6815    0.67759    0.67357    0.66777    0.66111     0.65233     0.6407
+
+% Higher Savings Incentives
+mp_params('fl_beta') = 0.95;
+mp_params('fl_r') = 0.04;
+ff_vfi_az_bisec_vec(mp_params, mp_support);
+
+Elapsed time is 8.355503 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
+
+    savefraccoh    1     1      2      6750     750      9      4047.5    0.59963    0.28766    0.47974      0     0.88682
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4         c5          c6         c7         c8         c9   
+            _______    _______    _______    _______    _______    ________    _______    _______    _______
+
+    r1            0          0          0          0          0    0.046381    0.17205    0.33791    0.51164
+    r2            0          0          0          0          0    0.046381    0.17205    0.33791    0.51164
+    r3            0          0          0          0          0    0.046381    0.17205    0.33791    0.51164
+    r4            0          0          0          0          0    0.046381    0.17205    0.33791    0.51164
+    r5            0          0          0          0          0    0.046381    0.17205    0.33791    0.51164
+    r746    0.88633    0.88548    0.88435    0.88337    0.88194     0.88041    0.87852    0.87629    0.87345
+    r747    0.88645     0.8856    0.88447    0.88349    0.88206     0.88053    0.87867    0.87644    0.87373
+    r748    0.88657    0.88575    0.88459    0.88361    0.88221     0.88068    0.87882    0.87659    0.87406
+    r749     0.8867    0.88587    0.88474    0.88377    0.88233     0.88084    0.87897    0.87675    0.87437
+    r750    0.88682    0.88599    0.88486    0.88389    0.88248     0.88096     0.8791     0.8769    0.87482
+\end{verbatim}
+
+\hypertarget{test-ff_vfi_az_bisec_vec-changing-risk-aversion}{%
+\subsection{Test FF\_VFI\_AZ\_BISEC\_VEC Changing Risk Aversion}\label{test-ff_vfi_az_bisec_vec-changing-risk-aversion}}
+
+Here, again, show fraction of coh saved in summary tabular form, but
+also show it graphically.
+
+\begin{verbatim}
+mp_support = containers.Map('KeyType','char', 'ValueType','any');
+mp_support('bl_print_params') = false;
+mp_support('bl_print_iterinfo') = false;
+mp_support('ls_ffcmd') = {'savefraccoh'};
+mp_support('ls_ffsna') = {};
+mp_support('ls_ffgrh') = {'savefraccoh'};
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 750;
+mp_params('it_z_n') = 9;
+mp_params('fl_a_max') = 50;
+mp_params('st_grid_type') = 'grid_powerspace';
+\end{verbatim}
+
+Solve the model with different risk aversion levels, higher preferences
+for risk:
+
+\begin{verbatim}
+% Lower Risk Aversion
+mp_params('fl_crra') = 0.5;
+ff_vfi_az_bisec_vec(mp_params, mp_support);
+
+Elapsed time is 6.947134 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
+
+    savefraccoh    1     1      2      6750     750      9      2940.8    0.43567    0.26675    0.61228      0     0.74983
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4         c5         c6         c7          c8         c9   
+            _______    _______    _______    _______    _______    _______    _______    ________    _______
+
+    r1            0          0          0          0          0          0          0    0.040155    0.17657
+    r2            0          0          0          0          0          0          0    0.040155    0.17657
+    r3            0          0          0          0          0          0          0    0.040155    0.17657
+    r4            0          0          0          0          0          0          0    0.040155    0.17657
+    r5            0          0          0          0          0          0          0    0.040155    0.17657
+    r746    0.74928    0.74699    0.74427    0.74165    0.73826    0.73371    0.72828     0.72074    0.71244
+    r747    0.74949    0.74711     0.7444    0.74195    0.73844    0.73405    0.72847     0.72096    0.71266
+    r748    0.74958    0.74723    0.74452    0.74226     0.7386    0.73432    0.72865     0.72117    0.71287
+    r749    0.74971    0.74736    0.74467    0.74241    0.73875    0.73451    0.72883     0.72139    0.71308
+    r750    0.74983    0.74748    0.74491    0.74253     0.7389    0.73466    0.72905     0.72178     0.7133
+\end{verbatim}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_vfi_az_bisec_vec_images/figure_2.png}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_vfi_az_bisec_vec_images/figure_3.png}
+
+When risk aversion increases, at every state-space point, the household
+wants to save more.
+
+\begin{verbatim}
+% Higher Risk Aversion
+mp_params('fl_crra') = 5;
+ff_vfi_az_bisec_vec(mp_params, mp_support);
+
+Elapsed time is 6.425400 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN    sum      mean       std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ____    _______    ______    ________    ___    _______
+
+    savefraccoh    1     1      2      6750     750      9      4449    0.65911    0.2826    0.42876      0     0.92387
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4         c5         c6         c7         c8         c9   
+            _______    _______    _______    _______    _______    _______    _______    _______    _______
+
+    r1            0          0          0          0    0.05282    0.16466    0.31347    0.47728    0.63304
+    r2            0          0          0          0    0.05282    0.16466    0.31347    0.47728    0.63304
+    r3            0          0          0          0    0.05282    0.16466    0.31347    0.47728    0.63304
+    r4            0          0          0          0    0.05282    0.16466    0.31347    0.47728    0.63304
+    r5            0          0          0          0    0.05282    0.16466    0.31347    0.47728    0.63304
+    r746    0.92341    0.92298    0.92249    0.92176    0.92097     0.9202     0.9191    0.91825    0.91926
+    r747    0.92353     0.9231    0.92261    0.92188    0.92109    0.92033    0.91923     0.9184    0.91956
+    r748    0.92365    0.92319    0.92271      0.922    0.92121    0.92045    0.91935    0.91852    0.91987
+    r749    0.92377    0.92332    0.92283    0.92213    0.92133    0.92057     0.9195    0.91868    0.92014
+    r750    0.92387    0.92344    0.92295    0.92225    0.92145    0.92069    0.91962     0.9188    0.92045
+\end{verbatim}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_vfi_az_bisec_vec_images/figure_4.png}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_vfi_az_bisec_vec_images/figure_5.png}
+
+\hypertarget{test-ff_vfi_az_bisec_vec-with-higher-uncertainty}{%
+\subsection{Test FF\_VFI\_AZ\_BISEC\_VEC with Higher Uncertainty}\label{test-ff_vfi_az_bisec_vec-with-higher-uncertainty}}
+
+Increase the standard deviation of the Shock.
+
+\begin{verbatim}
+mp_support = containers.Map('KeyType','char', 'ValueType','any');
+mp_support('bl_print_params') = false;
+mp_support('bl_print_iterinfo') = false;
+mp_support('ls_ffcmd') = {'savefraccoh'};
+mp_support('ls_ffsna') = {};
+mp_support('ls_ffgrh') = {};
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 750;
+mp_params('it_z_n') = 9;
+mp_params('fl_a_max') = 50;
+mp_params('st_grid_type') = 'grid_powerspace';
+\end{verbatim}
+
+Lower standard deviation of shock:
+
+\begin{verbatim}
+% Lower Risk Aversion
+mp_params('fl_shk_std') = 0.10;
+ff_vfi_az_bisec_vec(mp_params, mp_support);
+
+Elapsed time is 6.784360 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ___    _______
+
+    savefraccoh    1     1      2      6750     750      9      3617.7    0.53596    0.31083    0.57996      0     0.86482
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4         c5         c6         c7          c8          c9   
+            _______    _______    _______    _______    _______    _______    _______    ________    ________
+
+    r1            0          0          0          0          0          0          0    0.034876    0.095147
+    r2            0          0          0          0          0          0          0    0.034876    0.095147
+    r3            0          0          0          0          0          0          0    0.034876    0.095147
+    r4            0          0          0          0          0          0          0    0.034876    0.095147
+    r5            0          0          0          0          0          0          0    0.034876    0.095147
+    r746     0.8642    0.86359    0.86295    0.86192    0.86124     0.8603    0.85944     0.85835     0.85694
+    r747    0.86436    0.86375    0.86314     0.8621     0.8614    0.86048     0.8596     0.85853     0.85712
+    r748    0.86451     0.8639    0.86329    0.86225    0.86158     0.8607    0.85978     0.85871     0.85731
+    r749    0.86466    0.86408    0.86344    0.86243    0.86173    0.86091    0.85996     0.85886     0.85755
+    r750    0.86482    0.86424    0.86359    0.86259    0.86192    0.86112    0.86012     0.85905     0.85783
+\end{verbatim}
+
+Higher shock standard deviation: low shock high asset save more, high
+shock more asset save less, high shock low asset save more:
+
+\begin{verbatim}
+% Higher Risk Aversion
+mp_params('fl_shk_std') = 0.40;
+ff_vfi_az_bisec_vec(mp_params, mp_support);
+
+Elapsed time is 7.804664 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                   i    idx    ndim    numel    rowN    colN     sum       mean       std      coefvari    min      max  
+                   _    ___    ____    _____    ____    ____    ______    ______    _______    ________    ___    _______
+
+    savefraccoh    1     1      2      6750     750      9      4755.4    0.7045    0.26237    0.37241      0     0.95142
+
+xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
+              c1         c2         c3         c4         c5         c6         c7         c8         c9   
+            _______    _______    _______    _______    _______    _______    _______    _______    _______
+
+    r1            0          0          0          0          0      0.152    0.44643    0.71928    0.92841
+    r2            0          0          0          0          0      0.152    0.44643    0.71928    0.92841
+    r3            0          0          0          0          0      0.152    0.44643    0.71928    0.92841
+    r4            0          0          0          0          0      0.152    0.44643    0.71928    0.92841
+    r5            0          0          0          0          0      0.152    0.44643    0.71928    0.92841
+    r746     0.8914    0.89054    0.88944    0.88798    0.88599    0.88279    0.87788    0.87836    0.95118
+    r747    0.89146     0.8906     0.8895    0.88807    0.88609    0.88288      0.878    0.87879    0.95124
+    r748    0.89152    0.89066    0.88956    0.88813    0.88615    0.88297    0.87812    0.87919     0.9513
+    r749    0.89158    0.89072    0.88963    0.88819    0.88624    0.88306    0.87824    0.87962    0.95136
+    r750    0.89164    0.89079    0.88972    0.88828     0.8863    0.88316    0.87833    0.88001    0.95142
 \end{verbatim}
 
 \hypertarget{summarize-policy-and-value}{%
@@ -3830,28 +5083,60 @@ xxx TABLE:mat_2_boolean xxxxxxxxxxxxxxxxxx
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.html}{Looped Infinite Horizon Dynamic Savings Problem}: \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/fx_vfi_az_loop.mlx}{\textbf{mlx}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.m}{\textbf{m}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.pdf}{\textbf{pdf}} \textbar{} \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.html}{\textbf{html}}
+  \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.html}{Looped Grid Infinite Horizon Dynamic Savings Problem}: \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/fx_vfi_az_loop.mlx}{\textbf{mlx}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.m}{\textbf{m}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.pdf}{\textbf{pdf}} \textbar{} \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_loop.html}{\textbf{html}}
 
   \begin{itemize}
   \tightlist
   \item
-    Slow looped solution.
+    Common grid looped solution
+  \item
+    Slow, but easy to modify, useful for developing new models
   \item
     Given preferences, some AR(1) shock process, solve the infinite horizon household savings dynamic programming problem. The state-space and choice-space share the same asset grid.
   \item
-    \textbf{MEconTools}: \emph{ff\_vfi\_az\_loop()}
+    \textbf{MEconTools}: \emph{\href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_loop.m}{ff\_vfi\_az\_loop()}}
   \end{itemize}
 \item
-  \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.html}{Vectorized Infinite Horizon Dynamic Savings Problem}: \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/fx_vfi_az_vec.mlx}{\textbf{mlx}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.m}{\textbf{m}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.pdf}{\textbf{pdf}} \textbar{} \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.html}{\textbf{html}}
+  \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.html}{Vectorized Grid Infinite Horizon Dynamic Savings Problem}: \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/fx_vfi_az_vec.mlx}{\textbf{mlx}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.m}{\textbf{m}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.pdf}{\textbf{pdf}} \textbar{} \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_vec.html}{\textbf{html}}
 
   \begin{itemize}
   \tightlist
   \item
-    Faster vectorized solution.
+    Common grid vectorized solution
+  \item
+    Fast, sufficiently approximate value(a,z), but c(a,z) not precise
   \item
     Given preferences, some AR(1) shock process, solve the infinite horizon household savings dynamic programming problem. The state-space and choice-space share the same asset grid.
   \item
-    \textbf{MEconTools}: \emph{ff\_vfi\_az\_vec()}
+    \textbf{MEconTools}: \emph{\href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_vec.m}{ff\_vfi\_az\_vec()}}
+  \end{itemize}
+\item
+  \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_bisec_loop.html}{Looped Grid Infinite Horizon Dynamic Savings Problem}: \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/fx_vfi_az_bisec_loop.mlx}{\textbf{mlx}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_bisec_loop.m}{\textbf{m}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_bisec_loop.pdf}{\textbf{pdf}} \textbar{} \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_bisec_loop.html}{\textbf{html}}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Exact choice looped solution
+  \item
+    Slow, but high precision at low grid size (given value grid, accurate up to 0.001525878 percent of individual-specific cash-on-hand)
+  \item
+    Given preferences, some AR(1) shock process, solve the infinite horizon household savings dynamic programming problem. The state-space is on a grid. The choice space are continuous percentages of cash-on-hand.
+  \item
+    \textbf{MEconTools}: \emph{\href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_loop.m}{ff\_vfi\_az\_bisec\_loop()}}
+  \end{itemize}
+\item
+  \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_bisec_vec.html}{Vectorized Grid Infinite Horizon Dynamic Savings Problem}: \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/fx_vfi_az_bisec_vec.mlx}{\textbf{mlx}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_bisec_vec.m}{\textbf{m}} \textbar{} \href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_bisec_vec.pdf}{\textbf{pdf}} \textbar{} \href{https://fanwangecon.github.io/MEconTools/MEconTools/doc/vfi/htmlpdfm/fx_vfi_az_bisec_vec.html}{\textbf{html}}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Exact choice vectorized solution
+  \item
+    Fast, approximates choices with higher precision (given value grid, accurate up to 0.001525878 percent of individual-specific cash-on-hand)
+  \item
+    Given preferences, some AR(1) shock process, solve the infinite horizon household savings dynamic programming problem. The state-space is on a grid. The choice space are continuous percentages of cash-on-hand.
+  \item
+    \textbf{MEconTools}: \emph{\href{https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_vec.m}{ff\_vfi\_az\_bisec\_vec()}}
   \end{itemize}
 \end{enumerate}
 

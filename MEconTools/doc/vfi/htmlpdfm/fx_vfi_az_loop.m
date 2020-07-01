@@ -1,14 +1,41 @@
-%% FF_VFI_AZ_LOOP Dynamic Programming Asset Problem with Shocks Loop
+%% FF_VFI_AZ_LOOP Dynamic Savings Problem Loop Common Grid
 % *back to* <https://fanwangecon.github.io *Fan*>*'s* <https://fanwangecon.github.io/Math4Econ/ 
 % *Intro Math for Econ*>*,*  <https://fanwangecon.github.io/M4Econ/ *Matlab Examples*>*, 
 % or* <https://fanwangecon.github.io/CodeDynaAsset/ *Dynamic Asset*> *Repositories*
 % 
 % This is the example vignette for function: <https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_loop.m 
 % *ff_vfi_az_loop*> from the <https://fanwangecon.github.io/MEconTools/ *MEconTools 
-% Package*>*.* This function solves the dynamica programming problem for a (a,z) 
+% Package*>*.* This function solves the dynamic programming problem for a (a,z) 
 % model. Households can save a, and face AR(1) shock z. The problem is solved 
-% over the infinite horizon. This is the looped code, it is extremely slow for 
-% larger state-space problems.
+% over the infinite horizon. This is the looped code, it is slow for larger state-space 
+% problems.  The code uses common grid, with the same state space and choice space 
+% grids.
+% 
+% *Links to Four Code:*
+% 
+% Four Core Savings/Borrowing Dynamic Programming Solution Functions that are 
+% functions in the <https://fanwangecon.github.io/MEconTools/ *MEconTools Package*>*.* 
+% :
+%% 
+% * Common Choice and States Grid _*Loop*_: <https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_loop.m 
+% *ff_vfi_az_loop*>, slow should use for testing new models
+% * Common Choice and States Grid _*Vectorized*_:  <https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_vec.m 
+% *ff_vfi_az_vec*>, fast good for many purposes
+% * States Grid + Continuous Exact Savings as Share of Cash-on-Hand _*Loop*_:<https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_loop.m  
+% *ff_vfi_az_bisec_loop*>, high precision even with small grid
+% * States Grid + Continuous Exact Savings as Share of Cash-on-Hand _*Vectorized*_: 
+% <https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_vec.m 
+% *ff_vfi_az_bisec_vec*>, precision and speed
+%% 
+% The four sample codes are written for the standard dynamic savings problem 
+% with AR(1) shock that is one of the core problems introduced in first sessions 
+% of graduate Economics courses. The code can be easily adapted to accomand multiple 
+% assets, savings and borrowing, discrete and continuous choice, etc. A large 
+% proportion of dynamic economic models are based on the underlying structure 
+% of solving a model with endogenous states and exogenous shocks, and that is 
+% what the (a,z) model does. In general, one should write looped code first to 
+% make sure the economics is correct, then vectorized code can be adopted to increase 
+% speed. 
 %% Test FF_VFI_AZ_LOOP Defaults
 % Call the function with defaults. By default, shows the asset policy function 
 % summary. Model parameters can be changed by the mp_params.
@@ -19,6 +46,33 @@ mp_params('fl_crra') = 1.5;
 mp_params('fl_beta') = 0.94;
 % call function
 ff_vfi_az_loop(mp_params);
+%% Test FF_VFI_AZ_LOOP Speed Tests
+% Call the function with different a and z grid size, print out speed:
+
+mp_support = containers.Map('KeyType','char', 'ValueType','any');
+mp_support('bl_timer') = true;
+mp_support('ls_ffcmd') = {};
+%% 
+% A grid 50, shock grid 5:
+
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 50;
+mp_params('it_z_n') = 5;
+ff_vfi_az_loop(mp_params, mp_support);
+%% 
+% A grid 100, shock grid 7:
+
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 100;
+mp_params('it_z_n') = 7;
+ff_vfi_az_loop(mp_params, mp_support);
+%% 
+% A grid 200, shock grid 9:
+
+mp_params = containers.Map('KeyType','char', 'ValueType','any');
+mp_params('it_a_n') = 200;
+mp_params('it_z_n') = 9;
+ff_vfi_az_loop(mp_params, mp_support);
 %% Test FF_VFI_AZ_LOOP Control Outputs
 % Run the function first without any outputs;
 
@@ -74,7 +128,7 @@ mp_params('st_grid_type') = 'grid_powerspace';
 
 % Lower Savings Incentives
 mp_params('fl_beta') = 0.80;
-mp_params('fl_r') = 0;
+mp_params('fl_r') = 0.01;
 ff_vfi_az_loop(mp_params, mp_support);
 % Higher Savings Incentives
 mp_params('fl_beta') = 0.95;
@@ -127,12 +181,12 @@ mp_params('st_grid_type') = 'grid_powerspace';
 % Lower standard deviation of shock:
 
 % Lower Risk Aversion
-mp_params('fl_shk_std') = 0.05;
+mp_params('fl_shk_std') = 0.10;
 ff_vfi_az_loop(mp_params, mp_support);
 %% 
 % Higher shock standard deviation: low shock high asset save more, high shock 
 % more asset save less, high shock low asset save more:
 
 % Higher Risk Aversion
-mp_params('fl_shk_std') = 0.25;
+mp_params('fl_shk_std') = 0.40;
 ff_vfi_az_loop(mp_params, mp_support);
