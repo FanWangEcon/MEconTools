@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>FF_VFI_AZ_VEC (vectorized) solves the Savings and Shock Dynamic Programming Problem</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-07-01"><meta name="DC.source" content="ff_vfi_az_vec.m"><style type="text/css">
+      --><title>FF_VFI_AZ_VEC (vectorized grid choice) Dynamic Savings Problem</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-07-01"><meta name="DC.source" content="ff_vfi_az_vec.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -66,7 +66,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>FF_VFI_AZ_VEC (vectorized) solves the Savings and Shock Dynamic Programming Problem</h1><!--introduction--><pre>  Vectorized faster solution for solving the dynamic programming problem
+  </style></head><body><div class="content"><h1>FF_VFI_AZ_VEC (vectorized grid choice) Dynamic Savings Problem</h1><!--introduction--><pre>  Vectorized faster solution for solving the dynamic programming problem
   with fixed assets grid using value function iteration. Obtains policy
   and value functions. Shock is AR(1). This function is vectorized, and
   generally fairly efficient in memory usage.</pre><pre>  * MP_PARAMS controls model preference, prices, shock and asset grid
@@ -112,7 +112,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
   various printing, storaging, graphing, convergence etc controls
   through MP_SUPPORT</pre><pre>  [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_VEC(MP_PARAMS, MP_SUPPORT,
   MP_SUPPORT_GRAPH) also changing graphing options, see the
-  FF_GRAPH_GRID function for what key value paris can be specified.</pre><pre>  see also FX_VFI_AZ_VEC, FF_VFI_AZ_LOOP, FF_GRAPH_GRID</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Set Default and Parse Inputs</a></li><li><a href="#4">Default Model Parameters</a></li><li><a href="#5">Parse mp_params</a></li><li><a href="#6">Generate A and Z Grids</a></li><li><a href="#7">Default Support Parameters</a></li><li><a href="#8">Whether Additional Outcomes Should be Stored</a></li><li><a href="#9">Initialize Matrix</a></li><li><a href="#10">Define Functions</a></li><li><a href="#11">Iterate and Dynamically Solve</a></li><li><a href="#12">Convergence Results</a></li><li><a href="#13">Results for Printing, and Graphing</a></li><li><a href="#14">Print Parameter Information</a></li><li><a href="#15">Show Value Function Convergence Information</a></li><li><a href="#16">ls_ffcmd summary</a></li><li><a href="#17">ls_ffsna summarize full</a></li><li><a href="#18">ls_ffgrh graph</a></li><li><a href="#19">Store Results for Output</a></li></ul></div><pre class="codeinput"><span class="keyword">function</span> [mp_valpol_out, flag] = ff_vfi_az_vec(varargin)
+  FF_GRAPH_GRID function for what key value paris can be specified.</pre><pre>  see also FX_VFI_AZ_VEC, FF_VFI_AZ_LOOP, FF_GRAPH_GRID,
+  FF_VFI_AZ_BISEC_LOOP, FF_VFI_AZ_BISEC_VEC</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Set Default and Parse Inputs</a></li><li><a href="#4">Default Model Parameters</a></li><li><a href="#5">Parse mp_params</a></li><li><a href="#6">Generate A and Z Grids</a></li><li><a href="#7">Default Support Parameters</a></li><li><a href="#8">Whether Additional Outcomes Should be Stored</a></li><li><a href="#9">Initialize Matrix</a></li><li><a href="#10">Define Functions</a></li><li><a href="#11">Iterate and Dynamically Solve</a></li><li><a href="#12">Convergence Results</a></li><li><a href="#13">Results for Printing, and Graphing</a></li><li><a href="#14">Print Parameter Information</a></li><li><a href="#15">Show Value Function Convergence Information</a></li><li><a href="#16">ls_ffcmd summary</a></li><li><a href="#17">ls_ffsna summarize full</a></li><li><a href="#18">ls_ffgrh graph</a></li><li><a href="#19">Store Results for Output</a></li></ul></div><pre class="codeinput"><span class="keyword">function</span> [mp_valpol_out, flag] = ff_vfi_az_vec(varargin)
 </pre><h2 id="3">Set Default and Parse Inputs</h2><pre class="codeinput"><span class="keyword">if</span> (~isempty(varargin))
 
     <span class="keyword">if</span> (length(varargin) == 1)
@@ -562,7 +563,7 @@ ff_vfi_az_bisec_loop, it_iter:175, fl_diff:8.9715e-05
 <span class="keyword">if</span> (bl_timer)
     toc
 <span class="keyword">end</span>
-</pre><pre class="codeoutput">Elapsed time is 0.162824 seconds.
+</pre><pre class="codeoutput">Elapsed time is 0.180681 seconds.
 </pre><h2 id="13">Results for Printing, and Graphing</h2><pre class="codeinput">mp_print_graph = containers.Map(<span class="string">'KeyType'</span>,<span class="string">'char'</span>, <span class="string">'ValueType'</span>,<span class="string">'any'</span>);
 mp_print_graph(<span class="string">'v'</span>) = mt_val_cur;
 mp_print_graph(<span class="string">'ap'</span>) = mt_aprime;
@@ -1123,7 +1124,7 @@ xxx TABLE:y xxxxxxxxxxxxxxxxxx
 </pre><pre class="codeinput"><span class="keyword">end</span>
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-%% FF_VFI_AZ_VEC (vectorized) solves the Savings and Shock Dynamic Programming Problem
+%% FF_VFI_AZ_VEC (vectorized grid choice) Dynamic Savings Problem
 %    Vectorized faster solution for solving the dynamic programming problem
 %    with fixed assets grid using value function iteration. Obtains policy
 %    and value functions. Shock is AR(1). This function is vectorized, and
@@ -1186,7 +1187,8 @@ xxx TABLE:y xxxxxxxxxxxxxxxxxx
 %    MP_SUPPORT_GRAPH) also changing graphing options, see the
 %    FF_GRAPH_GRID function for what key value paris can be specified.
 %
-%    see also FX_VFI_AZ_VEC, FF_VFI_AZ_LOOP, FF_GRAPH_GRID
+%    see also FX_VFI_AZ_VEC, FF_VFI_AZ_LOOP, FF_GRAPH_GRID,
+%    FF_VFI_AZ_BISEC_LOOP, FF_VFI_AZ_BISEC_VEC
 %
 
 %%

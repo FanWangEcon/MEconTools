@@ -63,7 +63,8 @@
 %    MP_SUPPORT_GRAPH) also changing graphing options, see the
 %    FF_GRAPH_GRID function for what key value paris can be specified.
 %
-%    see also FX_VFI_AZ_LOOP, FF_VFI_AZ_VEC, FF_GRAPH_GRID
+%    see also FX_VFI_AZ_LOOP, FF_VFI_AZ_VEC, FF_GRAPH_GRID,
+%    FF_VFI_AZ_BISEC_LOOP, FF_VFI_AZ_BISEC_VEC
 %
 
 %%

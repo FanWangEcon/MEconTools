@@ -51,7 +51,6 @@ if (~isempty(varargin))
     
     st_grid_type = 'grid_linspace';
     bl_verbose = false;
-    bl_print_iter = false;
     
     if (length(varargin) == 1)
         [fc_deri_wth_uniroot] = varargin{:};
@@ -69,7 +68,6 @@ else
     
     % print more
     bl_verbose = true;
-    bl_print_iter = true;
     
     % 1. ffi_intertemporal_max at the end of this function is two period
     % intertemporal utility maximization problem where the choice is
@@ -86,86 +84,32 @@ else
         ar_z2 = [3,3,2,2,1,1]';
         ar_r = 1.10 + zeros(size(ar_z1));
         ar_beta = [0.80, 0.95, 0.80, 0.95, 0.80, 0.95]';
-        % mt_fc_inputs = [ar_z1, ar_z2, ar_r, ar_beta];
+        % mt_fc_inputs = [ar_z1, ar_z2, ar_r, ar_beta];               
+        
+    elseif(it_exam==2)
         
         rng(123);
         ar_z1 = exp(rand([8,1])*3-1.5); % 40 asset points
         ar_z2 = exp(rand([8,1])*3-1.5); % 7 shock points
         ar_r = (rand(8,1)*0.10)+1.0; % marriage and edu
         ar_beta = (rand(8,1)*0.18)+0.80; % number of kids 0 to 5 
-        
+
         cl_ar_all = {ar_z1, ar_z2, ar_r, ar_beta};
         cl_mt_all = cl_ar_all;
         [cl_mt_all{:}] = ndgrid(cl_ar_all{:});
         mt_all_states = cell2mat(cellfun(@(m) m(:), cl_mt_all, 'uni', 0));
-        ar_mesh_z1 = mt_all_states(:,1);
-        ar_mesh_z2 = mt_all_states(:,2); 
-        ar_mesh_r = mt_all_states(:,3); 
-        ar_mesh_beta = mt_all_states(:,4);
-        
+
         ar_z1 = mt_all_states(:,1);
         ar_z2 = mt_all_states(:,2); 
         ar_r = mt_all_states(:,3); 
         ar_beta = mt_all_states(:,4);        
-
-        % 3. define function with the fixed matrix of input
-        fc_deri_wth_uniroot = @(x) ffi_intertemporal_max(...
-            x, ar_mesh_z1, ar_mesh_z2, ar_mesh_r, ar_mesh_beta);
-%         fc_deri_wth_uniroot = @(x) ffi_intertemporal_max(x, ar_z1, ar_z2, ar_r, ar_beta);
         
-    elseif(it_exam==2)
-        
-        % solve future value first over state-space, consider savings only.
-        
-        % Get Some Tauchenized Shock
-        [fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose, it_std_bound] = ...
-            deal(0.60, 0.10, 3, false, 3);
-        [ar_disc_ar1, mt_disc_ar1_trans] = ...
-            ffy_tauchen(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose, it_std_bound);
-        
-        % think of ar_saveborr_level and ar_z2 as asset and shocks
-        % think of ar_r and ar_beta as some other state-space components
-        ar_saveborr_level = linspace(0, 3, 5); % 40 asset points
-        ar_z2 = exp(ar_disc_ar1); % 7 shock points
-        ar_r = linspace(1.00, 1.05, 2); % marriage and edu
-        ar_beta = linspace(0.80, 0.95, 3); % number of kids 0 to 5 
-        
-        cl_ar_all = {ar_saveborr_level, ar_z2, ar_r, ar_beta};
-        cl_mt_all = cl_ar_all;
-        [cl_mt_all{:}] = ndgrid(cl_ar_all{:});
-        mt_all_states = cell2mat(cellfun(@(m) m(:), cl_mt_all, 'uni', 0));
-
-        % Evalute future at state space components    
-        ar_mesh_saveborr_level = mt_all_states(:,1);
-        ar_mesh_z2 = mt_all_states(:,2); 
-        ar_mesh_r = mt_all_states(:,3); 
-        ar_mesh_beta = mt_all_states(:,4);
-        ar_util_future = ffi_intertemporal_util_future(...
-            ar_mesh_saveborr_level, ar_mesh_z2, ar_mesh_r, ar_mesh_beta);
-        
-        % Assume that r and beta are persistent, from period t perspective,
-        % I want to be able to find future value, given r, beta, current z,
-        % and asset choice. r and beta tell us something aobut which row of
-        % ar_util_future we should be looking at, the savings choice        
-        mn_util_future = reshape(ar_util_future, ...
-            [length(ar_saveborr_level), length(ar_z2), ...
-             length(ar_r), length(ar_beta)]);
-         
-%          % reshape value so that all states are rows, shocks are columns
-%          mn_util_future_reshape = reshape(...
-%              permute(mn_util_future, [1,3,4,2]), ...
-%              [], length(ar_z2));
-%          
-%          same asset grid grid 
-%          given a vector of asset points
-
-          11;
     end
-    
-    % 4. given the percentage assset choice problem, all share same bounds
-    fl_x_left_start = 10e-6;
-    fl_x_right_start = 1-10e-6;
-    
+
+    % 3. define function with the fixed matrix of input
+    fc_deri_wth_uniroot = @(x) ffi_intertemporal_max(...
+        x, ar_z1, ar_z2, ar_r, ar_beta);
+        
 end
 
 %% Set and Update Support Map
@@ -334,6 +278,16 @@ if (bl_verbose)
         % Call function
         ff_graph_grid(mt_iter_print, [1:size(mt_iter_print,1)], [1:size(mt_iter_print,2)], mp_support_graph);
 %     end
+
+    % print as container:
+    mp_container_map = containers.Map('KeyType','char', 'ValueType','any');
+    mp_container_map('ar_opti_save_frac') = ar_opti_save_frac';
+    mp_container_map('ar_opti_foc_obj') = ar_opti_foc_obj';
+    if (nargout>=2)
+        mp_container_map('ar_opti_save_level') = ar_opti_save_level';
+    end
+    ff_container_map_display(mp_container_map, 10, 10);    
+
 end
 
 %% Return
@@ -352,49 +306,10 @@ for it_k = 1:nargout
 end
 end
 
-%% Utility Function
-%    see https://fanwangecon.github.io/Math4Econ/derivative_application/htmlpdfm/K_save_households.html
-function [ar_util_today, ar_util_future] = ...
-    ffi_intertemporal_util(ar_saveborr_frac, z1, z2, r, beta)
-% utility function
-
-ar_resource = (z1-z2./(1+r));
-ar_saveborr_level = ar_saveborr_frac.*ar_resource;
-
-% contemporarneous utility
-ar_util_today = log(z1-ar_saveborr_level);
-
-% future utility
-ar_util_future = ffi_intertemporal_util_future(ar_saveborr_level, z2, r, beta);
-
-% total utility 
-ar_util_all = ar_util_today + ar_util_future;
-
-end
-
-%% Utilty Future
-function [ar_util_future] = ...
-    ffi_intertemporal_util_future(ar_saveborr_level, z2, r, beta)
-% utility function
-
-% future utility
-ar_util_future = beta.*log(z2 + ar_saveborr_level.*(1+r));
-
-end
-
 %% Intertemporal Maximization with Log Util, no Shock, Two Periods, Endowments
 %    see https://fanwangecon.github.io/Math4Econ/derivative_application/htmlpdfm/K_save_households.html
 function [ar_deri_zero, ar_saveborr_level] = ...
     ffi_intertemporal_max(ar_saveborr_frac, z1, z2, r, beta)
-% x is borrowing or savings fraction, save at most z1, borrow at most
-% z2/(1+r), x is between 0 and 1, assume that mt_fc_inputs are inputs
-% that will be providing different functional parameters as rows, each
-% column is a different parameter. N by 1. x could by 1 by M.
-
-%     z1 = mt_fc_inputs(:,1);
-%     z2 = mt_fc_inputs(:,2);
-%     r = mt_fc_inputs(:,3);
-%     beta = mt_fc_inputs(:,4);
 
 ar_saveborr_level = ar_saveborr_frac.*(z1-z2./(1+r));
 ar_deri_zero = 1./(ar_saveborr_level-z1) + (beta.*(r+1))./(z2 + ar_saveborr_level.*(r+1));
@@ -405,15 +320,6 @@ end
 %    see https://fanwangecon.github.io/Math4Econ/derivative_application/htmlpdfm/K_save_households.html
 function [ar_opti_saveborr_frac, ar_opti_saveborr_level] = ...
     ffi_intertemporal_max_solu(z1, z2, r, beta)
-% x is borrowing or savings fraction, save at most z1, borrow at most
-% z2/(1+r), x is between 0 and 1, assume that mt_fc_inputs are inputs
-% that will be providing different functional parameters as rows, each
-% column is a different parameter. N by 1. x could by 1 by M.
-
-%     z1 = mt_fc_inputs(:,1);
-%     z2 = mt_fc_inputs(:,2);
-%     r = mt_fc_inputs(:,3);
-%     beta = mt_fc_inputs(:,4);
 
 ar_opti_saveborr_level = (z1.*beta.*(1+r) - z2)./((1+r).*(1+beta));
 ar_opti_saveborr_frac = ar_opti_saveborr_level./(z1-z2./(1+r));

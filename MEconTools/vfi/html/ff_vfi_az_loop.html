@@ -114,7 +114,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
   various printing, storaging, graphing, convergence etc controls
   through MP_SUPPORT</pre><pre>  [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_LOOP(MP_PARAMS, MP_SUPPORT,
   MP_SUPPORT_GRAPH) also changing graphing options, see the
-  FF_GRAPH_GRID function for what key value paris can be specified.</pre><pre>  see also FX_VFI_AZ_LOOP, FF_VFI_AZ_VEC, FF_GRAPH_GRID</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Set Default and Parse Inputs</a></li><li><a href="#4">Default Model Parameters</a></li><li><a href="#5">Parse mp_params</a></li><li><a href="#6">Generate A and Z Grids</a></li><li><a href="#7">Default Support Parameters</a></li><li><a href="#8">Whether Additional Outcomes Should be Stored</a></li><li><a href="#9">Initialize Matrix</a></li><li><a href="#10">Iterate and Dynamically Solve</a></li><li><a href="#11">Convergence Results</a></li><li><a href="#12">Results for Printing, and Graphing</a></li><li><a href="#13">Print Parameter Information</a></li><li><a href="#14">Show Value Function Convergence Information</a></li><li><a href="#15">ls_ffcmd summary</a></li><li><a href="#16">ls_ffsna summarize full</a></li><li><a href="#17">ls_ffgrh graph</a></li><li><a href="#18">Store Results for Output</a></li></ul></div><pre class="codeinput"><span class="keyword">function</span> [mp_valpol_out, flag] = ff_vfi_az_loop(varargin)
+  FF_GRAPH_GRID function for what key value paris can be specified.</pre><pre>  see also FX_VFI_AZ_LOOP, FF_VFI_AZ_VEC, FF_GRAPH_GRID,
+  FF_VFI_AZ_BISEC_LOOP, FF_VFI_AZ_BISEC_VEC</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Set Default and Parse Inputs</a></li><li><a href="#4">Default Model Parameters</a></li><li><a href="#5">Parse mp_params</a></li><li><a href="#6">Generate A and Z Grids</a></li><li><a href="#7">Default Support Parameters</a></li><li><a href="#8">Whether Additional Outcomes Should be Stored</a></li><li><a href="#9">Initialize Matrix</a></li><li><a href="#10">Iterate and Dynamically Solve</a></li><li><a href="#11">Convergence Results</a></li><li><a href="#12">Results for Printing, and Graphing</a></li><li><a href="#13">Print Parameter Information</a></li><li><a href="#14">Show Value Function Convergence Information</a></li><li><a href="#15">ls_ffcmd summary</a></li><li><a href="#16">ls_ffsna summarize full</a></li><li><a href="#17">ls_ffgrh graph</a></li><li><a href="#18">Store Results for Output</a></li></ul></div><pre class="codeinput"><span class="keyword">function</span> [mp_valpol_out, flag] = ff_vfi_az_loop(varargin)
 </pre><h2 id="3">Set Default and Parse Inputs</h2><pre class="codeinput"><span class="keyword">if</span> (~isempty(varargin))
 
     <span class="keyword">if</span> (length(varargin) == 1)
@@ -542,7 +543,7 @@ ff_vfi_az_bisec_loop, it_iter:175, fl_diff:8.9715e-05
 <span class="keyword">if</span> (bl_timer)
     toc
 <span class="keyword">end</span>
-</pre><pre class="codeoutput">Elapsed time is 1.383962 seconds.
+</pre><pre class="codeoutput">Elapsed time is 1.477810 seconds.
 </pre><h2 id="12">Results for Printing, and Graphing</h2><pre class="codeinput">mp_print_graph = containers.Map(<span class="string">'KeyType'</span>,<span class="string">'char'</span>, <span class="string">'ValueType'</span>,<span class="string">'any'</span>);
 mp_print_graph(<span class="string">'v'</span>) = mt_val_cur;
 mp_print_graph(<span class="string">'ap'</span>) = mt_aprime;
@@ -1099,7 +1100,7 @@ xxx TABLE:y xxxxxxxxxxxxxxxxxx
     <span class="keyword">end</span>
 
 <span class="keyword">end</span>
-</pre><img vspace="5" hspace="5" src="ff_vfi_az_loop_01.png" alt=""> <img vspace="5" hspace="5" src="ff_vfi_az_loop_02.png" alt=""> <img vspace="5" hspace="5" src="ff_vfi_az_loop_03.png" alt=""> <img vspace="5" hspace="5" src="ff_vfi_az_loop_04.png" alt=""> <img vspace="5" hspace="5" src="ff_vfi_az_loop_05.png" alt=""> <img vspace="5" hspace="5" src="ff_vfi_az_loop_06.png" alt=""> <img vspace="5" hspace="5" src="ff_vfi_az_loop_07.png" alt=""> <img vspace="5" hspace="5" src="ff_vfi_az_loop_08.png" alt=""> <img vspace="5" hspace="5" src="ff_vfi_az_loop_09.png" alt=""> <img vspace="5" hspace="5" src="ff_vfi_az_loop_10.png" alt=""> <img vspace="5" hspace="5" src="ff_vfi_az_loop_11.png" alt=""> <img vspace="5" hspace="5" src="ff_vfi_az_loop_12.png" alt=""> <img vspace="5" hspace="5" src="ff_vfi_az_loop_13.png" alt=""> <h2 id="18">Store Results for Output</h2><pre class="codeinput">mp_valpol_out = containers.Map(ls_slout, values(mp_print_graph, ls_slout));
+</pre><img vspace="5" hspace="5" src="ff_vfi_az_loop_01.png" alt=""> <img vspace="5" hspace="5" src="ff_vfi_az_loop_02.png" alt=""> <img vspace="5" hspace="5" src="ff_vfi_az_loop_03.png" alt=""> <img vspace="5" hspace="5" src="ff_vfi_az_loop_04.png" alt=""> <img vspace="5" hspace="5" src="ff_vfi_az_loop_05.png" alt=""> <img vspace="5" hspace="5" src="ff_vfi_az_loop_06.png" alt=""> <img vspace="5" hspace="5" src="ff_vfi_az_loop_07.png" alt=""> <img vspace="5" hspace="5" src="ff_vfi_az_loop_08.png" alt=""> <img vspace="5" hspace="5" src="ff_vfi_az_loop_09.png" alt=""> <img vspace="5" hspace="5" src="ff_vfi_az_loop_10.png" alt=""> <h2 id="18">Store Results for Output</h2><pre class="codeinput">mp_valpol_out = containers.Map(ls_slout, values(mp_print_graph, ls_slout));
 </pre><pre class="codeinput"><span class="keyword">end</span>
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
@@ -1168,7 +1169,8 @@ xxx TABLE:y xxxxxxxxxxxxxxxxxx
 %    MP_SUPPORT_GRAPH) also changing graphing options, see the
 %    FF_GRAPH_GRID function for what key value paris can be specified.
 %
-%    see also FX_VFI_AZ_LOOP, FF_VFI_AZ_VEC, FF_GRAPH_GRID
+%    see also FX_VFI_AZ_LOOP, FF_VFI_AZ_VEC, FF_GRAPH_GRID,
+%    FF_VFI_AZ_BISEC_LOOP, FF_VFI_AZ_BISEC_VEC
 %
 
 %%

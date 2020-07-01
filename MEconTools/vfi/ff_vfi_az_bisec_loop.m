@@ -1,4 +1,4 @@
-%% FF_VFI_AZ_BISECT_LOOP (looped exact choice) Dynamic Savings Problem
+%% FF_VFI_AZ_BISEC_LOOP (looped exact choice) Dynamic Savings Problem
 %    Slow looped solution for solving the dynamic programming problem with
 %    fixed asset state space, but continuous asset choices. Solution
 %    obtained via bi(multi)-section. Solves for the fraction of resources
@@ -60,21 +60,21 @@
 %    % outcome for ff_summ_nd_array
 %    mp_support('ffsna_opt_it_col_n_keep') = 9; 
 %
-%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_BISECT_LOOP() default savings and
+%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_BISEC_LOOP() default savings and
 %    shock model simulation
 %
-%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_BISECT_LOOP(MP_PARAMS) change model
+%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_BISEC_LOOP(MP_PARAMS) change model
 %    parameters through MP_PARAMS
 %
-%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_BISECT_LOOP(MP_PARAMS, MP_SUPPORT)
+%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_BISEC_LOOP(MP_PARAMS, MP_SUPPORT)
 %    change various printing, storaging, graphing, convergence etc controls
 %    through MP_SUPPORT
 %
-%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_BISECT_LOOP(MP_PARAMS, MP_SUPPORT,
+%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_BISEC_LOOP(MP_PARAMS, MP_SUPPORT,
 %    MP_SUPPORT_GRAPH) also changing graphing options, see the
 %    FF_GRAPH_GRID function for what key value paris can be specified.
 %
-%    see also FX_VFI_AZ_BISECT_LOOP, FF_VFI_AZ_BISECT_VEC, FF_VFI_AZ_LOOP,
+%    see also FX_VFI_AZ_BISEC_LOOP, FF_VFI_AZ_BISEC_VEC, FF_VFI_AZ_LOOP,
 %    FF_VFI_AZ_VEC, FF_GRAPH_GRID
 %
 
@@ -258,7 +258,7 @@ while bl_continue
             % Add to each cell of mt_ev_ap_z, integrating over f(zp|z)
             for it_zprime_ctr = 1:length(ar_z)
                 mt_ev_ap_z(it_ap_ctr, it_z_ctr) = mt_ev_ap_z(it_ap_ctr, it_z_ctr) ...
-                    + fl_beta*mt_z_trans(it_z_ctr,it_zprime_ctr)*mt_val_lst(it_ap_ctr,it_zprime_ctr);
+                    + mt_z_trans(it_z_ctr,it_zprime_ctr)*mt_val_lst(it_ap_ctr,it_zprime_ctr);
             end
         end
     end

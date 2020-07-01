@@ -1,4 +1,4 @@
-%% FF_VFI_AZ_VEC (vectorized) solves the Savings and Shock Dynamic Programming Problem
+%% FF_VFI_AZ_VEC (vectorized grid choice) Dynamic Savings Problem
 %    Vectorized faster solution for solving the dynamic programming problem
 %    with fixed assets grid using value function iteration. Obtains policy
 %    and value functions. Shock is AR(1). This function is vectorized, and
@@ -61,7 +61,8 @@
 %    MP_SUPPORT_GRAPH) also changing graphing options, see the
 %    FF_GRAPH_GRID function for what key value paris can be specified.
 %
-%    see also FX_VFI_AZ_VEC, FF_VFI_AZ_LOOP, FF_GRAPH_GRID
+%    see also FX_VFI_AZ_VEC, FF_VFI_AZ_LOOP, FF_GRAPH_GRID,
+%    FF_VFI_AZ_BISEC_LOOP, FF_VFI_AZ_BISEC_VEC
 %
 
 %%

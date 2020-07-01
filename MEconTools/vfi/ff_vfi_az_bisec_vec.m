@@ -1,4 +1,4 @@
-%% FF_VFI_AZ_BISECT_VEC (vectprozed exact choice) Dynamic Savings Problem
+%% FF_VFI_AZ_BISEC_VEC (vectorized exact choice) Dynamic Savings Problem
 %    Fast vectorized solution for solving the dynamic programming problem
 %    with fixed asset state space, but continuous asset choices. Solution
 %    obtained via bi(multi)-section. Solves for the fraction of resources
@@ -60,21 +60,21 @@
 %    % outcome for ff_summ_nd_array
 %    mp_support('ffsna_opt_it_col_n_keep') = 9; 
 %
-%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_BISECT_VEC() default savings and
+%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_BISEC_VEC() default savings and
 %    shock model simulation
 %
-%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_BISECT_VEC(MP_PARAMS) change model
+%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_BISEC_VEC(MP_PARAMS) change model
 %    parameters through MP_PARAMS
 %
-%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_BISECT_VEC(MP_PARAMS, MP_SUPPORT)
+%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_BISEC_VEC(MP_PARAMS, MP_SUPPORT)
 %    change various printing, storaging, graphing, convergence etc controls
 %    through MP_SUPPORT
 %
-%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_BISECT_VEC(MP_PARAMS, MP_SUPPORT,
+%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_BISEC_VEC(MP_PARAMS, MP_SUPPORT,
 %    MP_SUPPORT_GRAPH) also changing graphing options, see the
 %    FF_GRAPH_GRID function for what key value paris can be specified.
 %
-%    see also FX_VFI_AZ_BISECT_VEC, FF_VFI_AZ_BISECT_LOOP, FF_VFI_AZ_LOOP,
+%    see also FX_VFI_AZ_BISEC_VEC, FF_VFI_AZ_BISEC_LOOP, FF_VFI_AZ_LOOP,
 %    FF_VFI_AZ_VEC, FF_GRAPH_GRID
 %
 
@@ -258,12 +258,10 @@ f_cons = @(z, b, bprime) (f_coh(z, b) - bprime);
 
 % C1. Resource Matrix Broadcast: length(ar_a) by length(ar_z) matrix
 mt_resources = f_coh(ar_z, ar_a');
-mt_z = ar_z(ones([1,length(ar_a)]),1:length(ar_z));
 mt_z_ctr = repmat(1:length(ar_z), [length(ar_a), 1]);
 
 % C2. Flatten the resource matrix, amz = a mesh z:
 ar_resources_amz = mt_resources(:);
-ar_z_amz = mt_z(:);
 ar_z_ctr_amz = mt_z_ctr(:);
 
 %% Dynamically Solve
@@ -290,7 +288,7 @@ while bl_continue
             % Add to each cell of mt_ev_ap_z, integrating over f(zp|z)
             for it_zprime_ctr = 1:length(ar_z)
                 mt_ev_ap_z(it_ap_ctr, it_z_ctr) = mt_ev_ap_z(it_ap_ctr, it_z_ctr) ...
-                    + fl_beta*mt_z_trans(it_z_ctr,it_zprime_ctr)*mt_val_lst(it_ap_ctr,it_zprime_ctr);
+                    + mt_z_trans(it_z_ctr,it_zprime_ctr)*mt_val_lst(it_ap_ctr,it_zprime_ctr);
             end
         end
     end
@@ -542,8 +540,10 @@ ar_c = ar_resources_amz - ar_aprime;
 ar_du_dap = f_du_da(ar_c);
 
 % E. the marginal effects of additional asset is determined by the slope 
+% mt_z_ctr_amz = repmat(ar_z_ctr_amz, [1, size(ar_aprime_frac_amz,2)]);
 ar_lin_idx = sub2ind(size(mt_deri_dev_dap), ar_ap_near_lower_idx, ar_z_ctr_amz);
 ar_deri_dev_dap = mt_deri_dev_dap(ar_lin_idx);
+% ar_deri_dev_dap = reshape(ar_deri_dev_dap, size(mt_z_ctr_amz));
 
 % F. overall first order condition, this is the root search objective
 ar_dU_dap = f_FOC(ar_du_dap, ar_deri_dev_dap);

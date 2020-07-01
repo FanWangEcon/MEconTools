@@ -49,8 +49,8 @@
   urlcolor: blue
 
 - file: fx_vfi_az_bisec_loop
-  title: "Matlab FF_VFI_AZ_LOOP Looped Solution for Optimal Savings Dynamic Programming Problem in Infinite Horizon"
-  titleshort: "Looped Grid Infinite Horizon Dynamic Savings Problem"
+  title: "Matlab FF_VFI_AZ_LOOP Looped Exact Solution for Optimal Savings Dynamic Programming Problem in Infinite Horizon"
+  titleshort: "Looped Exact Infinite Horizon Dynamic Savings Problem"
   description: |
     Exact choice looped solution
     Slow, but high precision at low grid size (given value grid, accurate up to 0.001525878 percent of individual-specific cash-on-hand)
@@ -74,8 +74,8 @@
   urlcolor: blue
 
 - file: fx_vfi_az_bisec_vec
-  title: "Matlab FF_VFI_AZ_VEC Vectorized Solution for Optimal Savings Dynamic Programming Problem in Infinite Horizon"
-  titleshort: "Vectorized Grid Infinite Horizon Dynamic Savings Problem"
+  title: "Matlab FF_VFI_AZ_VEC Vectorized Exact Solution for Optimal Savings Dynamic Programming Problem in Infinite Horizon"
+  titleshort: "Vectorized Exact Infinite Horizon Dynamic Savings Problem"
   description: |
     Exact choice vectorized solution
     Fast, approximates choices with higher precision (given value grid, accurate up to 0.001525878 percent of individual-specific cash-on-hand)
