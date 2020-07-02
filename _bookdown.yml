@@ -22,8 +22,15 @@ rmd_files:
   - MEconTools/doc/stats/fx_disc_rand_var_mass2outcomes.Rmd
   - MEconTools/doc/stats/fx_disc_rand_var_mass2covcor.Rmd
 
+  - MEconTools/doc/optim/main.Rmd
+  - MEconTools/doc/optim/fx_optim_bisec_savezrone.Rmd
+  - MEconTools/doc/optim/fx_optim_mlsec_savezrone.Rmd
+
   - MEconTools/doc/graph/main.Rmd
   - MEconTools/doc/graph/fx_graph_grid.Rmd
+
+  - MEconTools/doc/tools/main.Rmd
+  - MEconTools/doc/tools/fx_container_map_display.Rmd
 
   - MEconTools/doc/generate/main.Rmd
   - MEconTools/doc/generate/fx_saveborr_grid.Rmd
@@ -31,9 +38,6 @@ rmd_files:
   - MEconTools/doc/external/main.Rmd
   - MEconTools/doc/external/fxy_tauchen.Rmd
   - MEconTools/doc/external/fxy_rouwenhorst.Rmd
-
-  - MEconTools/doc/tools/main.Rmd
-  - MEconTools/doc/tools/fx_container_map_display.Rmd
 
   - README_appendix.md
   - title.Rmd

@@ -1,13 +1,36 @@
 - file: fx_optim_bisec_savezrone
   title: "Matlab FF_OPTIM_BISEC_SAVEZRONE Optimal Savings Share Concurrent Bisection"
-  titleshort: "Solving Optimal Savings Share across Multiple State-Space Elements"
+  titleshort: "Bisection Exact Optimal Savings Share Multiple States"
   description: |
     Given a First Order Condition function handle that takes the fraction of resources (cash-on-hand) saved as the input, solve for the optimal savings fraction via bisection. Solve this concurrently for many elements of the state-space. The function handle contains value function, other parameters, etc.
   core :
     - package: MEconTools
       code: |
-        ff_optim_bisec_savezrone()
-  date: 2020-06-30
+        [ff_optim_bisec_savezrone()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/optim/ff_optim_bisec_savezrone.m)
+  date: 2020-07-02
+  date_start: 2020-06-30
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue
+
+- file: fx_optim_mlsec_savezrone
+  title: "Matlab FF_OPTIM_MLSEC_SAVEZRONE Optimal Savings Share Concurrent Multisection"
+  titleshort: "Multisection Exact Optimal Savings Share Multiple States"
+  description: |
+    Given a First Order Condition function handle that takes the fraction of resources (cash-on-hand) saved as the input, solve for the optimal savings fraction via multisection where there are multiple evaluations per iteration of the FOC. Solve this concurrently for many elements of the state-space. The function handle contains value function, other parameters, etc.
+  core :
+    - package: MEconTools
+      code: |
+        [ff_optim_mlsec_savezrone()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/optim/ff_optim_mlsec_savezrone.m)
+  date: 2020-07-02
   date_start: 2020-06-30
   output:
     pdf_document:

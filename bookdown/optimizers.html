@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Optimizers | Matlab Toolbox Heterogeneous Agents Dynamic Programming</title>
+  <meta name="description" content="Chapter 4 Optimizers | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Optimizers | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Chapter 4 Optimizers | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
+  <meta name="github-repo" content="fanwangecon/MEconTools" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Optimizers | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
+  
+  <meta name="twitter:description" content="Chapter 4 Optimizers | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
+  
+
+<meta name="author" content="Fan Wang" />
+
+
+<meta name="date" content="2020-07-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="distributional-analysis.html"/>
+<link rel="next" href="graphs.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-92953468-6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-92953468-6');
+</script>
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Matlab Toolbox Heterogeneous Agents Dynamic Programming</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html"><i class="fa fa-check"></i><b>1</b> Savings Dynamic Programming</a><ul>
+<li class="chapter" data-level="1.1" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#ff_vfi_az_loop-dynamic-savings-problem-loop-common-grid"><i class="fa fa-check"></i><b>1.1</b> FF_VFI_AZ_LOOP Dynamic Savings Problem Loop Common Grid</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_loop-defaults"><i class="fa fa-check"></i><b>1.1.1</b> Test FF_VFI_AZ_LOOP Defaults</a></li>
+<li class="chapter" data-level="1.1.2" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_loop-speed-tests"><i class="fa fa-check"></i><b>1.1.2</b> Test FF_VFI_AZ_LOOP Speed Tests</a></li>
+<li class="chapter" data-level="1.1.3" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_loop-control-outputs"><i class="fa fa-check"></i><b>1.1.3</b> Test FF_VFI_AZ_LOOP Control Outputs</a></li>
+<li class="chapter" data-level="1.1.4" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_loop-change-interest-rate-and-discount"><i class="fa fa-check"></i><b>1.1.4</b> Test FF_VFI_AZ_LOOP Change Interest Rate and Discount</a></li>
+<li class="chapter" data-level="1.1.5" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_loop-changing-risk-aversion"><i class="fa fa-check"></i><b>1.1.5</b> Test FF_VFI_AZ_LOOP Changing Risk Aversion</a></li>
+<li class="chapter" data-level="1.1.6" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_loop-with-higher-uncertainty"><i class="fa fa-check"></i><b>1.1.6</b> Test FF_VFI_AZ_LOOP with Higher Uncertainty</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#ff_vfi_az_vec-dynamic-savings-problem-vectorized-common-grid"><i class="fa fa-check"></i><b>1.2</b> FF_VFI_AZ_VEC Dynamic Savings Problem Vectorized Common Grid</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_vec-defaults"><i class="fa fa-check"></i><b>1.2.1</b> Test FF_VFI_AZ_VEC Defaults</a></li>
+<li class="chapter" data-level="1.2.2" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_vec-speed-tests"><i class="fa fa-check"></i><b>1.2.2</b> Test FF_VFI_AZ_BISEC_VEC Speed Tests</a></li>
+<li class="chapter" data-level="1.2.3" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_vec-control-outputs"><i class="fa fa-check"></i><b>1.2.3</b> Test FF_VFI_AZ_VEC Control Outputs</a></li>
+<li class="chapter" data-level="1.2.4" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_vec-change-interest-rate-and-discount"><i class="fa fa-check"></i><b>1.2.4</b> Test FF_VFI_AZ_VEC Change Interest Rate and Discount</a></li>
+<li class="chapter" data-level="1.2.5" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_vec-changing-risk-aversion"><i class="fa fa-check"></i><b>1.2.5</b> Test FF_VFI_AZ_VEC Changing Risk Aversion</a></li>
+<li class="chapter" data-level="1.2.6" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_vec-with-higher-uncertainty"><i class="fa fa-check"></i><b>1.2.6</b> Test FF_VFI_AZ_VEC with Higher Uncertainty</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#ff_vfi_az_bisec_loop-dynamic-savings-problem-loop-continuous-choice"><i class="fa fa-check"></i><b>1.3</b> FF_VFI_AZ_BISEC_LOOP Dynamic Savings Problem Loop Continuous Choice</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_loop-defaults"><i class="fa fa-check"></i><b>1.3.1</b> Test FF_VFI_AZ_BISEC_LOOP Defaults</a></li>
+<li class="chapter" data-level="1.3.2" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_loop-speed-tests"><i class="fa fa-check"></i><b>1.3.2</b> Test FF_VFI_AZ_BISEC_LOOP Speed Tests</a></li>
+<li class="chapter" data-level="1.3.3" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_loop-control-outputs"><i class="fa fa-check"></i><b>1.3.3</b> Test FF_VFI_AZ_BISEC_LOOP Control Outputs</a></li>
+<li class="chapter" data-level="1.3.4" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_loop-change-interest-rate-and-discount"><i class="fa fa-check"></i><b>1.3.4</b> Test FF_VFI_AZ_BISEC_LOOP Change Interest Rate and Discount</a></li>
+<li class="chapter" data-level="1.3.5" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_loop-changing-risk-aversion"><i class="fa fa-check"></i><b>1.3.5</b> Test FF_VFI_AZ_BISEC_LOOP Changing Risk Aversion</a></li>
+<li class="chapter" data-level="1.3.6" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_loop-with-higher-uncertainty"><i class="fa fa-check"></i><b>1.3.6</b> Test FF_VFI_AZ_BISEC_LOOP with Higher Uncertainty</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#ff_vfi_az_bisec_vec-dynamic-savings-problem-vectorized-continuous-exact"><i class="fa fa-check"></i><b>1.4</b> FF_VFI_AZ_BISEC_VEC Dynamic Savings Problem Vectorized Continuous Exact</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_vec-defaults"><i class="fa fa-check"></i><b>1.4.1</b> Test FF_VFI_AZ_BISEC_VEC Defaults</a></li>
+<li class="chapter" data-level="1.4.2" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_vec-speed-tests-1"><i class="fa fa-check"></i><b>1.4.2</b> Test FF_VFI_AZ_BISEC_VEC Speed Tests</a></li>
+<li class="chapter" data-level="1.4.3" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_vec-control-outputs"><i class="fa fa-check"></i><b>1.4.3</b> Test FF_VFI_AZ_BISEC_VEC Control Outputs</a></li>
+<li class="chapter" data-level="1.4.4" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_vec-change-interest-rate-and-discount"><i class="fa fa-check"></i><b>1.4.4</b> Test FF_VFI_AZ_BISEC_VEC Change Interest Rate and Discount</a></li>
+<li class="chapter" data-level="1.4.5" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_vec-changing-risk-aversion"><i class="fa fa-check"></i><b>1.4.5</b> Test FF_VFI_AZ_BISEC_VEC Changing Risk Aversion</a></li>
+<li class="chapter" data-level="1.4.6" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_vec-with-higher-uncertainty"><i class="fa fa-check"></i><b>1.4.6</b> Test FF_VFI_AZ_BISEC_VEC with Higher Uncertainty</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html"><i class="fa fa-check"></i><b>2</b> Summarize Policy and Value</a><ul>
+<li class="chapter" data-level="2.1" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#ff_summ_nd_array-examples"><i class="fa fa-check"></i><b>2.1</b> FF_SUMM_ND_ARRAY Examples</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#test-ff_summ_nd_array-defaults"><i class="fa fa-check"></i><b>2.1.1</b> Test FF_SUMM_ND_ARRAY Defaults</a></li>
+<li class="chapter" data-level="2.1.2" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#test-ff_summ_nd_array-with-random-2-dimensional-matrix"><i class="fa fa-check"></i><b>2.1.2</b> Test FF_SUMM_ND_ARRAY with Random 2 Dimensional Matrix</a></li>
+<li class="chapter" data-level="2.1.3" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#test-ff_summ_nd_array-with-random-6-dimensional-matrix"><i class="fa fa-check"></i><b>2.1.3</b> Test FF_SUMM_ND_ARRAY with Random 6 Dimensional Matrix</a></li>
+<li class="chapter" data-level="2.1.4" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#test-ff_summ_nd_array-with-random-7-dimensional-matrix-with-all-parameters"><i class="fa fa-check"></i><b>2.1.4</b> Test FF_SUMM_ND_ARRAY with Random 7 Dimensional Matrix with All Parameters</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="distributional-analysis.html"><a href="distributional-analysis.html"><i class="fa fa-check"></i><b>3</b> Distributional Analysis</a><ul>
+<li class="chapter" data-level="3.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_simu_stats-examples"><i class="fa fa-check"></i><b>3.1</b> FF_SIMU_STATS Examples</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_simu_stats-defaults"><i class="fa fa-check"></i><b>3.1.1</b> Test FF_SIMU_STATS Defaults</a></li>
+<li class="chapter" data-level="3.1.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_simu_stats-four-states-points-matrix"><i class="fa fa-check"></i><b>3.1.2</b> Test FF_SIMU_STATS Four States-Points Matrix</a></li>
+<li class="chapter" data-level="3.1.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_simu_stats-four-states-points-matrix-single-column-inputs"><i class="fa fa-check"></i><b>3.1.3</b> Test FF_SIMU_STATS Four States-Points Matrix Single Column Inputs</a></li>
+<li class="chapter" data-level="3.1.4" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_simu_stats-print-many-details"><i class="fa fa-check"></i><b>3.1.4</b> Test FF_SIMU_STATS Print Many Details</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_disc_rand_var_stats-examples"><i class="fa fa-check"></i><b>3.2</b> FF_DISC_RAND_VAR_STATS Examples</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_stats-defaults"><i class="fa fa-check"></i><b>3.2.1</b> Test FF_DISC_RAND_VAR_STATS Defaults</a></li>
+<li class="chapter" data-level="3.2.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_stats-0-and-1-random-variable"><i class="fa fa-check"></i><b>3.2.2</b> Test FF_DISC_RAND_VAR_STATS 0 and 1 Random Variable</a></li>
+<li class="chapter" data-level="3.2.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_stats-with-poisson"><i class="fa fa-check"></i><b>3.2.3</b> Test FF_DISC_RAND_VAR_STATS with Poisson</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_disc_rand_var_mass2outcomes-examples"><i class="fa fa-check"></i><b>3.3</b> FF_DISC_RAND_VAR_MASS2OUTCOMES Examples</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2outcomes-defaults"><i class="fa fa-check"></i><b>3.3.1</b> Test FF_DISC_RAND_VAR_MASS2OUTCOMES Defaults</a></li>
+<li class="chapter" data-level="3.3.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2outcomes-four-states-points"><i class="fa fa-check"></i><b>3.3.2</b> Test FF_DISC_RAND_VAR_MASS2OUTCOMES Four States-Points</a></li>
+<li class="chapter" data-level="3.3.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2outcomes-conditional-mass-outputs"><i class="fa fa-check"></i><b>3.3.3</b> Test FF_DISC_RAND_VAR_MASS2OUTCOMES Conditional Mass Outputs</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_disc_rand_var_mass2covcor-examples"><i class="fa fa-check"></i><b>3.4</b> FF_DISC_RAND_VAR_MASS2COVCOR Examples</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2covcor-defaults"><i class="fa fa-check"></i><b>3.4.1</b> Test FF_DISC_RAND_VAR_MASS2COVCOR Defaults</a></li>
+<li class="chapter" data-level="3.4.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2covcor-four-states-points"><i class="fa fa-check"></i><b>3.4.2</b> Test FF_DISC_RAND_VAR_MASS2COVCOR Four States-Points</a></li>
+<li class="chapter" data-level="3.4.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2covcor-two-random-vectors"><i class="fa fa-check"></i><b>3.4.3</b> Test FF_DISC_RAND_VAR_MASS2COVCOR Two Random Vectors</a></li>
+<li class="chapter" data-level="3.4.4" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2covcor-provide-mean-and-sd"><i class="fa fa-check"></i><b>3.4.4</b> Test FF_DISC_RAND_VAR_MASS2COVCOR Provide Mean and SD</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="optimizers.html"><a href="optimizers.html"><i class="fa fa-check"></i><b>4</b> Optimizers</a><ul>
+<li class="chapter" data-level="4.1" data-path="optimizers.html"><a href="optimizers.html#ff_optim_bisec_savezrone-derivative-bisection"><i class="fa fa-check"></i><b>4.1</b> FF_OPTIM_BISEC_SAVEZRONE Derivative Bisection</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_bisec_savezrone-defaults"><i class="fa fa-check"></i><b>4.1.1</b> Test FF_OPTIM_BISEC_SAVEZRONE Defaults</a></li>
+<li class="chapter" data-level="4.1.2" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_bisec_savezrone-one-individual"><i class="fa fa-check"></i><b>4.1.2</b> Test FF_OPTIM_BISEC_SAVEZRONE One Individual</a></li>
+<li class="chapter" data-level="4.1.3" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_bisec_savezrone-six-individual-states"><i class="fa fa-check"></i><b>4.1.3</b> Test FF_OPTIM_BISEC_SAVEZRONE Six Individual States</a></li>
+<li class="chapter" data-level="4.1.4" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_bisec_savezrone-speed"><i class="fa fa-check"></i><b>4.1.4</b> Test FF_OPTIM_BISEC_SAVEZRONE Speed</a></li>
+<li class="chapter" data-level="4.1.5" data-path="optimizers.html"><a href="optimizers.html#define-two-period-intertemporal-foc-log-utility-no-shock"><i class="fa fa-check"></i><b>4.1.5</b> Define Two Period Intertemporal FOC Log Utility No Shock</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="optimizers.html"><a href="optimizers.html#ff_optim_mlsec_savezrone-derivative-multisection"><i class="fa fa-check"></i><b>4.2</b> FF_OPTIM_MLSEC_SAVEZRONE Derivative Multisection</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_mlsec_savezrone-one-individual"><i class="fa fa-check"></i><b>4.2.1</b> Test FF_OPTIM_MLSEC_SAVEZRONE One Individual</a></li>
+<li class="chapter" data-level="4.2.2" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_mlsec_savezrone-5-individuals-5-iterations-5-points-per-iteration"><i class="fa fa-check"></i><b>4.2.2</b> Test FF_OPTIM_MLSEC_SAVEZRONE 5 Individuals 5 Iterations 5 Points Per Iteration</a></li>
+<li class="chapter" data-level="4.2.3" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_mlsec_savezrone-8-individuals-3-iterations-10-points-per-iteration"><i class="fa fa-check"></i><b>4.2.3</b> Test FF_OPTIM_MLSEC_SAVEZRONE 8 Individuals 3 Iterations 10 Points Per Iteration</a></li>
+<li class="chapter" data-level="4.2.4" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_mlsec_savezrone-speed"><i class="fa fa-check"></i><b>4.2.4</b> Test FF_OPTIM_MLSEC_SAVEZRONE Speed</a></li>
+<li class="chapter" data-level="4.2.5" data-path="optimizers.html"><a href="optimizers.html#define-two-period-intertemporal-foc-log-utility-no-shock-1"><i class="fa fa-check"></i><b>4.2.5</b> Define Two Period Intertemporal FOC Log Utility No Shock</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>5</b> Graphs</a><ul>
+<li class="chapter" data-level="5.1" data-path="graphs.html"><a href="graphs.html#ff_graph_grid-examples-x-y-and-color-line-plots"><i class="fa fa-check"></i><b>5.1</b> FF_GRAPH_GRID Examples: X, Y and Color Line Plots</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-defaults"><i class="fa fa-check"></i><b>5.1.1</b> Test FF_GRAPH_GRID Defaults</a></li>
+<li class="chapter" data-level="5.1.2" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-random-matrix-pick-markers-and-colors"><i class="fa fa-check"></i><b>5.1.2</b> Test FF_GRAPH_GRID Random Matrix Pick Markers and Colors</a></li>
+<li class="chapter" data-level="5.1.3" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-two-random-normal-lines-and-labels"><i class="fa fa-check"></i><b>5.1.3</b> Test FF_GRAPH_GRID Two Random Normal Lines and Labels</a></li>
+<li class="chapter" data-level="5.1.4" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-6-lines-pick-marker-and-colors"><i class="fa fa-check"></i><b>5.1.4</b> Test FF_GRAPH_GRID 6 Lines Pick Marker and Colors</a></li>
+<li class="chapter" data-level="5.1.5" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-many-lines"><i class="fa fa-check"></i><b>5.1.5</b> Test FF_GRAPH_GRID Many Lines</a></li>
+<li class="chapter" data-level="5.1.6" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-many-lines-legend-exogenous"><i class="fa fa-check"></i><b>5.1.6</b> Test FF_GRAPH_GRID Many Lines Legend Exogenous</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="support-tools.html"><a href="support-tools.html"><i class="fa fa-check"></i><b>6</b> Support Tools</a><ul>
+<li class="chapter" data-level="6.1" data-path="support-tools.html"><a href="support-tools.html#ff_container_map_display-examples"><i class="fa fa-check"></i><b>6.1</b> FF_CONTAINER_MAP_DISPLAY Examples</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="support-tools.html"><a href="support-tools.html#test-ff_container_map_display-defaults"><i class="fa fa-check"></i><b>6.1.1</b> Test FF_CONTAINER_MAP_DISPLAY Defaults</a></li>
+<li class="chapter" data-level="6.1.2" data-path="support-tools.html"><a href="support-tools.html#test-ff_container_map_display-summarize-matrix-only"><i class="fa fa-check"></i><b>6.1.2</b> Test FF_CONTAINER_MAP_DISPLAY summarize Matrix Only</a></li>
+<li class="chapter" data-level="6.1.3" data-path="support-tools.html"><a href="support-tools.html#test-ff_container_map_display-show-matrix-subset"><i class="fa fa-check"></i><b>6.1.3</b> Test FF_CONTAINER_MAP_DISPLAY Show Matrix Subset</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="data-structures.html"><a href="data-structures.html"><i class="fa fa-check"></i><b>7</b> Data Structures</a><ul>
+<li class="chapter" data-level="7.1" data-path="data-structures.html"><a href="data-structures.html#ff_saveborr_grid-example-for-generating-asset-grid"><i class="fa fa-check"></i><b>7.1</b> FF_SAVEBORR_GRID Example for Generating Asset Grid</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-defaults"><i class="fa fa-check"></i><b>7.1.1</b> Test FF_SAVEBORR_GRID Defaults</a></li>
+<li class="chapter" data-level="7.1.2" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-default-linear-grid-log-grid-power-grid-threshold-grid"><i class="fa fa-check"></i><b>7.1.2</b> Test FF_SAVEBORR_GRID Default Linear Grid, Log Grid, Power Grid, Threshold Grid</a></li>
+<li class="chapter" data-level="7.1.3" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-log-grid-changing-parameters"><i class="fa fa-check"></i><b>7.1.3</b> Test FF_SAVEBORR_GRID Log Grid Changing Parameters</a></li>
+<li class="chapter" data-level="7.1.4" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-power-grid-changing-parameters"><i class="fa fa-check"></i><b>7.1.4</b> Test FF_SAVEBORR_GRID Power Grid Changing Parameters</a></li>
+<li class="chapter" data-level="7.1.5" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-threshold-grid-changing-parameters"><i class="fa fa-check"></i><b>7.1.5</b> Test FF_SAVEBORR_GRID Threshold Grid Changing Parameters</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="common-functions.html"><a href="common-functions.html"><i class="fa fa-check"></i><b>8</b> Common Functions</a><ul>
+<li class="chapter" data-level="8.1" data-path="common-functions.html"><a href="common-functions.html#ffy_tauchen-ar1-shock-discretization-example"><i class="fa fa-check"></i><b>8.1</b> FFY_TAUCHEN AR1 Shock Discretization Example</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-defaults"><i class="fa fa-check"></i><b>8.1.1</b> Test FFY_TAUCHEN Defaults</a></li>
+<li class="chapter" data-level="8.1.2" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-specify-parameters"><i class="fa fa-check"></i><b>8.1.2</b> Test FFY_TAUCHEN Specify Parameters</a></li>
+<li class="chapter" data-level="8.1.3" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-high-persistence-low-sd"><i class="fa fa-check"></i><b>8.1.3</b> Test FFY_TAUCHEN High Persistence, Low SD</a></li>
+<li class="chapter" data-level="8.1.4" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-low-persistence-low-sd"><i class="fa fa-check"></i><b>8.1.4</b> Test FFY_TAUCHEN Low Persistence, Low SD</a></li>
+<li class="chapter" data-level="8.1.5" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-high-persistence-high-sd"><i class="fa fa-check"></i><b>8.1.5</b> Test FFY_TAUCHEN High Persistence, High SD</a></li>
+<li class="chapter" data-level="8.1.6" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-low-persistence-low-sd-1"><i class="fa fa-check"></i><b>8.1.6</b> Test FFY_TAUCHEN Low Persistence, Low SD</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="common-functions.html"><a href="common-functions.html#ffy_rouwenhorst-ar1-shock-discretization-example"><i class="fa fa-check"></i><b>8.2</b> FFY_ROUWENHORST AR1 Shock Discretization Example</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="common-functions.html"><a href="common-functions.html#test-ffy_rouwenhorst-defaults"><i class="fa fa-check"></i><b>8.2.1</b> Test FFY_ROUWENHORST Defaults</a></li>
+<li class="chapter" data-level="8.2.2" data-path="common-functions.html"><a href="common-functions.html#test-ffy_rouwenhorst-specify-parameters"><i class="fa fa-check"></i><b>8.2.2</b> Test FFY_ROUWENHORST Specify Parameters</a></li>
+<li class="chapter" data-level="8.2.3" data-path="common-functions.html"><a href="common-functions.html#test-ffy_rouwenhorst-high-persistence-low-sd"><i class="fa fa-check"></i><b>8.2.3</b> Test FFY_ROUWENHORST High Persistence, Low SD</a></li>
+<li class="chapter" data-level="8.2.4" data-path="common-functions.html"><a href="common-functions.html#test-ffy_rouwenhorst-low-persistence-low-sd"><i class="fa fa-check"></i><b>8.2.4</b> Test FFY_ROUWENHORST Low Persistence, Low SD</a></li>
+<li class="chapter" data-level="8.2.5" data-path="common-functions.html"><a href="common-functions.html#test-ffy_rouwenhorst-high-persistence-high-sd"><i class="fa fa-check"></i><b>8.2.5</b> Test FFY_ROUWENHORST High Persistence, High SD</a></li>
+<li class="chapter" data-level="8.2.6" data-path="common-functions.html"><a href="common-functions.html#test-ffy_rouwenhorst-low-persistence-low-sd-1"><i class="fa fa-check"></i><b>8.2.6</b> Test FFY_ROUWENHORST Low Persistence, Low SD</a></li>
+</ul></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="index-and-code-links.html"><a href="index-and-code-links.html"><i class="fa fa-check"></i><b>A</b> Index and Code Links</a><ul>
+<li class="chapter" data-level="A.1" data-path="index-and-code-links.html"><a href="index-and-code-links.html#savings-dynamic-programming-links"><i class="fa fa-check"></i><b>A.1</b> Savings Dynamic Programming links</a></li>
+<li class="chapter" data-level="A.2" data-path="index-and-code-links.html"><a href="index-and-code-links.html#summarize-policy-and-value-links"><i class="fa fa-check"></i><b>A.2</b> Summarize Policy and Value links</a></li>
+<li class="chapter" data-level="A.3" data-path="index-and-code-links.html"><a href="index-and-code-links.html#distributional-analysis-links"><i class="fa fa-check"></i><b>A.3</b> Distributional Analysis links</a></li>
+<li class="chapter" data-level="A.4" data-path="index-and-code-links.html"><a href="index-and-code-links.html#optimizers-links"><i class="fa fa-check"></i><b>A.4</b> Optimizers links</a></li>
+<li class="chapter" data-level="A.5" data-path="index-and-code-links.html"><a href="index-and-code-links.html#graphs-links"><i class="fa fa-check"></i><b>A.5</b> Graphs links</a></li>
+<li class="chapter" data-level="A.6" data-path="index-and-code-links.html"><a href="index-and-code-links.html#support-tools-links"><i class="fa fa-check"></i><b>A.6</b> Support Tools links</a></li>
+<li class="chapter" data-level="A.7" data-path="index-and-code-links.html"><a href="index-and-code-links.html#data-structures-links"><i class="fa fa-check"></i><b>A.7</b> Data Structures links</a></li>
+<li class="chapter" data-level="A.8" data-path="index-and-code-links.html"><a href="index-and-code-links.html#common-functions-links"><i class="fa fa-check"></i><b>A.8</b> Common Functions links</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://fanwangecon.github.io/M4Econ/bookdown/index.html" target="blank">M4Econ Bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Matlab Toolbox Heterogeneous Agents Dynamic Programming</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="optimizers" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Optimizers</h1>
+
+<div id="ff_optim_bisec_savezrone-derivative-bisection" class="section level2">
+<h2><span class="header-section-number">4.1</span> FF_OPTIM_BISEC_SAVEZRONE Derivative Bisection</h2>
+<blockquote>
+<p>Go back to <a href="http://fanwangecon.github.io/">fan</a>’s <a href="https://fanwangecon.github.io/MEconTools/">MEconTools</a> Toolbox (<a href="https://fanwangecon.github.io/MEconTools/bookdown">bookdown</a>), <a href="https://fanwangecon.github.io/M4Econ/">Matlab Code Examples</a> Repository (<a href="https://fanwangecon.github.io/M4Econ/bookdown">bookdown</a>), or <a href="https://fanwangecon.github.io/Math4Econ/">Math for Econ with Matlab</a> Repository (<a href="https://fanwangecon.github.io/Math4Econ/bookdown">bookdown</a>).</p>
+</blockquote>
+<p>This is the example vignette for function:
+<a href="https://github.com/FanWangEcon//MEconTools/blob/master/MEconTools/optim/ff_optim_bisec_savezrone.m"><strong>ff_optim_bisec_savezrone</strong></a>
+from the <a href="https://fanwangecon.github.io/MEconTools/"><strong>MEconTools
+Package</strong></a><strong>.</strong> This
+functions solves for optimal savings/borrowing level given an anonymous
+function that provides the derivative of a intertemporal savings
+problem. The function is solves over a grid of state-space elements that
+are embeded in the anonymous function. By default, it iterates over 15
+iterations with bisection.</p>
+<p>The vectorized and looped bisection savings problem rely on this
+function to solve for optimal savings choices:</p>
+<ul>
+<li><p>States Grid + Continuous Exact Savings as Share of Cash-on-Hand :<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_loop.m"><strong>ff_vfi_az_bisec_loop</strong></a>,
+high precision even with small grid</p></li>
+<li><p>States Grid + Continuous Exact Savings as Share of Cash-on-Hand :
+<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_vec.m"><strong>ff_vfi_az_bisec_vec</strong></a>,
+precision and speed</p></li>
+</ul>
+<div id="test-ff_optim_bisec_savezrone-defaults" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Test FF_OPTIM_BISEC_SAVEZRONE Defaults</h3>
+<p>Call the function with defaults, this solves concurrently for many
+state-space points’ optimization problems:</p>
+<pre><code>ff_optim_bisec_savezrone();
+
+Elapsed time is 0.082993 seconds.
+BISECT END: iteration=16, norm(ar_mid_fx)=0.00030653
+                                 vartype    paramgroup2    paramgroup3    paramgroup4    paramgroup5    paramgroup6    paramgroup7    paramgroup8    paramgroup9
+                                 _______    ___________    ___________    ___________    ___________    ___________    ___________    ___________    ___________
+
+    a                            &quot;init&quot;           1e-05          1e-05          1e-05          1e-05          1e-05          1e-05          1e-05          1e-05
+    b                            &quot;init&quot;         0.99999        0.99999        0.99999        0.99999        0.99999        0.99999        0.99999        0.99999
+    f_a                          &quot;init&quot;           33802          40925          67047          15411          63263     1.9839e+05          25282          70686
+    f_b                          &quot;init&quot;          -46789    -1.2672e+05    -1.8532e+05         -67518         -48900    -1.2164e+05         -23149         -49303
+    it1_fp                       &quot;fatx&quot;        -0.25973        -1.7159        -2.3655        -1.0421        0.28726          1.535       0.042644        0.42766
+    it1_p                        &quot;x&quot;                0.5            0.5            0.5            0.5            0.5            0.5            0.5            0.5
+    it2_fp                       &quot;fatx&quot;         0.72822      -0.052631        0.21087       -0.28379        -1.1125        -2.2202       -0.58887        -1.0296
+    it2_p                        &quot;x&quot;               0.25           0.25           0.25           0.25        0.74999        0.74999        0.74999        0.74999
+    it3_fp                       &quot;fatx&quot;         0.15277         1.8256        -1.1773        0.46124       -0.29179      -0.069428       -0.21281       -0.18376
+    it3_p                        &quot;x&quot;              0.375        0.12501          0.375        0.12501          0.625          0.625          0.625          0.625
+    it4_fp                       &quot;fatx&quot;       -0.059183        0.62299       -0.55013     -0.0090579      0.0069602        0.74664      -0.079677        0.12972
+    it4_p                        &quot;x&quot;             0.4375        0.18751         0.3125        0.18751         0.5625         0.5625         0.5625         0.5625
+    it5_fp                       &quot;fatx&quot;        0.044028         0.2488       -0.19454         0.1861       -0.13821        0.34715      -0.017964      -0.023106
+    it5_p                        &quot;x&quot;            0.40625        0.21876        0.28125        0.15626        0.59375        0.59375        0.53125        0.59375
+    it6_fp                       &quot;fatx&quot;      -0.0080863       0.090981     0.00054305       0.081339      -0.064832        0.14171       0.012387       0.054017
+    it6_p                        &quot;x&quot;            0.42188        0.23438        0.26563        0.17188        0.57812        0.60937        0.51562        0.57812
+    it7_fp                       &quot;fatx&quot;        0.017822       0.017593      -0.098707       0.034591      -0.028768       0.036948     -0.0027658       0.015665
+    it7_p                        &quot;x&quot;            0.41406        0.24219        0.27344        0.17969        0.57031        0.61719        0.52344        0.58594
+    it8_fp                       &quot;fatx&quot;       0.0048335      -0.017893      -0.049532       0.012405      -0.010865      -0.016025      0.0048149      -0.003664
+    it8_p                        &quot;x&quot;            0.41797         0.2461        0.26954         0.1836         0.5664        0.62109        0.51953        0.58984
+    it9_fp                       &quot;fatx&quot;      -0.0016347    -0.00024633       -0.02461      0.0015865     -0.0019434       0.010514      0.0010259      0.0060142
+    it9_p                        &quot;x&quot;            0.41992        0.24415        0.26758        0.18555        0.56445        0.61914        0.52148        0.58789
+    it10_fp                      &quot;fatx&quot;       0.0015973      0.0086488      -0.012063     -0.0037571      0.0025106     -0.0027422    -0.00086962      0.0011786
+    it10_p                       &quot;x&quot;            0.41895        0.24317        0.26661        0.18653        0.56348        0.62011        0.52246        0.58887
+    it11_fp                      &quot;fatx&quot;     -1.9235e-05      0.0041952     -0.0057672     -0.0010907     0.00028416      0.0038891     7.8199e-05     -0.0012418
+    it11_p                       &quot;x&quot;            0.41944        0.24366        0.26612        0.18604        0.56396        0.61963        0.52197        0.58935
+    it12_fp                      &quot;fatx&quot;      0.00078889      0.0019729     -0.0026139     0.00024655     -0.0008295     0.00057428    -0.00039569    -3.1408e-05
+    it12_p                       &quot;x&quot;            0.41919         0.2439        0.26587         0.1858        0.56421        0.61987        0.52222        0.58911
+    it13_fp                      &quot;fatx&quot;      0.00038479     0.00086292     -0.0010359    -0.00042242    -0.00027263     -0.0010838    -0.00015874     0.00057363
+    it13_p                       &quot;x&quot;            0.41931        0.24402        0.26575        0.18592        0.56409        0.61999        0.52209        0.58899
+    it14_fp                      &quot;fatx&quot;      0.00018277      0.0003082    -0.00024654    -8.8022e-05     5.7721e-06    -0.00025469    -4.0269e-05     0.00027113
+    it14_p                       &quot;x&quot;            0.41937        0.24408        0.26569        0.18586        0.56402        0.61993        0.52203        0.58905
+    it15_fp                      &quot;fatx&quot;      8.1766e-05     3.0909e-05     0.00014822     7.9241e-05    -0.00013343     0.00015981     1.8966e-05     0.00011986
+    it15_p                       &quot;x&quot;             0.4194        0.24412        0.26566        0.18583        0.56406         0.6199          0.522        0.58908
+    it15_level                   &quot;level&quot;        0.56205      -0.070025       0.044431      -0.039424         1.0402        0.48151         2.1656         0.9076
+    exactSoluSaveborrFrac        &quot;exact&quot;        0.41943        0.24412        0.26567        0.18584        0.56403        0.61991        0.52201         0.5891
+    exactSoluSaveborrLevel       &quot;exact&quot;        0.56211      -0.070022       0.044438      -0.039403         1.0402        0.48152         2.1656        0.90765
+    exactSoluSaveborrFracGap     &quot;exact&quot;     2.4705e-05      3.402e-06     1.1458e-05     1.4456e-05     2.9252e-05     1.1766e-05      9.771e-06     2.4181e-05
+    exactSoluSaveborrLevelGap    &quot;exact&quot;       5.28e-05     2.6845e-06     6.1825e-06     2.1411e-05     5.9818e-05     9.6728e-06     4.2208e-05     4.9045e-05</code></pre>
+<p><img src="img/fx_optim_bisec_savezrone_images/figure_0.png" width="500" /></p>
+<pre><code>----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN       sum           mean          std        coefvari        min           max    
+                         _    ___    ____    _____    ____    ____    __________    __________    __________    ________    ___________    __________
+
+    ar_opti_foc_obj      1     1      2        8       1       8      0.00050535    6.3168e-05    9.4141e-05     1.4903     -0.00013343    0.00015981
+    ar_opti_save_frac    2     2      2        8       1       8            3.41       0.42626       0.17279    0.40536         0.18583        0.6199
+
+xxx TABLE:ar_opti_foc_obj xxxxxxxxxxxxxxxxxx
+              c1            c2            c3            c4            c5             c6            c7            c8    
+          __________    __________    __________    __________    ___________    __________    __________    __________
+
+    r1    8.1766e-05    3.0909e-05    0.00014822    7.9241e-05    -0.00013343    0.00015981    1.8966e-05    0.00011986
+
+xxx TABLE:ar_opti_save_frac xxxxxxxxxxxxxxxxxx
+            c1        c2         c3         c4         c5         c6       c7        c8   
+          ______    _______    _______    _______    _______    ______    _____    _______
+
+    r1    0.4194    0.24412    0.26566    0.18583    0.56406    0.6199    0.522    0.58908</code></pre>
+</div>
+<div id="test-ff_optim_bisec_savezrone-one-individual" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> Test FF_OPTIM_BISEC_SAVEZRONE One Individual</h3>
+<p>Bisection for savings choice at one state:</p>
+<pre><code>% Generate the state-space and function
+[fl_z1, fl_z2, fl_r, fl_beta] = deal(0.4730, 0.6252, 0.0839, 0.7365);
+% ffi_intertemporal_max is a function in ff_optim_bisec_savezrone for testing
+fc_deri_wth_uniroot = @(x) ffi_intertemporal_max(x, fl_z1, fl_z2, fl_r, fl_beta);
+% Call Function
+bl_verbose = true;
+ff_optim_bisec_savezrone(fc_deri_wth_uniroot, bl_verbose);
+
+BISECT END: iteration=16, norm(ar_mid_fx)=0.00016724
+                  vartype    paramgroup2
+                  _______    ___________
+
+    a             &quot;init&quot;           1e-05
+    b             &quot;init&quot;         0.99999
+    f_a           &quot;init&quot;           70155
+    f_b           &quot;init&quot;          -95255
+    it1_fp        &quot;fatx&quot;          -0.502
+    it1_p         &quot;x&quot;                0.5
+    it2_fp        &quot;fatx&quot;          1.5361
+    it2_p         &quot;x&quot;               0.25
+    it3_fp        &quot;fatx&quot;         0.34671
+    it3_p         &quot;x&quot;              0.375
+    it4_fp        &quot;fatx&quot;       -0.089881
+    it4_p         &quot;x&quot;             0.4375
+    it5_fp        &quot;fatx&quot;         0.12259
+    it5_p         &quot;x&quot;            0.40625
+    it6_fp        &quot;fatx&quot;        0.015276
+    it6_p         &quot;x&quot;            0.42188
+    it7_fp        &quot;fatx&quot;       -0.037529
+    it7_p         &quot;x&quot;            0.42969
+    it8_fp        &quot;fatx&quot;       -0.011188
+    it8_p         &quot;x&quot;            0.42578
+    it9_fp        &quot;fatx&quot;       0.0020277
+    it9_p         &quot;x&quot;            0.42383
+    it10_fp       &quot;fatx&quot;      -0.0045843
+    it10_p        &quot;x&quot;            0.42481
+    it11_fp       &quot;fatx&quot;      -0.0012793
+    it11_p        &quot;x&quot;            0.42432
+    it12_fp       &quot;fatx&quot;      0.00037392
+    it12_p        &quot;x&quot;            0.42407
+    it13_fp       &quot;fatx&quot;     -0.00045276
+    it13_p        &quot;x&quot;             0.4242
+    it14_fp       &quot;fatx&quot;     -3.9436e-05
+    it14_p        &quot;x&quot;            0.42413
+    it15_fp       &quot;fatx&quot;      0.00016724
+    it15_p        &quot;x&quot;             0.4241
+    it15_level    &quot;level&quot;       -0.13158</code></pre>
+<p><img src="img/fx_optim_bisec_savezrone_images/figure_1.png" width="500" /></p>
+<pre><code>----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx      value   
+                         _    ___    __________
+
+    ar_opti_foc_obj      1     1     0.00016724
+    ar_opti_save_frac    2     2         0.4241</code></pre>
+</div>
+<div id="test-ff_optim_bisec_savezrone-six-individual-states" class="section level3">
+<h3><span class="header-section-number">4.1.3</span> Test FF_OPTIM_BISEC_SAVEZRONE Six Individual States</h3>
+<p>Solve the two period intertemporal optimization problem with only 6
+individual states:</p>
+<pre><code>% Generate the state-space and function
+ar_z1 = [1,2,3]&#39;;
+ar_z2 = [3,2,1]&#39;;
+ar_r = [1.05, 1.50, 1.30]&#39;;
+ar_beta = [0.80, 0.95, 1.50]&#39;;
+mt_fc_inputs = [ar_z1, ar_z2, ar_r, ar_beta];
+% ffi_intertemporal_max is a function in ff_optim_bisec_savezrone for testing
+fc_deri_wth_uniroot = @(x) ffi_intertemporal_max(x, ar_z1, ar_z2, ar_r, ar_beta);
+% Call Function
+bl_verbose = true;
+ff_optim_bisec_savezrone(fc_deri_wth_uniroot, bl_verbose);
+
+BISECT END: iteration=16, norm(ar_mid_fx)=8.9847e-05
+                  vartype    paramgroup2    paramgroup3    paramgroup4
+                  _______    ___________    ___________    ___________
+
+    a             &quot;init&quot;           1e-05          1e-05          1e-05
+    b             &quot;init&quot;         0.99999        0.99999        0.99999
+    f_a           &quot;init&quot;           32475          33928          43671
+    f_b           &quot;init&quot;          -40594         -35714         -29113
+    it1_fp        &quot;fatx&quot;        -0.16238      -0.035714        0.29114
+    it1_p         &quot;x&quot;                0.5            0.5            0.5
+    it2_fp        &quot;fatx&quot;         0.75773        0.88092       -0.58225
+    it2_p         &quot;x&quot;               0.25           0.25        0.74999
+    it3_fp        &quot;fatx&quot;         0.21649        0.33333      -0.077629
+    it3_p         &quot;x&quot;              0.375          0.375          0.625
+    it4_fp        &quot;fatx&quot;        0.020615        0.14059        0.11091
+    it4_p         &quot;x&quot;             0.4375         0.4375         0.5625
+    it5_fp        &quot;fatx&quot;        -0.07132       0.051539       0.018865
+    it5_p         &quot;x&quot;            0.46875        0.46875        0.59375
+    it6_fp        &quot;fatx&quot;       -0.025599      0.0078193      -0.028659
+    it6_p         &quot;x&quot;            0.45313        0.48438        0.60937
+    it7_fp        &quot;fatx&quot;      -0.0025711      -0.013955     -0.0047386
+    it7_p         &quot;x&quot;            0.44531        0.49219        0.60156
+    it8_fp        &quot;fatx&quot;       0.0090001     -0.0030715      0.0071001
+    it8_p         &quot;x&quot;            0.44141        0.48828        0.59765
+    it9_fp        &quot;fatx&quot;       0.0032093      0.0023727      0.0011903
+    it9_p         &quot;x&quot;            0.44336        0.48633        0.59961
+    it10_fp       &quot;fatx&quot;      0.00031783    -0.00034971     -0.0017717
+    it10_p        &quot;x&quot;            0.44434         0.4873        0.60058
+    it11_fp       &quot;fatx&quot;      -0.0011269      0.0010114    -0.00029011
+    it11_p        &quot;x&quot;            0.44483        0.48682         0.6001
+    it12_fp       &quot;fatx&quot;     -0.00040464     0.00033083     0.00045024
+    it12_p        &quot;x&quot;            0.44458        0.48706        0.59985
+    it13_fp       &quot;fatx&quot;     -4.3425e-05    -9.4396e-06     8.0103e-05
+    it13_p        &quot;x&quot;            0.44446        0.48718        0.59997
+    it14_fp       &quot;fatx&quot;       0.0001372      0.0001607      -0.000105
+    it14_p        &quot;x&quot;             0.4444        0.48712        0.60003
+    it15_fp       &quot;fatx&quot;      4.6884e-05     7.5628e-05    -1.2444e-05
+    it15_p        &quot;x&quot;            0.44443        0.48715            0.6
+    it15_level    &quot;level&quot;        -0.3686        0.56403         1.6261</code></pre>
+<p><img src="img/fx_optim_bisec_savezrone_images/figure_2.png" width="500" /></p>
+<pre><code>----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN       sum           mean          std        coefvari        min           max    
+                         _    ___    ____    _____    ____    ____    __________    __________    __________    ________    ___________    __________
+
+    ar_opti_foc_obj      1     1      2        3       1       3      0.00011007    3.6689e-05    4.4913e-05     1.2241     -1.2444e-05    7.5628e-05
+    ar_opti_save_frac    2     2      2        3       1       3          1.5316       0.51053      0.080379    0.15744         0.44443           0.6
+
+xxx TABLE:ar_opti_foc_obj xxxxxxxxxxxxxxxxxx
+              c1            c2            c3     
+          __________    __________    ___________
+
+    r1    4.6884e-05    7.5628e-05    -1.2444e-05
+
+xxx TABLE:ar_opti_save_frac xxxxxxxxxxxxxxxxxx
+            c1         c2       c3 
+          _______    _______    ___
+
+    r1    0.44443    0.48715    0.6</code></pre>
+</div>
+<div id="test-ff_optim_bisec_savezrone-speed" class="section level3">
+<h3><span class="header-section-number">4.1.4</span> Test FF_OPTIM_BISEC_SAVEZRONE Speed</h3>
+<p>Test Speed doing 6.25 million bisections for a savings problem:</p>
+<pre><code>% Generate the state-space and function
+rng(123);
+it_draws = 6250000; % must be even number
+ar_z1 = exp(rand([it_draws,1])*3-1.5);
+ar_z2 = exp(rand([it_draws,1])*3-1.5);
+ar_r = (rand(it_draws,1)*10.0);
+ar_beta = [rand(round(it_draws/2),1)*0.9+0.1; rand(round(it_draws/2),1)*0.9+1]; 
+% ffi_intertemporal_max is a function in ff_optim_bisec_savezrone for testing
+fc_deri_wth_uniroot = @(x) ffi_intertemporal_max(x, ar_z1, ar_z2, ar_r, ar_beta);
+% Call Function
+bl_verbose = false;
+bl_timer = true;
+[ar_opti_save_frac, ar_opti_save_level] = ff_optim_bisec_savezrone(fc_deri_wth_uniroot, bl_verbose, bl_timer);
+
+Elapsed time is 3.896197 seconds.
+
+mp_container_map = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_container_map(&#39;ar_opti_save_frac&#39;) = ar_opti_save_frac;
+mp_container_map(&#39;ar_opti_save_level&#39;) = ar_opti_save_level;
+mp_container_map(&#39;ar_opti_save_frac_notnan&#39;) = ar_opti_save_frac(~isnan(ar_opti_save_frac));
+ff_container_map_display(mp_container_map);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                i    idx    ndim     numel        rowN      colN       sum         mean        std      coefvari      min        max  
+                                _    ___    ____    ________    ________    ____    __________    _______    _______    ________    _______    _______
+
+    ar_opti_save_frac           1     1      2      6.25e+06    6.25e+06     1       2.884e+06    0.46144    0.15306    0.33171     0.09092    0.65518
+    ar_opti_save_frac_notnan    2     2      2      6.25e+06    6.25e+06     1       2.884e+06    0.46144    0.15306    0.33171     0.09092    0.65518
+    ar_opti_save_level          3     3      2      6.25e+06    6.25e+06     1      2.9482e+06    0.47172    0.66667     1.4133     -3.9805     2.9221
+
+figure();
+histogram(ar_opti_save_frac(~isnan(ar_opti_save_frac)),100);
+title(&#39;Distribution of Optimal Savings Fractions&#39;);
+xlabel(&#39;Savings Fractions&#39;);
+grid on;</code></pre>
+<p><img src="img/fx_optim_bisec_savezrone_images/figure_3.png" width="500" /></p>
+</div>
+<div id="define-two-period-intertemporal-foc-log-utility-no-shock" class="section level3">
+<h3><span class="header-section-number">4.1.5</span> Define Two Period Intertemporal FOC Log Utility No Shock</h3>
+<p>See <a href="https://fanwangecon.github.io/Math4Econ/derivative_application/htmlpdfm/K_save_households.html">Household’s Utility Maximization Problem and Two-Period Borrowing
+and Savings Problem given
+Endowments</a>.</p>
+<pre><code>function [ar_deri_zero, ar_saveborr_level] = ffi_intertemporal_max(ar_saveborr_frac, z1, z2, r, beta)
+    ar_saveborr_level = ar_saveborr_frac.*(z1+z2./(1+r)) - z2./(1+r);
+    ar_deri_zero = 1./(ar_saveborr_level-z1) + (beta.*(r+1))./(z2 + ar_saveborr_level.*(r+1));
+end</code></pre>
+
+</div>
+</div>
+<div id="ff_optim_mlsec_savezrone-derivative-multisection" class="section level2">
+<h2><span class="header-section-number">4.2</span> FF_OPTIM_MLSEC_SAVEZRONE Derivative Multisection</h2>
+<blockquote>
+<p>Go back to <a href="http://fanwangecon.github.io/">fan</a>’s <a href="https://fanwangecon.github.io/MEconTools/">MEconTools</a> Toolbox (<a href="https://fanwangecon.github.io/MEconTools/bookdown">bookdown</a>), <a href="https://fanwangecon.github.io/M4Econ/">Matlab Code Examples</a> Repository (<a href="https://fanwangecon.github.io/M4Econ/bookdown">bookdown</a>), or <a href="https://fanwangecon.github.io/Math4Econ/">Math for Econ with Matlab</a> Repository (<a href="https://fanwangecon.github.io/Math4Econ/bookdown">bookdown</a>).</p>
+</blockquote>
+<p>This is the example vignette for function:
+<a href="https://github.com/FanWangEcon//MEconTools/blob/master/MEconTools/optim/ff_optim_mlsec_savezrone.m"><strong>ff_optim_mlsec_savezrone</strong></a>
+from the <a href="https://fanwangecon.github.io/MEconTools/"><strong>MEconTools
+Package</strong></a><strong>.</strong> This
+functions solves for optimal savings/borrowing level given an anonymous
+function that provides the derivative of a intertemporal savings
+problem. This is a vectorized function solved with multi-section
+(multiple points bisection concurrently).</p>
+<div id="test-ff_optim_mlsec_savezrone-one-individual" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Test FF_OPTIM_MLSEC_SAVEZRONE One Individual</h3>
+<p>Bisection for savings choice at one state:</p>
+<pre><code>% Generate the state-space and function
+[fl_z1, fl_z2, fl_r, fl_beta] = deal(0.4730, 0.6252, 0.0839, 0.7365);
+% ffi_intertemporal_max is a function in ff_optim_mlsec_savezrone for testing
+fc_deri_wth_uniroot = @(x) ffi_intertemporal_max(x, fl_z1, fl_z2, fl_r, fl_beta);
+% Call Function
+bl_verbose = false;
+bl_timer = true;
+ff_optim_mlsec_savezrone(fc_deri_wth_uniroot, bl_verbose, bl_timer);
+
+Elapsed time is 0.009152 seconds.</code></pre>
+</div>
+<div id="test-ff_optim_mlsec_savezrone-5-individuals-5-iterations-5-points-per-iteration" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Test FF_OPTIM_MLSEC_SAVEZRONE 5 Individuals 5 Iterations 5 Points Per Iteration</h3>
+<p>5 grid points per iteration, and 5 iterations.</p>
+<pre><code>% Generate the state-space and function
+rng(123);
+it_draws = 6; % must be even number
+ar_z1 = exp(rand([it_draws,1])*3-1.5);
+ar_z2 = exp(rand([it_draws,1])*3-1.5);
+ar_r = (rand(it_draws,1)*10.0);
+ar_beta = [rand(round(it_draws/2),1)*0.9+0.1; rand(round(it_draws/2),1)*0.9+1]; 
+fc_deri_wth_uniroot = @(x) ffi_intertemporal_max(x, ar_z1, ar_z2, ar_r, ar_beta);
+% Call Function
+bl_verbose = true;
+bl_timer = true;
+mp_mlsec_ctrlinfo = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_mlsec_ctrlinfo(&#39;it_mlsect_jnt_pnts&#39;) = 5;
+mp_mlsec_ctrlinfo(&#39;it_mlsect_max_iter&#39;) = 5;
+ff_optim_mlsec_savezrone(fc_deri_wth_uniroot, bl_verbose, bl_timer, mp_mlsec_ctrlinfo);
+
+    iter    cl_row_names_a     Var1       Var2       Var3       Var4       Var5       Var6  
+    ____    ______________    _______    _______    _______    _______    _______    _______
+
+     0        &quot;point=1&quot;         1e-05      1e-05      1e-05      1e-05      1e-05      1e-05
+     1        &quot;point=1&quot;         1e-05      1e-05      1e-05      1e-05      1e-05      1e-05
+     1        &quot;point=2&quot;       0.25001    0.25001    0.25001    0.25001    0.25001    0.25001
+     1        &quot;point=3&quot;           0.5        0.5        0.5        0.5        0.5        0.5
+     1        &quot;point=4&quot;          0.75       0.75       0.75       0.75       0.75       0.75
+     1        &quot;point=5&quot;       0.99999    0.99999    0.99999    0.99999    0.99999    0.99999
+     2        &quot;point=1&quot;       0.29167    0.29167    0.29167    0.54167    0.54167    0.54167
+     2        &quot;point=2&quot;       0.33334    0.33334    0.33334    0.58333    0.58333    0.58333
+     2        &quot;point=3&quot;         0.375      0.375      0.375      0.625      0.625      0.625
+     2        &quot;point=4&quot;       0.41667    0.41667    0.41667    0.66666    0.66666    0.66666
+     2        &quot;point=5&quot;       0.45833    0.45833    0.45833    0.70833    0.70833    0.70833
+     3        &quot;point=1&quot;       0.34028    0.34028    0.38195    0.63194    0.59028    0.59028
+     3        &quot;point=2&quot;       0.34723    0.34723    0.38889    0.63889    0.59722    0.59722
+     3        &quot;point=3&quot;       0.35417    0.35417    0.39584    0.64583    0.60416    0.60416
+     3        &quot;point=4&quot;       0.36111    0.36111    0.40278    0.65277    0.61111    0.61111
+     3        &quot;point=5&quot;       0.36806    0.36806    0.40972    0.65972    0.61805    0.61805
+     4        &quot;point=1&quot;       0.36227    0.36227    0.39699     0.6331    0.61921    0.60532
+     4        &quot;point=2&quot;       0.36343    0.36343    0.39815    0.63426    0.62037    0.60648
+     4        &quot;point=3&quot;       0.36459    0.36459    0.39931    0.63541    0.62153    0.60764
+     4        &quot;point=4&quot;       0.36574    0.36574    0.40046    0.63657    0.62268    0.60879
+     4        &quot;point=5&quot;        0.3669     0.3669    0.40162    0.63773    0.62384    0.60995
+     5        &quot;point=1&quot;       0.36594    0.36594    0.40066    0.63792    0.62288    0.60783
+     5        &quot;point=2&quot;       0.36613    0.36613    0.40085    0.63811    0.62307    0.60802
+     5        &quot;point=3&quot;       0.36632    0.36632    0.40104    0.63831    0.62326    0.60822
+     5        &quot;point=4&quot;       0.36652    0.36652    0.40124     0.6385    0.62345    0.60841
+     5        &quot;point=5&quot;       0.36671    0.36671    0.40143    0.63869    0.62365     0.6086</code></pre>
+<p><img src="img/fx_optim_mlsec_savezrone_images/figure_0.png" width="500" /></p>
+<pre><code>Elapsed time is 0.429292 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN        sum           mean           std        coefvari        min           max    
+                         _    ___    ____    _____    ____    ____    ___________    ___________    __________    ________    ___________    __________
+
+    ar_opti_foc_obj      1     1      2        6       6       1      -0.00037648    -6.2746e-05    0.00042601    -6.7894     -0.00067107    0.00055875
+    ar_opti_save_frac    2     2      2        6       6       1           3.0037        0.50061       0.13506    0.26979         0.36642       0.63821
+
+xxx TABLE:ar_opti_foc_obj xxxxxxxxxxxxxxxxxx
+              c1     
+          ___________
+
+    r1     7.0837e-05
+    r2     -0.0002782
+    r3     0.00017713
+    r4     0.00055875
+    r5    -0.00023392
+    r6    -0.00067107
+
+xxx TABLE:ar_opti_save_frac xxxxxxxxxxxxxxxxxx
+            c1   
+          _______
+
+    r1    0.36642
+    r2    0.36661
+    r3    0.40153
+    r4    0.63821
+    r5    0.62297
+    r6    0.60793</code></pre>
+</div>
+<div id="test-ff_optim_mlsec_savezrone-8-individuals-3-iterations-10-points-per-iteration" class="section level3">
+<h3><span class="header-section-number">4.2.3</span> Test FF_OPTIM_MLSEC_SAVEZRONE 8 Individuals 3 Iterations 10 Points Per Iteration</h3>
+<p>10 grid points per iteration, and 3 iterations.</p>
+<pre><code>% Generate the state-space and function
+rng(123);
+it_draws = 8; % must be even number
+ar_z1 = exp(rand([it_draws,1])*3-1.5);
+ar_z2 = exp(rand([it_draws,1])*3-1.5);
+ar_r = (rand(it_draws,1)*10.0);
+ar_beta = [rand(round(it_draws/2),1)*0.9+0.1; rand(round(it_draws/2),1)*0.9+1]; 
+fc_deri_wth_uniroot = @(x) ffi_intertemporal_max(x, ar_z1, ar_z2, ar_r, ar_beta);
+% Call Function
+bl_verbose = true;
+bl_timer = true;
+mp_mlsec_ctrlinfo = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_mlsec_ctrlinfo(&#39;it_mlsect_jnt_pnts&#39;) = 10;
+mp_mlsec_ctrlinfo(&#39;it_mlsect_max_iter&#39;) = 3;
+ff_optim_mlsec_savezrone(fc_deri_wth_uniroot, bl_verbose, bl_timer, mp_mlsec_ctrlinfo);
+
+    iter    cl_row_names_a     Var1       Var2       Var3       Var4       Var5       Var6       Var7       Var8  
+    ____    ______________    _______    _______    _______    _______    _______    _______    _______    _______
+
+     0        &quot;point=1&quot;         1e-05      1e-05      1e-05      1e-05      1e-05      1e-05      1e-05      1e-05
+     1        &quot;point=1&quot;         1e-05      1e-05      1e-05      1e-05      1e-05      1e-05      1e-05      1e-05
+     1        &quot;point=2&quot;       0.11112    0.11112    0.11112    0.11112    0.11112    0.11112    0.11112    0.11112
+     1        &quot;point=3&quot;       0.22223    0.22223    0.22223    0.22223    0.22223    0.22223    0.22223    0.22223
+     1        &quot;point=4&quot;       0.33334    0.33334    0.33334    0.33334    0.33334    0.33334    0.33334    0.33334
+     1        &quot;point=5&quot;       0.44445    0.44445    0.44445    0.44445    0.44445    0.44445    0.44445    0.44445
+     1        &quot;point=6&quot;       0.55555    0.55555    0.55555    0.55555    0.55555    0.55555    0.55555    0.55555
+     1        &quot;point=7&quot;       0.66666    0.66666    0.66666    0.66666    0.66666    0.66666    0.66666    0.66666
+     1        &quot;point=8&quot;       0.77777    0.77777    0.77777    0.77777    0.77777    0.77777    0.77777    0.77777
+     1        &quot;point=9&quot;       0.88888    0.88888    0.88888    0.88888    0.88888    0.88888    0.88888    0.88888
+     1        &quot;point=10&quot;      0.99999    0.99999    0.99999    0.99999    0.99999    0.99999    0.99999    0.99999
+     2        &quot;point=1&quot;       0.34344    0.23233    0.23233    0.23233    0.56566    0.56566    0.45455    0.56566
+     2        &quot;point=2&quot;       0.35354    0.24243    0.24243    0.24243    0.57576    0.57576    0.46465    0.57576
+     2        &quot;point=3&quot;       0.36364    0.25253    0.25253    0.25253    0.58586    0.58586    0.47475    0.58586
+     2        &quot;point=4&quot;       0.37374    0.26263    0.26263    0.26263    0.59596    0.59596    0.48485    0.59596
+     2        &quot;point=5&quot;       0.38384    0.27273    0.27273    0.27273    0.60606    0.60606    0.49495    0.60606
+     2        &quot;point=6&quot;       0.39394    0.28283    0.28283    0.28283    0.61616    0.61616    0.50505    0.61616
+     2        &quot;point=7&quot;       0.40404    0.29293    0.29293    0.29293    0.62626    0.62626    0.51515    0.62626
+     2        &quot;point=8&quot;       0.41414    0.30303    0.30303    0.30303    0.63636    0.63636    0.52525    0.63636
+     2        &quot;point=9&quot;       0.42424    0.31314    0.31314    0.31314    0.64646    0.64646    0.53535    0.64646
+     2        &quot;point=10&quot;      0.43434    0.32324    0.32324    0.32324    0.65656    0.65656    0.54545    0.65656
+     3        &quot;point=1&quot;       0.42516    0.27365    0.29385    0.23325    0.55647    0.60698    0.51607    0.57667
+     3        &quot;point=2&quot;       0.42608    0.27457    0.29477    0.23417    0.55739    0.60789    0.51699    0.57759
+     3        &quot;point=3&quot;         0.427    0.27549    0.29569    0.23508    0.55831    0.60881    0.51791    0.57851
+     3        &quot;point=4&quot;       0.42792     0.2764    0.29661      0.236    0.55923    0.60973    0.51882    0.57943
+     3        &quot;point=5&quot;       0.42884    0.27732    0.29752    0.23692    0.56015    0.61065    0.51974    0.58035
+     3        &quot;point=6&quot;       0.42975    0.27824    0.29844    0.23784    0.56106    0.61157    0.52066    0.58127
+     3        &quot;point=7&quot;       0.43067    0.27916    0.29936    0.23876    0.56198    0.61249    0.52158    0.58218
+     3        &quot;point=8&quot;       0.43159    0.28008    0.30028    0.23967     0.5629     0.6134     0.5225     0.5831
+     3        &quot;point=9&quot;       0.43251      0.281     0.3012    0.24059    0.56382    0.61432    0.52342    0.58402
+     3        &quot;point=10&quot;      0.43343    0.28191    0.30212    0.24151    0.56474    0.61524    0.52433    0.58494</code></pre>
+<p><img src="img/fx_optim_mlsec_savezrone_images/figure_1.png" width="500" /></p>
+<pre><code>Elapsed time is 0.457856 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN       sum          mean          std       coefvari       min           max   
+                         _    ___    ____    _____    ____    ____    _________    __________    _________    ________    __________    _________
+
+    ar_opti_foc_obj      1     1      2        8       8       1      0.0033175    0.00041468    0.0029592     7.1361     -0.0044871    0.0050249
+    ar_opti_save_frac    2     2      2        8       8       1         3.5124       0.43905      0.15005    0.34177        0.23371      0.61019
+
+xxx TABLE:ar_opti_foc_obj xxxxxxxxxxxxxxxxxx
+              c1     
+          ___________
+
+    r1     0.00087102
+    r2      0.0033354
+    r3     -0.0044871
+    r4       0.001317
+    r5     -0.0017862
+    r6      0.0050249
+    r7    -0.00058496
+    r8    -0.00037273
+
+xxx TABLE:ar_opti_save_frac xxxxxxxxxxxxxxxxxx
+            c1   
+          _______
+
+    r1    0.42838
+    r2    0.28054
+    r3     0.2989
+    r4    0.23371
+    r5    0.55877
+    r6    0.61019
+    r7     0.5202
+    r8    0.58172</code></pre>
+</div>
+<div id="test-ff_optim_mlsec_savezrone-speed" class="section level3">
+<h3><span class="header-section-number">4.2.4</span> Test FF_OPTIM_MLSEC_SAVEZRONE Speed</h3>
+<p>Test Speed doing 6.25 million multisections for a savings problem:</p>
+<pre><code>% Generate the state-space and function
+rng(123);
+it_draws = 6250000; % must be even number
+ar_z1 = exp(rand([it_draws,1])*3-1.5);
+ar_z2 = exp(rand([it_draws,1])*3-1.5);
+ar_r = (rand(it_draws,1)*10.0);
+ar_beta = [rand(round(it_draws/2),1)*0.9+0.1; rand(round(it_draws/2),1)*0.9+1]; 
+% ffi_intertemporal_max is a function in ff_optim_mlsec_savezrone for testing
+fc_deri_wth_uniroot = @(x) ffi_intertemporal_max(x, ar_z1, ar_z2, ar_r, ar_beta);
+% Call Function
+bl_verbose = false;
+bl_timer = true;
+[ar_opti_save_frac, ar_opti_save_level] = ff_optim_mlsec_savezrone(fc_deri_wth_uniroot, bl_verbose, bl_timer);
+
+Elapsed time is 13.609808 seconds.
+
+mp_container_map = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_container_map(&#39;ar_opti_save_frac&#39;) = ar_opti_save_frac;
+mp_container_map(&#39;ar_opti_save_level&#39;) = ar_opti_save_level;
+mp_container_map(&#39;ar_opti_save_frac_notnan&#39;) = ar_opti_save_frac(~isnan(ar_opti_save_frac));
+ff_container_map_display(mp_container_map);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                i    idx    ndim     numel        rowN      colN       sum         mean        std      coefvari      min         max  
+                                _    ___    ____    ________    ________    ____    __________    _______    _______    ________    ________    _______
+
+    ar_opti_save_frac           1     1      2      6.25e+06    6.25e+06     1       2.884e+06    0.46144    0.15306    0.33171     0.090876    0.65519
+    ar_opti_save_frac_notnan    2     2      2      6.25e+06    6.25e+06     1       2.884e+06    0.46144    0.15306    0.33171     0.090876    0.65519
+    ar_opti_save_level          3     3      2      6.25e+06    6.25e+06     1      2.9482e+06    0.47172    0.66667     1.4133      -3.9807      2.922
+
+figure();
+histogram(ar_opti_save_frac(~isnan(ar_opti_save_frac)),100);
+title(&#39;Distribution of Optimal Savings Fractions&#39;);
+xlabel(&#39;Savings Fractions&#39;);
+grid on;</code></pre>
+<p><img src="img/fx_optim_mlsec_savezrone_images/figure_2.png" width="500" /></p>
+</div>
+<div id="define-two-period-intertemporal-foc-log-utility-no-shock-1" class="section level3">
+<h3><span class="header-section-number">4.2.5</span> Define Two Period Intertemporal FOC Log Utility No Shock</h3>
+<p>See <a href="https://fanwangecon.github.io/Math4Econ/derivative_application/htmlpdfm/K_save_households.html">Household’s Utility Maximization Problem and Two-Period Borrowing
+and Savings Problem given
+Endowments</a>.</p>
+<pre><code>function [ar_deri_zero, ar_saveborr_level] = ffi_intertemporal_max(ar_saveborr_frac, z1, z2, r, beta)
+    ar_saveborr_level = ar_saveborr_frac.*(z1+z2./(1+r)) - z2./(1+r);
+    ar_deri_zero = 1./(ar_saveborr_level-z1) + (beta.*(r+1))./(z2 + ar_saveborr_level.*(r+1));
+end</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="distributional-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="graphs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["Matlab-Toolbox-Heterogeneous-Agents-Dynamic-Programming.pdf", "PDF"]],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

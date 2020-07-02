@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>FF_OPTIM_BISEC_SAVEZRONE Bisection Vectorized</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-06-30"><meta name="DC.source" content="ff_optim_bisec_savezrone.m"><style type="text/css">
+      --><title>FF_OPTIM_BISEC_SAVEZRONE Bisection Vectorized</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-07-02"><meta name="DC.source" content="ff_optim_bisec_savezrone.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -71,38 +71,52 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
   that the lower and upper bounds starting points are the same for each
   row of the input parameter matrix. Savings problem where agents save 0
   to 100 percent of available resoures (including borrowing bounds in
-  resource).</pre><pre>  * FC_DERI_WTH_UNIROOT anonymous function handle, given an array of asset
+  resource).</pre><pre>  The exact solution savings dynamic programming code, both looped and
+  vectorized versions, rely on this function to compute optimal savings
+  choices.</pre><pre>  While this is designed for solving savings choices. This also solves a
+  variety of other bisection type problems. For example, given minimum
+  and maximum bounds on interest rates, this code here also can solve
+  for the intersecting point of aggregate demand and supply curves.</pre><pre>  * FC_DERI_WTH_UNIROOT anonymous function handle, given an array of asset
   choice fractions, savings given resource availability (including
   borrowing bounds), compute derivative value.</pre><pre>  Each type has type specific options set through key/value of
   MP_GRID_CONTROL. 'grid_linspace': linspace; 'grid_log10space': log
   space; 'grid_powerspace': power grid spacing; 'grid_evenlog': even
   then log space.</pre><pre>  mp_bisec_ctrlinfo = containers.Map('KeyType','char', 'ValueType','any');
-  mp_bisec_ctrlinfo('st_cur_bisec_info') = 'savings bisection';
-  mp_bisec_ctrlinfo('it_bisect_min_iter') = 1;
-  mp_bisec_ctrlinfo('it_bisect_max_iter') = 10;
-  mp_bisec_ctrlinfo('fl_bisect_tol') = 10e-6;</pre><pre>  [AR_OPTI_SAVEBORR_FRAC] = FF_OPTIM_BISEC_SAVEZRONE() default optimal
-  saving and borrowing fractions.</pre><pre>  [AR_OPTI_SAVEBORR_FRAC, AR_OPTI_SAVEBORR_LEVEL] =
+  % number of iterations
+  mp_bisec_ctrlinfo('it_bisect_max_iter') = 15;
+  % starting savings share, common for all
+  mp_bisec_ctrlinfo('fl_x_left_start') = 10e-6;
+  % max savings share, common for all
+  mp_bisec_ctrlinfo('fl_x_right_start') = 1-10e-6;
+  % override default support_map values</pre><pre>  [AR_OPTI_SAVE_FRAC] = FF_OPTIM_BISEC_SAVEZRONE() default optimal
+  saving and borrowing fractions.</pre><pre>  [AR_OPTI_SAVE_FRAC] = FF_OPTIM_BISEC_SAVEZRONE(FC_DERI_WTH_UNIROOT,
+  BL_VERBOSE, BL_TIMER, MP_BISEC_CTRLINFO) decide if to print verbose,
+  verbose print will generate graphical and tabular outputs, control
+  timer, and change iteration number of points per iteration via
+  mp_bisec_ctrlinfo_ext.</pre><pre>  [AR_OPTI_SAVE_FRAC, AR_OPTI_SAVE_LEVEL] =
   FF_OPTIM_BISEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) given function handle
   for savings borrowing function derivative with an array of outputs,
   each representing a different set of state-space points, solve for
-  optimal savings levels and savings fractions.</pre><pre>  [AR_OPTI_SAVEBORR_FRAC, AR_OPTI_SAVEBORR_LEVEL, TB_BISEC_INFO] =
-  FF_OPTIM_BISEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) also output convergence
-  iteration information.</pre><pre>  see also FX_OPTIM_BISEC_SAVEZRONE</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Set and Update Support Map</a></li><li><a href="#4">Parse mp_grid_control</a></li><li><a href="#5">Evaluate At lower and Upper Savings Bounds</a></li><li><a href="#6">First Mid Point</a></li><li><a href="#7">Iterate until Bounds Reached</a></li><li><a href="#8">print details</a></li><li><a href="#9">Return</a></li><li><a href="#11">Utility Function</a></li><li><a href="#12">Utilty Future</a></li><li><a href="#13">Intertemporal Maximization with Log Util, no Shock, Two Periods, Endowments</a></li><li><a href="#14">Solution Intertemporal Maximization with Log Util, no Shock, Two Periods, Endowments</a></li></ul></div><pre class="codeinput"><span class="keyword">function</span> varargout = ff_optim_bisec_savezrone(varargin)
+  optimal savings levels and savings fractions.</pre><pre>  [AR_OPTI_SAVE_FRAC, AR_OPTI_SAVE_LEVEL, AR_OPTI_FOC_OBJ] =
+  FF_OPTIM_BISEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) also output FOC
+  objective.</pre><pre>  [AR_OPTI_SAVE_FRAC, AR_OPTI_SAVE_LEVEL, AR_OPTI_FOC_OBJ,
+  TB_BISEC_INFO] = FF_OPTIM_BISEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) also
+  output convergence iteration information.</pre><pre>  see also FX_OPTIM_BISEC_SAVEZRONE, FF_OPTIM_MLSEC_SAVEZRONE</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Set and Update Support Map</a></li><li><a href="#4">Parse mp_grid_control</a></li><li><a href="#5">Timer Start</a></li><li><a href="#6">Evaluate At lower and Upper Savings Bounds</a></li><li><a href="#7">First Mid Point</a></li><li><a href="#8">Iterate until Bounds Reached</a></li><li><a href="#9">Return</a></li><li><a href="#10">Timer End</a></li><li><a href="#11">print details</a></li><li><a href="#12">Return</a></li><li><a href="#14">Intertemporal Maximization with Log Util, no Shock, Two Periods, Endowments</a></li><li><a href="#15">Solution Intertemporal Maximization with Log Util, no Shock, Two Periods, Endowments</a></li></ul></div><pre class="codeinput"><span class="keyword">function</span> varargout = ff_optim_bisec_savezrone(varargin)
 </pre><pre class="codeinput"><span class="keyword">if</span> (~isempty(varargin))
 
     <span class="comment">% NOT called interally with the testing function ffi_intertempora_max below</span>
     bl_default_test = false;
-
-    st_grid_type = <span class="string">'grid_linspace'</span>;
     bl_verbose = false;
-    bl_print_iter = false;
+    bl_timer = false;
 
     <span class="keyword">if</span> (length(varargin) == 1)
         [fc_deri_wth_uniroot] = varargin{:};
     <span class="keyword">elseif</span> (length(varargin) == 2)
         [fc_deri_wth_uniroot, bl_verbose] = varargin{:};
-    <span class="keyword">else</span>
-        error(<span class="string">'Must specify three parameters.'</span>);
+    <span class="keyword">elseif</span> (length(varargin) == 3)
+        [fc_deri_wth_uniroot, bl_verbose, bl_timer] = varargin{:};
+    <span class="keyword">elseif</span> (length(varargin) == 4)
+        [fc_deri_wth_uniroot, bl_verbose, bl_timer, mp_bisec_ctrlinfo_ext] = varargin{:};
     <span class="keyword">end</span>
 
 <span class="keyword">else</span>
@@ -110,10 +124,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
     <span class="comment">% called interall with the testing function ffi_intertempora_max below</span>
     bl_default_test = true;
-
-    <span class="comment">% print more</span>
     bl_verbose = true;
-    bl_print_iter = true;
+    bl_timer = true;
 
     <span class="comment">% 1. ffi_intertemporal_max at the end of this function is two period</span>
     <span class="comment">% intertemporal utility maximization problem where the choice is</span>
@@ -122,7 +134,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
     <span class="comment">% borrowed. See:</span>
     <span class="comment">% https://fanwangecon.github.io/Math4Econ/derivative_application/htmlpdfm/K_save_households.html</span>
 
-    it_exam = 1;
+    it_exam = 2;
     <span class="keyword">if</span>(it_exam==1)
 
         <span class="comment">% 2. Solve concurrently for combinations of z1, z2, r, and beta values</span>
@@ -132,105 +144,62 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
         ar_beta = [0.80, 0.95, 0.80, 0.95, 0.80, 0.95]';
         <span class="comment">% mt_fc_inputs = [ar_z1, ar_z2, ar_r, ar_beta];</span>
 
-        rng(123);
-        ar_z1 = exp(rand([8,1])*3-1.5); <span class="comment">% 40 asset points</span>
-        ar_z2 = exp(rand([8,1])*3-1.5); <span class="comment">% 7 shock points</span>
-        ar_r = (rand(8,1)*0.10)+1.0; <span class="comment">% marriage and edu</span>
-        ar_beta = (rand(8,1)*0.18)+0.80; <span class="comment">% number of kids 0 to 5</span>
-
-        cl_ar_all = {ar_z1, ar_z2, ar_r, ar_beta};
-        cl_mt_all = cl_ar_all;
-        [cl_mt_all{:}] = ndgrid(cl_ar_all{:});
-        mt_all_states = cell2mat(cellfun(@(m) m(:), cl_mt_all, <span class="string">'uni'</span>, 0));
-        ar_mesh_z1 = mt_all_states(:,1);
-        ar_mesh_z2 = mt_all_states(:,2);
-        ar_mesh_r = mt_all_states(:,3);
-        ar_mesh_beta = mt_all_states(:,4);
-
-        ar_z1 = mt_all_states(:,1);
-        ar_z2 = mt_all_states(:,2);
-        ar_r = mt_all_states(:,3);
-        ar_beta = mt_all_states(:,4);
-
-        <span class="comment">% 3. define function with the fixed matrix of input</span>
-        fc_deri_wth_uniroot = @(x) ffi_intertemporal_max(<span class="keyword">...</span>
-            x, ar_mesh_z1, ar_mesh_z2, ar_mesh_r, ar_mesh_beta);
-<span class="comment">%         fc_deri_wth_uniroot = @(x) ffi_intertemporal_max(x, ar_z1, ar_z2, ar_r, ar_beta);</span>
-
     <span class="keyword">elseif</span>(it_exam==2)
 
-        <span class="comment">% solve future value first over state-space, consider savings only.</span>
+        rng(123);
+        it_draws = 8; <span class="comment">% must be even number</span>
+        ar_z1 = exp(rand([it_draws,1])*3-1.5);
+        ar_z2 = exp(rand([it_draws,1])*3-1.5);
+        ar_r = (rand(it_draws,1)*10.0);
+        ar_beta = [rand(round(it_draws/2),1)*1; rand(round(it_draws/2),1)*1+1];
 
-        <span class="comment">% Get Some Tauchenized Shock</span>
-        [fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose, it_std_bound] = <span class="keyword">...</span>
-            deal(0.60, 0.10, 3, false, 3);
-        [ar_disc_ar1, mt_disc_ar1_trans] = <span class="keyword">...</span>
-            ffy_tauchen(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose, it_std_bound);
+    <span class="keyword">elseif</span>(it_exam==3)
 
-        <span class="comment">% think of ar_saveborr_level and ar_z2 as asset and shocks</span>
-        <span class="comment">% think of ar_r and ar_beta as some other state-space components</span>
-        ar_saveborr_level = linspace(0, 3, 5); <span class="comment">% 40 asset points</span>
-        ar_z2 = exp(ar_disc_ar1); <span class="comment">% 7 shock points</span>
-        ar_r = linspace(1.00, 1.05, 2); <span class="comment">% marriage and edu</span>
-        ar_beta = linspace(0.80, 0.95, 3); <span class="comment">% number of kids 0 to 5</span>
+        <span class="comment">% run many check speed</span>
+        rng(123);
+        it_draws = 6250000; <span class="comment">% must be even number</span>
+        bl_default_test = false;
+        bl_verbose = false;
+        bl_timer = false;
 
-        cl_ar_all = {ar_saveborr_level, ar_z2, ar_r, ar_beta};
-        cl_mt_all = cl_ar_all;
-        [cl_mt_all{:}] = ndgrid(cl_ar_all{:});
-        mt_all_states = cell2mat(cellfun(@(m) m(:), cl_mt_all, <span class="string">'uni'</span>, 0));
+        ar_z1 = exp(rand([it_draws,1])*3-1.5);
+        ar_z2 = exp(rand([it_draws,1])*3-1.5);
+        ar_r = (rand(it_draws,1)*10.0);
+        ar_beta = [rand(round(it_draws/2),1)*1; rand(round(it_draws/2),1)*1+1];
 
-        <span class="comment">% Evalute future at state space components</span>
-        ar_mesh_saveborr_level = mt_all_states(:,1);
-        ar_mesh_z2 = mt_all_states(:,2);
-        ar_mesh_r = mt_all_states(:,3);
-        ar_mesh_beta = mt_all_states(:,4);
-        ar_util_future = ffi_intertemporal_util_future(<span class="keyword">...</span>
-            ar_mesh_saveborr_level, ar_mesh_z2, ar_mesh_r, ar_mesh_beta);
+    <span class="keyword">elseif</span>(it_exam==4)
 
-        <span class="comment">% Assume that r and beta are persistent, from period t perspective,</span>
-        <span class="comment">% I want to be able to find future value, given r, beta, current z,</span>
-        <span class="comment">% and asset choice. r and beta tell us something aobut which row of</span>
-        <span class="comment">% ar_util_future we should be looking at, the savings choice</span>
-        mn_util_future = reshape(ar_util_future, <span class="keyword">...</span>
-            [length(ar_saveborr_level), length(ar_z2), <span class="keyword">...</span>
-             length(ar_r), length(ar_beta)]);
+        [ar_z1, ar_z2, ar_r, ar_beta] = deal(0.4730, 0.6252, 0.0839, 0.7365);
 
-<span class="comment">%          % reshape value so that all states are rows, shocks are columns</span>
-<span class="comment">%          mn_util_future_reshape = reshape(...</span>
-<span class="comment">%              permute(mn_util_future, [1,3,4,2]), ...</span>
-<span class="comment">%              [], length(ar_z2));</span>
-<span class="comment">%</span>
-<span class="comment">%          same asset grid grid</span>
-<span class="comment">%          given a vector of asset points</span>
-
-          11;
     <span class="keyword">end</span>
 
-    <span class="comment">% 4. given the percentage assset choice problem, all share same bounds</span>
-    fl_x_left_start = 10e-6;
-    fl_x_right_start = 1-10e-6;
+    <span class="comment">% 3. define function with the fixed matrix of input</span>
+    fc_deri_wth_uniroot = @(x) ffi_intertemporal_max(x, ar_z1, ar_z2, ar_r, ar_beta);
 
 <span class="keyword">end</span>
 </pre><h2 id="3">Set and Update Support Map</h2><pre class="codeinput">mp_bisec_ctrlinfo = containers.Map(<span class="string">'KeyType'</span>,<span class="string">'char'</span>, <span class="string">'ValueType'</span>,<span class="string">'any'</span>);
-mp_bisec_ctrlinfo(<span class="string">'st_cur_bisec_info'</span>) = <span class="string">'savings bisection'</span>;
-mp_bisec_ctrlinfo(<span class="string">'it_bisect_min_iter'</span>) = 1;
-mp_bisec_ctrlinfo(<span class="string">'it_bisect_max_iter'</span>) = 10;
-mp_bisec_ctrlinfo(<span class="string">'fl_bisect_tol'</span>) = 10e-6;
+<span class="comment">% number of iterations</span>
+mp_bisec_ctrlinfo(<span class="string">'it_bisect_max_iter'</span>) = 15;
+<span class="comment">% starting savings share, common for all</span>
 mp_bisec_ctrlinfo(<span class="string">'fl_x_left_start'</span>) = 10e-6;
+<span class="comment">% max savings share, common for all</span>
 mp_bisec_ctrlinfo(<span class="string">'fl_x_right_start'</span>) = 1-10e-6;
-
 <span class="comment">% override default support_map values</span>
-<span class="keyword">if</span> (length(varargin)==5)
-    mp_bisec_ctrlinfo = [mp_bisec_ctrlinfo; mp_grid_control_ext];
+
+<span class="keyword">if</span> (length(varargin)&gt;=4)
+    mp_bisec_ctrlinfo = [mp_bisec_ctrlinfo; mp_bisec_ctrlinfo_ext];
 <span class="keyword">end</span>
-</pre><h2 id="4">Parse mp_grid_control</h2><pre class="codeinput">params_group = values(mp_bisec_ctrlinfo, {<span class="string">'st_cur_bisec_info'</span>});
-[st_cur_bisec_info] = params_group{:};
-params_group = values(mp_bisec_ctrlinfo, {<span class="string">'it_bisect_min_iter'</span>, <span class="string">'it_bisect_max_iter'</span>, <span class="string">'fl_bisect_tol'</span>});
-[it_bisect_min_iter, it_bisect_max_iter, fl_bisect_tol] = params_group{:};
+</pre><h2 id="4">Parse mp_grid_control</h2><pre class="codeinput">params_group = values(mp_bisec_ctrlinfo, {<span class="string">'it_bisect_max_iter'</span>});
+[it_bisect_max_iter] = params_group{:};
 params_group = values(mp_bisec_ctrlinfo, {<span class="string">'fl_x_left_start'</span>, <span class="string">'fl_x_right_start'</span>});
 [fl_x_left_start, fl_x_right_start] = params_group{:};
-</pre><h2 id="5">Evaluate At lower and Upper Savings Bounds</h2><pre class="codeinput">[ar_lower_fx, ~] = fc_deri_wth_uniroot(fl_x_left_start);
+</pre><h2 id="5">Timer Start</h2><pre class="codeinput"><span class="keyword">if</span> (bl_timer)
+    tic;
+<span class="keyword">end</span>
+</pre><h2 id="6">Evaluate At lower and Upper Savings Bounds</h2><pre class="codeinput">[ar_lower_fx, ~] = fc_deri_wth_uniroot(fl_x_left_start);
 [ar_upper_fx, ~] = fc_deri_wth_uniroot(fl_x_right_start);
+ar_lower_fx_init = ar_lower_fx;
+ar_upper_fx_init = ar_upper_fx;
 ar_lower_x = fl_x_left_start + zeros(size(ar_lower_fx));
 ar_upper_x = fl_x_right_start + zeros(size(ar_upper_fx));
 <span class="keyword">if</span> (bl_verbose)
@@ -240,7 +209,7 @@ ar_upper_x = fl_x_right_start + zeros(size(ar_upper_fx));
     ar_st_cates = [<span class="string">"init"</span>, <span class="string">"init"</span>, <span class="string">"init"</span>, <span class="string">"init"</span>];
     tb_bisec_info = addvars(tb_bisec_info, ar_st_cates', <span class="string">'Before'</span>, 1);
 <span class="keyword">end</span>
-</pre><h2 id="6">First Mid Point</h2><pre class="codeinput">it_ctr_bisec = 1;
+</pre><h2 id="7">First Mid Point</h2><pre class="codeinput">it_ctr_bisec = 1;
 
 ar_mid_x = (ar_lower_x + ar_upper_x)/2;
 [ar_mid_fx, ~] = fc_deri_wth_uniroot(ar_mid_x);
@@ -255,7 +224,7 @@ ar_mid_x = (ar_lower_x + ar_upper_x)/2;
     tb_p = addvars(tb_p, ar_st_cates', <span class="string">'Before'</span>, 1);
     tb_bisec_info = [tb_bisec_info; tb_p];
 <span class="keyword">end</span>
-</pre><h2 id="7">Iterate until Bounds Reached</h2><pre class="codeinput">it_ctr_bisec = 2;
+</pre><h2 id="8">Iterate until Bounds Reached</h2><pre class="codeinput">it_ctr_bisec = 2;
 <span class="keyword">while</span> (it_ctr_bisec &lt;= it_bisect_max_iter)
 
     <span class="comment">% Update either lower or upper bounds</span>
@@ -291,10 +260,31 @@ ar_mid_x = (ar_lower_x + ar_upper_x)/2;
     <span class="comment">% Iterate up</span>
     it_ctr_bisec = it_ctr_bisec + 1;
 <span class="keyword">end</span>
-</pre><h2 id="8">print details</h2><pre class="codeinput"><span class="keyword">if</span> (bl_verbose)
+</pre><h2 id="9">Return</h2><pre class="codeinput">ar_opti_save_frac = ar_mid_x;
+ar_opti_save_level = ar_mid_saveborr_level;
+ar_opti_foc_obj = ar_mid_fx;
 
-    print_string = [st_cur_bisec_info <span class="string">'iteration='</span> num2str(it_ctr_bisec)];
-    disp([<span class="string">'BISECT END'</span> print_string]);
+<span class="keyword">if</span>(isscalar(ar_opti_save_frac))
+    <span class="keyword">if</span> (ar_lower_fx_init*ar_upper_fx_init &gt; 0)
+        ar_opti_save_frac = NaN;
+        ar_opti_save_level = NaN;
+        ar_opti_foc_obj = NaN;
+    <span class="keyword">end</span>
+<span class="keyword">else</span>
+    ar_nosolu = (ar_lower_fx_init.*ar_upper_fx_init);
+    ar_opti_save_frac(ar_nosolu&gt;0) = NaN;
+    ar_opti_save_level(ar_nosolu&gt;0) = NaN;
+    ar_opti_foc_obj(ar_nosolu&gt;0) = NaN;
+<span class="keyword">end</span>
+</pre><h2 id="10">Timer End</h2><pre class="codeinput"><span class="keyword">if</span> (bl_timer)
+    toc;
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">Elapsed time is 0.110549 seconds.
+</pre><h2 id="11">print details</h2><pre class="codeinput"><span class="keyword">if</span> (bl_verbose)
+
+    print_string = [<span class="string">'iteration='</span> num2str(it_ctr_bisec) <span class="keyword">...</span>
+        <span class="string">', norm(ar_mid_fx)='</span> num2str(norm(ar_mid_fx))];
+    disp([<span class="string">'BISECT END: '</span> print_string]);
 
     <span class="comment">% get exact solution</span>
     <span class="keyword">if</span> (bl_default_test)
@@ -319,104 +309,128 @@ ar_mid_x = (ar_lower_x + ar_upper_x)/2;
     <span class="comment">% add column names</span>
     cl_col_names = [<span class="string">"vartype"</span>, strcat(<span class="string">'paramgroup'</span>, string((2:size(tb_bisec_info,2))))];
     tb_bisec_info.Properties.VariableNames = cl_col_names;
+    disp(tb_bisec_info)
 
-    <span class="comment">% print all info</span>
-<span class="comment">%     disp(tb_bisec_info);</span>
-    <span class="comment">% print all info</span>
-<span class="comment">%     disp(tb_bisec_info(strcmp(tb_bisec_info.vartype, "x"), :));</span>
+    <span class="comment">% prepare for graph</span>
+    mt_iter_print = tb_bisec_info{strcmp(tb_bisec_info.vartype, <span class="string">"x"</span>), 2:end};
+    mt_iter_print = mt_iter_print';
+    mp_support_graph = containers.Map(<span class="string">'KeyType'</span>, <span class="string">'char'</span>, <span class="string">'ValueType'</span>, <span class="string">'any'</span>);
+    mp_support_graph(<span class="string">'cl_st_graph_title'</span>) = {<span class="string">'Vectorized Savings Percentage Bisection'</span>};
+    mp_support_graph(<span class="string">'cl_st_ytitle'</span>) = {<span class="string">'Optimal Savings Borrowing Fraction'</span>};
+    mp_support_graph(<span class="string">'cl_st_xtitle'</span>) = {<span class="string">'Bisection Iterations'</span>};
+    mp_support_graph(<span class="string">'st_legend_loc'</span>) = <span class="string">'eastoutside'</span>;
+    mp_support_graph(<span class="string">'bl_graph_logy'</span>) = false; <span class="comment">% do not log</span>
+    mp_support_graph(<span class="string">'st_rowvar_name'</span>) = <span class="string">'param group ='</span>;
+    mp_support_graph(<span class="string">'it_legend_select'</span>) = 10;
+    mp_support_graph(<span class="string">'st_rounding'</span>) = <span class="string">'3.0f'</span>; <span class="comment">% format shock legend</span>
+    <span class="comment">% Call function</span>
+    ff_graph_grid(mt_iter_print, [1:size(mt_iter_print,1)], [1:size(mt_iter_print,2)], mp_support_graph);
 
+    <span class="comment">% print as container:</span>
+    mp_container_map = containers.Map(<span class="string">'KeyType'</span>,<span class="string">'char'</span>, <span class="string">'ValueType'</span>,<span class="string">'any'</span>);
+    mp_container_map(<span class="string">'ar_opti_save_frac'</span>) = ar_opti_save_frac';
+    mp_container_map(<span class="string">'ar_opti_foc_obj'</span>) = ar_opti_foc_obj';
+    <span class="keyword">if</span> (nargout&gt;=2)
+        mp_container_map(<span class="string">'ar_opti_save_level'</span>) = ar_opti_save_level';
+    <span class="keyword">end</span>
+    ff_container_map_display(mp_container_map, 10, 10);
 
-<span class="comment">%     if(bl_print_iter)</span>
-        mt_iter_print = tb_bisec_info{strcmp(tb_bisec_info.vartype, <span class="string">"x"</span>), 2:end};
-        mt_iter_print = mt_iter_print';
-<span class="comment">%         ar_col_grid = string(cellstr(...</span>
-<span class="comment">%             [num2str(ar_z1, 'z1=%3.2f;'), num2str(ar_z2, 'z2=%3.2f;'),...</span>
-<span class="comment">%              num2str(ar_r, 'r=%3.2f;'), num2str(ar_beta, 'beta=%3.2f')]...</span>
-<span class="comment">%             ));</span>
-        mp_support_graph = containers.Map(<span class="string">'KeyType'</span>, <span class="string">'char'</span>, <span class="string">'ValueType'</span>, <span class="string">'any'</span>);
-        mp_support_graph(<span class="string">'cl_st_graph_title'</span>) = {<span class="string">'Vectorized Savings Percentage Bisection'</span>};
-        mp_support_graph(<span class="string">'cl_st_ytitle'</span>) = {<span class="string">'Optimal Savings Borrowing Fraction'</span>};
-        mp_support_graph(<span class="string">'cl_st_xtitle'</span>) = {<span class="string">'Bisection Iterations'</span>};
-        mp_support_graph(<span class="string">'st_legend_loc'</span>) = <span class="string">'eastoutside'</span>;
-        mp_support_graph(<span class="string">'bl_graph_logy'</span>) = false; <span class="comment">% do not log</span>
-        mp_support_graph(<span class="string">'st_rowvar_name'</span>) = <span class="string">'param group ='</span>;
-        mp_support_graph(<span class="string">'it_legend_select'</span>) = 10;
-        mp_support_graph(<span class="string">'st_rounding'</span>) = <span class="string">'3.0f'</span>; <span class="comment">% format shock legend</span>
-        <span class="comment">% Call function</span>
-        ff_graph_grid(mt_iter_print, [1:size(mt_iter_print,1)], [1:size(mt_iter_print,2)], mp_support_graph);
-<span class="comment">%     end</span>
 <span class="keyword">end</span>
-</pre><pre class="codeoutput">BISECT ENDsavings bisectioniteration=11
-</pre><h2 id="9">Return</h2><pre class="codeinput">varargout = cell(nargout,0);
+</pre><pre class="codeoutput">BISECT END: iteration=16, norm(ar_mid_fx)=0.00030653
+</pre><h2 id="12">Return</h2><pre class="codeinput">varargout = cell(nargout,0);
 <span class="keyword">for</span> it_k = 1:nargout
     <span class="keyword">if</span> (it_k==1)
-        ob_out_cur = ar_opti_saveborr_frac;
+        ob_out_cur = ar_opti_save_frac;
     <span class="keyword">elseif</span> (it_k==2)
-        ob_out_cur = ar_opti_saveborr_level;
-    <span class="keyword">elseif</span> (it_k==3 &amp;&amp; bl_verbose)
+        ob_out_cur = ar_opti_save_level;
+    <span class="keyword">elseif</span> (it_k==3)
+        ob_out_cur = ar_opti_foc_obj;
+    <span class="keyword">elseif</span> (it_k==4 &amp;&amp; bl_verbose)
         ob_out_cur = tb_bisec_info;
     <span class="keyword">end</span>
     varargout{it_k} = ob_out_cur;
 <span class="keyword">end</span>
 </pre><pre class="codeinput"><span class="keyword">end</span>
-</pre><h2 id="11">Utility Function</h2><pre>  see https://fanwangecon.github.io/Math4Econ/derivative_application/htmlpdfm/K_save_households.html</pre><pre class="codeinput"><span class="keyword">function</span> [ar_util_today, ar_util_future] = <span class="keyword">...</span>
-    ffi_intertemporal_util(ar_saveborr_frac, z1, z2, r, beta)
-<span class="comment">% utility function</span>
-
-ar_resource = (z1-z2./(1+r));
-ar_saveborr_level = ar_saveborr_frac.*ar_resource;
-
-<span class="comment">% contemporarneous utility</span>
-ar_util_today = log(z1-ar_saveborr_level);
-
-<span class="comment">% future utility</span>
-ar_util_future = ffi_intertemporal_util_future(ar_saveborr_level, z2, r, beta);
-
-<span class="comment">% total utility</span>
-ar_util_all = ar_util_today + ar_util_future;
-
-<span class="keyword">end</span>
-</pre><h2 id="12">Utilty Future</h2><pre class="codeinput"><span class="keyword">function</span> [ar_util_future] = <span class="keyword">...</span>
-    ffi_intertemporal_util_future(ar_saveborr_level, z2, r, beta)
-<span class="comment">% utility function</span>
-
-<span class="comment">% future utility</span>
-ar_util_future = beta.*log(z2 + ar_saveborr_level.*(1+r));
-
-<span class="keyword">end</span>
-</pre><h2 id="13">Intertemporal Maximization with Log Util, no Shock, Two Periods, Endowments</h2><pre>  see https://fanwangecon.github.io/Math4Econ/derivative_application/htmlpdfm/K_save_households.html</pre><pre class="codeinput"><span class="keyword">function</span> [ar_deri_zero, ar_saveborr_level] = <span class="keyword">...</span>
+</pre><h2 id="14">Intertemporal Maximization with Log Util, no Shock, Two Periods, Endowments</h2><pre>  see https://fanwangecon.github.io/Math4Econ/derivative_application/htmlpdfm/K_save_households.html</pre><pre class="codeinput"><span class="keyword">function</span> [ar_deri_zero, ar_saveborr_level] = <span class="keyword">...</span>
     ffi_intertemporal_max(ar_saveborr_frac, z1, z2, r, beta)
-<span class="comment">% x is borrowing or savings fraction, save at most z1, borrow at most</span>
-<span class="comment">% z2/(1+r), x is between 0 and 1, assume that mt_fc_inputs are inputs</span>
-<span class="comment">% that will be providing different functional parameters as rows, each</span>
-<span class="comment">% column is a different parameter. N by 1. x could by 1 by M.</span>
 
-<span class="comment">%     z1 = mt_fc_inputs(:,1);</span>
-<span class="comment">%     z2 = mt_fc_inputs(:,2);</span>
-<span class="comment">%     r = mt_fc_inputs(:,3);</span>
-<span class="comment">%     beta = mt_fc_inputs(:,4);</span>
-
-ar_saveborr_level = ar_saveborr_frac.*(z1-z2./(1+r));
+ar_saveborr_level = ar_saveborr_frac.*(z1+z2./(1+r)) - z2./(1+r);
 ar_deri_zero = 1./(ar_saveborr_level-z1) + (beta.*(r+1))./(z2 + ar_saveborr_level.*(r+1));
 
 <span class="keyword">end</span>
-</pre><h2 id="14">Solution Intertemporal Maximization with Log Util, no Shock, Two Periods, Endowments</h2><pre>  see https://fanwangecon.github.io/Math4Econ/derivative_application/htmlpdfm/K_save_households.html</pre><pre class="codeinput"><span class="keyword">function</span> [ar_opti_saveborr_frac, ar_opti_saveborr_level] = <span class="keyword">...</span>
+</pre><h2 id="15">Solution Intertemporal Maximization with Log Util, no Shock, Two Periods, Endowments</h2><pre>  see https://fanwangecon.github.io/Math4Econ/derivative_application/htmlpdfm/K_save_households.html</pre><pre class="codeinput"><span class="keyword">function</span> [ar_opti_saveborr_frac, ar_opti_saveborr_level] = <span class="keyword">...</span>
     ffi_intertemporal_max_solu(z1, z2, r, beta)
-<span class="comment">% x is borrowing or savings fraction, save at most z1, borrow at most</span>
-<span class="comment">% z2/(1+r), x is between 0 and 1, assume that mt_fc_inputs are inputs</span>
-<span class="comment">% that will be providing different functional parameters as rows, each</span>
-<span class="comment">% column is a different parameter. N by 1. x could by 1 by M.</span>
-
-<span class="comment">%     z1 = mt_fc_inputs(:,1);</span>
-<span class="comment">%     z2 = mt_fc_inputs(:,2);</span>
-<span class="comment">%     r = mt_fc_inputs(:,3);</span>
-<span class="comment">%     beta = mt_fc_inputs(:,4);</span>
 
 ar_opti_saveborr_level = (z1.*beta.*(1+r) - z2)./((1+r).*(1+beta));
-ar_opti_saveborr_frac = ar_opti_saveborr_level./(z1-z2./(1+r));
+ar_opti_saveborr_frac = (ar_opti_saveborr_level + z2./(1+r))./(z1+z2./(1+r));
 
 <span class="keyword">end</span>
-</pre><img vspace="5" hspace="5" src="ff_optim_bisec_savezrone_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019b</a><br></p></div><!--
+</pre><pre class="codeoutput">                                 vartype    paramgroup2    paramgroup3    paramgroup4    paramgroup5    paramgroup6    paramgroup7    paramgroup8    paramgroup9
+                                 _______    ___________    ___________    ___________    ___________    ___________    ___________    ___________    ___________
+
+    a                            "init"           1e-05          1e-05          1e-05          1e-05          1e-05          1e-05          1e-05          1e-05
+    b                            "init"         0.99999        0.99999        0.99999        0.99999        0.99999        0.99999        0.99999        0.99999
+    f_a                          "init"           33802          40925          67047          15411          63263     1.9839e+05          25282          70686
+    f_b                          "init"          -46789    -1.2672e+05    -1.8532e+05         -67518         -48900    -1.2164e+05         -23149         -49303
+    it1_fp                       "fatx"        -0.25973        -1.7159        -2.3655        -1.0421        0.28726          1.535       0.042644        0.42766
+    it1_p                        "x"                0.5            0.5            0.5            0.5            0.5            0.5            0.5            0.5
+    it2_fp                       "fatx"         0.72822      -0.052631        0.21087       -0.28379        -1.1125        -2.2202       -0.58887        -1.0296
+    it2_p                        "x"               0.25           0.25           0.25           0.25        0.74999        0.74999        0.74999        0.74999
+    it3_fp                       "fatx"         0.15277         1.8256        -1.1773        0.46124       -0.29179      -0.069428       -0.21281       -0.18376
+    it3_p                        "x"              0.375        0.12501          0.375        0.12501          0.625          0.625          0.625          0.625
+    it4_fp                       "fatx"       -0.059183        0.62299       -0.55013     -0.0090579      0.0069602        0.74664      -0.079677        0.12972
+    it4_p                        "x"             0.4375        0.18751         0.3125        0.18751         0.5625         0.5625         0.5625         0.5625
+    it5_fp                       "fatx"        0.044028         0.2488       -0.19454         0.1861       -0.13821        0.34715      -0.017964      -0.023106
+    it5_p                        "x"            0.40625        0.21876        0.28125        0.15626        0.59375        0.59375        0.53125        0.59375
+    it6_fp                       "fatx"      -0.0080863       0.090981     0.00054305       0.081339      -0.064832        0.14171       0.012387       0.054017
+    it6_p                        "x"            0.42188        0.23438        0.26563        0.17188        0.57812        0.60937        0.51562        0.57812
+    it7_fp                       "fatx"        0.017822       0.017593      -0.098707       0.034591      -0.028768       0.036948     -0.0027658       0.015665
+    it7_p                        "x"            0.41406        0.24219        0.27344        0.17969        0.57031        0.61719        0.52344        0.58594
+    it8_fp                       "fatx"       0.0048335      -0.017893      -0.049532       0.012405      -0.010865      -0.016025      0.0048149      -0.003664
+    it8_p                        "x"            0.41797         0.2461        0.26954         0.1836         0.5664        0.62109        0.51953        0.58984
+    it9_fp                       "fatx"      -0.0016347    -0.00024633       -0.02461      0.0015865     -0.0019434       0.010514      0.0010259      0.0060142
+    it9_p                        "x"            0.41992        0.24415        0.26758        0.18555        0.56445        0.61914        0.52148        0.58789
+    it10_fp                      "fatx"       0.0015973      0.0086488      -0.012063     -0.0037571      0.0025106     -0.0027422    -0.00086962      0.0011786
+    it10_p                       "x"            0.41895        0.24317        0.26661        0.18653        0.56348        0.62011        0.52246        0.58887
+    it11_fp                      "fatx"     -1.9235e-05      0.0041952     -0.0057672     -0.0010907     0.00028416      0.0038891     7.8199e-05     -0.0012418
+    it11_p                       "x"            0.41944        0.24366        0.26612        0.18604        0.56396        0.61963        0.52197        0.58935
+    it12_fp                      "fatx"      0.00078889      0.0019729     -0.0026139     0.00024655     -0.0008295     0.00057428    -0.00039569    -3.1408e-05
+    it12_p                       "x"            0.41919         0.2439        0.26587         0.1858        0.56421        0.61987        0.52222        0.58911
+    it13_fp                      "fatx"      0.00038479     0.00086292     -0.0010359    -0.00042242    -0.00027263     -0.0010838    -0.00015874     0.00057363
+    it13_p                       "x"            0.41931        0.24402        0.26575        0.18592        0.56409        0.61999        0.52209        0.58899
+    it14_fp                      "fatx"      0.00018277      0.0003082    -0.00024654    -8.8022e-05     5.7721e-06    -0.00025469    -4.0269e-05     0.00027113
+    it14_p                       "x"            0.41937        0.24408        0.26569        0.18586        0.56402        0.61993        0.52203        0.58905
+    it15_fp                      "fatx"      8.1766e-05     3.0909e-05     0.00014822     7.9241e-05    -0.00013343     0.00015981     1.8966e-05     0.00011986
+    it15_p                       "x"             0.4194        0.24412        0.26566        0.18583        0.56406         0.6199          0.522        0.58908
+    it15_level                   "level"        0.56205      -0.070025       0.044431      -0.039424         1.0402        0.48151         2.1656         0.9076
+    exactSoluSaveborrFrac        "exact"        0.41943        0.24412        0.26567        0.18584        0.56403        0.61991        0.52201         0.5891
+    exactSoluSaveborrLevel       "exact"        0.56211      -0.070022       0.044438      -0.039403         1.0402        0.48152         2.1656        0.90765
+    exactSoluSaveborrFracGap     "exact"     2.4705e-05      3.402e-06     1.1458e-05     1.4456e-05     2.9252e-05     1.1766e-05      9.771e-06     2.4181e-05
+    exactSoluSaveborrLevelGap    "exact"       5.28e-05     2.6845e-06     6.1825e-06     2.1411e-05     5.9818e-05     9.6728e-06     4.2208e-05     4.9045e-05
+
+</pre><img vspace="5" hspace="5" src="ff_optim_bisec_savezrone_01.png" alt=""> <pre class="codeoutput">----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN       sum           mean          std        coefvari        min           max    
+                         _    ___    ____    _____    ____    ____    __________    __________    __________    ________    ___________    __________
+
+    ar_opti_foc_obj      1     1      2        8       1       8      0.00050535    6.3168e-05    9.4141e-05     1.4903     -0.00013343    0.00015981
+    ar_opti_save_frac    2     2      2        8       1       8            3.41       0.42626       0.17279    0.40536         0.18583        0.6199
+
+xxx TABLE:ar_opti_foc_obj xxxxxxxxxxxxxxxxxx
+              c1            c2            c3            c4            c5             c6            c7            c8    
+          __________    __________    __________    __________    ___________    __________    __________    __________
+
+    r1    8.1766e-05    3.0909e-05    0.00014822    7.9241e-05    -0.00013343    0.00015981    1.8966e-05    0.00011986
+
+xxx TABLE:ar_opti_save_frac xxxxxxxxxxxxxxxxxx
+            c1        c2         c3         c4         c5         c6       c7        c8   
+          ______    _______    _______    _______    _______    ______    _____    _______
+
+    r1    0.4194    0.24412    0.26566    0.18583    0.56406    0.6199    0.522    0.58908
+
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% FF_OPTIM_BISEC_SAVEZRONE Bisection Vectorized
 %    Standard Vectorized Bisection given anonymous function that outputs
@@ -425,6 +439,15 @@ ar_opti_saveborr_frac = ar_opti_saveborr_level./(z1-z2./(1+r));
 %    row of the input parameter matrix. Savings problem where agents save 0
 %    to 100 percent of available resoures (including borrowing bounds in
 %    resource).
+% 
+%    The exact solution savings dynamic programming code, both looped and
+%    vectorized versions, rely on this function to compute optimal savings
+%    choices.
+%
+%    While this is designed for solving savings choices. This also solves a
+%    variety of other bisection type problems. For example, given minimum
+%    and maximum bounds on interest rates, this code here also can solve
+%    for the intersecting point of aggregate demand and supply curves.
 %
 %    * FC_DERI_WTH_UNIROOT anonymous function handle, given an array of asset
 %    choice fractions, savings given resource availability (including
@@ -436,25 +459,38 @@ ar_opti_saveborr_frac = ar_opti_saveborr_level./(z1-z2./(1+r));
 %    then log space.
 %
 %    mp_bisec_ctrlinfo = containers.Map('KeyType','char', 'ValueType','any');
-%    mp_bisec_ctrlinfo('st_cur_bisec_info') = 'savings bisection';
-%    mp_bisec_ctrlinfo('it_bisect_min_iter') = 1;
-%    mp_bisec_ctrlinfo('it_bisect_max_iter') = 10;
-%    mp_bisec_ctrlinfo('fl_bisect_tol') = 10e-6;
+%    % number of iterations
+%    mp_bisec_ctrlinfo('it_bisect_max_iter') = 15;
+%    % starting savings share, common for all
+%    mp_bisec_ctrlinfo('fl_x_left_start') = 10e-6;
+%    % max savings share, common for all
+%    mp_bisec_ctrlinfo('fl_x_right_start') = 1-10e-6;
+%    % override default support_map values
 %
-%    [AR_OPTI_SAVEBORR_FRAC] = FF_OPTIM_BISEC_SAVEZRONE() default optimal
+%    [AR_OPTI_SAVE_FRAC] = FF_OPTIM_BISEC_SAVEZRONE() default optimal
 %    saving and borrowing fractions.
 %
-%    [AR_OPTI_SAVEBORR_FRAC, AR_OPTI_SAVEBORR_LEVEL] =
+%    [AR_OPTI_SAVE_FRAC] = FF_OPTIM_BISEC_SAVEZRONE(FC_DERI_WTH_UNIROOT,
+%    BL_VERBOSE, BL_TIMER, MP_BISEC_CTRLINFO) decide if to print verbose,
+%    verbose print will generate graphical and tabular outputs, control
+%    timer, and change iteration number of points per iteration via
+%    mp_bisec_ctrlinfo_ext.
+%
+%    [AR_OPTI_SAVE_FRAC, AR_OPTI_SAVE_LEVEL] =
 %    FF_OPTIM_BISEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) given function handle
 %    for savings borrowing function derivative with an array of outputs,
 %    each representing a different set of state-space points, solve for
 %    optimal savings levels and savings fractions.
 %
-%    [AR_OPTI_SAVEBORR_FRAC, AR_OPTI_SAVEBORR_LEVEL, TB_BISEC_INFO] =
-%    FF_OPTIM_BISEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) also output convergence
-%    iteration information.
+%    [AR_OPTI_SAVE_FRAC, AR_OPTI_SAVE_LEVEL, AR_OPTI_FOC_OBJ] =
+%    FF_OPTIM_BISEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) also output FOC
+%    objective.
 %
-%    see also FX_OPTIM_BISEC_SAVEZRONE
+%    [AR_OPTI_SAVE_FRAC, AR_OPTI_SAVE_LEVEL, AR_OPTI_FOC_OBJ,
+%    TB_BISEC_INFO] = FF_OPTIM_BISEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) also
+%    output convergence iteration information.
+%
+%    see also FX_OPTIM_BISEC_SAVEZRONE, FF_OPTIM_MLSEC_SAVEZRONE
 %
 
 %%
@@ -463,29 +499,27 @@ function varargout = ff_optim_bisec_savezrone(varargin)
 if (~isempty(varargin))
     
     % NOT called interally with the testing function ffi_intertempora_max below
-    bl_default_test = false;
-    
-    st_grid_type = 'grid_linspace';
+    bl_default_test = false;    
     bl_verbose = false;
-    bl_print_iter = false;
+    bl_timer = false;
     
     if (length(varargin) == 1)
         [fc_deri_wth_uniroot] = varargin{:};
     elseif (length(varargin) == 2)
         [fc_deri_wth_uniroot, bl_verbose] = varargin{:};
-    else
-        error('Must specify three parameters.');
+    elseif (length(varargin) == 3)
+        [fc_deri_wth_uniroot, bl_verbose, bl_timer] = varargin{:};
+    elseif (length(varargin) == 4)
+        [fc_deri_wth_uniroot, bl_verbose, bl_timer, mp_bisec_ctrlinfo_ext] = varargin{:};        
     end
     
 else
     close all;
     
     % called interall with the testing function ffi_intertempora_max below
-    bl_default_test = true;
-    
-    % print more
+    bl_default_test = true;    
     bl_verbose = true;
-    bl_print_iter = true;
+    bl_timer = true;
     
     % 1. ffi_intertemporal_max at the end of this function is two period
     % intertemporal utility maximization problem where the choice is
@@ -494,7 +528,7 @@ else
     % borrowed. See:
     % https://fanwangecon.github.io/Math4Econ/derivative_application/htmlpdfm/K_save_households.html
 
-    it_exam = 1;
+    it_exam = 2;
     if(it_exam==1)
         
         % 2. Solve concurrently for combinations of z1, z2, r, and beta values
@@ -502,113 +536,72 @@ else
         ar_z2 = [3,3,2,2,1,1]';
         ar_r = 1.10 + zeros(size(ar_z1));
         ar_beta = [0.80, 0.95, 0.80, 0.95, 0.80, 0.95]';
-        % mt_fc_inputs = [ar_z1, ar_z2, ar_r, ar_beta];
-        
-        rng(123);
-        ar_z1 = exp(rand([8,1])*3-1.5); % 40 asset points
-        ar_z2 = exp(rand([8,1])*3-1.5); % 7 shock points
-        ar_r = (rand(8,1)*0.10)+1.0; % marriage and edu
-        ar_beta = (rand(8,1)*0.18)+0.80; % number of kids 0 to 5 
-        
-        cl_ar_all = {ar_z1, ar_z2, ar_r, ar_beta};
-        cl_mt_all = cl_ar_all;
-        [cl_mt_all{:}] = ndgrid(cl_ar_all{:});
-        mt_all_states = cell2mat(cellfun(@(m) m(:), cl_mt_all, 'uni', 0));
-        ar_mesh_z1 = mt_all_states(:,1);
-        ar_mesh_z2 = mt_all_states(:,2); 
-        ar_mesh_r = mt_all_states(:,3); 
-        ar_mesh_beta = mt_all_states(:,4);
-        
-        ar_z1 = mt_all_states(:,1);
-        ar_z2 = mt_all_states(:,2); 
-        ar_r = mt_all_states(:,3); 
-        ar_beta = mt_all_states(:,4);        
-
-        % 3. define function with the fixed matrix of input
-        fc_deri_wth_uniroot = @(x) ffi_intertemporal_max(...
-            x, ar_mesh_z1, ar_mesh_z2, ar_mesh_r, ar_mesh_beta);
-%         fc_deri_wth_uniroot = @(x) ffi_intertemporal_max(x, ar_z1, ar_z2, ar_r, ar_beta);
+        % mt_fc_inputs = [ar_z1, ar_z2, ar_r, ar_beta];               
         
     elseif(it_exam==2)
         
-        % solve future value first over state-space, consider savings only.
-        
-        % Get Some Tauchenized Shock
-        [fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose, it_std_bound] = ...
-            deal(0.60, 0.10, 3, false, 3);
-        [ar_disc_ar1, mt_disc_ar1_trans] = ...
-            ffy_tauchen(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose, it_std_bound);
-        
-        % think of ar_saveborr_level and ar_z2 as asset and shocks
-        % think of ar_r and ar_beta as some other state-space components
-        ar_saveborr_level = linspace(0, 3, 5); % 40 asset points
-        ar_z2 = exp(ar_disc_ar1); % 7 shock points
-        ar_r = linspace(1.00, 1.05, 2); % marriage and edu
-        ar_beta = linspace(0.80, 0.95, 3); % number of kids 0 to 5 
-        
-        cl_ar_all = {ar_saveborr_level, ar_z2, ar_r, ar_beta};
-        cl_mt_all = cl_ar_all;
-        [cl_mt_all{:}] = ndgrid(cl_ar_all{:});
-        mt_all_states = cell2mat(cellfun(@(m) m(:), cl_mt_all, 'uni', 0));
+        rng(123);
+        it_draws = 8; % must be even number
+        ar_z1 = exp(rand([it_draws,1])*3-1.5);
+        ar_z2 = exp(rand([it_draws,1])*3-1.5);
+        ar_r = (rand(it_draws,1)*10.0);
+        ar_beta = [rand(round(it_draws/2),1)*1; rand(round(it_draws/2),1)*1+1]; 
 
-        % Evalute future at state space components    
-        ar_mesh_saveborr_level = mt_all_states(:,1);
-        ar_mesh_z2 = mt_all_states(:,2); 
-        ar_mesh_r = mt_all_states(:,3); 
-        ar_mesh_beta = mt_all_states(:,4);
-        ar_util_future = ffi_intertemporal_util_future(...
-            ar_mesh_saveborr_level, ar_mesh_z2, ar_mesh_r, ar_mesh_beta);
+    elseif(it_exam==3)
         
-        % Assume that r and beta are persistent, from period t perspective,
-        % I want to be able to find future value, given r, beta, current z,
-        % and asset choice. r and beta tell us something aobut which row of
-        % ar_util_future we should be looking at, the savings choice        
-        mn_util_future = reshape(ar_util_future, ...
-            [length(ar_saveborr_level), length(ar_z2), ...
-             length(ar_r), length(ar_beta)]);
-         
-%          % reshape value so that all states are rows, shocks are columns
-%          mn_util_future_reshape = reshape(...
-%              permute(mn_util_future, [1,3,4,2]), ...
-%              [], length(ar_z2));
-%          
-%          same asset grid grid 
-%          given a vector of asset points
-
-          11;
+        % run many check speed
+        rng(123);
+        it_draws = 6250000; % must be even number
+        bl_default_test = false;
+        bl_verbose = false;
+        bl_timer = false;
+        
+        ar_z1 = exp(rand([it_draws,1])*3-1.5);
+        ar_z2 = exp(rand([it_draws,1])*3-1.5);
+        ar_r = (rand(it_draws,1)*10.0);
+        ar_beta = [rand(round(it_draws/2),1)*1; rand(round(it_draws/2),1)*1+1]; 
+        
+    elseif(it_exam==4)
+        
+        [ar_z1, ar_z2, ar_r, ar_beta] = deal(0.4730, 0.6252, 0.0839, 0.7365);
+        
     end
-    
-    % 4. given the percentage assset choice problem, all share same bounds
-    fl_x_left_start = 10e-6;
-    fl_x_right_start = 1-10e-6;
-    
+
+    % 3. define function with the fixed matrix of input
+    fc_deri_wth_uniroot = @(x) ffi_intertemporal_max(x, ar_z1, ar_z2, ar_r, ar_beta);
+        
 end
 
 %% Set and Update Support Map
 mp_bisec_ctrlinfo = containers.Map('KeyType','char', 'ValueType','any');
-mp_bisec_ctrlinfo('st_cur_bisec_info') = 'savings bisection';
-mp_bisec_ctrlinfo('it_bisect_min_iter') = 1;
-mp_bisec_ctrlinfo('it_bisect_max_iter') = 10;
-mp_bisec_ctrlinfo('fl_bisect_tol') = 10e-6;
+% number of iterations
+mp_bisec_ctrlinfo('it_bisect_max_iter') = 15;
+% starting savings share, common for all
 mp_bisec_ctrlinfo('fl_x_left_start') = 10e-6;
+% max savings share, common for all
 mp_bisec_ctrlinfo('fl_x_right_start') = 1-10e-6;
-
 % override default support_map values
-if (length(varargin)==5)
-    mp_bisec_ctrlinfo = [mp_bisec_ctrlinfo; mp_grid_control_ext];
+
+if (length(varargin)>=4)
+    mp_bisec_ctrlinfo = [mp_bisec_ctrlinfo; mp_bisec_ctrlinfo_ext];
 end
 
 %% Parse mp_grid_control
-params_group = values(mp_bisec_ctrlinfo, {'st_cur_bisec_info'});
-[st_cur_bisec_info] = params_group{:};
-params_group = values(mp_bisec_ctrlinfo, {'it_bisect_min_iter', 'it_bisect_max_iter', 'fl_bisect_tol'});
-[it_bisect_min_iter, it_bisect_max_iter, fl_bisect_tol] = params_group{:};
+params_group = values(mp_bisec_ctrlinfo, {'it_bisect_max_iter'});
+[it_bisect_max_iter] = params_group{:};
 params_group = values(mp_bisec_ctrlinfo, {'fl_x_left_start', 'fl_x_right_start'});
 [fl_x_left_start, fl_x_right_start] = params_group{:};
+
+%% Timer Start
+if (bl_timer)
+    tic;
+end
 
 %% Evaluate At lower and Upper Savings Bounds
 [ar_lower_fx, ~] = fc_deri_wth_uniroot(fl_x_left_start);
 [ar_upper_fx, ~] = fc_deri_wth_uniroot(fl_x_right_start);
+ar_lower_fx_init = ar_lower_fx;
+ar_upper_fx_init = ar_upper_fx;
 ar_lower_x = fl_x_left_start + zeros(size(ar_lower_fx));
 ar_upper_x = fl_x_right_start + zeros(size(ar_upper_fx));
 if (bl_verbose)
@@ -674,11 +667,36 @@ while (it_ctr_bisec <= it_bisect_max_iter)
     it_ctr_bisec = it_ctr_bisec + 1;
 end
 
+%% Return 
+
+ar_opti_save_frac = ar_mid_x;
+ar_opti_save_level = ar_mid_saveborr_level;
+ar_opti_foc_obj = ar_mid_fx;
+
+if(isscalar(ar_opti_save_frac))
+    if (ar_lower_fx_init*ar_upper_fx_init > 0)
+        ar_opti_save_frac = NaN;
+        ar_opti_save_level = NaN;
+        ar_opti_foc_obj = NaN;
+    end
+else
+    ar_nosolu = (ar_lower_fx_init.*ar_upper_fx_init);
+    ar_opti_save_frac(ar_nosolu>0) = NaN;
+    ar_opti_save_level(ar_nosolu>0) = NaN;
+    ar_opti_foc_obj(ar_nosolu>0) = NaN;
+end
+
+%% Timer End
+if (bl_timer)
+    toc;
+end
+
 %% print details
 if (bl_verbose)
     
-    print_string = [st_cur_bisec_info 'iteration=' num2str(it_ctr_bisec)];
-    disp(['BISECT END' print_string]);
+    print_string = ['iteration=' num2str(it_ctr_bisec) ...
+        ', norm(ar_mid_fx)=' num2str(norm(ar_mid_fx))];
+    disp(['BISECT END: ' print_string]);
     
     % get exact solution
     if (bl_default_test)
@@ -702,95 +720,57 @@ if (bl_verbose)
     
     % add column names
     cl_col_names = ["vartype", strcat('paramgroup', string((2:size(tb_bisec_info,2))))];
-    tb_bisec_info.Properties.VariableNames = cl_col_names;
+    tb_bisec_info.Properties.VariableNames = cl_col_names;    
+    disp(tb_bisec_info)
     
-    % print all info
-%     disp(tb_bisec_info);
-    % print all info
-%     disp(tb_bisec_info(strcmp(tb_bisec_info.vartype, "x"), :));
-    
-    
-%     if(bl_print_iter)
-        mt_iter_print = tb_bisec_info{strcmp(tb_bisec_info.vartype, "x"), 2:end};
-        mt_iter_print = mt_iter_print';
-%         ar_col_grid = string(cellstr(...
-%             [num2str(ar_z1, 'z1=%3.2f;'), num2str(ar_z2, 'z2=%3.2f;'),...
-%              num2str(ar_r, 'r=%3.2f;'), num2str(ar_beta, 'beta=%3.2f')]...
-%             ));    
-        mp_support_graph = containers.Map('KeyType', 'char', 'ValueType', 'any');
-        mp_support_graph('cl_st_graph_title') = {'Vectorized Savings Percentage Bisection'};
-        mp_support_graph('cl_st_ytitle') = {'Optimal Savings Borrowing Fraction'};
-        mp_support_graph('cl_st_xtitle') = {'Bisection Iterations'};
-        mp_support_graph('st_legend_loc') = 'eastoutside';
-        mp_support_graph('bl_graph_logy') = false; % do not log
-        mp_support_graph('st_rowvar_name') = 'param group =';
-        mp_support_graph('it_legend_select') = 10;
-        mp_support_graph('st_rounding') = '3.0f'; % format shock legend        
-        % Call function
-        ff_graph_grid(mt_iter_print, [1:size(mt_iter_print,1)], [1:size(mt_iter_print,2)], mp_support_graph);
-%     end
-end
+    % prepare for graph
+    mt_iter_print = tb_bisec_info{strcmp(tb_bisec_info.vartype, "x"), 2:end};
+    mt_iter_print = mt_iter_print';
+    mp_support_graph = containers.Map('KeyType', 'char', 'ValueType', 'any');
+    mp_support_graph('cl_st_graph_title') = {'Vectorized Savings Percentage Bisection'};
+    mp_support_graph('cl_st_ytitle') = {'Optimal Savings Borrowing Fraction'};
+    mp_support_graph('cl_st_xtitle') = {'Bisection Iterations'};
+    mp_support_graph('st_legend_loc') = 'eastoutside';
+    mp_support_graph('bl_graph_logy') = false; % do not log
+    mp_support_graph('st_rowvar_name') = 'param group =';
+    mp_support_graph('it_legend_select') = 10;
+    mp_support_graph('st_rounding') = '3.0f'; % format shock legend        
+    % Call function
+    ff_graph_grid(mt_iter_print, [1:size(mt_iter_print,1)], [1:size(mt_iter_print,2)], mp_support_graph);
 
+    % print as container:
+    mp_container_map = containers.Map('KeyType','char', 'ValueType','any');
+    mp_container_map('ar_opti_save_frac') = ar_opti_save_frac';
+    mp_container_map('ar_opti_foc_obj') = ar_opti_foc_obj';
+    if (nargout>=2)
+        mp_container_map('ar_opti_save_level') = ar_opti_save_level';
+    end
+    ff_container_map_display(mp_container_map, 10, 10);    
+
+end
 
 %% Return
 varargout = cell(nargout,0);
 for it_k = 1:nargout
     if (it_k==1)
-        ob_out_cur = ar_opti_saveborr_frac;
+        ob_out_cur = ar_opti_save_frac;
     elseif (it_k==2)
-        ob_out_cur = ar_opti_saveborr_level;
-    elseif (it_k==3 && bl_verbose)
+        ob_out_cur = ar_opti_save_level;
+    elseif (it_k==3)
+        ob_out_cur = ar_opti_foc_obj;
+    elseif (it_k==4 && bl_verbose)
         ob_out_cur = tb_bisec_info;
     end
     varargout{it_k} = ob_out_cur;
 end
 end
 
-%% Utility Function
-%    see https://fanwangecon.github.io/Math4Econ/derivative_application/htmlpdfm/K_save_households.html
-function [ar_util_today, ar_util_future] = ...
-    ffi_intertemporal_util(ar_saveborr_frac, z1, z2, r, beta)
-% utility function
-
-ar_resource = (z1-z2./(1+r));
-ar_saveborr_level = ar_saveborr_frac.*ar_resource;
-
-% contemporarneous utility
-ar_util_today = log(z1-ar_saveborr_level);
-
-% future utility
-ar_util_future = ffi_intertemporal_util_future(ar_saveborr_level, z2, r, beta);
-
-% total utility 
-ar_util_all = ar_util_today + ar_util_future;
-
-end
-
-%% Utilty Future
-function [ar_util_future] = ...
-    ffi_intertemporal_util_future(ar_saveborr_level, z2, r, beta)
-% utility function
-
-% future utility
-ar_util_future = beta.*log(z2 + ar_saveborr_level.*(1+r));
-
-end
-
 %% Intertemporal Maximization with Log Util, no Shock, Two Periods, Endowments
 %    see https://fanwangecon.github.io/Math4Econ/derivative_application/htmlpdfm/K_save_households.html
 function [ar_deri_zero, ar_saveborr_level] = ...
     ffi_intertemporal_max(ar_saveborr_frac, z1, z2, r, beta)
-% x is borrowing or savings fraction, save at most z1, borrow at most
-% z2/(1+r), x is between 0 and 1, assume that mt_fc_inputs are inputs
-% that will be providing different functional parameters as rows, each
-% column is a different parameter. N by 1. x could by 1 by M.
 
-%     z1 = mt_fc_inputs(:,1);
-%     z2 = mt_fc_inputs(:,2);
-%     r = mt_fc_inputs(:,3);
-%     beta = mt_fc_inputs(:,4);
-
-ar_saveborr_level = ar_saveborr_frac.*(z1-z2./(1+r));
+ar_saveborr_level = ar_saveborr_frac.*(z1+z2./(1+r)) - z2./(1+r);
 ar_deri_zero = 1./(ar_saveborr_level-z1) + (beta.*(r+1))./(z2 + ar_saveborr_level.*(r+1));
 
 end
@@ -799,18 +779,9 @@ end
 %    see https://fanwangecon.github.io/Math4Econ/derivative_application/htmlpdfm/K_save_households.html
 function [ar_opti_saveborr_frac, ar_opti_saveborr_level] = ...
     ffi_intertemporal_max_solu(z1, z2, r, beta)
-% x is borrowing or savings fraction, save at most z1, borrow at most
-% z2/(1+r), x is between 0 and 1, assume that mt_fc_inputs are inputs
-% that will be providing different functional parameters as rows, each
-% column is a different parameter. N by 1. x could by 1 by M.
-
-%     z1 = mt_fc_inputs(:,1);
-%     z2 = mt_fc_inputs(:,2);
-%     r = mt_fc_inputs(:,3);
-%     beta = mt_fc_inputs(:,4);
 
 ar_opti_saveborr_level = (z1.*beta.*(1+r) - z2)./((1+r).*(1+beta));
-ar_opti_saveborr_frac = ar_opti_saveborr_level./(z1-z2./(1+r));
+ar_opti_saveborr_frac = (ar_opti_saveborr_level + z2./(1+r))./(z1+z2./(1+r));
 
 end
 ##### SOURCE END #####

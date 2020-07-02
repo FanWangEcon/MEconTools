@@ -7,7 +7,7 @@
     <param.summary>Dynamic programming and related.</param.summary>
     <param.description>Dynamic programming and related.</param.description>
     <param.screenshot>${PROJECT_ROOT}\img\toolboxlogo.png</param.screenshot>
-    <param.version>0.1.23</param.version>
+    <param.version>0.1.24</param.version>
     <param.output>${PROJECT_ROOT}\MEconTools.mltbx</param.output>
     <param.products.name />
     <param.products.id />
@@ -87,6 +87,12 @@ htmlpdfm/*
          &lt;file type="main"&gt;/optim/ff_optim_bisec_savezrone.m&lt;/file&gt;
          &lt;file type="thumbnail"&gt;/optim/html/ff_optim_bisec_savezrone.png&lt;/file&gt;
          &lt;file type="image"&gt;/optim/html/ff_optim_bisec_savezrone_01.png&lt;/file&gt;
+      &lt;/example&gt;
+      &lt;example name="ff_optim_mlsec_savezrone" type="html"&gt;
+         &lt;file type="source"&gt;/optim/html/ff_optim_mlsec_savezrone.html&lt;/file&gt;
+         &lt;file type="main"&gt;/optim/ff_optim_mlsec_savezrone.m&lt;/file&gt;
+         &lt;file type="thumbnail"&gt;/optim/html/ff_optim_mlsec_savezrone.png&lt;/file&gt;
+         &lt;file type="image"&gt;/optim/html/ff_optim_mlsec_savezrone_01.png&lt;/file&gt;
       &lt;/example&gt;
    &lt;/exampleCategory&gt;
    &lt;exampleCategory name="vfi"&gt;

@@ -61,6 +61,12 @@
          <source>ff_optim_bisec_savezrone</source>
          <file>optim/html/ff_optim_bisec_savezrone.html</file>
       </demoitem>
+      <demoitem>
+         <label>ff_optim_mlsec_savezrone</label>
+         <type>other</type>
+         <source>ff_optim_mlsec_savezrone</source>
+         <file>optim/html/ff_optim_mlsec_savezrone.html</file>
+      </demoitem>
    </demosection>
    <demosection>
       <label>vfi</label>
