@@ -19,11 +19,6 @@
 %    choice fractions, savings given resource availability (including
 %    borrowing bounds), compute derivative value. 
 %
-%    Each type has type specific options set through key/value of
-%    MP_GRID_CONTROL. 'grid_linspace': linspace; 'grid_log10space': log
-%    space; 'grid_powerspace': power grid spacing; 'grid_evenlog': even
-%    then log space.
-%
 %    mp_bisec_ctrlinfo = containers.Map('KeyType','char', 'ValueType','any');
 %    % number of iterations
 %    mp_bisec_ctrlinfo('it_bisect_max_iter') = 15;
@@ -53,10 +48,11 @@
 %    objective.
 %
 %    [AR_OPTI_SAVE_FRAC, AR_OPTI_SAVE_LEVEL, AR_OPTI_FOC_OBJ,
-%    TB_BISEC_INFO] = FF_OPTIM_BISEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) also
+%    TB_BISEC_INFO] = FF_OPTIM_BISEC_SAVEZRONE(FC_DERI_WTH_UNIROOT, true) also
 %    output convergence iteration information.
 %
-%    see also FX_OPTIM_BISEC_SAVEZRONE, FF_OPTIM_MLSEC_SAVEZRONE
+%    see also FX_OPTIM_BISEC_SAVEZRONE, FF_OPTIM_MLSEC_SAVEZRONE,
+%    FF_OPTIM_MZOOM_SAVEZRONE
 %
 
 %%

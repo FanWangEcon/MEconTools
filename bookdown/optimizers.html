@@ -24,7 +24,7 @@
 <meta name="author" content="Fan Wang" />
 
 
-<meta name="date" content="2020-07-02" />
+<meta name="date" content="2020-07-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -159,6 +159,13 @@
 <li class="chapter" data-level="4.2.4" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_mlsec_savezrone-speed"><i class="fa fa-check"></i><b>4.2.4</b> Test FF_OPTIM_MLSEC_SAVEZRONE Speed</a></li>
 <li class="chapter" data-level="4.2.5" data-path="optimizers.html"><a href="optimizers.html#define-two-period-intertemporal-foc-log-utility-no-shock-1"><i class="fa fa-check"></i><b>4.2.5</b> Define Two Period Intertemporal FOC Log Utility No Shock</a></li>
 </ul></li>
+<li class="chapter" data-level="4.3" data-path="optimizers.html"><a href="optimizers.html#ff_optim_mzoom_savezrone-derivative-multisection"><i class="fa fa-check"></i><b>4.3</b> FF_OPTIM_MZOOM_SAVEZRONE Derivative Multisection</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_mzoom_savezrone-one-individual"><i class="fa fa-check"></i><b>4.3.1</b> Test FF_OPTIM_MZOOM_SAVEZRONE One Individual</a></li>
+<li class="chapter" data-level="4.3.2" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_mzoom_savezrone-4-individuals-3-iterations-50-points-per-iteration"><i class="fa fa-check"></i><b>4.3.2</b> Test FF_OPTIM_MZOOM_SAVEZRONE 4 Individuals 3 Iterations 50 Points Per Iteration</a></li>
+<li class="chapter" data-level="4.3.3" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_mzoom_savezrone-8-individuals-3-iterations-10-points-per-iteration-0.25-zoom-in-ratio"><i class="fa fa-check"></i><b>4.3.3</b> Test FF_OPTIM_MZOOM_SAVEZRONE 8 Individuals 3 Iterations 10 Points Per Iteration, 0.25 zoom in ratio</a></li>
+<li class="chapter" data-level="4.3.4" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_mzoom_savezrone-speed"><i class="fa fa-check"></i><b>4.3.4</b> Test FF_OPTIM_MZOOM_SAVEZRONE Speed</a></li>
+<li class="chapter" data-level="4.3.5" data-path="optimizers.html"><a href="optimizers.html#define-two-period-intertemporal-log-utility-no-shock-utility-function"><i class="fa fa-check"></i><b>4.3.5</b> Define Two Period Intertemporal Log Utility No Shock Utility Function</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>5</b> Graphs</a><ul>
 <li class="chapter" data-level="5.1" data-path="graphs.html"><a href="graphs.html#ff_graph_grid-examples-x-y-and-color-line-plots"><i class="fa fa-check"></i><b>5.1</b> FF_GRAPH_GRID Examples: X, Y and Color Line Plots</a><ul>
@@ -210,10 +217,6 @@
 <li class="chapter" data-level="A.2" data-path="index-and-code-links.html"><a href="index-and-code-links.html#summarize-policy-and-value-links"><i class="fa fa-check"></i><b>A.2</b> Summarize Policy and Value links</a></li>
 <li class="chapter" data-level="A.3" data-path="index-and-code-links.html"><a href="index-and-code-links.html#distributional-analysis-links"><i class="fa fa-check"></i><b>A.3</b> Distributional Analysis links</a></li>
 <li class="chapter" data-level="A.4" data-path="index-and-code-links.html"><a href="index-and-code-links.html#optimizers-links"><i class="fa fa-check"></i><b>A.4</b> Optimizers links</a></li>
-<li class="chapter" data-level="A.5" data-path="index-and-code-links.html"><a href="index-and-code-links.html#graphs-links"><i class="fa fa-check"></i><b>A.5</b> Graphs links</a></li>
-<li class="chapter" data-level="A.6" data-path="index-and-code-links.html"><a href="index-and-code-links.html#support-tools-links"><i class="fa fa-check"></i><b>A.6</b> Support Tools links</a></li>
-<li class="chapter" data-level="A.7" data-path="index-and-code-links.html"><a href="index-and-code-links.html#data-structures-links"><i class="fa fa-check"></i><b>A.7</b> Data Structures links</a></li>
-<li class="chapter" data-level="A.8" data-path="index-and-code-links.html"><a href="index-and-code-links.html#common-functions-links"><i class="fa fa-check"></i><b>A.8</b> Common Functions links</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://fanwangecon.github.io/M4Econ/bookdown/index.html" target="blank">M4Econ Bookdown</a></li>
@@ -267,7 +270,7 @@ precision and speed</p></li>
 state-space points’ optimization problems:</p>
 <pre><code>ff_optim_bisec_savezrone();
 
-Elapsed time is 0.082993 seconds.
+Elapsed time is 0.089585 seconds.
 BISECT END: iteration=16, norm(ar_mid_fx)=0.00030653
                                  vartype    paramgroup2    paramgroup3    paramgroup4    paramgroup5    paramgroup6    paramgroup7    paramgroup8    paramgroup9
                                  _______    ___________    ___________    ___________    ___________    ___________    ___________    ___________    ___________
@@ -490,7 +493,7 @@ bl_verbose = false;
 bl_timer = true;
 [ar_opti_save_frac, ar_opti_save_level] = ff_optim_bisec_savezrone(fc_deri_wth_uniroot, bl_verbose, bl_timer);
 
-Elapsed time is 3.896197 seconds.
+Elapsed time is 3.908350 seconds.
 
 mp_container_map = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
 mp_container_map(&#39;ar_opti_save_frac&#39;) = ar_opti_save_frac;
@@ -541,6 +544,15 @@ functions solves for optimal savings/borrowing level given an anonymous
 function that provides the derivative of a intertemporal savings
 problem. This is a vectorized function solved with multi-section
 (multiple points bisection concurrently).</p>
+<p>The vectorized and looped bisection savings problem rely on this
+function to solve for optimal savings choices:</p>
+<ul>
+<li><p>States Grid + Continuous Exact Savings as Share of Cash-on-Hand :<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_loop.m"><strong>ff_vfi_az_bisec_loop</strong></a>,
+high precision even with small grid</p></li>
+<li><p>States Grid + Continuous Exact Savings as Share of Cash-on-Hand :
+<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_vec.m"><strong>ff_vfi_az_bisec_vec</strong></a>,
+precision and speed</p></li>
+</ul>
 <div id="test-ff_optim_mlsec_savezrone-one-individual" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Test FF_OPTIM_MLSEC_SAVEZRONE One Individual</h3>
 <p>Bisection for savings choice at one state:</p>
@@ -551,9 +563,16 @@ fc_deri_wth_uniroot = @(x) ffi_intertemporal_max(x, fl_z1, fl_z2, fl_r, fl_beta)
 % Call Function
 bl_verbose = false;
 bl_timer = true;
-ff_optim_mlsec_savezrone(fc_deri_wth_uniroot, bl_verbose, bl_timer);
+% optimally borrowing given the parameters here
+mp_mlsec_ctrlinfo = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_mlsec_ctrlinfo(&#39;it_mzoom_jnt_pnts&#39;) = 10;
+mp_mlsec_ctrlinfo(&#39;it_mzoom_max_iter&#39;) = 4;
+[fl_opti_save_frac, fl_opti_save_level] = ...
+    ff_optim_mlsec_savezrone(fc_deri_wth_uniroot, bl_verbose, bl_timer, mp_mlsec_ctrlinfo)
 
-Elapsed time is 0.009152 seconds.</code></pre>
+Elapsed time is 0.002805 seconds.
+fl_opti_save_frac = 0.4241
+fl_opti_save_level = -0.1316</code></pre>
 </div>
 <div id="test-ff_optim_mlsec_savezrone-5-individuals-5-iterations-5-points-per-iteration" class="section level3">
 <h3><span class="header-section-number">4.2.2</span> Test FF_OPTIM_MLSEC_SAVEZRONE 5 Individuals 5 Iterations 5 Points Per Iteration</h3>
@@ -604,7 +623,7 @@ ff_optim_mlsec_savezrone(fc_deri_wth_uniroot, bl_verbose, bl_timer, mp_mlsec_ctr
      5        &quot;point=4&quot;       0.36652    0.36652    0.40124     0.6385    0.62345    0.60841
      5        &quot;point=5&quot;       0.36671    0.36671    0.40143    0.63869    0.62365     0.6086</code></pre>
 <p><img src="img/fx_optim_mlsec_savezrone_images/figure_0.png" width="500" /></p>
-<pre><code>Elapsed time is 0.429292 seconds.
+<pre><code>Elapsed time is 0.406584 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_container_map ND Array (Matrix etc)
@@ -691,7 +710,7 @@ ff_optim_mlsec_savezrone(fc_deri_wth_uniroot, bl_verbose, bl_timer, mp_mlsec_ctr
      3        &quot;point=9&quot;       0.43251      0.281     0.3012    0.24059    0.56382    0.61432    0.52342    0.58402
      3        &quot;point=10&quot;      0.43343    0.28191    0.30212    0.24151    0.56474    0.61524    0.52433    0.58494</code></pre>
 <p><img src="img/fx_optim_mlsec_savezrone_images/figure_1.png" width="500" /></p>
-<pre><code>Elapsed time is 0.457856 seconds.
+<pre><code>Elapsed time is 0.633499 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_container_map ND Array (Matrix etc)
@@ -745,7 +764,7 @@ bl_verbose = false;
 bl_timer = true;
 [ar_opti_save_frac, ar_opti_save_level] = ff_optim_mlsec_savezrone(fc_deri_wth_uniroot, bl_verbose, bl_timer);
 
-Elapsed time is 13.609808 seconds.
+Elapsed time is 13.672896 seconds.
 
 mp_container_map = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
 mp_container_map(&#39;ar_opti_save_frac&#39;) = ar_opti_save_frac;
@@ -779,6 +798,601 @@ Endowments</a>.</p>
 <pre><code>function [ar_deri_zero, ar_saveborr_level] = ffi_intertemporal_max(ar_saveborr_frac, z1, z2, r, beta)
     ar_saveborr_level = ar_saveborr_frac.*(z1+z2./(1+r)) - z2./(1+r);
     ar_deri_zero = 1./(ar_saveborr_level-z1) + (beta.*(r+1))./(z2 + ar_saveborr_level.*(r+1));
+end</code></pre>
+
+</div>
+</div>
+<div id="ff_optim_mzoom_savezrone-derivative-multisection" class="section level2">
+<h2><span class="header-section-number">4.3</span> FF_OPTIM_MZOOM_SAVEZRONE Derivative Multisection</h2>
+<blockquote>
+<p>Go back to <a href="http://fanwangecon.github.io/">fan</a>’s <a href="https://fanwangecon.github.io/MEconTools/">MEconTools</a> Toolbox (<a href="https://fanwangecon.github.io/MEconTools/bookdown">bookdown</a>), <a href="https://fanwangecon.github.io/M4Econ/">Matlab Code Examples</a> Repository (<a href="https://fanwangecon.github.io/M4Econ/bookdown">bookdown</a>), or <a href="https://fanwangecon.github.io/Math4Econ/">Math for Econ with Matlab</a> Repository (<a href="https://fanwangecon.github.io/Math4Econ/bookdown">bookdown</a>).</p>
+</blockquote>
+<p>This is the example vignette for function:
+<a href="https://github.com/FanWangEcon//MEconTools/blob/master/MEconTools/optim/ff_optim_mzoom_savezrone.m"><strong>ff_optim_mzoom_savezrone</strong></a>
+from the <a href="https://fanwangecon.github.io/MEconTools/"><strong>MEconTools
+Package</strong></a><strong>.</strong> This
+functions solves for optimal savings/borrowing level given an anonymous
+function that provides the utility (not derivative) of a intertemporal
+savings problem. This is a vectorized function solves for multiple
+state-space elements at the same time. The function allows for controls
+of iteration counts, the number of evaluations per iteration, and how
+much to "zoom-in" for each iteration around the last iteration’s
+maximum/optimal choice.</p>
+<p>Note that if first order conditions are available this method should not
+be used, but
+<a href="https://github.com/FanWangEcon//MEconTools/blob/master/MEconTools/optim/ff_optim_mlsec_savezrone.m"><strong>ff_optim_mlsec_savezrone</strong></a>
+should be used.
+<a href="https://github.com/FanWangEcon//MEconTools/blob/master/MEconTools/optim/ff_optim_mlsec_savezrone.m"><strong>ff_optim_mlsec_savezrone</strong></a>
+relies on bisection. In the first example below more values are needed
+to achieve the same precision than under
+<a href="https://github.com/FanWangEcon//MEconTools/blob/master/MEconTools/optim/ff_optim_mlsec_savezrone.m"><strong>ff_optim_mlsec_savezrone</strong></a><strong>.</strong>
+However, increasing might not expensive given vectorization, should
+increase time cost linearly in generally. MZOOM is much more robust than
+bisection based methods. And by increasing the number of points
+evaluated per iteration, in limited number of iterations, the
+approximately exact optimal savings choice can be found.</p>
+<p>The vectorized zooming savings problem rely on this function to solve
+for optimal savings choices:</p>
+<ul>
+<li>States Grid + Approximate Continuous Exact Savings (zoom) as Share
+of Cash-on-Hand :
+<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_zoom_vec.m"><strong>ff_vfi_az_zoom_vec</strong></a>,
+precision and speed</li>
+</ul>
+<div id="test-ff_optim_mzoom_savezrone-one-individual" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> Test FF_OPTIM_MZOOM_SAVEZRONE One Individual</h3>
+<p>Bisection for savings choice at one state:</p>
+<pre><code>% Generate the state-space and function
+[fl_z1, fl_z2, fl_r, fl_beta] = deal(0.4730, 0.6252, 0.0839, 0.7365);
+% ffi_intertemporal_max is a function in ff_optim_mlsec_savezrone for testing
+fc_util = @(x) ffi_intertemporal_util(x, fl_z1, fl_z2, fl_r, fl_beta);
+% Call Function
+bl_verbose = false;
+bl_timer = true;
+% optimally borrowing given the parameters here
+mp_mzoom_ctrlinfo = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_mzoom_ctrlinfo(&#39;it_mzoom_jnt_pnts&#39;) = 15;
+mp_mzoom_ctrlinfo(&#39;it_mzoom_max_iter&#39;) = 10;
+mp_mzoom_ctrlinfo(&#39;it_mzoom_zm_ratio&#39;) = 0.25;
+[fl_opti_save_frac, fl_opti_save_level] = ...
+    ff_optim_mzoom_savezrone(fc_util, bl_verbose, bl_timer, mp_mzoom_ctrlinfo)
+
+Elapsed time is 0.004395 seconds.
+fl_opti_save_frac = 0.4241
+fl_opti_save_level = -0.1316</code></pre>
+</div>
+<div id="test-ff_optim_mzoom_savezrone-4-individuals-3-iterations-50-points-per-iteration" class="section level3">
+<h3><span class="header-section-number">4.3.2</span> Test FF_OPTIM_MZOOM_SAVEZRONE 4 Individuals 3 Iterations 50 Points Per Iteration</h3>
+<p>5 grid points per iteration, and 5 iterations.</p>
+<pre><code>% Generate the state-space and function
+rng(123);
+it_draws = 4; % must be even number
+ar_z1 = exp(rand([it_draws,1])*3-1.5);
+ar_z2 = exp(rand([it_draws,1])*3-1.5);
+ar_r = (rand(it_draws,1)*10.0);
+ar_beta = [rand(round(it_draws/2),1)*0.9+0.1; rand(round(it_draws/2),1)*0.9+1]; 
+fc_util = @(x) ffi_intertemporal_util(x, ar_z1, ar_z2, ar_r, ar_beta);
+% Call Function
+bl_verbose = true;
+bl_timer = true;
+mp_mzoom_ctrlinfo = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_mzoom_ctrlinfo(&#39;it_mzoom_jnt_pnts&#39;) = 50;
+mp_mzoom_ctrlinfo(&#39;it_mzoom_max_iter&#39;) = 3;
+mp_mzoom_ctrlinfo(&#39;it_mzoom_zm_ratio&#39;) = 0;
+ff_optim_mzoom_savezrone(fc_util, bl_verbose, bl_timer, mp_mzoom_ctrlinfo);
+
+    iter    cl_row_names_a      Var1        Var2        Var3        Var4  
+    ____    ______________    ________    ________    ________    ________
+
+     1        &quot;point=1&quot;          1e-05       1e-05       1e-05       1e-05
+     1        &quot;point=2&quot;       0.020418    0.020418    0.020418    0.020418
+     1        &quot;point=3&quot;       0.040826    0.040826    0.040826    0.040826
+     1        &quot;point=4&quot;       0.061233    0.061233    0.061233    0.061233
+     1        &quot;point=5&quot;       0.081641    0.081641    0.081641    0.081641
+     1        &quot;point=6&quot;        0.10205     0.10205     0.10205     0.10205
+     1        &quot;point=7&quot;        0.12246     0.12246     0.12246     0.12246
+     1        &quot;point=8&quot;        0.14286     0.14286     0.14286     0.14286
+     1        &quot;point=9&quot;        0.16327     0.16327     0.16327     0.16327
+     1        &quot;point=10&quot;       0.18368     0.18368     0.18368     0.18368
+     1        &quot;point=11&quot;       0.20409     0.20409     0.20409     0.20409
+     1        &quot;point=12&quot;        0.2245      0.2245      0.2245      0.2245
+     1        &quot;point=13&quot;        0.2449      0.2449      0.2449      0.2449
+     1        &quot;point=14&quot;       0.26531     0.26531     0.26531     0.26531
+     1        &quot;point=15&quot;       0.28572     0.28572     0.28572     0.28572
+     1        &quot;point=16&quot;       0.30613     0.30613     0.30613     0.30613
+     1        &quot;point=17&quot;       0.32653     0.32653     0.32653     0.32653
+     1        &quot;point=18&quot;       0.34694     0.34694     0.34694     0.34694
+     1        &quot;point=19&quot;       0.36735     0.36735     0.36735     0.36735
+     1        &quot;point=20&quot;       0.38776     0.38776     0.38776     0.38776
+     1        &quot;point=21&quot;       0.40817     0.40817     0.40817     0.40817
+     1        &quot;point=22&quot;       0.42857     0.42857     0.42857     0.42857
+     1        &quot;point=23&quot;       0.44898     0.44898     0.44898     0.44898
+     1        &quot;point=24&quot;       0.46939     0.46939     0.46939     0.46939
+     1        &quot;point=25&quot;        0.4898      0.4898      0.4898      0.4898
+     1        &quot;point=26&quot;        0.5102      0.5102      0.5102      0.5102
+     1        &quot;point=27&quot;       0.53061     0.53061     0.53061     0.53061
+     1        &quot;point=28&quot;       0.55102     0.55102     0.55102     0.55102
+     1        &quot;point=29&quot;       0.57143     0.57143     0.57143     0.57143
+     1        &quot;point=30&quot;       0.59183     0.59183     0.59183     0.59183
+     1        &quot;point=31&quot;       0.61224     0.61224     0.61224     0.61224
+     1        &quot;point=32&quot;       0.63265     0.63265     0.63265     0.63265
+     1        &quot;point=33&quot;       0.65306     0.65306     0.65306     0.65306
+     1        &quot;point=34&quot;       0.67347     0.67347     0.67347     0.67347
+     1        &quot;point=35&quot;       0.69387     0.69387     0.69387     0.69387
+     1        &quot;point=36&quot;       0.71428     0.71428     0.71428     0.71428
+     1        &quot;point=37&quot;       0.73469     0.73469     0.73469     0.73469
+     1        &quot;point=38&quot;        0.7551      0.7551      0.7551      0.7551
+     1        &quot;point=39&quot;        0.7755      0.7755      0.7755      0.7755
+     1        &quot;point=40&quot;       0.79591     0.79591     0.79591     0.79591
+     1        &quot;point=41&quot;       0.81632     0.81632     0.81632     0.81632
+     1        &quot;point=42&quot;       0.83673     0.83673     0.83673     0.83673
+     1        &quot;point=43&quot;       0.85714     0.85714     0.85714     0.85714
+     1        &quot;point=44&quot;       0.87754     0.87754     0.87754     0.87754
+     1        &quot;point=45&quot;       0.89795     0.89795     0.89795     0.89795
+     1        &quot;point=46&quot;       0.91836     0.91836     0.91836     0.91836
+     1        &quot;point=47&quot;       0.93877     0.93877     0.93877     0.93877
+     1        &quot;point=48&quot;       0.95917     0.95917     0.95917     0.95917
+     1        &quot;point=49&quot;       0.97958     0.97958     0.97958     0.97958
+     1        &quot;point=50&quot;       0.99999     0.99999     0.99999     0.99999
+     2        &quot;point=1&quot;        0.30693     0.12326     0.55182     0.61304
+     2        &quot;point=2&quot;        0.30773     0.12406     0.55262     0.61384
+     2        &quot;point=3&quot;        0.30853     0.12486     0.55342     0.61464
+     2        &quot;point=4&quot;        0.30933     0.12566     0.55422     0.61544
+     2        &quot;point=5&quot;        0.31013     0.12646     0.55502     0.61624
+     2        &quot;point=6&quot;        0.31093     0.12726     0.55582     0.61704
+     2        &quot;point=7&quot;        0.31173     0.12806     0.55662     0.61784
+     2        &quot;point=8&quot;        0.31253     0.12886     0.55742     0.61865
+     2        &quot;point=9&quot;        0.31333     0.12966     0.55822     0.61945
+     2        &quot;point=10&quot;       0.31413     0.13046     0.55902     0.62025
+     2        &quot;point=11&quot;       0.31493     0.13126     0.55982     0.62105
+     2        &quot;point=12&quot;       0.31573     0.13206     0.56062     0.62185
+     2        &quot;point=13&quot;       0.31653     0.13286     0.56142     0.62265
+     2        &quot;point=14&quot;       0.31733     0.13366     0.56222     0.62345
+     2        &quot;point=15&quot;       0.31813     0.13446     0.56302     0.62425
+     2        &quot;point=16&quot;       0.31893     0.13526     0.56382     0.62505
+     2        &quot;point=17&quot;       0.31973     0.13606     0.56462     0.62585
+     2        &quot;point=18&quot;       0.32053     0.13686     0.56542     0.62665
+     2        &quot;point=19&quot;       0.32133     0.13766     0.56623     0.62745
+     2        &quot;point=20&quot;       0.32213     0.13846     0.56703     0.62825
+     2        &quot;point=21&quot;       0.32293     0.13926     0.56783     0.62905
+     2        &quot;point=22&quot;       0.32373     0.14006     0.56863     0.62985
+     2        &quot;point=23&quot;       0.32453     0.14086     0.56943     0.63065
+     2        &quot;point=24&quot;       0.32533     0.14166     0.57023     0.63145
+     2        &quot;point=25&quot;       0.32613     0.14246     0.57103     0.63225
+     2        &quot;point=26&quot;       0.32693     0.14326     0.57183     0.63305
+     2        &quot;point=27&quot;       0.32773     0.14406     0.57263     0.63385
+     2        &quot;point=28&quot;       0.32853     0.14487     0.57343     0.63465
+     2        &quot;point=29&quot;       0.32934     0.14567     0.57423     0.63545
+     2        &quot;point=30&quot;       0.33014     0.14647     0.57503     0.63625
+     2        &quot;point=31&quot;       0.33094     0.14727     0.57583     0.63705
+     2        &quot;point=32&quot;       0.33174     0.14807     0.57663     0.63785
+     2        &quot;point=33&quot;       0.33254     0.14887     0.57743     0.63865
+     2        &quot;point=34&quot;       0.33334     0.14967     0.57823     0.63945
+     2        &quot;point=35&quot;       0.33414     0.15047     0.57903     0.64025
+     2        &quot;point=36&quot;       0.33494     0.15127     0.57983     0.64105
+     2        &quot;point=37&quot;       0.33574     0.15207     0.58063     0.64185
+     2        &quot;point=38&quot;       0.33654     0.15287     0.58143     0.64265
+     2        &quot;point=39&quot;       0.33734     0.15367     0.58223     0.64345
+     2        &quot;point=40&quot;       0.33814     0.15447     0.58303     0.64425
+     2        &quot;point=41&quot;       0.33894     0.15527     0.58383     0.64506
+     2        &quot;point=42&quot;       0.33974     0.15607     0.58463     0.64586
+     2        &quot;point=43&quot;       0.34054     0.15687     0.58543     0.64666
+     2        &quot;point=44&quot;       0.34134     0.15767     0.58623     0.64746
+     2        &quot;point=45&quot;       0.34214     0.15847     0.58703     0.64826
+     2        &quot;point=46&quot;       0.34294     0.15927     0.58783     0.64906
+     2        &quot;point=47&quot;       0.34374     0.16007     0.58863     0.64986
+     2        &quot;point=48&quot;       0.34454     0.16087     0.58943     0.65066
+     2        &quot;point=49&quot;       0.34534     0.16167     0.59023     0.65146
+     2        &quot;point=50&quot;       0.34614     0.16247     0.59103     0.65226
+     3        &quot;point=1&quot;        0.32937     0.13129     0.57426     0.62348
+     3        &quot;point=2&quot;         0.3294     0.13132     0.57429     0.62351
+     3        &quot;point=3&quot;        0.32943     0.13135     0.57432     0.62354
+     3        &quot;point=4&quot;        0.32946     0.13139     0.57435     0.62357
+     3        &quot;point=5&quot;        0.32949     0.13142     0.57439      0.6236
+     3        &quot;point=6&quot;        0.32952     0.13145     0.57442     0.62364
+     3        &quot;point=7&quot;        0.32955     0.13148     0.57445     0.62367
+     3        &quot;point=8&quot;        0.32959     0.13151     0.57448      0.6237
+     3        &quot;point=9&quot;        0.32962     0.13154     0.57451     0.62373
+     3        &quot;point=10&quot;       0.32965     0.13157     0.57454     0.62376
+     3        &quot;point=11&quot;       0.32968     0.13161     0.57457     0.62379
+     3        &quot;point=12&quot;       0.32971     0.13164      0.5746     0.62382
+     3        &quot;point=13&quot;       0.32974     0.13167     0.57464     0.62385
+     3        &quot;point=14&quot;       0.32977      0.1317     0.57467     0.62389
+     3        &quot;point=15&quot;       0.32981     0.13173      0.5747     0.62392
+     3        &quot;point=16&quot;       0.32984     0.13176     0.57473     0.62395
+     3        &quot;point=17&quot;       0.32987     0.13179     0.57476     0.62398
+     3        &quot;point=18&quot;        0.3299     0.13182     0.57479     0.62401
+     3        &quot;point=19&quot;       0.32993     0.13186     0.57482     0.62404
+     3        &quot;point=20&quot;       0.32996     0.13189     0.57486     0.62407
+     3        &quot;point=21&quot;       0.32999     0.13192     0.57489     0.62411
+     3        &quot;point=22&quot;       0.33003     0.13195     0.57492     0.62414
+     3        &quot;point=23&quot;       0.33006     0.13198     0.57495     0.62417
+     3        &quot;point=24&quot;       0.33009     0.13201     0.57498      0.6242
+     3        &quot;point=25&quot;       0.33012     0.13204     0.57501     0.62423
+     3        &quot;point=26&quot;       0.33015     0.13208     0.57504     0.62426
+     3        &quot;point=27&quot;       0.33018     0.13211     0.57508     0.62429
+     3        &quot;point=28&quot;       0.33021     0.13214     0.57511     0.62433
+     3        &quot;point=29&quot;       0.33025     0.13217     0.57514     0.62436
+     3        &quot;point=30&quot;       0.33028      0.1322     0.57517     0.62439
+     3        &quot;point=31&quot;       0.33031     0.13223      0.5752     0.62442
+     3        &quot;point=32&quot;       0.33034     0.13226     0.57523     0.62445
+     3        &quot;point=33&quot;       0.33037      0.1323     0.57526     0.62448
+     3        &quot;point=34&quot;        0.3304     0.13233      0.5753     0.62451
+     3        &quot;point=35&quot;       0.33043     0.13236     0.57533     0.62455
+     3        &quot;point=36&quot;       0.33046     0.13239     0.57536     0.62458
+     3        &quot;point=37&quot;        0.3305     0.13242     0.57539     0.62461
+     3        &quot;point=38&quot;       0.33053     0.13245     0.57542     0.62464
+     3        &quot;point=39&quot;       0.33056     0.13248     0.57545     0.62467
+     3        &quot;point=40&quot;       0.33059     0.13252     0.57548      0.6247
+     3        &quot;point=41&quot;       0.33062     0.13255     0.57551     0.62473
+     3        &quot;point=42&quot;       0.33065     0.13258     0.57555     0.62477
+     3        &quot;point=43&quot;       0.33068     0.13261     0.57558      0.6248
+     3        &quot;point=44&quot;       0.33072     0.13264     0.57561     0.62483
+     3        &quot;point=45&quot;       0.33075     0.13267     0.57564     0.62486
+     3        &quot;point=46&quot;       0.33078      0.1327     0.57567     0.62489
+     3        &quot;point=47&quot;       0.33081     0.13273      0.5757     0.62492
+     3        &quot;point=48&quot;       0.33084     0.13277     0.57573     0.62495
+     3        &quot;point=49&quot;       0.33087      0.1328     0.57577     0.62498
+     3        &quot;point=50&quot;        0.3309     0.13283      0.5758     0.62502</code></pre>
+<p><img src="img/fx_optim_mzoom_savezrone_images/figure_0.png" width="500" /></p>
+<pre><code>    iter    cl_row_names_a      Var1         Var2        Var3         Var4  
+    ____    ______________    _________    ________    _________    ________
+
+     1        &quot;point=1&quot;         -3.6912     -1.9565       -12.83     -14.789
+     1        &quot;point=2&quot;        0.058694    -0.80561      -2.4984     -2.1254
+     1        &quot;point=3&quot;         0.38043    -0.72015      -1.5784    -0.99337
+     1        &quot;point=4&quot;         0.55947    -0.67935      -1.0493    -0.34024
+     1        &quot;point=5&quot;         0.67979    -0.65711     -0.68055     0.11647
+     1        &quot;point=6&quot;          0.7677    -0.64529     -0.39997     0.46531
+     1        &quot;point=7&quot;          0.8349    -0.64026     -0.17534     0.74571
+     1        &quot;point=8&quot;         0.88763     -0.6401     0.010483      0.9787
+     1        &quot;point=9&quot;         0.92959    -0.64367      0.16774      1.1768
+     1        &quot;point=10&quot;        0.96316    -0.65026      0.30302      1.3481
+     1        &quot;point=11&quot;        0.98996    -0.65938       0.4208      1.4981
+     1        &quot;point=12&quot;         1.0111    -0.67071      0.52427      1.6308
+     1        &quot;point=13&quot;         1.0275      -0.684      0.61578      1.7489
+     1        &quot;point=14&quot;         1.0397     -0.6991      0.69709      1.8547
+     1        &quot;point=15&quot;         1.0482    -0.71588      0.76958      1.9499
+     1        &quot;point=16&quot;         1.0533    -0.73426      0.83429      2.0357
+     1        &quot;point=17&quot;         1.0554    -0.75419       0.8921      2.1132
+     1        &quot;point=18&quot;         1.0546    -0.77564      0.94367      2.1833
+     1        &quot;point=19&quot;         1.0512    -0.79861      0.98955      2.2467
+     1        &quot;point=20&quot;         1.0451    -0.82309       1.0302      2.3039
+     1        &quot;point=21&quot;         1.0366     -0.8491        1.066      2.3554
+     1        &quot;point=22&quot;         1.0256    -0.87669       1.0971      2.4015
+     1        &quot;point=23&quot;         1.0123    -0.90591        1.124      2.4425
+     1        &quot;point=24&quot;        0.99654    -0.93682       1.1466      2.4788
+     1        &quot;point=25&quot;        0.97838     -0.9695       1.1652      2.5104
+     1        &quot;point=26&quot;        0.95775      -1.004       1.1798      2.5375
+     1        &quot;point=27&quot;        0.93459     -1.0406       1.1905      2.5602
+     1        &quot;point=28&quot;        0.90881     -1.0792       1.1973      2.5785
+     1        &quot;point=29&quot;        0.88029     -1.1202       1.2002      2.5925
+     1        &quot;point=30&quot;        0.84886     -1.1635       1.1991      2.6022
+     1        &quot;point=31&quot;        0.81434     -1.2096       1.1938      2.6073
+     1        &quot;point=32&quot;        0.77649     -1.2587       1.1843      2.6078
+     1        &quot;point=33&quot;        0.73504     -1.3109       1.1703      2.6035
+     1        &quot;point=34&quot;        0.68964     -1.3668       1.1514       2.594
+     1        &quot;point=35&quot;        0.63987     -1.4268       1.1274      2.5792
+     1        &quot;point=36&quot;        0.58522     -1.4913       1.0978      2.5584
+     1        &quot;point=37&quot;        0.52505     -1.5611        1.062      2.5312
+     1        &quot;point=38&quot;        0.45857     -1.6369       1.0192      2.4968
+     1        &quot;point=39&quot;        0.38475     -1.7198      0.96837      2.4541
+     1        &quot;point=40&quot;         0.3023     -1.8111      0.90834      2.4021
+     1        &quot;point=41&quot;        0.20947     -1.9126      0.83737      2.3388
+     1        &quot;point=42&quot;        0.10391     -2.0266      0.75313      2.2622
+     1        &quot;point=43&quot;      -0.017693     -2.1564      0.65234      2.1687
+     1        &quot;point=44&quot;       -0.16019     -2.3069      0.53016      2.0538
+     1        &quot;point=45&quot;       -0.33112     -2.4857      0.37908      1.9097
+     1        &quot;point=46&quot;       -0.54312     -2.7054      0.18649       1.724
+     1        &quot;point=47&quot;       -0.81989     -2.9896    -0.071303      1.4729
+     1        &quot;point=48&quot;        -1.2146     -3.3917     -0.44748      1.1033
+     1        &quot;point=49&quot;        -1.8971     -4.0814      -1.1118     0.44547
+     1        &quot;point=50&quot;        -9.5085       -11.7      -8.7054     -7.1418
+     2        &quot;point=1&quot;          1.0535    -0.64017       1.1975      2.6074
+     2        &quot;point=2&quot;          1.0536    -0.64009       1.1977      2.6075
+     2        &quot;point=3&quot;          1.0537    -0.64001       1.1979      2.6076
+     2        &quot;point=4&quot;          1.0539    -0.63995        1.198      2.6077
+     2        &quot;point=5&quot;           1.054    -0.63989       1.1982      2.6077
+     2        &quot;point=6&quot;          1.0541    -0.63983       1.1984      2.6078
+     2        &quot;point=7&quot;          1.0542    -0.63979       1.1985      2.6079
+     2        &quot;point=8&quot;          1.0543    -0.63975       1.1986      2.6079
+     2        &quot;point=9&quot;          1.0544    -0.63971       1.1988       2.608
+     2        &quot;point=10&quot;         1.0545    -0.63969       1.1989       2.608
+     2        &quot;point=11&quot;         1.0546    -0.63967        1.199      2.6081
+     2        &quot;point=12&quot;         1.0547    -0.63966       1.1992      2.6081
+     2        &quot;point=13&quot;         1.0548    -0.63965       1.1993      2.6081
+     2        &quot;point=14&quot;         1.0548    -0.63965       1.1994      2.6081
+     2        &quot;point=15&quot;         1.0549    -0.63966       1.1995      2.6081
+     2        &quot;point=16&quot;          1.055    -0.63967       1.1996      2.6081
+     2        &quot;point=17&quot;         1.0551    -0.63969       1.1997      2.6081
+     2        &quot;point=18&quot;         1.0551    -0.63971       1.1998      2.6081
+     2        &quot;point=19&quot;         1.0552    -0.63975       1.1998      2.6081
+     2        &quot;point=20&quot;         1.0552    -0.63978       1.1999      2.6081
+     2        &quot;point=21&quot;         1.0553    -0.63983          1.2       2.608
+     2        &quot;point=22&quot;         1.0553    -0.63988          1.2       2.608
+     2        &quot;point=23&quot;         1.0553    -0.63993       1.2001      2.6079
+     2        &quot;point=24&quot;         1.0554    -0.63999       1.2001      2.6079
+     2        &quot;point=25&quot;         1.0554    -0.64006       1.2002      2.6078
+     2        &quot;point=26&quot;         1.0554    -0.64013       1.2002      2.6077
+     2        &quot;point=27&quot;         1.0555    -0.64021       1.2002      2.6077
+     2        &quot;point=28&quot;         1.0555    -0.64029       1.2003      2.6076
+     2        &quot;point=29&quot;         1.0555    -0.64038       1.2003      2.6075
+     2        &quot;point=30&quot;         1.0555    -0.64048       1.2003      2.6074
+     2        &quot;point=31&quot;         1.0555    -0.64058       1.2003      2.6073
+     2        &quot;point=32&quot;         1.0555    -0.64069       1.2003      2.6071
+     2        &quot;point=33&quot;         1.0555     -0.6408       1.2003       2.607
+     2        &quot;point=34&quot;         1.0555    -0.64091       1.2003      2.6069
+     2        &quot;point=35&quot;         1.0555    -0.64104       1.2002      2.6067
+     2        &quot;point=36&quot;         1.0554    -0.64116       1.2002      2.6066
+     2        &quot;point=37&quot;         1.0554    -0.64129       1.2002      2.6064
+     2        &quot;point=38&quot;         1.0554    -0.64143       1.2001      2.6063
+     2        &quot;point=39&quot;         1.0554    -0.64157       1.2001      2.6061
+     2        &quot;point=40&quot;         1.0553    -0.64172       1.2001      2.6059
+     2        &quot;point=41&quot;         1.0553    -0.64188          1.2      2.6057
+     2        &quot;point=42&quot;         1.0552    -0.64203       1.1999      2.6056
+     2        &quot;point=43&quot;         1.0552     -0.6422       1.1999      2.6053
+     2        &quot;point=44&quot;         1.0551    -0.64236       1.1998      2.6051
+     2        &quot;point=45&quot;         1.0551    -0.64254       1.1997      2.6049
+     2        &quot;point=46&quot;          1.055    -0.64271       1.1996      2.6047
+     2        &quot;point=47&quot;         1.0549    -0.64289       1.1995      2.6045
+     2        &quot;point=48&quot;         1.0549    -0.64308       1.1994      2.6042
+     2        &quot;point=49&quot;         1.0548    -0.64327       1.1993       2.604
+     2        &quot;point=50&quot;         1.0547    -0.64347       1.1992      2.6037
+     3        &quot;point=1&quot;          1.0555    -0.63967       1.2003      2.6081
+     3        &quot;point=2&quot;          1.0555    -0.63967       1.2003      2.6081
+     3        &quot;point=3&quot;          1.0555    -0.63967       1.2003      2.6081
+     3        &quot;point=4&quot;          1.0555    -0.63967       1.2003      2.6081
+     3        &quot;point=5&quot;          1.0555    -0.63967       1.2003      2.6081
+     3        &quot;point=6&quot;          1.0555    -0.63967       1.2003      2.6081
+     3        &quot;point=7&quot;          1.0555    -0.63967       1.2003      2.6081
+     3        &quot;point=8&quot;          1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=9&quot;          1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=10&quot;         1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=11&quot;         1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=12&quot;         1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=13&quot;         1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=14&quot;         1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=15&quot;         1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=16&quot;         1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=17&quot;         1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=18&quot;         1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=19&quot;         1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=20&quot;         1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=21&quot;         1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=22&quot;         1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=23&quot;         1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=24&quot;         1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=25&quot;         1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=26&quot;         1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=27&quot;         1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=28&quot;         1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=29&quot;         1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=30&quot;         1.0555    -0.63966       1.2003      2.6081
+     3        &quot;point=31&quot;         1.0555    -0.63965       1.2003      2.6081
+     3        &quot;point=32&quot;         1.0555    -0.63965       1.2003      2.6081
+     3        &quot;point=33&quot;         1.0555    -0.63965       1.2003      2.6081
+     3        &quot;point=34&quot;         1.0555    -0.63965       1.2003      2.6081
+     3        &quot;point=35&quot;         1.0555    -0.63965       1.2003      2.6081
+     3        &quot;point=36&quot;         1.0555    -0.63965       1.2003      2.6081
+     3        &quot;point=37&quot;         1.0555    -0.63965       1.2003      2.6081
+     3        &quot;point=38&quot;         1.0555    -0.63965       1.2003      2.6081
+     3        &quot;point=39&quot;         1.0555    -0.63965       1.2003      2.6081
+     3        &quot;point=40&quot;         1.0555    -0.63965       1.2003      2.6081
+     3        &quot;point=41&quot;         1.0555    -0.63965       1.2003      2.6081
+     3        &quot;point=42&quot;         1.0555    -0.63965       1.2003      2.6081
+     3        &quot;point=43&quot;         1.0555    -0.63965       1.2003      2.6081
+     3        &quot;point=44&quot;         1.0555    -0.63965       1.2003      2.6081
+     3        &quot;point=45&quot;         1.0555    -0.63965       1.2003      2.6081
+     3        &quot;point=46&quot;         1.0555    -0.63965       1.2003      2.6081
+     3        &quot;point=47&quot;         1.0555    -0.63965       1.2003      2.6081
+     3        &quot;point=48&quot;         1.0555    -0.63965       1.2003      2.6081
+     3        &quot;point=49&quot;         1.0555    -0.63965       1.2003      2.6081
+     3        &quot;point=50&quot;         1.0555    -0.63965       1.2003      2.6081</code></pre>
+<p><img src="img/fx_optim_mzoom_savezrone_images/figure_1.png" width="500" /></p>
+<pre><code>Elapsed time is 1.292487 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN     sum       mean      std      coefvari      min         max  
+                         _    ___    ____    _____    ____    ____    ______    ______    ______    ________    ________    _______
+
+    ar_opti_foc_obj      1     1      2        4       1       4      4.2243    1.0561    1.3298     1.2592     -0.63965     2.6081
+    ar_opti_save_frac    2     2      2        4       4       1       1.664     0.416    0.2284    0.54904      0.13278    0.62461
+
+xxx TABLE:ar_opti_foc_obj xxxxxxxxxxxxxxxxxx
+            c1         c2         c3        c4  
+          ______    ________    ______    ______
+
+    r1    1.0555    -0.63965    1.2003    2.6081
+
+xxx TABLE:ar_opti_save_frac xxxxxxxxxxxxxxxxxx
+            c1   
+          _______
+
+    r1    0.33086
+    r2    0.13278
+    r3    0.57575
+    r4    0.62461</code></pre>
+</div>
+<div id="test-ff_optim_mzoom_savezrone-8-individuals-3-iterations-10-points-per-iteration-0.25-zoom-in-ratio" class="section level3">
+<h3><span class="header-section-number">4.3.3</span> Test FF_OPTIM_MZOOM_SAVEZRONE 8 Individuals 3 Iterations 10 Points Per Iteration, 0.25 zoom in ratio</h3>
+<p>10 grid points per iteration, and 3 iterations.</p>
+<pre><code>% Generate the state-space and function
+rng(123);
+it_draws = 8; % must be even number
+ar_z1 = exp(rand([it_draws,1])*3-1.5);
+ar_z2 = exp(rand([it_draws,1])*3-1.5);
+ar_r = (rand(it_draws,1)*10.0);
+ar_beta = [rand(round(it_draws/2),1)*0.9+0.1; rand(round(it_draws/2),1)*0.9+1]; 
+fc_util = @(x) ffi_intertemporal_util(x, ar_z1, ar_z2, ar_r, ar_beta);
+% Call Function
+bl_verbose = true;
+bl_timer = true;
+mp_mzoom_ctrlinfo = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_mzoom_ctrlinfo(&#39;it_mzoom_jnt_pnts&#39;) = 10;
+mp_mzoom_ctrlinfo(&#39;it_mzoom_max_iter&#39;) = 3;
+mp_mzoom_ctrlinfo(&#39;it_mzoom_zm_ratio&#39;) = 0.25;
+ff_optim_mzoom_savezrone(fc_util, bl_verbose, bl_timer, mp_mzoom_ctrlinfo);
+
+    iter    cl_row_names_a     Var1       Var2       Var3       Var4       Var5       Var6       Var7       Var8  
+    ____    ______________    _______    _______    _______    _______    _______    _______    _______    _______
+
+     1        &quot;point=1&quot;         1e-05      1e-05      1e-05      1e-05      1e-05      1e-05      1e-05      1e-05
+     1        &quot;point=2&quot;       0.11112    0.11112    0.11112    0.11112    0.11112    0.11112    0.11112    0.11112
+     1        &quot;point=3&quot;       0.22223    0.22223    0.22223    0.22223    0.22223    0.22223    0.22223    0.22223
+     1        &quot;point=4&quot;       0.33334    0.33334    0.33334    0.33334    0.33334    0.33334    0.33334    0.33334
+     1        &quot;point=5&quot;       0.44445    0.44445    0.44445    0.44445    0.44445    0.44445    0.44445    0.44445
+     1        &quot;point=6&quot;       0.55555    0.55555    0.55555    0.55555    0.55555    0.55555    0.55555    0.55555
+     1        &quot;point=7&quot;       0.66666    0.66666    0.66666    0.66666    0.66666    0.66666    0.66666    0.66666
+     1        &quot;point=8&quot;       0.77777    0.77777    0.77777    0.77777    0.77777    0.77777    0.77777    0.77777
+     1        &quot;point=9&quot;       0.88888    0.88888    0.88888    0.88888    0.88888    0.88888    0.88888    0.88888
+     1        &quot;point=10&quot;      0.99999    0.99999    0.99999    0.99999    0.99999    0.99999    0.99999    0.99999
+     2        &quot;point=1&quot;       0.28788    0.20455    0.20455    0.12122    0.37121    0.37121    0.37121    0.37121
+     2        &quot;point=2&quot;       0.32576    0.24243    0.24243     0.1591    0.40909    0.40909    0.40909    0.40909
+     2        &quot;point=3&quot;       0.36364    0.28031    0.28031    0.19698    0.44697    0.44697    0.44697    0.44697
+     2        &quot;point=4&quot;       0.40152    0.31819    0.31819    0.23485    0.48485    0.48485    0.48485    0.48485
+     2        &quot;point=5&quot;        0.4394    0.35606    0.35606    0.27273    0.52273    0.52273    0.52273    0.52273
+     2        &quot;point=6&quot;       0.47727    0.39394    0.39394    0.31061     0.5606     0.5606     0.5606     0.5606
+     2        &quot;point=7&quot;       0.51515    0.43182    0.43182    0.34849    0.59848    0.59848    0.59848    0.59848
+     2        &quot;point=8&quot;       0.55303     0.4697     0.4697    0.38637    0.63636    0.63636    0.63636    0.63636
+     2        &quot;point=9&quot;       0.59091    0.50758    0.50758    0.42424    0.67424    0.67424    0.67424    0.67424
+     2        &quot;point=10&quot;      0.62879    0.54545    0.54545    0.46212    0.71212    0.71212    0.71212    0.71212
+     3        &quot;point=1&quot;       0.34987    0.20972    0.20972    0.15479    0.46161    0.49001     0.4332    0.49001
+     3        &quot;point=2&quot;        0.3645    0.22435    0.22435    0.16943    0.47624    0.50465    0.44783    0.50465
+     3        &quot;point=3&quot;       0.37913    0.23899    0.23899    0.18406    0.49087    0.51928    0.46247    0.51928
+     3        &quot;point=4&quot;       0.39377    0.25362    0.25362     0.1987    0.50551    0.53392     0.4771    0.53392
+     3        &quot;point=5&quot;        0.4084    0.26826    0.26826    0.21333    0.52014    0.54855    0.49174    0.54855
+     3        &quot;point=6&quot;       0.42304    0.28289    0.28289    0.22797    0.53478    0.56319    0.50637    0.56319
+     3        &quot;point=7&quot;       0.43767    0.29752    0.29752     0.2426    0.54941    0.57782    0.52101    0.57782
+     3        &quot;point=8&quot;       0.45231    0.31216    0.31216    0.25724    0.56405    0.59246    0.53564    0.59246
+     3        &quot;point=9&quot;       0.46694    0.32679    0.32679    0.27187    0.57868    0.60709    0.55027    0.60709
+     3        &quot;point=10&quot;      0.48158    0.34143    0.34143    0.28651    0.59332    0.62173    0.56491    0.62173</code></pre>
+<p><img src="img/fx_optim_mzoom_savezrone_images/figure_2.png" width="500" /></p>
+<pre><code>    iter    cl_row_names_a      Var1        Var2        Var3        Var4       Var5        Var6       Var7       Var8  
+    ____    ______________    ________    ________    ________    ________    _______    ________    _______    _______
+
+     1        &quot;point=1&quot;        -6.5286     -4.4312     -4.9951     -2.4407    -10.415     -15.025    -7.1352    -11.589
+     1        &quot;point=2&quot;        0.34227    -0.90966      -1.148     0.28691     1.2451    -0.53687      2.835      1.245
+     1        &quot;point=3&quot;         0.7287    -0.77242    -0.98657     0.36508     1.9879      0.4163      3.452     2.0751
+     1        &quot;point=4&quot;        0.87872    -0.76818    -0.96816     0.33477     2.3463     0.89785      3.737     2.4847
+     1        &quot;point=5&quot;        0.91222    -0.83811      -1.028     0.24031     2.5277      1.1666     3.8662     2.7023
+     1        &quot;point=6&quot;        0.85648    -0.97408     -1.1562    0.085331     2.5867      1.2933     3.8847     2.7894
+     1        &quot;point=7&quot;        0.70558     -1.1905     -1.3663    -0.14666     2.5296      1.2915     3.7944     2.7552
+     1        &quot;point=8&quot;        0.41577     -1.5358     -1.7061    -0.50502      2.319      1.1277     3.5559     2.5641
+     1        &quot;point=9&quot;       -0.17716     -2.1767     -2.3424     -1.1573     1.7947     0.64395     3.0074     2.0566
+     1        &quot;point=10&quot;       -9.4046     -11.446     -11.608     -10.437    -7.3721     -8.4872    -6.1808    -7.0954
+     2        &quot;point=1&quot;         0.8347    -0.78233    -0.99938     0.30205     2.4239      1.0081      3.795     2.5758
+     2        &quot;point=2&quot;        0.87277    -0.76475    -0.97586     0.34105     2.4846      1.0983     3.8381     2.6488
+     2        &quot;point=3&quot;        0.89748    -0.75933    -0.96536     0.36018     2.5303      1.1709     3.8677     2.7056
+     2        &quot;point=4&quot;        0.91044    -0.76388    -0.96549     0.36559     2.5622      1.2275     3.8849     2.7478
+     2        &quot;point=5&quot;        0.91269     -0.7771    -0.97477     0.36049      2.581       1.269       3.89      2.776
+     2        &quot;point=6&quot;        0.90477    -0.79823    -0.99237     0.34672     2.5867       1.296      3.883     2.7906
+     2        &quot;point=7&quot;        0.88684     -0.8269     -1.0178     0.32535     2.5793      1.3084     3.8637     2.7913
+     2        &quot;point=8&quot;        0.85872    -0.86304      -1.051     0.29697     2.5578      1.3055      3.831     2.7776
+     2        &quot;point=9&quot;        0.81987    -0.90685     -1.0921     0.26182     2.5209      1.2862     3.7837      2.748
+     2        &quot;point=10&quot;       0.76932    -0.95877     -1.1415     0.21989     2.4664      1.2483     3.7192     2.7003
+     3        &quot;point=1&quot;        0.88992     -0.7791    -0.99528     0.33777     2.5443       1.234     3.8584     2.7524
+     3        &quot;point=2&quot;         0.8979    -0.77144    -0.98526      0.3479     2.5562       1.251     3.8683     2.7642
+     3        &quot;point=3&quot;        0.90413     -0.7658    -0.97741     0.35543     2.5661      1.2659     3.8762      2.774
+     3        &quot;point=4&quot;        0.90869      -0.762    -0.97154      0.3607     2.5741      1.2785     3.8824     2.7817
+     3        &quot;point=5&quot;        0.91163    -0.75989    -0.96746     0.36397     2.5801       1.289     3.8867     2.7874
+     3        &quot;point=6&quot;        0.91299    -0.75934    -0.96506     0.36546     2.5842      1.2974     3.8892     2.7911
+     3        &quot;point=7&quot;        0.91281    -0.76025    -0.96421     0.36532     2.5864      1.3035       3.89     2.7927
+     3        &quot;point=8&quot;        0.91112    -0.76255    -0.96482      0.3637     2.5866      1.3074      3.889     2.7922
+     3        &quot;point=9&quot;        0.90792    -0.76615    -0.96683      0.3607     2.5849      1.3091     3.8861     2.7895
+     3        &quot;point=10&quot;       0.90324    -0.77102    -0.97016     0.35641     2.5811      1.3085     3.8815     2.7847</code></pre>
+<p><img src="img/fx_optim_mzoom_savezrone_images/figure_3.png" width="500" /></p>
+<pre><code>Elapsed time is 1.047404 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                         i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari      min         max  
+                         _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ________    _______
+
+    ar_opti_foc_obj      1     1      2        8       1       8      10.125     1.2656      1.731     1.3677     -0.96506     3.8892
+    ar_opti_save_frac    2     2      2        8       8       1      3.3843    0.42304    0.15074    0.35632      0.21333    0.59246
+
+xxx TABLE:ar_opti_foc_obj xxxxxxxxxxxxxxxxxx
+            c1          c2          c3         c4         c5        c6        c7        c8  
+          _______    ________    ________    _______    ______    ______    ______    ______
+
+    r1    0.91163    -0.75989    -0.96506    0.36397    2.5864    1.3074    3.8892    2.7911
+
+xxx TABLE:ar_opti_save_frac xxxxxxxxxxxxxxxxxx
+            c1   
+          _______
+
+    r1     0.4084
+    r2    0.26826
+    r3    0.28289
+    r4    0.21333
+    r5    0.54941
+    r6    0.59246
+    r7    0.50637
+    r8    0.56319</code></pre>
+</div>
+<div id="test-ff_optim_mzoom_savezrone-speed" class="section level3">
+<h3><span class="header-section-number">4.3.4</span> Test FF_OPTIM_MZOOM_SAVEZRONE Speed</h3>
+<p>Test Speed doing 6.25 million state-spcae points for a savings problem:</p>
+<pre><code>% Generate the state-space and function
+rng(123);
+it_draws = 6250000; % must be even number
+ar_z1 = exp(rand([it_draws,1])*3-1.5);
+ar_z2 = exp(rand([it_draws,1])*3-1.5);
+ar_r = (rand(it_draws,1)*10.0);
+ar_beta = [rand(round(it_draws/2),1)*0.9+0.1; rand(round(it_draws/2),1)*0.9+1]; 
+% ffi_intertemporal_max is a function in ff_optim_mlsec_savezrone for testing
+fc_util = @(x) ffi_intertemporal_util(x, ar_z1, ar_z2, ar_r, ar_beta);
+% Call Function
+bl_verbose = false;
+bl_timer = true;
+% set parameters
+mp_mzoom_ctrlinfo = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_mzoom_ctrlinfo(&#39;it_mzoom_jnt_pnts&#39;) = 20;
+mp_mzoom_ctrlinfo(&#39;it_mzoom_max_iter&#39;) = 10;
+mp_mzoom_ctrlinfo(&#39;it_mzoom_zm_ratio&#39;) = 0.25;
+[ar_opti_save_frac, ar_opti_save_level] = ...
+    ff_optim_mzoom_savezrone(fc_util, bl_verbose, bl_timer, mp_mzoom_ctrlinfo);
+
+Elapsed time is 54.241104 seconds.
+
+mp_container_map = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_container_map(&#39;ar_opti_save_frac&#39;) = ar_opti_save_frac;
+mp_container_map(&#39;ar_opti_save_level&#39;) = ar_opti_save_level;
+mp_container_map(&#39;ar_opti_save_frac_notnan&#39;) = ar_opti_save_frac(~isnan(ar_opti_save_frac));
+ff_container_map_display(mp_container_map);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                i    idx    ndim     numel        rowN      colN       sum         mean        std      coefvari      min         max  
+                                _    ___    ____    ________    ________    ____    __________    _______    _______    ________    ________    _______
+
+    ar_opti_save_frac           1     1      2      6.25e+06    6.25e+06     1      2.8839e+06    0.46142    0.15305     0.3317     0.090907    0.65513
+    ar_opti_save_frac_notnan    2     2      2      6.25e+06    6.25e+06     1      2.8839e+06    0.46142    0.15305     0.3317     0.090907    0.65513
+    ar_opti_save_level          3     3      2      6.25e+06    6.25e+06     1      2.9481e+06    0.47169    0.66665     1.4133      -3.9806     2.9221
+
+figure();
+histogram(ar_opti_save_frac(~isnan(ar_opti_save_frac)),100);
+title(&#39;Distribution of Optimal Savings Fractions&#39;);
+xlabel(&#39;Savings Fractions&#39;);
+grid on;</code></pre>
+<p><img src="img/fx_optim_mzoom_savezrone_images/figure_4.png" width="500" /></p>
+</div>
+<div id="define-two-period-intertemporal-log-utility-no-shock-utility-function" class="section level3">
+<h3><span class="header-section-number">4.3.5</span> Define Two Period Intertemporal Log Utility No Shock Utility Function</h3>
+<p>See <a href="https://fanwangecon.github.io/Math4Econ/derivative_application/htmlpdfm/K_save_households.html">Household’s Utility Maximization Problem and Two-Period Borrowing
+and Savings Problem given
+Endowments</a>.</p>
+<pre><code>function [ar_util, ar_saveborr_level] = ...
+    ffi_intertemporal_util(ar_saveborr_frac, z1, z2, r, beta)
+
+ar_saveborr_level = ar_saveborr_frac.*(z1+z2./(1+r)) - z2./(1+r);
+ar_util = log(z1 - ar_saveborr_level) + beta.*log(ar_saveborr_level.*(1+r) + z2);
+
 end</code></pre>
 
 </div>

@@ -339,7 +339,7 @@ while bl_continue
     
     % H. Save Additional Results
     if bl_converged
-        [~, ar_opti_a_idx_amz] = min(abs(ar_a-ar_opti_saveborr_frac_amz),[],2);
+        [~, ar_opti_a_idx_amz] = min(abs(ar_a-ar_aprime_amz),[],2);
         mt_aprime_idx = reshape(ar_opti_a_idx_amz, [length(ar_a),length(ar_z)]);
         if (bl_store_more)
             mt_c = reshape(ar_c_opti_amz, [length(ar_a),length(ar_z)]);

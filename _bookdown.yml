@@ -25,6 +25,7 @@ rmd_files:
   - MEconTools/doc/optim/main.Rmd
   - MEconTools/doc/optim/fx_optim_bisec_savezrone.Rmd
   - MEconTools/doc/optim/fx_optim_mlsec_savezrone.Rmd
+  - MEconTools/doc/optim/fx_optim_mzoom_savezrone.Rmd
 
   - MEconTools/doc/graph/main.Rmd
   - MEconTools/doc/graph/fx_graph_grid.Rmd

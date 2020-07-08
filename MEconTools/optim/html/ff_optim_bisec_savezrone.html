@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>FF_OPTIM_BISEC_SAVEZRONE Bisection Vectorized</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-07-02"><meta name="DC.source" content="ff_optim_bisec_savezrone.m"><style type="text/css">
+      --><title>FF_OPTIM_BISEC_SAVEZRONE Bisection Vectorized</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-07-08"><meta name="DC.source" content="ff_optim_bisec_savezrone.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -78,10 +78,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
   and maximum bounds on interest rates, this code here also can solve
   for the intersecting point of aggregate demand and supply curves.</pre><pre>  * FC_DERI_WTH_UNIROOT anonymous function handle, given an array of asset
   choice fractions, savings given resource availability (including
-  borrowing bounds), compute derivative value.</pre><pre>  Each type has type specific options set through key/value of
-  MP_GRID_CONTROL. 'grid_linspace': linspace; 'grid_log10space': log
-  space; 'grid_powerspace': power grid spacing; 'grid_evenlog': even
-  then log space.</pre><pre>  mp_bisec_ctrlinfo = containers.Map('KeyType','char', 'ValueType','any');
+  borrowing bounds), compute derivative value.</pre><pre>  mp_bisec_ctrlinfo = containers.Map('KeyType','char', 'ValueType','any');
   % number of iterations
   mp_bisec_ctrlinfo('it_bisect_max_iter') = 15;
   % starting savings share, common for all
@@ -100,8 +97,9 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
   optimal savings levels and savings fractions.</pre><pre>  [AR_OPTI_SAVE_FRAC, AR_OPTI_SAVE_LEVEL, AR_OPTI_FOC_OBJ] =
   FF_OPTIM_BISEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) also output FOC
   objective.</pre><pre>  [AR_OPTI_SAVE_FRAC, AR_OPTI_SAVE_LEVEL, AR_OPTI_FOC_OBJ,
-  TB_BISEC_INFO] = FF_OPTIM_BISEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) also
-  output convergence iteration information.</pre><pre>  see also FX_OPTIM_BISEC_SAVEZRONE, FF_OPTIM_MLSEC_SAVEZRONE</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Set and Update Support Map</a></li><li><a href="#4">Parse mp_grid_control</a></li><li><a href="#5">Timer Start</a></li><li><a href="#6">Evaluate At lower and Upper Savings Bounds</a></li><li><a href="#7">First Mid Point</a></li><li><a href="#8">Iterate until Bounds Reached</a></li><li><a href="#9">Return</a></li><li><a href="#10">Timer End</a></li><li><a href="#11">print details</a></li><li><a href="#12">Return</a></li><li><a href="#14">Intertemporal Maximization with Log Util, no Shock, Two Periods, Endowments</a></li><li><a href="#15">Solution Intertemporal Maximization with Log Util, no Shock, Two Periods, Endowments</a></li></ul></div><pre class="codeinput"><span class="keyword">function</span> varargout = ff_optim_bisec_savezrone(varargin)
+  TB_BISEC_INFO] = FF_OPTIM_BISEC_SAVEZRONE(FC_DERI_WTH_UNIROOT, true) also
+  output convergence iteration information.</pre><pre>  see also FX_OPTIM_BISEC_SAVEZRONE, FF_OPTIM_MLSEC_SAVEZRONE,
+  FF_OPTIM_MZOOM_SAVEZRONE</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Set and Update Support Map</a></li><li><a href="#4">Parse mp_grid_control</a></li><li><a href="#5">Timer Start</a></li><li><a href="#6">Evaluate At lower and Upper Savings Bounds</a></li><li><a href="#7">First Mid Point</a></li><li><a href="#8">Iterate until Bounds Reached</a></li><li><a href="#9">Return</a></li><li><a href="#10">Timer End</a></li><li><a href="#11">print details</a></li><li><a href="#12">Return</a></li><li><a href="#14">Intertemporal Maximization with Log Util, no Shock, Two Periods, Endowments</a></li><li><a href="#15">Solution Intertemporal Maximization with Log Util, no Shock, Two Periods, Endowments</a></li></ul></div><pre class="codeinput"><span class="keyword">function</span> varargout = ff_optim_bisec_savezrone(varargin)
 </pre><pre class="codeinput"><span class="keyword">if</span> (~isempty(varargin))
 
     <span class="comment">% NOT called interally with the testing function ffi_intertempora_max below</span>
@@ -279,7 +277,7 @@ ar_opti_foc_obj = ar_mid_fx;
 </pre><h2 id="10">Timer End</h2><pre class="codeinput"><span class="keyword">if</span> (bl_timer)
     toc;
 <span class="keyword">end</span>
-</pre><pre class="codeoutput">Elapsed time is 0.110549 seconds.
+</pre><pre class="codeoutput">Elapsed time is 0.089725 seconds.
 </pre><h2 id="11">print details</h2><pre class="codeinput"><span class="keyword">if</span> (bl_verbose)
 
     print_string = [<span class="string">'iteration='</span> num2str(it_ctr_bisec) <span class="keyword">...</span>
@@ -453,11 +451,6 @@ xxx TABLE:ar_opti_save_frac xxxxxxxxxxxxxxxxxx
 %    choice fractions, savings given resource availability (including
 %    borrowing bounds), compute derivative value. 
 %
-%    Each type has type specific options set through key/value of
-%    MP_GRID_CONTROL. 'grid_linspace': linspace; 'grid_log10space': log
-%    space; 'grid_powerspace': power grid spacing; 'grid_evenlog': even
-%    then log space.
-%
 %    mp_bisec_ctrlinfo = containers.Map('KeyType','char', 'ValueType','any');
 %    % number of iterations
 %    mp_bisec_ctrlinfo('it_bisect_max_iter') = 15;
@@ -487,10 +480,11 @@ xxx TABLE:ar_opti_save_frac xxxxxxxxxxxxxxxxxx
 %    objective.
 %
 %    [AR_OPTI_SAVE_FRAC, AR_OPTI_SAVE_LEVEL, AR_OPTI_FOC_OBJ,
-%    TB_BISEC_INFO] = FF_OPTIM_BISEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) also
+%    TB_BISEC_INFO] = FF_OPTIM_BISEC_SAVEZRONE(FC_DERI_WTH_UNIROOT, true) also
 %    output convergence iteration information.
 %
-%    see also FX_OPTIM_BISEC_SAVEZRONE, FF_OPTIM_MLSEC_SAVEZRONE
+%    see also FX_OPTIM_BISEC_SAVEZRONE, FF_OPTIM_MLSEC_SAVEZRONE,
+%    FF_OPTIM_MZOOM_SAVEZRONE
 %
 
 %%

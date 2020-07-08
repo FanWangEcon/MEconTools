@@ -17,7 +17,6 @@
 %    * FC_DERI_WTH_UNIROOT anonymous function handle, given an array of asset
 %    choice fractions, savings given resource availability (including
 %    borrowing bounds), compute derivative value.
-%
 %    * MP_MLSEC_CTRLINFO map with number of iterations and number of points
 %    to solve for at each iteration. if it_mlsect_jnt_pnts = 10,
 %    it_mlsect_max_iter = 4, this means there will be four iterations, and
@@ -44,7 +43,7 @@
 %    BL_VERBOSE, BL_TIMER, MP_MLSEC_CTRLINFO) decide if to print verbose,
 %    verbose print will generate graphical and tabular outputs, control
 %    timer, and change iteration number of points per iteration via
-%    mp_bisec_ctrlinfo_ext.
+%    mp_mlsec_ctrlinfo_ext.
 %
 %    [AR_OPTI_SAVE_FRAC, AR_OPTI_SAVE_LEVEL] =
 %    FF_OPTIM_MLSEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) given function handle
@@ -57,10 +56,11 @@
 %    objective.
 %
 %    [AR_OPTI_SAVE_FRAC, AR_OPTI_SAVE_LEVEL, AR_OPTI_FOC_OBJ,
-%    TB_MLSEC_INFO] = FF_OPTIM_MLSEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) also
-%    output convergence iteration information.
+%    TB_MLSEC_INFO] = FF_OPTIM_MLSEC_SAVEZRONE(FC_DERI_WTH_UNIROOT, true)
+%    also output convergence iteration information.
 %
-%    see also FX_OPTIM_MLSEC_SAVEZRONE, FF_OPTIM_MLSEC_SAVEZRONE
+%    see also FX_OPTIM_MLSEC_SAVEZRONE, FF_OPTIM_BISEC_SAVEZRONE,
+%    FF_OPTIM_MZOOM_SAVEZRONE
 %
 
 %%

@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>FF_OPTIM_MLSEC_SAVEZRONE Bi(Multi)section Vectorized</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-07-02"><meta name="DC.source" content="ff_optim_mlsec_savezrone.m"><style type="text/css">
+      --><title>FF_OPTIM_MLSEC_SAVEZRONE Bi(Multi)section Vectorized</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-07-08"><meta name="DC.source" content="ff_optim_mlsec_savezrone.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -79,7 +79,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
   does not reduce computing speed, but we gain from the reductions in
   iterations.</pre><pre>  * FC_DERI_WTH_UNIROOT anonymous function handle, given an array of asset
   choice fractions, savings given resource availability (including
-  borrowing bounds), compute derivative value.</pre><pre>  * MP_MLSEC_CTRLINFO map with number of iterations and number of points
+  borrowing bounds), compute derivative value.
+  * MP_MLSEC_CTRLINFO map with number of iterations and number of points
   to solve for at each iteration. if it_mlsect_jnt_pnts = 10,
   it_mlsect_max_iter = 4, this means there will be four iterations, and
   at each iteration, 10 zoomed in additional points will be evaluated
@@ -99,15 +100,16 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
   BL_VERBOSE, BL_TIMER, MP_MLSEC_CTRLINFO) decide if to print verbose,
   verbose print will generate graphical and tabular outputs, control
   timer, and change iteration number of points per iteration via
-  mp_bisec_ctrlinfo_ext.</pre><pre>  [AR_OPTI_SAVE_FRAC, AR_OPTI_SAVE_LEVEL] =
+  mp_mlsec_ctrlinfo_ext.</pre><pre>  [AR_OPTI_SAVE_FRAC, AR_OPTI_SAVE_LEVEL] =
   FF_OPTIM_MLSEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) given function handle
   for savings borrowing function derivative with an array of outputs,
   each representing a different set of state-space points, solve for
   optimal savings levels and savings fractions.</pre><pre>  [AR_OPTI_SAVE_FRAC, AR_OPTI_SAVE_LEVEL, AR_OPTI_FOC_OBJ] =
   FF_OPTIM_MLSEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) also output FOC
   objective.</pre><pre>  [AR_OPTI_SAVE_FRAC, AR_OPTI_SAVE_LEVEL, AR_OPTI_FOC_OBJ,
-  TB_MLSEC_INFO] = FF_OPTIM_MLSEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) also
-  output convergence iteration information.</pre><pre>  see also FX_OPTIM_MLSEC_SAVEZRONE, FF_OPTIM_MLSEC_SAVEZRONE</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Set and Update Support Map</a></li><li><a href="#4">Parse mp_grid_control</a></li><li><a href="#5">Timer Start</a></li><li><a href="#6">Get output dimension and initial lower and upper points</a></li><li><a href="#7">Iterate and Evaluate</a></li><li><a href="#8">Get Levels</a></li><li><a href="#9">Return</a></li><li><a href="#10">Timer End</a></li><li><a href="#11">print details</a></li><li><a href="#12">Return</a></li><li><a href="#14">Intertemporal Maximization with Log Util, no Shock, Two Periods, Endowments</a></li><li><a href="#15">Solution Intertemporal Maximization with Log Util, no Shock, Two Periods, Endowments</a></li></ul></div><pre class="codeinput"><span class="keyword">function</span> varargout = ff_optim_mlsec_savezrone(varargin)
+  TB_MLSEC_INFO] = FF_OPTIM_MLSEC_SAVEZRONE(FC_DERI_WTH_UNIROOT, true)
+  also output convergence iteration information.</pre><pre>  see also FX_OPTIM_MLSEC_SAVEZRONE, FF_OPTIM_BISEC_SAVEZRONE,
+  FF_OPTIM_MZOOM_SAVEZRONE</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Set and Update Support Map</a></li><li><a href="#4">Parse mp_grid_control</a></li><li><a href="#5">Timer Start</a></li><li><a href="#6">Get output dimension and initial lower and upper points</a></li><li><a href="#7">Iterate and Evaluate</a></li><li><a href="#8">Get Levels</a></li><li><a href="#9">Return</a></li><li><a href="#10">Timer End</a></li><li><a href="#11">print details</a></li><li><a href="#12">Return</a></li><li><a href="#14">Intertemporal Maximization with Log Util, no Shock, Two Periods, Endowments</a></li><li><a href="#15">Solution Intertemporal Maximization with Log Util, no Shock, Two Periods, Endowments</a></li></ul></div><pre class="codeinput"><span class="keyword">function</span> varargout = ff_optim_mlsec_savezrone(varargin)
 </pre><pre class="codeinput"><span class="keyword">if</span> (~isempty(varargin))
 
     <span class="comment">% NOT called interally with the testing function ffi_intertempora_max below</span>
@@ -376,7 +378,7 @@ ar_opti_save_frac = (ar_upper_x_bd+ar_lower_x_bd)/2;
 </pre><img vspace="5" hspace="5" src="ff_optim_mlsec_savezrone_01.png" alt=""> <h2 id="10">Timer End</h2><pre class="codeinput"><span class="keyword">if</span> (bl_timer)
     toc;
 <span class="keyword">end</span>
-</pre><pre class="codeoutput">Elapsed time is 0.913911 seconds.
+</pre><pre class="codeoutput">Elapsed time is 0.880784 seconds.
 </pre><h2 id="11">print details</h2><pre class="codeinput"><span class="keyword">if</span> (bl_verbose)
     mp_container_map = containers.Map(<span class="string">'KeyType'</span>,<span class="string">'char'</span>, <span class="string">'ValueType'</span>,<span class="string">'any'</span>);
     mp_container_map(<span class="string">'ar_opti_save_frac'</span>) = ar_opti_save_frac';
@@ -471,7 +473,6 @@ ar_opti_saveborr_frac = (ar_opti_saveborr_level + z2./(1+r))./(z1+z2./(1+r));
 %    * FC_DERI_WTH_UNIROOT anonymous function handle, given an array of asset
 %    choice fractions, savings given resource availability (including
 %    borrowing bounds), compute derivative value.
-%
 %    * MP_MLSEC_CTRLINFO map with number of iterations and number of points
 %    to solve for at each iteration. if it_mlsect_jnt_pnts = 10,
 %    it_mlsect_max_iter = 4, this means there will be four iterations, and
@@ -498,7 +499,7 @@ ar_opti_saveborr_frac = (ar_opti_saveborr_level + z2./(1+r))./(z1+z2./(1+r));
 %    BL_VERBOSE, BL_TIMER, MP_MLSEC_CTRLINFO) decide if to print verbose,
 %    verbose print will generate graphical and tabular outputs, control
 %    timer, and change iteration number of points per iteration via
-%    mp_bisec_ctrlinfo_ext.
+%    mp_mlsec_ctrlinfo_ext.
 %
 %    [AR_OPTI_SAVE_FRAC, AR_OPTI_SAVE_LEVEL] =
 %    FF_OPTIM_MLSEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) given function handle
@@ -511,10 +512,11 @@ ar_opti_saveborr_frac = (ar_opti_saveborr_level + z2./(1+r))./(z1+z2./(1+r));
 %    objective.
 %
 %    [AR_OPTI_SAVE_FRAC, AR_OPTI_SAVE_LEVEL, AR_OPTI_FOC_OBJ,
-%    TB_MLSEC_INFO] = FF_OPTIM_MLSEC_SAVEZRONE(FC_DERI_WTH_UNIROOT) also
-%    output convergence iteration information.
+%    TB_MLSEC_INFO] = FF_OPTIM_MLSEC_SAVEZRONE(FC_DERI_WTH_UNIROOT, true)
+%    also output convergence iteration information.
 %
-%    see also FX_OPTIM_MLSEC_SAVEZRONE, FF_OPTIM_MLSEC_SAVEZRONE
+%    see also FX_OPTIM_MLSEC_SAVEZRONE, FF_OPTIM_BISEC_SAVEZRONE,
+%    FF_OPTIM_MZOOM_SAVEZRONE
 %
 
 %%

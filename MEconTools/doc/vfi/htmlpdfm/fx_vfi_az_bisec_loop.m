@@ -6,11 +6,11 @@
 % This is the example vignette for function:<https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_loop.m  
 % *ff_vfi_az_bisec_loop* >from the <https://fanwangecon.github.io/MEconTools/ 
 % *MEconTools Package*>*.* This function solves the dynamic programming problem 
-% for a (a,z) model. Households can save a, and face AR(1) shock z. The problem 
-% is solved over the infinite horizon. This is the looped code, it is slow for 
-% larger state-space problems.  The code uses continuous choices, solved with 
-% bisection. The state-space is on a grid, but choice grids are in terms of percentage 
-% of resources to save and solved exactly.
+% for a (a,z) model. Households can save (face some borrowing constraint), and 
+% face AR(1) shock z. The problem is solved over the infinite horizon. This is 
+% the looped code, it is slow for larger state-space problems.  The code uses 
+% continuous choices, solved with bisection. The state-space is on a grid, but 
+% choice grids are in terms of percentage of resources to save and solved exactly.
 % 
 % *Links to Four Code:*
 % 

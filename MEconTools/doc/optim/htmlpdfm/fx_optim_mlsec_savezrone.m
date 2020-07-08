@@ -9,6 +9,15 @@
 % level given an anonymous function that provides the derivative of a intertemporal 
 % savings problem. This is a vectorized function solved with multi-section (multiple 
 % points bisection concurrently).
+% 
+% The vectorized and looped bisection savings problem rely on this function 
+% to solve for optimal savings choices:
+%% 
+% * States Grid + Continuous Exact Savings as Share of Cash-on-Hand _*Loop*_:<https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_loop.m  
+% *ff_vfi_az_bisec_loop*>, high precision even with small grid
+% * States Grid + Continuous Exact Savings as Share of Cash-on-Hand _*Vectorized*_: 
+% <https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_vec.m 
+% *ff_vfi_az_bisec_vec*>, precision and speed
 %% Test FF_OPTIM_MLSEC_SAVEZRONE One Individual
 % Bisection for savings choice at one state:
 
@@ -19,7 +28,12 @@ fc_deri_wth_uniroot = @(x) ffi_intertemporal_max(x, fl_z1, fl_z2, fl_r, fl_beta)
 % Call Function
 bl_verbose = false;
 bl_timer = true;
-ff_optim_mlsec_savezrone(fc_deri_wth_uniroot, bl_verbose, bl_timer);
+% optimally borrowing given the parameters here
+mp_mlsec_ctrlinfo = containers.Map('KeyType','char', 'ValueType','any');
+mp_mlsec_ctrlinfo('it_mzoom_jnt_pnts') = 10;
+mp_mlsec_ctrlinfo('it_mzoom_max_iter') = 4;
+[fl_opti_save_frac, fl_opti_save_level] = ...
+    ff_optim_mlsec_savezrone(fc_deri_wth_uniroot, bl_verbose, bl_timer, mp_mlsec_ctrlinfo)
 %% Test FF_OPTIM_MLSEC_SAVEZRONE 5 Individuals 5 Iterations 5 Points Per Iteration
 % 5 grid points per iteration, and 5 iterations.
 
