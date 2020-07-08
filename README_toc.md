@@ -55,3 +55,33 @@
 2. [Multisection Exact Optimal Savings Share Multiple States](https://fanwangecon.github.io/MEconTools/MEconTools/doc/optim/htmlpdfm/fx_optim_mlsec_savezrone.html): [**mlx**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/optim/fx_optim_mlsec_savezrone.mlx) \| [**m**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/optim/htmlpdfm/fx_optim_mlsec_savezrone.m) \| [**pdf**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/optim/htmlpdfm/fx_optim_mlsec_savezrone.pdf) \| [**html**](https://fanwangecon.github.io/MEconTools/MEconTools/doc/optim/htmlpdfm/fx_optim_mlsec_savezrone.html)
 	+ Given a First Order Condition function handle that takes the fraction of resources (cash-on-hand) saved as the input, solve for the optimal savings fraction via multisection where there are multiple evaluations per iteration of the FOC. Solve this concurrently for many elements of the state-space. The function handle contains the FOC with parameters and state-space elements embeded.
 	+ **MEconTools**: *[ff_optim_mlsec_savezrone()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/optim/ff_optim_mlsec_savezrone.m)*
+3. [Vectorized Zooming Exact Optimal Savings Share Multiple States](https://fanwangecon.github.io/MEconTools/MEconTools/doc/optim/htmlpdfm/fx_optim_mzoom_savezrone.html): [**mlx**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/optim/fx_optim_mzoom_savezrone.mlx) \| [**m**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/optim/htmlpdfm/fx_optim_mzoom_savezrone.m) \| [**pdf**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/optim/htmlpdfm/fx_optim_mzoom_savezrone.pdf) \| [**html**](https://fanwangecon.github.io/MEconTools/MEconTools/doc/optim/htmlpdfm/fx_optim_mzoom_savezrone.html)
+	+ Given a Utility (not FOC) function handle that takes the fraction of resources (cash-on-hand) saved as the input, solve for the optimal savings fraction via iterative zooming where there are multiple evaluations per iteration of the utility function. Solve this concurrently for many elements of the state-space. The function handle contains the utilty function with parameters and state-space elements embeded.
+	+ **MEconTools**: *[ff_optim_mzoom_savezrone()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/optim/ff_optim_mzoom_savezrone.m)*
+
+# 5  Graphs
+
+1. [Multiple Line Graph Function](https://fanwangecon.github.io/MEconTools/MEconTools/doc/graph/htmlpdfm/fx_graph_grid.html): [**mlx**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/graph/fx_graph_grid.mlx) \| [**m**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/graph/htmlpdfm/fx_graph_grid.m) \| [**pdf**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/graph/htmlpdfm/fx_graph_grid.pdf) \| [**html**](https://fanwangecon.github.io/MEconTools/MEconTools/doc/graph/htmlpdfm/fx_graph_grid.html)
+	+ Grid based Graph, x-axis one param, color another param, over outcomes.
+	+ **MEconTools**: *ff_graph_grid()*
+
+# 6  Support Tools
+
+1. [Organizes and Prints Container Map Key and Values](https://fanwangecon.github.io/MEconTools/MEconTools/doc/tools/htmlpdfm/fx_container_map_display.html): [**mlx**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/tools/fx_container_map_display.mlx) \| [**m**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/tools/htmlpdfm/fx_container_map_display.m) \| [**pdf**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/tools/htmlpdfm/fx_container_map_display.pdf) \| [**html**](https://fanwangecon.github.io/MEconTools/MEconTools/doc/tools/htmlpdfm/fx_container_map_display.html)
+	+ Summarizes the contents of a map container by data types. Includes, scalar, array, matrix, string, functions, tensors (3-tuples), tesseracts (4-tuples).
+	+ **MEconTools**: *ff_container_map_display()*
+
+# 7  Data Structures
+
+1. [Log and Power Spaced Asset and Choice Grids](https://fanwangecon.github.io/MEconTools/MEconTools/doc/generate/htmlpdfm/fx_saveborr_grid.html): [**mlx**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/generate/fx_saveborr_grid.mlx) \| [**m**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/generate/htmlpdfm/fx_saveborr_grid.m) \| [**pdf**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/generate/htmlpdfm/fx_saveborr_grid.pdf) \| [**html**](https://fanwangecon.github.io/MEconTools/MEconTools/doc/generate/htmlpdfm/fx_saveborr_grid.html)
+	+ Generate linear, log-space, power-space, or threshold-cut asset or choice grids.
+	+ **MEconTools**: *ff_saveborr_grid()*
+
+# 8  Common Functions
+
+1. [Discretize AR1 Normal Shock Tauchen (1986)](https://fanwangecon.github.io/MEconTools/MEconTools/doc/external/htmlpdfm/fxy_tauchen.html): [**mlx**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/external/fxy_tauchen.mlx) \| [**m**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/external/htmlpdfm/fxy_tauchen.m) \| [**pdf**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/external/htmlpdfm/fxy_tauchen.pdf) \| [**html**](https://fanwangecon.github.io/MEconTools/MEconTools/doc/external/htmlpdfm/fxy_tauchen.html)
+	+ Mean zero AR(1) shock discretize following Tauchen (1986).
+	+ **MEconTools**: *ffy_tauchen()*
+2. [Discretize AR1 Normal Shock Rouwenhorst (1995)](https://fanwangecon.github.io/MEconTools/MEconTools/doc/external/htmlpdfm/fxy_rouwenhorst.html): [**mlx**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/external/fxy_rouwenhorst.mlx) \| [**m**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/external/htmlpdfm/fxy_rouwenhorst.m) \| [**pdf**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/external/htmlpdfm/fxy_rouwenhorst.pdf) \| [**html**](https://fanwangecon.github.io/MEconTools/MEconTools/doc/external/htmlpdfm/fxy_rouwenhorst.html)
+	+ Mean zero AR(1) shock discretize following Rouwenhorst (1995).
+	+ **MEconTools**: *ffy_rouwenhorst()*
