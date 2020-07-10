@@ -161,6 +161,8 @@ end
 %% Set and Update Support Map
 mp_mzoom_ctrlinfo = containers.Map('KeyType','char', 'ValueType','any');
 % within each multisection iteration, points to solve at
+mp_mzoom_ctrlinfo('it_states_n') = false;
+% within each multisection iteration, points to solve at
 mp_mzoom_ctrlinfo('it_mzoom_jnt_pnts') = 50;
 % number of iterations
 mp_mzoom_ctrlinfo('it_mzoom_max_iter') = 3;
@@ -178,8 +180,8 @@ end
 
 %% Parse mp_grid_control
 params_group = values(mp_mzoom_ctrlinfo, ...
-    {'it_mzoom_jnt_pnts', 'it_mzoom_max_iter', 'it_mzoom_zm_ratio'});
-[it_mzoom_jnt_pnts, it_mzoom_max_iter, it_mzoom_zm_ratio] = params_group{:};
+    {'it_states_n', 'it_mzoom_jnt_pnts', 'it_mzoom_max_iter', 'it_mzoom_zm_ratio'});
+[it_states_n, it_mzoom_jnt_pnts, it_mzoom_max_iter, it_mzoom_zm_ratio] = params_group{:};
 params_group = values(mp_mzoom_ctrlinfo, {'fl_x_left_start', 'fl_x_right_start'});
 [fl_x_left_start, fl_x_right_start] = params_group{:};
 
@@ -189,9 +191,14 @@ if (bl_timer)
 end
 
 %% Get output dimension and initial lower and upper points
-[ar_lower_fx, ~] = fc_util(fl_x_left_start);
-it_rows = size(ar_lower_fx,1);
-it_cols = size(ar_lower_fx,2);
+if (~it_states_n)
+    [ar_lower_fx, ~] = fc_util(fl_x_left_start);
+    it_rows = size(ar_lower_fx,1);
+else
+    it_rows = it_states_n;
+end
+it_cols = it_mzoom_jnt_pnts;
+
 ar_lower_x = fl_x_left_start + zeros(it_rows, 1);
 ar_upper_x = fl_x_right_start + zeros(it_rows, 1);
 
@@ -274,9 +281,9 @@ end
 ar_opti_save_frac = (ar_upper_bd+ar_lower_bd)/2;
 
 %% Get Levels
-% if (nargout>=2)
-[ar_opti_u_obj, ar_opti_save_level] = fc_util(ar_opti_save_frac');   
-% end
+if (nargout>=2 || isempty(varargin))
+    [ar_opti_u_obj, ar_opti_save_level] = fc_util(ar_opti_save_frac');   
+end
    
 %% Show iteration points
 if(bl_verbose)

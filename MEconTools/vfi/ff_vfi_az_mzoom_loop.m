@@ -1,21 +1,17 @@
-%% FF_VFI_AZ_BISEC_VEC (vectorized bisection exact choice) Dynamic Savings Problem
-%    Fast vectorized solution for solving the dynamic programming problem
-%    with fixed asset state space, but continuous asset choices. Solution
-%    obtained via bi(multi)-section. Solves for the fraction of resources
+%% FF_VFI_AZ_MZOOM_LOOP (looped zoom-in exact choice) Dynamic Savings Problem
+%    Slow looped solution for solving the dynamic programming problem with
+%    fixed asset state space, but continuous asset choices. Solution
+%    obtained via iterative zooming-in. Solves for the fraction of resources
 %    to save, this is then translated to asset choice level
 %
-%    Uses first order conditions. The first order condition has two
-%    components: let u(c(ap,a,z)) be current utility, let beta*EV(ap|z) be
-%    the expected value from making choice ap given current shock z.
-%    d(u)/d(ap) is analytical; the EV(ap|z) are a set of linear splines
-%    each spline for each shock point z, dEV/d(ap) are just the slopes for
-%    each spline segment. With both partials, we can easily use bisection
-%    to solve for optimal exact choices.
-%
-%    Obtains policy and value functions. Shock is AR(1). This function is
-%    looped, and extremely slow when state-space increases in size. This
-%    function is useful as a working template for developing models that
-%    rely on asset and shocks.
+%    This is approporiate for problems where it is not appropriate or
+%    possible to use First Order Conditions, due to discreteness or
+%    frictions for various financial and other choices. This method
+%    evaluates the utility function at choice grids, and iterates sveral
+%    times to zoom-in to the optimal choices grid points from prior
+%    iterations. This relies on the mzoom function which allows for
+%    controlling the number of iterations, the number of points of
+%    evaluation per iteration, and how much to zoom in at each iteration.
 %
 %    * MP_PARAMS controls model preference, prices, shock and asset grid
 %    parameters.
@@ -37,6 +33,11 @@
 %    mp_params('st_grid_type') = 'grid_powerspace';
 %
 %    mp_support = containers.Map('KeyType','char', 'ValueType','any');
+%    % mzoom specific parameters for ff_optim_mzoom_savezrone.m
+%    mp_support('it_mzoom_jnt_pnts') = 50;
+%    mp_support('it_mzoom_max_iter') = 3;
+%    mp_support('it_mzoom_zm_ratio') = 0;
+%    % Standard Controls
 %    mp_support('fl_lowestc') = -10e10;
 %    mp_support('it_maxiter_val') = 500;
 %    mp_support('fl_tol_val') = 10e-5;
@@ -60,26 +61,26 @@
 %    % outcome for ff_summ_nd_array
 %    mp_support('ffsna_opt_it_col_n_keep') = 9;
 %
-%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_BISEC_VEC() default savings and
+%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_MZOOM_LOOP() default savings and
 %    shock model simulation
 %
-%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_BISEC_VEC(MP_PARAMS) change model
+%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_MZOOM_LOOP(MP_PARAMS) change model
 %    parameters through MP_PARAMS
 %
-%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_BISEC_VEC(MP_PARAMS, MP_SUPPORT)
+%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_MZOOM_LOOP(MP_PARAMS, MP_SUPPORT)
 %    change various printing, storaging, graphing, convergence etc controls
 %    through MP_SUPPORT
 %
-%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_BISEC_VEC(MP_PARAMS, MP_SUPPORT,
+%    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_MZOOM_LOOP(MP_PARAMS, MP_SUPPORT,
 %    MP_SUPPORT_GRAPH) also changing graphing options, see the
 %    FF_GRAPH_GRID function for what key value paris can be specified.
 %
-%    see also FX_VFI_AZ_BISEC_VEC, FF_VFI_AZ_BISEC_LOOP, FF_VFI_AZ_LOOP,
+%    see also FX_VFI_AZ_MZOOM_LOOP, FF_VFI_AZ_MZOOM_VEC, FF_VFI_AZ_LOOP,
 %    FF_VFI_AZ_VEC, FF_GRAPH_GRID
 %
 
 %%
-function [mp_valpol_out, flag] = ff_vfi_az_bisec_vec(varargin)
+function [mp_valpol_out, flag] = ff_vfi_az_mzoom_loop(varargin)
 
 %% Set Default and Parse Inputs
 if (~isempty(varargin))
@@ -152,6 +153,22 @@ ar_z_stationary = ar_z_stationary(1,:);
 fl_labor_agg = ar_z_stationary*exp(ar_z');
 ar_z = exp(ar_z)/fl_labor_agg;
 
+%% mp_mzoom_ctrlinfo Parameters
+% support_map
+mp_mzoom_ctrlinfo = containers.Map('KeyType','char', 'ValueType','any');
+
+% parameters for ff_optim_mzoom_savezrone
+% within each multisection iteration, points to solve at
+mp_mzoom_ctrlinfo('it_mzoom_jnt_pnts') = 50;
+% number of iterations
+mp_mzoom_ctrlinfo('it_mzoom_max_iter') = 3;
+% zoom ratio 
+mp_mzoom_ctrlinfo('it_mzoom_zm_ratio') = 0;
+% starting savings share, common for all
+mp_mzoom_ctrlinfo('fl_x_left_start') = 10e-6;
+% max savings share, common for all
+mp_mzoom_ctrlinfo('fl_x_right_start') = 1-10e-6;
+
 %% Default Support Parameters
 % support_map
 mp_support = containers.Map('KeyType','char', 'ValueType','any');
@@ -181,6 +198,9 @@ mp_support('ls_ffgrh') = {};
 mp_support('ffsna_opt_it_row_n_keep') = 10;
 % outcome for ff_summ_nd_array
 mp_support('ffsna_opt_it_col_n_keep') = 9;
+
+% add zoom controls to mp_support
+mp_support = [mp_support; mp_mzoom_ctrlinfo];
 
 % override default support_map values
 if (length(varargin)>=2 || isempty(varargin))
@@ -234,36 +254,6 @@ if (bl_store_more)
     mt_coh = zeros(length(ar_a),length(ar_z));
 end
 
-%% Define Functions
-
-% Current Function and their Derivatives
-if(fl_crra == 1)
-    f_util = @(c) log(c);
-    f_du_da = @(c) -1./(c);
-else
-    f_util = @(c) (((c).^(1-fl_crra)-1)./(1-fl_crra));
-    f_du_da = @(c) -1./(c.^fl_crra);
-end
-
-% Utility
-f_U = @(u, Ev) (u + fl_beta.*Ev);
-f_FOC = @(duda, devda) (duda + fl_beta.*devda);
-
-% resources
-f_y = @(z, b) (z*fl_w + b.*(fl_r));
-f_coh = @(z, b) (z*fl_w + b.*(1+fl_r));
-f_cons = @(z, b, bprime) (f_coh(z, b) - bprime);
-
-%% Compute Fixed Resource Matrix by States
-
-% C1. Resource Matrix Broadcast: length(ar_a) by length(ar_z) matrix
-mt_resources = f_coh(ar_z, ar_a');
-mt_z_ctr = repmat(1:length(ar_z), [length(ar_a), 1]);
-
-% C2. Flatten the resource matrix, amz = a mesh z:
-ar_resources_amz = mt_resources(:);
-ar_z_ctr_amz = mt_z_ctr(:);
-
 %% Dynamically Solve
 if (bl_timer)
     tic
@@ -297,58 +287,56 @@ while bl_continue
     % Given the discretized EV matrix structure, we have a matrix of
     % splines, get the slopes of the spline segments. These are the
     % derivatives of the marginal effects of additional savings for each
-    % splinde segment conditional on shock.
+    % splinde segment conditional on shock. Here, we calculate this not for
+    % FOC, but for interepolating the EV value function
     mt_deri_dev_dap = diff(mt_ev_ap_z)./diff(ar_a');
 
-    % C. Generate Vectorized FOC Evaluator
-    % x = fl_aprime_frac
-    fc_ffi_vec_foc_u_v_ap = @(x) ffi_vec_foc_u_v_ap(...
-        x, ar_a, ...
-        ar_resources_amz, ar_z_ctr_amz, mt_deri_dev_dap, ...
-        f_du_da, f_FOC);
+    % C. Iterate over (a,z), current asset and shock:
+    % Loop 1, loop of exogenous shocks
+    for it_z_ctr = 1:length(ar_z)
+        fl_z = ar_z(it_z_ctr);
 
-    % D. Solve via Bisection
-    [ar_opti_saveborr_frac_amz] = ff_optim_bisec_savezrone(fc_ffi_vec_foc_u_v_ap);
+        % Loop 2, loop over endogenous asset states
+        for it_a_ctr = 1:length(ar_a)
 
-    % E. Evaluate at Bounds
-    ar_nan_idx = isnan(ar_opti_saveborr_frac_amz);
-    if(sum(ar_nan_idx)>0)
-        ar_min_max = [0, 1-1E-5];
-        mt_val_min_max = zeros(sum(ar_nan_idx), length(ar_min_max));
-        for it_minmax = [1,2]
-            [~, mt_val_min_max(:,it_minmax), ~] = ffi_vec_u_v_ap(...
-                ar_min_max(it_minmax), ar_a, ...
-                ar_resources_amz(ar_nan_idx), ar_z_ctr_amz(ar_nan_idx), ...
-                mt_ev_ap_z, mt_deri_dev_dap, ...
-                f_util, f_U);
-        end
-        [~, it_max] =  max(mt_val_min_max, [], 2);
-        ar_opti_saveborr_frac_amz(ar_nan_idx) = ar_min_max(it_max);
-    end
+            % current asset choice and cash-on-hand
+            fl_a = ar_a(it_a_ctr);
+            fl_resources = fl_w*fl_z + (fl_r+1)*fl_a;
 
-    % F. Evaluate
-    [ar_aprime_amz, ar_val_opti_amz, ar_c_opti_amz] = ffi_vec_u_v_ap(...
-        ar_opti_saveborr_frac_amz, ar_a, ...
-        ar_resources_amz, ar_z_ctr_amz, ...
-        mt_ev_ap_z, mt_deri_dev_dap, ...
-        f_util, f_U);
+            % x = fl_aprime_frac
+            fc_ffi_u_v_ap = @(x) ffi_u_v_ap(...
+                x, ar_a', ...
+                fl_beta, fl_crra, ...
+                fl_resources, it_z_ctr, mt_ev_ap_z, mt_deri_dev_dap);
 
-    % G. Record Results
-    mt_val_cur = reshape(ar_val_opti_amz, [length(ar_a),length(ar_z)]);
-    mt_aprime_cur = reshape(ar_aprime_amz, [length(ar_a),length(ar_z)]);
+            % Optimal Savings choice from Bisection
+            [fl_opti_saveborr_frac] = ff_optim_mzoom_savezrone(fc_ffi_u_v_ap);
 
-    % H. Save Additional Results
-    if bl_converged
-        [~, ar_opti_a_idx_amz] = min(abs(ar_a-ar_aprime_amz),[],2);
-        mt_aprime_idx = reshape(ar_opti_a_idx_amz, [length(ar_a),length(ar_z)]);
-        if (bl_store_more)
-            mt_c = reshape(ar_c_opti_amz, [length(ar_a),length(ar_z)]);
-            mt_y = mt_resources - ar_a';
-            mt_coh = mt_resources;
+            % level choice and value
+            [fl_val_opti, fl_aprime, fl_c_opti] = ffi_u_v_ap(...
+                fl_opti_saveborr_frac, ar_a', ...
+                fl_beta, fl_crra, ...
+                fl_resources, it_z_ctr, mt_ev_ap_z, mt_deri_dev_dap);
+
+            % record
+            mt_val_cur(it_a_ctr,it_z_ctr) = fl_val_opti;
+            mt_aprime_cur(it_a_ctr,it_z_ctr) = fl_aprime;
+
+            % Save Additional Results
+            if bl_converged
+                [~, it_min_ar_a_idx] = min(abs(ar_a-fl_aprime));
+                it_opti_a_idx = it_min_ar_a_idx;
+                mt_aprime_idx(it_a_ctr,it_z_ctr) = it_opti_a_idx(1);
+                if (bl_store_more)
+                    mt_c(it_a_ctr,it_z_ctr) = fl_c_opti;
+                    mt_y(it_a_ctr,it_z_ctr) = fl_resources - fl_a;
+                    mt_coh(it_a_ctr,it_z_ctr) = fl_resources;
+                end
+            end
         end
     end
 
-    % I. Iteration Convergence Checking
+    % D. Iteration Convergence Checking
     % Continuation Conditions:
     it_iter = it_iter + 1;
     fl_diff = norm(mt_val_cur-mt_val_lst);
@@ -372,9 +360,9 @@ while bl_continue
         bl_converged = true;
     end
 
-    % J. Print Iteration Record
+    % Print Iteration Record
     if(bl_print_iterinfo)
-        disp(['ff_vfi_az_bisec_loop, it_iter:' num2str(it_iter) ...
+        disp(['ff_vfi_az_mzoom_loop, it_iter:' num2str(it_iter) ...
             ', fl_diff:' num2str(fl_diff)]);
     end
 
@@ -521,62 +509,38 @@ mp_valpol_out = containers.Map(ls_slout, values(mp_print_graph, ls_slout));
 
 end
 
-% Utility Maximization First Order Conditions
-function [ar_dU_dap, ar_aprime] = ...
-    ffi_vec_foc_u_v_ap(ar_aprime_frac_amz, ar_a, ...
-                       ar_resources_amz, ar_z_ctr_amz, mt_deri_dev_dap,...
-                       f_du_da, f_FOC)
-% A. Percentage Asset Choice to Level Asset Choices
-ar_aprime = ar_aprime_frac_amz.*(ar_resources_amz);
-
-% B. Identify the Closest ar_a point to fl_aprime, this is spline knot point
-ar_ap_near_lower_idx = sum(ar_a <= ar_aprime, 2);
-ar_ap_near_lower_idx(ar_ap_near_lower_idx == length(ar_a)) = length(ar_a) - 1;
-
-% C. Current consumption
-ar_c = ar_resources_amz - ar_aprime;
-
-% D. Do not need to check fl_c > 0, because asset bound by 0 to 1 open set
-ar_du_dap = f_du_da(ar_c);
-
-% E. the marginal effects of additional asset is determined by the slope
-% mt_z_ctr_amz = repmat(ar_z_ctr_amz, [1, size(ar_aprime_frac_amz,2)]);
-ar_lin_idx = sub2ind(size(mt_deri_dev_dap), ar_ap_near_lower_idx, ar_z_ctr_amz);
-ar_deri_dev_dap = mt_deri_dev_dap(ar_lin_idx);
-% ar_deri_dev_dap = reshape(ar_deri_dev_dap, size(mt_z_ctr_amz));
-
-% F. overall first order condition, this is the root search objective
-ar_dU_dap = f_FOC(ar_du_dap, ar_deri_dev_dap);
-
-end
-
 % Utility given choices
-function [ar_aprime, ar_val, ar_c] = ffi_vec_u_v_ap(...
-    ar_aprime_frac, ar_a, ...
-    ar_resources_amz, ar_z_ctr_amz, mt_ev_ap_z, mt_deri_dev_dap, ...
-    f_util, f_U)
-% A. Percentage Asset Choice to Level Asset Choices
-ar_aprime = ar_aprime_frac.*(ar_resources_amz);
+function [fl_val, fl_aprime, fl_c] = ffi_u_v_ap(...
+    fl_aprime_frac, ar_a, ...
+    fl_beta, fl_crra, ...
+    fl_resources, it_z_ctr, mt_ev_ap_z, mt_deri_dev_dap)
+% u is current utility, v is future, ev is integrated future, interpolated
+% over one dimensional future, U = u + beta*ev.
 
-% B. Identify the Closest ar_a point to fl_aprime, this is spline knot point
-ar_it_ap_near_lower_idx = sum(ar_a <= ar_aprime, 2);
+% Percentage Asset Choice to Level Asset Choices
+fl_aprime = fl_aprime_frac*(fl_resources);
+
+% Identify the Closest ar_a point to fl_aprime, this is spline knot point
+ar_it_ap_near_lower_idx = sum(ar_a <= fl_aprime, 1);
 ar_it_ap_near_lower_idx(ar_it_ap_near_lower_idx == length(ar_a)) = length(ar_a) - 1;
 
-% C. Current consumption
-ar_c = ar_resources_amz - ar_aprime;
+% Current consumption
+fl_c = fl_resources - fl_aprime;
 
-% D. Evaluate Value
-ar_u_of_ap = f_util(ar_c);
+% Do not need to check fl_c > 0, because asset bound by 0 to 1 open set
+if (fl_crra == 1)
+    fl_u_of_ap = log(fl_c);
+else
+    fl_u_of_ap = ((fl_c).^(1-fl_crra)-1)/(1-fl_crra);
+end
 
 % the marginal effects of additional asset is determined by the slope
-ar_deri_lin_idx = sub2ind(size(mt_deri_dev_dap), ar_it_ap_near_lower_idx, ar_z_ctr_amz);
-ar_ev_lin_idx = sub2ind(size(mt_ev_ap_z), ar_it_ap_near_lower_idx, ar_z_ctr_amz);
-ar_deri_dev_dap = mt_deri_dev_dap(ar_deri_lin_idx);
-ar_ev_ap_lower_idx = mt_ev_ap_z(ar_ev_lin_idx);
+fl_deri_dev_dap = mt_deri_dev_dap(ar_it_ap_near_lower_idx, it_z_ctr);
+fl_ev_ap_lower_idx = mt_ev_ap_z(ar_it_ap_near_lower_idx, it_z_ctr);
 
 % Ev(a_lower_idx,z) + slope*(fl_aprime - fl_a_lower)
-ar_ev_aprime_z = ar_ev_ap_lower_idx + (ar_aprime - ar_a(ar_it_ap_near_lower_idx)').*ar_deri_dev_dap;
+fl_ev_aprime_z = fl_ev_ap_lower_idx + (fl_aprime' - ar_a(ar_it_ap_near_lower_idx)).*fl_deri_dev_dap;
 
 % overall utility at choice
-ar_val = f_U(ar_u_of_ap, ar_ev_aprime_z);
+fl_val = fl_u_of_ap + fl_beta*fl_ev_aprime_z';
 end
