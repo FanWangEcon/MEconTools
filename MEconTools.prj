@@ -7,7 +7,7 @@
     <param.summary>Dynamic programming and related.</param.summary>
     <param.description>Dynamic programming and related.</param.description>
     <param.screenshot>${PROJECT_ROOT}\img\toolboxlogo.png</param.screenshot>
-    <param.version>0.1.24</param.version>
+    <param.version>0.1.25</param.version>
     <param.output>${PROJECT_ROOT}\MEconTools.mltbx</param.output>
     <param.products.name />
     <param.products.id />
@@ -94,6 +94,14 @@ htmlpdfm/*
          &lt;file type="thumbnail"&gt;/optim/html/ff_optim_mlsec_savezrone.png&lt;/file&gt;
          &lt;file type="image"&gt;/optim/html/ff_optim_mlsec_savezrone_01.png&lt;/file&gt;
       &lt;/example&gt;
+      &lt;example name="ff_optim_mzoom_savezrone" type="html"&gt;
+         &lt;file type="source"&gt;/optim/html/ff_optim_mzoom_savezrone.html&lt;/file&gt;
+         &lt;file type="main"&gt;/optim/ff_optim_mzoom_savezrone.m&lt;/file&gt;
+         &lt;file type="thumbnail"&gt;/optim/html/ff_optim_mzoom_savezrone.png&lt;/file&gt;
+         &lt;file type="image"&gt;/optim/html/ff_optim_mzoom_savezrone_01.png&lt;/file&gt;
+         &lt;file type="image"&gt;/optim/html/ff_optim_mzoom_savezrone_02.png&lt;/file&gt;
+         &lt;file type="image"&gt;/optim/html/ff_optim_mzoom_savezrone_03.png&lt;/file&gt;
+      &lt;/example&gt;
    &lt;/exampleCategory&gt;
    &lt;exampleCategory name="vfi"&gt;
       &lt;example name="ff_vfi_az_bisec_loop" type="html"&gt;
@@ -140,6 +148,37 @@ htmlpdfm/*
          &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_08.png&lt;/file&gt;
          &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_09.png&lt;/file&gt;
          &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_10.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_11.png&lt;/file&gt;
+      &lt;/example&gt;
+      &lt;example name="ff_vfi_az_mzoom_loop" type="html"&gt;
+         &lt;file type="source"&gt;/vfi/html/ff_vfi_az_mzoom_loop.html&lt;/file&gt;
+         &lt;file type="main"&gt;/vfi/ff_vfi_az_mzoom_loop.m&lt;/file&gt;
+         &lt;file type="thumbnail"&gt;/vfi/html/ff_vfi_az_mzoom_loop.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_mzoom_loop_01.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_mzoom_loop_02.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_mzoom_loop_03.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_mzoom_loop_04.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_mzoom_loop_05.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_mzoom_loop_06.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_mzoom_loop_07.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_mzoom_loop_08.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_mzoom_loop_09.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_mzoom_loop_10.png&lt;/file&gt;
+      &lt;/example&gt;
+      &lt;example name="ff_vfi_az_mzoom_vec" type="html"&gt;
+         &lt;file type="source"&gt;/vfi/html/ff_vfi_az_mzoom_vec.html&lt;/file&gt;
+         &lt;file type="main"&gt;/vfi/ff_vfi_az_mzoom_vec.m&lt;/file&gt;
+         &lt;file type="thumbnail"&gt;/vfi/html/ff_vfi_az_mzoom_vec.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_mzoom_vec_01.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_mzoom_vec_02.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_mzoom_vec_03.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_mzoom_vec_04.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_mzoom_vec_05.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_mzoom_vec_06.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_mzoom_vec_07.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_mzoom_vec_08.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_mzoom_vec_09.png&lt;/file&gt;
+         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_mzoom_vec_10.png&lt;/file&gt;
       &lt;/example&gt;
       &lt;example name="ff_vfi_az_vec" type="html"&gt;
          &lt;file type="source"&gt;/vfi/html/ff_vfi_az_vec.html&lt;/file&gt;
@@ -196,6 +235,30 @@ htmlpdfm/*
          &lt;file type="source"&gt;/table/html/ff_sup_save_prep.html&lt;/file&gt;
          &lt;file type="main"&gt;/table/ff_sup_save_prep.m&lt;/file&gt;
          &lt;file type="thumbnail"/&gt;
+      &lt;/example&gt;
+   &lt;/exampleCategory&gt;
+   &lt;exampleCategory name="ds"&gt;
+      &lt;example name="ff_ds_az_cts_loop" type="html"&gt;
+         &lt;file type="source"&gt;/ds/html/ff_ds_az_cts_loop.html&lt;/file&gt;
+         &lt;file type="main"&gt;/ds/ff_ds_az_cts_loop.m&lt;/file&gt;
+         &lt;file type="thumbnail"&gt;/ds/html/ff_ds_az_cts_loop.png&lt;/file&gt;
+         &lt;file type="image"&gt;/ds/html/ff_ds_az_cts_loop_01.png&lt;/file&gt;
+         &lt;file type="image"&gt;/ds/html/ff_ds_az_cts_loop_02.png&lt;/file&gt;
+         &lt;file type="image"&gt;/ds/html/ff_ds_az_cts_loop_03.png&lt;/file&gt;
+         &lt;file type="image"&gt;/ds/html/ff_ds_az_cts_loop_04.png&lt;/file&gt;
+         &lt;file type="image"&gt;/ds/html/ff_ds_az_cts_loop_05.png&lt;/file&gt;
+         &lt;file type="image"&gt;/ds/html/ff_ds_az_cts_loop_06.png&lt;/file&gt;
+      &lt;/example&gt;
+      &lt;example name="ff_ds_az_loop" type="html"&gt;
+         &lt;file type="source"&gt;/ds/html/ff_ds_az_loop.html&lt;/file&gt;
+         &lt;file type="main"&gt;/ds/ff_ds_az_loop.m&lt;/file&gt;
+         &lt;file type="thumbnail"&gt;/ds/html/ff_ds_az_loop.png&lt;/file&gt;
+         &lt;file type="image"&gt;/ds/html/ff_ds_az_loop_01.png&lt;/file&gt;
+         &lt;file type="image"&gt;/ds/html/ff_ds_az_loop_02.png&lt;/file&gt;
+         &lt;file type="image"&gt;/ds/html/ff_ds_az_loop_03.png&lt;/file&gt;
+         &lt;file type="image"&gt;/ds/html/ff_ds_az_loop_04.png&lt;/file&gt;
+         &lt;file type="image"&gt;/ds/html/ff_ds_az_loop_05.png&lt;/file&gt;
+         &lt;file type="image"&gt;/ds/html/ff_ds_az_loop_06.png&lt;/file&gt;
       &lt;/example&gt;
    &lt;/exampleCategory&gt;
 &lt;/examples&gt;</param.examples>
@@ -259,6 +322,7 @@ htmlpdfm/*
     <fileset.rootfiles>
       <file>${PROJECT_ROOT}\MEconTools\demos.xml</file>
       <file>${PROJECT_ROOT}\MEconTools\doc</file>
+      <file>${PROJECT_ROOT}\MEconTools\ds</file>
       <file>${PROJECT_ROOT}\MEconTools\external</file>
       <file>${PROJECT_ROOT}\MEconTools\generate</file>
       <file>${PROJECT_ROOT}\MEconTools\graph</file>
@@ -266,6 +330,7 @@ htmlpdfm/*
       <file>${PROJECT_ROOT}\MEconTools\optim</file>
       <file>${PROJECT_ROOT}\MEconTools\stats</file>
       <file>${PROJECT_ROOT}\MEconTools\summ</file>
+      <file>${PROJECT_ROOT}\MEconTools\sys</file>
       <file>${PROJECT_ROOT}\MEconTools\table</file>
       <file>${PROJECT_ROOT}\MEconTools\tools</file>
       <file>${PROJECT_ROOT}\MEconTools\vfi</file>
