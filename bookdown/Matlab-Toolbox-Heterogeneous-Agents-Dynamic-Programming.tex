@@ -7243,6 +7243,10 @@ Call the function with defaults.
 ff_graph_grid();
 \end{verbatim}
 
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_0.png}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_1.png}
+
 \hypertarget{test-ff_graph_grid-random-matrix-pick-markers-and-colors}{%
 \subsection{Test FF\_GRAPH\_GRID Random Matrix Pick Markers and Colors}\label{test-ff_graph_grid-random-matrix-pick-markers-and-colors}}
 
@@ -7269,30 +7273,13 @@ ar_row_grid = ["shock low", "zero", "shock high"];
 ar_col_grid = 1:50;
 mp_support_graph = containers.Map('KeyType', 'char', 'ValueType', 'any');
 mp_support_graph('cl_scatter_shapes') = { '.', 's' ,'.' };
+mp_support_graph('cl_colors') = {'gray', 'red', 'gray'};
+ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
 \end{verbatim}
-
-\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_0.png}
-
-\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_1.png}
 
 \includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_2.png}
 
 \includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_3.png}
-
-\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_4.png}
-
-\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_5.png}
-
-\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_6.png}
-
-\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_7.png}
-
-\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_8.png}
-
-\begin{verbatim}
-mp_support_graph('cl_colors') = {'gray', 'red', 'gray'};
-ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
-\end{verbatim}
 
 \hypertarget{test-ff_graph_grid-two-random-normal-lines-and-labels}{%
 \subsection{Test FF\_GRAPH\_GRID Two Random Normal Lines and Labels}\label{test-ff_graph_grid-two-random-normal-lines-and-labels}}
@@ -7313,6 +7300,8 @@ mp_support_graph('cl_st_xtitle') = {'Periods'};
 mp_support_graph('bl_graph_logy') = false; % do not log
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
 \end{verbatim}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_4.png}
 
 \hypertarget{test-ff_graph_grid-6-lines-pick-marker-and-colors}{%
 \subsection{Test FF\_GRAPH\_GRID 6 Lines Pick Marker and Colors}\label{test-ff_graph_grid-6-lines-pick-marker-and-colors}}
@@ -7342,6 +7331,8 @@ mp_support_graph('cl_colors') = {'green', 'black', 'green', 'black', 'orange'};
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
 \end{verbatim}
 
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_5.png}
+
 \hypertarget{test-ff_graph_grid-many-lines}{%
 \subsection{Test FF\_GRAPH\_GRID Many Lines}\label{test-ff_graph_grid-many-lines}}
 
@@ -7369,6 +7360,8 @@ mp_support_graph('cl_colors') = 'jet'; % any predefined matlab colormap
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
 \end{verbatim}
 
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_6.png}
+
 \hypertarget{test-ff_graph_grid-many-lines-legend-exogenous}{%
 \subsection{Test FF\_GRAPH\_GRID Many Lines Legend Exogenous}\label{test-ff_graph_grid-many-lines-legend-exogenous}}
 
@@ -7395,6 +7388,8 @@ mp_support_graph('cl_colors') = 'winter'; % any predefined matlab colormap
 % Call function
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
 \end{verbatim}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_7.png}
 
 \hypertarget{test-ff_graph_grid-joint-probability-mass-output-as-scatter-size}{%
 \subsection{Test FF\_GRAPH\_GRID Joint Probability Mass Output as Scatter Size}\label{test-ff_graph_grid-joint-probability-mass-output-as-scatter-size}}
@@ -7438,6 +7433,8 @@ ar_col_grid = ar_a;
 st_figtype = 'dist';
 ff_graph_grid(mt_prob, (ar_z), ar_col_grid, mp_support_graph, st_figtype);
 \end{verbatim}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_graph_grid_images/figure_8.png}
 
 \hypertarget{support-tools}{%
 \chapter{Support Tools}\label{support-tools}}
@@ -7770,25 +7767,6 @@ st_grid_type = 'grid_linspace';
 st_grid_type = 'grid_log10space';
 [ar_fl_saveborr_log10space] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type);
 st_grid_type = 'grid_powerspace';
-\end{verbatim}
-
-\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_0.png}
-
-\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_1.png}
-
-\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_2.png}
-
-\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_3.png}
-
-\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_4.png}
-
-\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_5.png}
-
-\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_6.png}
-
-\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_7.png}
-
-\begin{verbatim}
 [ar_fl_saveborr_powerspace] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type);
 st_grid_type = 'grid_evenlog';
 [ar_fl_saveborr_evenlog] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type);
@@ -7804,6 +7782,10 @@ mp_support_graph('cl_st_xtitle') = {'Asset Grid Counter'};
 mp_support_graph('bl_graph_logy') = true; % do not log
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
 \end{verbatim}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_0.png}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_1.png}
 
 \hypertarget{test-ff_saveborr_grid-log-grid-changing-parameters}{%
 \subsection{Test FF\_SAVEBORR\_GRID Log Grid Changing Parameters}\label{test-ff_saveborr_grid-log-grid-changing-parameters}}
@@ -7845,6 +7827,10 @@ mp_support_graph('bl_graph_logy') = true; % do not log
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
 \end{verbatim}
 
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_2.png}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_3.png}
+
 \hypertarget{test-ff_saveborr_grid-power-grid-changing-parameters}{%
 \subsection{Test FF\_SAVEBORR\_GRID Power Grid Changing Parameters}\label{test-ff_saveborr_grid-power-grid-changing-parameters}}
 
@@ -7880,6 +7866,10 @@ mp_support_graph('cl_st_xtitle') = {'Asset Grid Counter'};
 mp_support_graph('bl_graph_logy') = true; % do not log
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
 \end{verbatim}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_4.png}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_5.png}
 
 \hypertarget{test-ff_saveborr_grid-threshold-grid-changing-parameters}{%
 \subsection{Test FF\_SAVEBORR\_GRID Threshold Grid Changing Parameters}\label{test-ff_saveborr_grid-threshold-grid-changing-parameters}}
@@ -7917,6 +7907,10 @@ mp_support_graph('cl_st_xtitle') = {'Asset Grid Counter'};
 mp_support_graph('bl_graph_logy') = true; % do not log
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
 \end{verbatim}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_6.png}
+
+\includegraphics[width=5.20833in,height=\textheight]{img/fx_saveborr_grid_images/figure_7.png}
 
 \hypertarget{common-functions}{%
 \chapter{Common Functions}\label{common-functions}}

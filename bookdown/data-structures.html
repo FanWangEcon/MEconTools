@@ -366,16 +366,8 @@ st_grid_type = &#39;grid_linspace&#39;;
 [ar_fl_saveborr_linspace] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type);
 st_grid_type = &#39;grid_log10space&#39;;
 [ar_fl_saveborr_log10space] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type);
-st_grid_type = &#39;grid_powerspace&#39;;</code></pre>
-<p><img src="img/fx_saveborr_grid_images/figure_0.png" width="500" /></p>
-<p><img src="img/fx_saveborr_grid_images/figure_1.png" width="500" /></p>
-<p><img src="img/fx_saveborr_grid_images/figure_2.png" width="500" /></p>
-<p><img src="img/fx_saveborr_grid_images/figure_3.png" width="500" /></p>
-<p><img src="img/fx_saveborr_grid_images/figure_4.png" width="500" /></p>
-<p><img src="img/fx_saveborr_grid_images/figure_5.png" width="500" /></p>
-<p><img src="img/fx_saveborr_grid_images/figure_6.png" width="500" /></p>
-<p><img src="img/fx_saveborr_grid_images/figure_7.png" width="500" /></p>
-<pre><code>[ar_fl_saveborr_powerspace] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type);
+st_grid_type = &#39;grid_powerspace&#39;;
+[ar_fl_saveborr_powerspace] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type);
 st_grid_type = &#39;grid_evenlog&#39;;
 [ar_fl_saveborr_evenlog] = ff_saveborr_grid(fl_a_min, fl_a_max, it_a_points, st_grid_type);
 % draw four types of lines jointly
@@ -389,6 +381,8 @@ mp_support_graph(&#39;cl_st_ytitle&#39;) = {&#39;Asset Grid Points&#39;};
 mp_support_graph(&#39;cl_st_xtitle&#39;) = {&#39;Asset Grid Counter&#39;};
 mp_support_graph(&#39;bl_graph_logy&#39;) = true; % do not log
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);</code></pre>
+<p><img src="img/fx_saveborr_grid_images/figure_0.png" width="500" /></p>
+<p><img src="img/fx_saveborr_grid_images/figure_1.png" width="500" /></p>
 </div>
 <div id="test-ff_saveborr_grid-log-grid-changing-parameters" class="section level3">
 <h3><span class="header-section-number">8.1.3</span> Test FF_SAVEBORR_GRID Log Grid Changing Parameters</h3>
@@ -425,6 +419,8 @@ mp_support_graph(&#39;cl_st_ytitle&#39;) = {&#39;Asset Grid Points&#39;};
 mp_support_graph(&#39;cl_st_xtitle&#39;) = {&#39;Asset Grid Counter&#39;};
 mp_support_graph(&#39;bl_graph_logy&#39;) = true; % do not log
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);</code></pre>
+<p><img src="img/fx_saveborr_grid_images/figure_2.png" width="500" /></p>
+<p><img src="img/fx_saveborr_grid_images/figure_3.png" width="500" /></p>
 </div>
 <div id="test-ff_saveborr_grid-power-grid-changing-parameters" class="section level3">
 <h3><span class="header-section-number">8.1.4</span> Test FF_SAVEBORR_GRID Power Grid Changing Parameters</h3>
@@ -457,6 +453,8 @@ mp_support_graph(&#39;cl_st_ytitle&#39;) = {&#39;Asset Grid Points&#39;};
 mp_support_graph(&#39;cl_st_xtitle&#39;) = {&#39;Asset Grid Counter&#39;};
 mp_support_graph(&#39;bl_graph_logy&#39;) = true; % do not log
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);</code></pre>
+<p><img src="img/fx_saveborr_grid_images/figure_4.png" width="500" /></p>
+<p><img src="img/fx_saveborr_grid_images/figure_5.png" width="500" /></p>
 </div>
 <div id="test-ff_saveborr_grid-threshold-grid-changing-parameters" class="section level3">
 <h3><span class="header-section-number">8.1.5</span> Test FF_SAVEBORR_GRID Threshold Grid Changing Parameters</h3>
@@ -490,6 +488,8 @@ mp_support_graph(&#39;cl_st_ytitle&#39;) = {&#39;Asset Grid Points&#39;};
 mp_support_graph(&#39;cl_st_xtitle&#39;) = {&#39;Asset Grid Counter&#39;};
 mp_support_graph(&#39;bl_graph_logy&#39;) = true; % do not log
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);</code></pre>
+<p><img src="img/fx_saveborr_grid_images/figure_6.png" width="500" /></p>
+<p><img src="img/fx_saveborr_grid_images/figure_7.png" width="500" /></p>
 
 </div>
 </div>
