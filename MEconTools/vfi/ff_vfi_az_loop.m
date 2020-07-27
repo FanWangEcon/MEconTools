@@ -50,7 +50,7 @@
 %    mp_support('ffsna_opt_it_col_n_keep') = 9;
 %
 %    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_LOOP() default savings and shock
-%    model simulation
+%    model solution.
 %
 %    [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_LOOP(MP_PARAMS) change model
 %    parameters through MP_PARAMS
@@ -63,8 +63,9 @@
 %    MP_SUPPORT_GRAPH) also changing graphing options, see the
 %    FF_GRAPH_GRID function for what key value paris can be specified.
 %
-%    see also FX_VFI_AZ_LOOP, FF_VFI_AZ_VEC, FF_GRAPH_GRID,
-%    FF_VFI_AZ_BISEC_LOOP, FF_VFI_AZ_BISEC_VEC
+%    see also FX_VFI_AZ_LOOP, FF_VFI_AZ_VEC, FF_VFI_AZ_BISEC_LOOP,
+%    FF_VFI_AZ_BISEC_VEC, FF_VFI_AZ_MZOOM_LOOP, FF_VFI_AZ_MZOOM_VEC,
+%    FF_GRAPH_GRID
 %
 
 %%
@@ -77,6 +78,8 @@ if (~isempty(varargin))
         [mp_params_ext] = varargin{:};
     elseif (length(varargin) == 2)
         [mp_params_ext, mp_support_ext] = varargin{:};
+    elseif (length(varargin) == 3)
+        [mp_params_ext, mp_support_ext, mp_support_graph_ext] = varargin{:};
     end
     
 else
@@ -98,15 +101,15 @@ end
 % support_map
 mp_params = containers.Map('KeyType','char', 'ValueType','any');
 mp_params('fl_crra') = 1.5;
-mp_params('fl_beta') = 0.94;
+mp_params('fl_beta') = 0.95;
 
-mp_params('fl_w') = 1.28;
-mp_params('fl_r') = 0.025;
+mp_params('fl_w') = 1.40;
+mp_params('fl_r') = 0.04;
 
 mp_params('fl_a_min') = 0;
 mp_params('fl_a_max') = 50;
 mp_params('it_a_n') = 100;
-mp_params('st_grid_type') = 'grid_linspace';
+mp_params('st_grid_type') = 'grid_powerspace';
 
 mp_params('fl_z_persist') = 0.80;
 mp_params('fl_shk_std') = 0.20;
@@ -134,23 +137,23 @@ ar_a = ar_a';
 
 % shock vector and transition, normalize mean exp(shk) to 1
 [ar_z, mt_z_trans] = ffy_rouwenhorst(fl_z_persist, fl_shk_std, it_z_n);
-ar_z = exp(ar_z');
+% [ar_z, mt_z_trans] = ffy_tauchen(fl_z_persist, fl_shk_std, it_z_n);
 % normalize mean of exp to 1, fl_shk_std does not shift mean.
 ar_z_stationary = mt_z_trans^1000;
 ar_z_stationary = ar_z_stationary(1,:);
-fl_labor_agg = ar_z_stationary*exp(ar_z');
-ar_z = exp(ar_z)/fl_labor_agg;
+fl_labor_agg = ar_z_stationary*exp(ar_z);
+ar_z = exp(ar_z')/fl_labor_agg;
 
 %% Default Support Parameters
 % support_map
 mp_support = containers.Map('KeyType','char', 'ValueType','any');
 
 % Model Control
-mp_support('fl_lowestc') = -10e10;
+mp_support('fl_lowestc') = -1e10;
 
 % Iteration Control
 mp_support('it_maxiter_val') = 500;
-mp_support('fl_tol_val') = 10e-5;
+mp_support('fl_tol_val') = 1e-5;
 
 % printer various information
 mp_support('bl_timer') = true;
@@ -198,7 +201,7 @@ params_group = values(mp_support, ...
 % ls_ffsna, and ls_ffgrh.
 
 % If to store additional outcomes
-cl_more = {'c', 'y'};
+cl_more = {'c', 'y', 'coh', 'savefraccoh'};
 ar_find_slout = cell2mat(cellfun(@(m) find(strcmp(ls_slout, m)), cl_more, 'UniformOutput', false));
 ar_find_ffcmd = cell2mat(cellfun(@(m) find(strcmp(ls_ffcmd, m)), cl_more, 'UniformOutput', false));
 ar_find_ffsna = cell2mat(cellfun(@(m) find(strcmp(ls_ffsna, m)), cl_more, 'UniformOutput', false));
@@ -333,16 +336,12 @@ end
 %% Convergence Results
 it_iter_last = it_iter;
 if fl_diff <= fl_tol_val || it_iter>=it_maxiter_val
-    mt_val_cur = mt_val_lst;
-    mt_aprime = mt_aprime_lst;
     if (it_iter>=it_maxiter_val)
         flag = 2;
     else
         flag = 1;
     end
 else
-    mt_val = zeros(size(mt_val_lst));
-    mt_aprime = zeros(size(mt_val_lst));
     flag = 0;
 end
 
@@ -353,12 +352,12 @@ end
 %% Results for Printing, and Graphing
 mp_print_graph = containers.Map('KeyType','char', 'ValueType','any');
 mp_print_graph('v') = mt_val_cur;
-mp_print_graph('ap') = mt_aprime;
+mp_print_graph('ap') = mt_aprime_lst;
 if (bl_store_more)
     mp_print_graph('c') = mt_c;
     mp_print_graph('y') = mt_y;
     mp_print_graph('coh') = mt_coh;
-    mp_print_graph('savefraccoh') = mt_aprime./mt_coh;
+    mp_print_graph('savefraccoh') = mt_aprime_lst./mt_coh;
 end
 
 %% Print Parameter Information

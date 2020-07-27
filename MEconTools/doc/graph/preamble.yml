@@ -2,12 +2,13 @@
   title: "Matlab FF_GRAPH_GRID 2D Generic Line Plot Function"
   titleshort: "Multiple Line Graph Function"
   description: |
-    Grid based Graph, x-axis one param, color another param, over outcomes.
+    Policy and Value Function graphs, x-axis one state, color another state, y-axis are value and policies.
+    Distributional graphs, x-axis one state, y-axis and color another state, size show distributional mass.
   core :
     - package: MEconTools
       code: |
-        ff_graph_grid()
-  date: 2020-06-22
+        [ff_graph_grid()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/graph/ff_graph_grid.m)
+  date: 2020-07-25
   date_start: 2020-06-22
   output:
     pdf_document:

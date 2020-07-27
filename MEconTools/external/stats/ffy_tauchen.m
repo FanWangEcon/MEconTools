@@ -30,7 +30,7 @@ function [ar_disc_ar1, mt_disc_ar1_trans] = ffy_tauchen(varargin)
 if (~isempty(varargin))
     
     bl_verbose = false;
-    it_std_bound = 4;
+    it_std_bound = 3;
     
     if (length(varargin) == 3)
         [fl_ar1_persistence, fl_shk_std, it_disc_points] = varargin{:};

@@ -1,0 +1,45 @@
+- file: fx_find_files
+  title: "Matlab Search and Find File Names"
+  titleshort: "Search and Find File Names"
+  description: |
+    Search and find file names.
+  core :
+    - package: MEconTools
+      code: |
+        [ff_find_files()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/sys/ff_find_files.m)
+  date: 2020-07-25
+  date_start: 2020-07-25
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue
+
+- file: fx_mlx2htmlpdf_runandexport
+  title: "Matlab Execute and Export Livescript Files from Many Folders"
+  titleshort: "Execute and Export Livescript Files"
+  description: |
+    Find livescript (mlx) files, execute MLX files, and export MLX files to HTML in a different folder.
+  core :
+    - package: MEconTools
+      code: |
+        [ff_mlx2htmlpdf_runandexport()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/sys/ff_mlx2htmlpdf_runandexport.m)
+  date: 2020-07-25
+  date_start: 2020-07-25
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue

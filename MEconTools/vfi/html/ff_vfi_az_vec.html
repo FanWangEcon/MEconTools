@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>FF_VFI_AZ_VEC (vectorized grid choice) Dynamic Savings Problem</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-07-01"><meta name="DC.source" content="ff_vfi_az_vec.m"><style type="text/css">
+      --><title>FF_VFI_AZ_VEC (vectorized grid choice) Dynamic Savings Problem</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-07-24"><meta name="DC.source" content="ff_vfi_az_vec.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -112,16 +112,15 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
   various printing, storaging, graphing, convergence etc controls
   through MP_SUPPORT</pre><pre>  [MP_VALPOL_OUT, FLAG] = FF_VFI_AZ_VEC(MP_PARAMS, MP_SUPPORT,
   MP_SUPPORT_GRAPH) also changing graphing options, see the
-  FF_GRAPH_GRID function for what key value paris can be specified.</pre><pre>  see also FX_VFI_AZ_VEC, FF_VFI_AZ_LOOP, FF_GRAPH_GRID,
-  FF_VFI_AZ_BISEC_LOOP, FF_VFI_AZ_BISEC_VEC</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Set Default and Parse Inputs</a></li><li><a href="#4">Default Model Parameters</a></li><li><a href="#5">Parse mp_params</a></li><li><a href="#6">Generate A and Z Grids</a></li><li><a href="#7">Default Support Parameters</a></li><li><a href="#8">Whether Additional Outcomes Should be Stored</a></li><li><a href="#9">Initialize Matrix</a></li><li><a href="#10">Define Functions</a></li><li><a href="#11">Iterate and Dynamically Solve</a></li><li><a href="#12">Convergence Results</a></li><li><a href="#13">Results for Printing, and Graphing</a></li><li><a href="#14">Print Parameter Information</a></li><li><a href="#15">Show Value Function Convergence Information</a></li><li><a href="#16">ls_ffcmd summary</a></li><li><a href="#17">ls_ffsna summarize full</a></li><li><a href="#18">ls_ffgrh graph</a></li><li><a href="#19">Store Results for Output</a></li></ul></div><pre class="codeinput"><span class="keyword">function</span> [mp_valpol_out, flag] = ff_vfi_az_vec(varargin)
+  FF_GRAPH_GRID function for what key value paris can be specified.</pre><pre>  see also FX_VFI_AZ_VEC, FF_VFI_AZ_LOOP, FF_VFI_AZ_BISEC_LOOP,
+  FF_VFI_AZ_BISEC_VEC, FF_VFI_AZ_MZOOM_LOOP, FF_VFI_AZ_MZOOM_VEC,
+  FF_GRAPH_GRID</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Set Default and Parse Inputs</a></li><li><a href="#4">Default Model Parameters</a></li><li><a href="#5">Parse mp_params</a></li><li><a href="#6">Generate A and Z Grids</a></li><li><a href="#7">Default Support Parameters</a></li><li><a href="#8">Whether Additional Outcomes Should be Stored</a></li><li><a href="#9">Initialize Matrix</a></li><li><a href="#10">Define Functions</a></li><li><a href="#11">Iterate and Dynamically Solve</a></li><li><a href="#12">Convergence Results</a></li><li><a href="#13">Results for Printing, and Graphing</a></li><li><a href="#14">Print Parameter Information</a></li><li><a href="#15">Show Value Function Convergence Information</a></li><li><a href="#16">ls_ffcmd summary</a></li><li><a href="#17">ls_ffsna summarize full</a></li><li><a href="#18">ls_ffgrh graph</a></li><li><a href="#19">Store Results for Output</a></li></ul></div><pre class="codeinput"><span class="keyword">function</span> [mp_valpol_out, flag] = ff_vfi_az_vec(varargin)
 </pre><h2 id="3">Set Default and Parse Inputs</h2><pre class="codeinput"><span class="keyword">if</span> (~isempty(varargin))
 
     <span class="keyword">if</span> (length(varargin) == 1)
         [mp_params_ext] = varargin{:};
     <span class="keyword">elseif</span> (length(varargin) == 2)
         [mp_params_ext, mp_support_ext] = varargin{:};
-    <span class="keyword">elseif</span> (length(varargin) == 3)
-        [mp_params_ext, mp_support_ext, mp_support_graph_ext] = varargin{:};
     <span class="keyword">end</span>
 
 <span class="keyword">else</span>
@@ -141,15 +140,15 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <span class="keyword">end</span>
 </pre><h2 id="4">Default Model Parameters</h2><p>support_map</p><pre class="codeinput">mp_params = containers.Map(<span class="string">'KeyType'</span>,<span class="string">'char'</span>, <span class="string">'ValueType'</span>,<span class="string">'any'</span>);
 mp_params(<span class="string">'fl_crra'</span>) = 1.5;
-mp_params(<span class="string">'fl_beta'</span>) = 0.94;
+mp_params(<span class="string">'fl_beta'</span>) = 0.95;
 
-mp_params(<span class="string">'fl_w'</span>) = 1.28;
-mp_params(<span class="string">'fl_r'</span>) = 0.025;
+mp_params(<span class="string">'fl_w'</span>) = 1.40;
+mp_params(<span class="string">'fl_r'</span>) = 0.04;
 
 mp_params(<span class="string">'fl_a_min'</span>) = 0;
 mp_params(<span class="string">'fl_a_max'</span>) = 50;
 mp_params(<span class="string">'it_a_n'</span>) = 100;
-mp_params(<span class="string">'st_grid_type'</span>) = <span class="string">'grid_linspace'</span>;
+mp_params(<span class="string">'st_grid_type'</span>) = <span class="string">'grid_powerspace'</span>;
 
 mp_params(<span class="string">'fl_z_persist'</span>) = 0.80;
 mp_params(<span class="string">'fl_shk_std'</span>) = 0.20;
@@ -172,20 +171,20 @@ ar_a = ar_a';
 
 <span class="comment">% shock vector and transition, normalize mean exp(shk) to 1</span>
 [ar_z, mt_z_trans] = ffy_rouwenhorst(fl_z_persist, fl_shk_std, it_z_n, false);
-ar_z = exp(ar_z');
+<span class="comment">% [ar_z, mt_z_trans] = ffy_tauchen(fl_z_persist, fl_shk_std, it_z_n, false);</span>
 <span class="comment">% normalize mean of exp to 1, fl_shk_std does not shift mean.</span>
 ar_z_stationary = mt_z_trans^1000;
 ar_z_stationary = ar_z_stationary(1,:);
-fl_labor_agg = ar_z_stationary*exp(ar_z');
-ar_z = exp(ar_z)/fl_labor_agg;
+fl_labor_agg = ar_z_stationary*exp(ar_z);
+ar_z = exp(ar_z')/fl_labor_agg;
 </pre><h2 id="7">Default Support Parameters</h2><p>support_map</p><pre class="codeinput">mp_support = containers.Map(<span class="string">'KeyType'</span>,<span class="string">'char'</span>, <span class="string">'ValueType'</span>,<span class="string">'any'</span>);
 
 <span class="comment">% Model Control</span>
-mp_support(<span class="string">'fl_lowestc'</span>) = -10e10;
+mp_support(<span class="string">'fl_lowestc'</span>) = -1e10;
 
 <span class="comment">% Iteration Control</span>
 mp_support(<span class="string">'it_maxiter_val'</span>) = 500;
-mp_support(<span class="string">'fl_tol_val'</span>) = 10e-5;
+mp_support(<span class="string">'fl_tol_val'</span>) = 1e-5;
 
 <span class="comment">% printer various information</span>
 mp_support(<span class="string">'bl_timer'</span>) = true;
@@ -224,11 +223,12 @@ params_group = values(mp_support, <span class="keyword">...</span>
 [ls_slout, ls_ffcmd, ls_ffsna, ls_ffgrh,<span class="keyword">...</span>
     ffsna_opt_it_row_n_keep, ffsna_opt_it_col_n_keep] = params_group{:};
 </pre><h2 id="8">Whether Additional Outcomes Should be Stored</h2><p>when state space are large, might not be a good idea to store all possible model output matrixes, but could be controlled with these if things should be outputed. If bl_store_more = true, will output store all additional possible outcomes if bl_vfi_store_all = true. Internally, which output becomes tabular or graphical controled by ls_ffcmd, ls_ffsna, and ls_ffgrh.</p><pre class="codeinput"><span class="comment">% If to store additional outcomes</span>
-cl_more = {<span class="string">'c'</span>, <span class="string">'y'</span>};
+cl_more = {<span class="string">'c'</span>, <span class="string">'y'</span>, <span class="string">'coh'</span>, <span class="string">'savefraccoh'</span>};
 ar_find_slout = cell2mat(cellfun(@(m) find(strcmp(ls_slout, m)), cl_more, <span class="string">'UniformOutput'</span>, false));
 ar_find_ffcmd = cell2mat(cellfun(@(m) find(strcmp(ls_ffcmd, m)), cl_more, <span class="string">'UniformOutput'</span>, false));
 ar_find_ffsna = cell2mat(cellfun(@(m) find(strcmp(ls_ffsna, m)), cl_more, <span class="string">'UniformOutput'</span>, false));
 ar_find_ffgrh = cell2mat(cellfun(@(m) find(strcmp(ls_ffgrh, m)), cl_more, <span class="string">'UniformOutput'</span>, false));
+bl_store_more = false;
 <span class="keyword">if</span> (length(ar_find_slout) + length(ar_find_ffcmd) + length(ar_find_ffsna) + length(ar_find_ffgrh) &gt;1)
     bl_store_more = true;
 <span class="keyword">end</span>
@@ -370,200 +370,289 @@ bl_converged = false;
     <span class="keyword">end</span>
 
 <span class="keyword">end</span>
-</pre><pre class="codeoutput">ff_vfi_az_bisec_loop, it_iter:1, fl_diff:40.8357
-ff_vfi_az_bisec_loop, it_iter:2, fl_diff:31.0705
-ff_vfi_az_bisec_loop, it_iter:3, fl_diff:25.5303
-ff_vfi_az_bisec_loop, it_iter:4, fl_diff:21.5376
-ff_vfi_az_bisec_loop, it_iter:5, fl_diff:18.4465
-ff_vfi_az_bisec_loop, it_iter:6, fl_diff:15.9614
-ff_vfi_az_bisec_loop, it_iter:7, fl_diff:13.9145
-ff_vfi_az_bisec_loop, it_iter:8, fl_diff:12.2
-ff_vfi_az_bisec_loop, it_iter:9, fl_diff:10.7464
-ff_vfi_az_bisec_loop, it_iter:10, fl_diff:9.5018
-ff_vfi_az_bisec_loop, it_iter:11, fl_diff:8.4278
-ff_vfi_az_bisec_loop, it_iter:12, fl_diff:7.4949
-ff_vfi_az_bisec_loop, it_iter:13, fl_diff:6.6805
-ff_vfi_az_bisec_loop, it_iter:14, fl_diff:5.9662
-ff_vfi_az_bisec_loop, it_iter:15, fl_diff:5.337
-ff_vfi_az_bisec_loop, it_iter:16, fl_diff:4.7819
-ff_vfi_az_bisec_loop, it_iter:17, fl_diff:4.29
-ff_vfi_az_bisec_loop, it_iter:18, fl_diff:3.8532
-ff_vfi_az_bisec_loop, it_iter:19, fl_diff:3.4653
-ff_vfi_az_bisec_loop, it_iter:20, fl_diff:3.1195
-ff_vfi_az_bisec_loop, it_iter:21, fl_diff:2.8106
-ff_vfi_az_bisec_loop, it_iter:22, fl_diff:2.5347
-ff_vfi_az_bisec_loop, it_iter:23, fl_diff:2.2881
-ff_vfi_az_bisec_loop, it_iter:24, fl_diff:2.0672
-ff_vfi_az_bisec_loop, it_iter:25, fl_diff:1.8694
-ff_vfi_az_bisec_loop, it_iter:26, fl_diff:1.6922
-ff_vfi_az_bisec_loop, it_iter:27, fl_diff:1.5329
-ff_vfi_az_bisec_loop, it_iter:28, fl_diff:1.3897
-ff_vfi_az_bisec_loop, it_iter:29, fl_diff:1.261
-ff_vfi_az_bisec_loop, it_iter:30, fl_diff:1.1453
-ff_vfi_az_bisec_loop, it_iter:31, fl_diff:1.0414
-ff_vfi_az_bisec_loop, it_iter:32, fl_diff:0.94814
-ff_vfi_az_bisec_loop, it_iter:33, fl_diff:0.86421
-ff_vfi_az_bisec_loop, it_iter:34, fl_diff:0.78869
-ff_vfi_az_bisec_loop, it_iter:35, fl_diff:0.72065
-ff_vfi_az_bisec_loop, it_iter:36, fl_diff:0.65931
-ff_vfi_az_bisec_loop, it_iter:37, fl_diff:0.60401
-ff_vfi_az_bisec_loop, it_iter:38, fl_diff:0.55416
-ff_vfi_az_bisec_loop, it_iter:39, fl_diff:0.50918
-ff_vfi_az_bisec_loop, it_iter:40, fl_diff:0.46858
-ff_vfi_az_bisec_loop, it_iter:41, fl_diff:0.43187
-ff_vfi_az_bisec_loop, it_iter:42, fl_diff:0.39867
-ff_vfi_az_bisec_loop, it_iter:43, fl_diff:0.36857
-ff_vfi_az_bisec_loop, it_iter:44, fl_diff:0.34125
-ff_vfi_az_bisec_loop, it_iter:45, fl_diff:0.31638
-ff_vfi_az_bisec_loop, it_iter:46, fl_diff:0.2937
-ff_vfi_az_bisec_loop, it_iter:47, fl_diff:0.27297
-ff_vfi_az_bisec_loop, it_iter:48, fl_diff:0.25399
-ff_vfi_az_bisec_loop, it_iter:49, fl_diff:0.23656
-ff_vfi_az_bisec_loop, it_iter:50, fl_diff:0.22054
-ff_vfi_az_bisec_loop, it_iter:51, fl_diff:0.20577
-ff_vfi_az_bisec_loop, it_iter:52, fl_diff:0.19213
-ff_vfi_az_bisec_loop, it_iter:53, fl_diff:0.17952
-ff_vfi_az_bisec_loop, it_iter:54, fl_diff:0.16784
-ff_vfi_az_bisec_loop, it_iter:55, fl_diff:0.15701
-ff_vfi_az_bisec_loop, it_iter:56, fl_diff:0.14695
-ff_vfi_az_bisec_loop, it_iter:57, fl_diff:0.13759
-ff_vfi_az_bisec_loop, it_iter:58, fl_diff:0.12888
-ff_vfi_az_bisec_loop, it_iter:59, fl_diff:0.12077
-ff_vfi_az_bisec_loop, it_iter:60, fl_diff:0.11321
-ff_vfi_az_bisec_loop, it_iter:61, fl_diff:0.10614
-ff_vfi_az_bisec_loop, it_iter:62, fl_diff:0.09955
-ff_vfi_az_bisec_loop, it_iter:63, fl_diff:0.093387
-ff_vfi_az_bisec_loop, it_iter:64, fl_diff:0.087624
-ff_vfi_az_bisec_loop, it_iter:65, fl_diff:0.082231
-ff_vfi_az_bisec_loop, it_iter:66, fl_diff:0.077184
-ff_vfi_az_bisec_loop, it_iter:67, fl_diff:0.072457
-ff_vfi_az_bisec_loop, it_iter:68, fl_diff:0.068029
-ff_vfi_az_bisec_loop, it_iter:69, fl_diff:0.063879
-ff_vfi_az_bisec_loop, it_iter:70, fl_diff:0.059989
-ff_vfi_az_bisec_loop, it_iter:71, fl_diff:0.056342
-ff_vfi_az_bisec_loop, it_iter:72, fl_diff:0.05292
-ff_vfi_az_bisec_loop, it_iter:73, fl_diff:0.049711
-ff_vfi_az_bisec_loop, it_iter:74, fl_diff:0.046699
-ff_vfi_az_bisec_loop, it_iter:75, fl_diff:0.043873
-ff_vfi_az_bisec_loop, it_iter:76, fl_diff:0.04122
-ff_vfi_az_bisec_loop, it_iter:77, fl_diff:0.038729
-ff_vfi_az_bisec_loop, it_iter:78, fl_diff:0.036391
-ff_vfi_az_bisec_loop, it_iter:79, fl_diff:0.034195
-ff_vfi_az_bisec_loop, it_iter:80, fl_diff:0.032133
-ff_vfi_az_bisec_loop, it_iter:81, fl_diff:0.030196
-ff_vfi_az_bisec_loop, it_iter:82, fl_diff:0.028377
-ff_vfi_az_bisec_loop, it_iter:83, fl_diff:0.026668
-ff_vfi_az_bisec_loop, it_iter:84, fl_diff:0.025063
-ff_vfi_az_bisec_loop, it_iter:85, fl_diff:0.023555
-ff_vfi_az_bisec_loop, it_iter:86, fl_diff:0.022138
-ff_vfi_az_bisec_loop, it_iter:87, fl_diff:0.020806
-ff_vfi_az_bisec_loop, it_iter:88, fl_diff:0.019555
-ff_vfi_az_bisec_loop, it_iter:89, fl_diff:0.01838
-ff_vfi_az_bisec_loop, it_iter:90, fl_diff:0.017275
-ff_vfi_az_bisec_loop, it_iter:91, fl_diff:0.016237
-ff_vfi_az_bisec_loop, it_iter:92, fl_diff:0.015261
-ff_vfi_az_bisec_loop, it_iter:93, fl_diff:0.014344
-ff_vfi_az_bisec_loop, it_iter:94, fl_diff:0.013483
-ff_vfi_az_bisec_loop, it_iter:95, fl_diff:0.012673
-ff_vfi_az_bisec_loop, it_iter:96, fl_diff:0.011912
-ff_vfi_az_bisec_loop, it_iter:97, fl_diff:0.011197
-ff_vfi_az_bisec_loop, it_iter:98, fl_diff:0.010524
-ff_vfi_az_bisec_loop, it_iter:99, fl_diff:0.0098924
-ff_vfi_az_bisec_loop, it_iter:100, fl_diff:0.0092986
-ff_vfi_az_bisec_loop, it_iter:101, fl_diff:0.0087403
-ff_vfi_az_bisec_loop, it_iter:102, fl_diff:0.0082157
-ff_vfi_az_bisec_loop, it_iter:103, fl_diff:0.0077225
-ff_vfi_az_bisec_loop, it_iter:104, fl_diff:0.007259
-ff_vfi_az_bisec_loop, it_iter:105, fl_diff:0.0068233
-ff_vfi_az_bisec_loop, it_iter:106, fl_diff:0.0064138
-ff_vfi_az_bisec_loop, it_iter:107, fl_diff:0.0060289
-ff_vfi_az_bisec_loop, it_iter:108, fl_diff:0.005667
-ff_vfi_az_bisec_loop, it_iter:109, fl_diff:0.0053269
-ff_vfi_az_bisec_loop, it_iter:110, fl_diff:0.0050073
-ff_vfi_az_bisec_loop, it_iter:111, fl_diff:0.0047068
-ff_vfi_az_bisec_loop, it_iter:112, fl_diff:0.0044243
-ff_vfi_az_bisec_loop, it_iter:113, fl_diff:0.0041588
-ff_vfi_az_bisec_loop, it_iter:114, fl_diff:0.0039093
-ff_vfi_az_bisec_loop, it_iter:115, fl_diff:0.0036747
-ff_vfi_az_bisec_loop, it_iter:116, fl_diff:0.0034542
-ff_vfi_az_bisec_loop, it_iter:117, fl_diff:0.0032469
-ff_vfi_az_bisec_loop, it_iter:118, fl_diff:0.0030521
-ff_vfi_az_bisec_loop, it_iter:119, fl_diff:0.0028689
-ff_vfi_az_bisec_loop, it_iter:120, fl_diff:0.0026968
-ff_vfi_az_bisec_loop, it_iter:121, fl_diff:0.002535
-ff_vfi_az_bisec_loop, it_iter:122, fl_diff:0.0023829
-ff_vfi_az_bisec_loop, it_iter:123, fl_diff:0.0022399
-ff_vfi_az_bisec_loop, it_iter:124, fl_diff:0.0021055
-ff_vfi_az_bisec_loop, it_iter:125, fl_diff:0.0019792
-ff_vfi_az_bisec_loop, it_iter:126, fl_diff:0.0018604
-ff_vfi_az_bisec_loop, it_iter:127, fl_diff:0.0017488
-ff_vfi_az_bisec_loop, it_iter:128, fl_diff:0.0016438
-ff_vfi_az_bisec_loop, it_iter:129, fl_diff:0.0015452
-ff_vfi_az_bisec_loop, it_iter:130, fl_diff:0.0014525
-ff_vfi_az_bisec_loop, it_iter:131, fl_diff:0.0013653
-ff_vfi_az_bisec_loop, it_iter:132, fl_diff:0.0012834
-ff_vfi_az_bisec_loop, it_iter:133, fl_diff:0.0012064
-ff_vfi_az_bisec_loop, it_iter:134, fl_diff:0.001134
-ff_vfi_az_bisec_loop, it_iter:135, fl_diff:0.001066
-ff_vfi_az_bisec_loop, it_iter:136, fl_diff:0.001002
-ff_vfi_az_bisec_loop, it_iter:137, fl_diff:0.0009419
-ff_vfi_az_bisec_loop, it_iter:138, fl_diff:0.00088539
-ff_vfi_az_bisec_loop, it_iter:139, fl_diff:0.00083227
-ff_vfi_az_bisec_loop, it_iter:140, fl_diff:0.00078233
-ff_vfi_az_bisec_loop, it_iter:141, fl_diff:0.00073539
-ff_vfi_az_bisec_loop, it_iter:142, fl_diff:0.00069127
-ff_vfi_az_bisec_loop, it_iter:143, fl_diff:0.00064979
-ff_vfi_az_bisec_loop, it_iter:144, fl_diff:0.0006108
-ff_vfi_az_bisec_loop, it_iter:145, fl_diff:0.00057415
-ff_vfi_az_bisec_loop, it_iter:146, fl_diff:0.0005397
-ff_vfi_az_bisec_loop, it_iter:147, fl_diff:0.00050732
-ff_vfi_az_bisec_loop, it_iter:148, fl_diff:0.00047688
-ff_vfi_az_bisec_loop, it_iter:149, fl_diff:0.00044827
-ff_vfi_az_bisec_loop, it_iter:150, fl_diff:0.00042137
-ff_vfi_az_bisec_loop, it_iter:151, fl_diff:0.00039609
-ff_vfi_az_bisec_loop, it_iter:152, fl_diff:0.00037233
-ff_vfi_az_bisec_loop, it_iter:153, fl_diff:0.00034999
-ff_vfi_az_bisec_loop, it_iter:154, fl_diff:0.00032899
-ff_vfi_az_bisec_loop, it_iter:155, fl_diff:0.00030925
-ff_vfi_az_bisec_loop, it_iter:156, fl_diff:0.00029069
-ff_vfi_az_bisec_loop, it_iter:157, fl_diff:0.00027325
-ff_vfi_az_bisec_loop, it_iter:158, fl_diff:0.00025686
-ff_vfi_az_bisec_loop, it_iter:159, fl_diff:0.00024144
-ff_vfi_az_bisec_loop, it_iter:160, fl_diff:0.00022696
-ff_vfi_az_bisec_loop, it_iter:161, fl_diff:0.00021334
-ff_vfi_az_bisec_loop, it_iter:162, fl_diff:0.00020054
-ff_vfi_az_bisec_loop, it_iter:163, fl_diff:0.00018851
-ff_vfi_az_bisec_loop, it_iter:164, fl_diff:0.0001772
-ff_vfi_az_bisec_loop, it_iter:165, fl_diff:0.00016657
-ff_vfi_az_bisec_loop, it_iter:166, fl_diff:0.00015657
-ff_vfi_az_bisec_loop, it_iter:167, fl_diff:0.00014718
-ff_vfi_az_bisec_loop, it_iter:168, fl_diff:0.00013835
-ff_vfi_az_bisec_loop, it_iter:169, fl_diff:0.00013005
-ff_vfi_az_bisec_loop, it_iter:170, fl_diff:0.00012224
-ff_vfi_az_bisec_loop, it_iter:171, fl_diff:0.00011491
-ff_vfi_az_bisec_loop, it_iter:172, fl_diff:0.00010801
-ff_vfi_az_bisec_loop, it_iter:173, fl_diff:0.00010153
-ff_vfi_az_bisec_loop, it_iter:174, fl_diff:9.5441e-05
-ff_vfi_az_bisec_loop, it_iter:175, fl_diff:8.9715e-05
+</pre><pre class="codeoutput">ff_vfi_az_bisec_loop, it_iter:1, fl_diff:34.289
+ff_vfi_az_bisec_loop, it_iter:2, fl_diff:25.3225
+ff_vfi_az_bisec_loop, it_iter:3, fl_diff:20.9288
+ff_vfi_az_bisec_loop, it_iter:4, fl_diff:17.9361
+ff_vfi_az_bisec_loop, it_iter:5, fl_diff:15.6881
+ff_vfi_az_bisec_loop, it_iter:6, fl_diff:13.9099
+ff_vfi_az_bisec_loop, it_iter:7, fl_diff:12.4557
+ff_vfi_az_bisec_loop, it_iter:8, fl_diff:11.237
+ff_vfi_az_bisec_loop, it_iter:9, fl_diff:10.1995
+ff_vfi_az_bisec_loop, it_iter:10, fl_diff:9.3022
+ff_vfi_az_bisec_loop, it_iter:11, fl_diff:8.5194
+ff_vfi_az_bisec_loop, it_iter:12, fl_diff:7.8306
+ff_vfi_az_bisec_loop, it_iter:13, fl_diff:7.2177
+ff_vfi_az_bisec_loop, it_iter:14, fl_diff:6.6717
+ff_vfi_az_bisec_loop, it_iter:15, fl_diff:6.184
+ff_vfi_az_bisec_loop, it_iter:16, fl_diff:5.7438
+ff_vfi_az_bisec_loop, it_iter:17, fl_diff:5.341
+ff_vfi_az_bisec_loop, it_iter:18, fl_diff:4.9701
+ff_vfi_az_bisec_loop, it_iter:19, fl_diff:4.6287
+ff_vfi_az_bisec_loop, it_iter:20, fl_diff:4.3163
+ff_vfi_az_bisec_loop, it_iter:21, fl_diff:4.0301
+ff_vfi_az_bisec_loop, it_iter:22, fl_diff:3.7679
+ff_vfi_az_bisec_loop, it_iter:23, fl_diff:3.5273
+ff_vfi_az_bisec_loop, it_iter:24, fl_diff:3.3055
+ff_vfi_az_bisec_loop, it_iter:25, fl_diff:3.1008
+ff_vfi_az_bisec_loop, it_iter:26, fl_diff:2.9109
+ff_vfi_az_bisec_loop, it_iter:27, fl_diff:2.7362
+ff_vfi_az_bisec_loop, it_iter:28, fl_diff:2.5744
+ff_vfi_az_bisec_loop, it_iter:29, fl_diff:2.4231
+ff_vfi_az_bisec_loop, it_iter:30, fl_diff:2.2815
+ff_vfi_az_bisec_loop, it_iter:31, fl_diff:2.1498
+ff_vfi_az_bisec_loop, it_iter:32, fl_diff:2.0256
+ff_vfi_az_bisec_loop, it_iter:33, fl_diff:1.9085
+ff_vfi_az_bisec_loop, it_iter:34, fl_diff:1.7983
+ff_vfi_az_bisec_loop, it_iter:35, fl_diff:1.6946
+ff_vfi_az_bisec_loop, it_iter:36, fl_diff:1.5971
+ff_vfi_az_bisec_loop, it_iter:37, fl_diff:1.5054
+ff_vfi_az_bisec_loop, it_iter:38, fl_diff:1.4193
+ff_vfi_az_bisec_loop, it_iter:39, fl_diff:1.3385
+ff_vfi_az_bisec_loop, it_iter:40, fl_diff:1.2625
+ff_vfi_az_bisec_loop, it_iter:41, fl_diff:1.1912
+ff_vfi_az_bisec_loop, it_iter:42, fl_diff:1.1241
+ff_vfi_az_bisec_loop, it_iter:43, fl_diff:1.0611
+ff_vfi_az_bisec_loop, it_iter:44, fl_diff:1.002
+ff_vfi_az_bisec_loop, it_iter:45, fl_diff:0.94638
+ff_vfi_az_bisec_loop, it_iter:46, fl_diff:0.89412
+ff_vfi_az_bisec_loop, it_iter:47, fl_diff:0.84489
+ff_vfi_az_bisec_loop, it_iter:48, fl_diff:0.7985
+ff_vfi_az_bisec_loop, it_iter:49, fl_diff:0.75475
+ff_vfi_az_bisec_loop, it_iter:50, fl_diff:0.71346
+ff_vfi_az_bisec_loop, it_iter:51, fl_diff:0.6745
+ff_vfi_az_bisec_loop, it_iter:52, fl_diff:0.6377
+ff_vfi_az_bisec_loop, it_iter:53, fl_diff:0.60297
+ff_vfi_az_bisec_loop, it_iter:54, fl_diff:0.57016
+ff_vfi_az_bisec_loop, it_iter:55, fl_diff:0.53917
+ff_vfi_az_bisec_loop, it_iter:56, fl_diff:0.50992
+ff_vfi_az_bisec_loop, it_iter:57, fl_diff:0.4823
+ff_vfi_az_bisec_loop, it_iter:58, fl_diff:0.4562
+ff_vfi_az_bisec_loop, it_iter:59, fl_diff:0.43154
+ff_vfi_az_bisec_loop, it_iter:60, fl_diff:0.40825
+ff_vfi_az_bisec_loop, it_iter:61, fl_diff:0.38625
+ff_vfi_az_bisec_loop, it_iter:62, fl_diff:0.36545
+ff_vfi_az_bisec_loop, it_iter:63, fl_diff:0.34581
+ff_vfi_az_bisec_loop, it_iter:64, fl_diff:0.32724
+ff_vfi_az_bisec_loop, it_iter:65, fl_diff:0.3097
+ff_vfi_az_bisec_loop, it_iter:66, fl_diff:0.29313
+ff_vfi_az_bisec_loop, it_iter:67, fl_diff:0.27746
+ff_vfi_az_bisec_loop, it_iter:68, fl_diff:0.26265
+ff_vfi_az_bisec_loop, it_iter:69, fl_diff:0.24866
+ff_vfi_az_bisec_loop, it_iter:70, fl_diff:0.23542
+ff_vfi_az_bisec_loop, it_iter:71, fl_diff:0.22292
+ff_vfi_az_bisec_loop, it_iter:72, fl_diff:0.2111
+ff_vfi_az_bisec_loop, it_iter:73, fl_diff:0.19992
+ff_vfi_az_bisec_loop, it_iter:74, fl_diff:0.18935
+ff_vfi_az_bisec_loop, it_iter:75, fl_diff:0.17935
+ff_vfi_az_bisec_loop, it_iter:76, fl_diff:0.16989
+ff_vfi_az_bisec_loop, it_iter:77, fl_diff:0.16094
+ff_vfi_az_bisec_loop, it_iter:78, fl_diff:0.15248
+ff_vfi_az_bisec_loop, it_iter:79, fl_diff:0.14447
+ff_vfi_az_bisec_loop, it_iter:80, fl_diff:0.1369
+ff_vfi_az_bisec_loop, it_iter:81, fl_diff:0.12974
+ff_vfi_az_bisec_loop, it_iter:82, fl_diff:0.12295
+ff_vfi_az_bisec_loop, it_iter:83, fl_diff:0.11654
+ff_vfi_az_bisec_loop, it_iter:84, fl_diff:0.11046
+ff_vfi_az_bisec_loop, it_iter:85, fl_diff:0.10471
+ff_vfi_az_bisec_loop, it_iter:86, fl_diff:0.099265
+ff_vfi_az_bisec_loop, it_iter:87, fl_diff:0.09411
+ff_vfi_az_bisec_loop, it_iter:88, fl_diff:0.089228
+ff_vfi_az_bisec_loop, it_iter:89, fl_diff:0.084606
+ff_vfi_az_bisec_loop, it_iter:90, fl_diff:0.080229
+ff_vfi_az_bisec_loop, it_iter:91, fl_diff:0.076083
+ff_vfi_az_bisec_loop, it_iter:92, fl_diff:0.072155
+ff_vfi_az_bisec_loop, it_iter:93, fl_diff:0.068435
+ff_vfi_az_bisec_loop, it_iter:94, fl_diff:0.06491
+ff_vfi_az_bisec_loop, it_iter:95, fl_diff:0.061571
+ff_vfi_az_bisec_loop, it_iter:96, fl_diff:0.058406
+ff_vfi_az_bisec_loop, it_iter:97, fl_diff:0.055408
+ff_vfi_az_bisec_loop, it_iter:98, fl_diff:0.052566
+ff_vfi_az_bisec_loop, it_iter:99, fl_diff:0.049872
+ff_vfi_az_bisec_loop, it_iter:100, fl_diff:0.047319
+ff_vfi_az_bisec_loop, it_iter:101, fl_diff:0.044899
+ff_vfi_az_bisec_loop, it_iter:102, fl_diff:0.042604
+ff_vfi_az_bisec_loop, it_iter:103, fl_diff:0.040429
+ff_vfi_az_bisec_loop, it_iter:104, fl_diff:0.038366
+ff_vfi_az_bisec_loop, it_iter:105, fl_diff:0.03641
+ff_vfi_az_bisec_loop, it_iter:106, fl_diff:0.034556
+ff_vfi_az_bisec_loop, it_iter:107, fl_diff:0.032797
+ff_vfi_az_bisec_loop, it_iter:108, fl_diff:0.031129
+ff_vfi_az_bisec_loop, it_iter:109, fl_diff:0.029546
+ff_vfi_az_bisec_loop, it_iter:110, fl_diff:0.028046
+ff_vfi_az_bisec_loop, it_iter:111, fl_diff:0.026622
+ff_vfi_az_bisec_loop, it_iter:112, fl_diff:0.025271
+ff_vfi_az_bisec_loop, it_iter:113, fl_diff:0.02399
+ff_vfi_az_bisec_loop, it_iter:114, fl_diff:0.022774
+ff_vfi_az_bisec_loop, it_iter:115, fl_diff:0.021621
+ff_vfi_az_bisec_loop, it_iter:116, fl_diff:0.020527
+ff_vfi_az_bisec_loop, it_iter:117, fl_diff:0.019488
+ff_vfi_az_bisec_loop, it_iter:118, fl_diff:0.018503
+ff_vfi_az_bisec_loop, it_iter:119, fl_diff:0.017567
+ff_vfi_az_bisec_loop, it_iter:120, fl_diff:0.01668
+ff_vfi_az_bisec_loop, it_iter:121, fl_diff:0.015838
+ff_vfi_az_bisec_loop, it_iter:122, fl_diff:0.015038
+ff_vfi_az_bisec_loop, it_iter:123, fl_diff:0.014279
+ff_vfi_az_bisec_loop, it_iter:124, fl_diff:0.013559
+ff_vfi_az_bisec_loop, it_iter:125, fl_diff:0.012876
+ff_vfi_az_bisec_loop, it_iter:126, fl_diff:0.012227
+ff_vfi_az_bisec_loop, it_iter:127, fl_diff:0.011611
+ff_vfi_az_bisec_loop, it_iter:128, fl_diff:0.011026
+ff_vfi_az_bisec_loop, it_iter:129, fl_diff:0.010471
+ff_vfi_az_bisec_loop, it_iter:130, fl_diff:0.0099436
+ff_vfi_az_bisec_loop, it_iter:131, fl_diff:0.0094432
+ff_vfi_az_bisec_loop, it_iter:132, fl_diff:0.0089681
+ff_vfi_az_bisec_loop, it_iter:133, fl_diff:0.0085171
+ff_vfi_az_bisec_loop, it_iter:134, fl_diff:0.0080888
+ff_vfi_az_bisec_loop, it_iter:135, fl_diff:0.0076822
+ff_vfi_az_bisec_loop, it_iter:136, fl_diff:0.0072961
+ff_vfi_az_bisec_loop, it_iter:137, fl_diff:0.0069295
+ff_vfi_az_bisec_loop, it_iter:138, fl_diff:0.0065814
+ff_vfi_az_bisec_loop, it_iter:139, fl_diff:0.0062508
+ff_vfi_az_bisec_loop, it_iter:140, fl_diff:0.005937
+ff_vfi_az_bisec_loop, it_iter:141, fl_diff:0.0056389
+ff_vfi_az_bisec_loop, it_iter:142, fl_diff:0.0053558
+ff_vfi_az_bisec_loop, it_iter:143, fl_diff:0.005087
+ff_vfi_az_bisec_loop, it_iter:144, fl_diff:0.0048318
+ff_vfi_az_bisec_loop, it_iter:145, fl_diff:0.0045894
+ff_vfi_az_bisec_loop, it_iter:146, fl_diff:0.0043591
+ff_vfi_az_bisec_loop, it_iter:147, fl_diff:0.0041405
+ff_vfi_az_bisec_loop, it_iter:148, fl_diff:0.0039328
+ff_vfi_az_bisec_loop, it_iter:149, fl_diff:0.0037356
+ff_vfi_az_bisec_loop, it_iter:150, fl_diff:0.0035483
+ff_vfi_az_bisec_loop, it_iter:151, fl_diff:0.0033705
+ff_vfi_az_bisec_loop, it_iter:152, fl_diff:0.0032015
+ff_vfi_az_bisec_loop, it_iter:153, fl_diff:0.0030411
+ff_vfi_az_bisec_loop, it_iter:154, fl_diff:0.0028887
+ff_vfi_az_bisec_loop, it_iter:155, fl_diff:0.0027439
+ff_vfi_az_bisec_loop, it_iter:156, fl_diff:0.0026064
+ff_vfi_az_bisec_loop, it_iter:157, fl_diff:0.0024758
+ff_vfi_az_bisec_loop, it_iter:158, fl_diff:0.0023518
+ff_vfi_az_bisec_loop, it_iter:159, fl_diff:0.002234
+ff_vfi_az_bisec_loop, it_iter:160, fl_diff:0.0021221
+ff_vfi_az_bisec_loop, it_iter:161, fl_diff:0.0020158
+ff_vfi_az_bisec_loop, it_iter:162, fl_diff:0.0019149
+ff_vfi_az_bisec_loop, it_iter:163, fl_diff:0.001819
+ff_vfi_az_bisec_loop, it_iter:164, fl_diff:0.0017279
+ff_vfi_az_bisec_loop, it_iter:165, fl_diff:0.0016414
+ff_vfi_az_bisec_loop, it_iter:166, fl_diff:0.0015592
+ff_vfi_az_bisec_loop, it_iter:167, fl_diff:0.0014812
+ff_vfi_az_bisec_loop, it_iter:168, fl_diff:0.001407
+ff_vfi_az_bisec_loop, it_iter:169, fl_diff:0.0013366
+ff_vfi_az_bisec_loop, it_iter:170, fl_diff:0.0012697
+ff_vfi_az_bisec_loop, it_iter:171, fl_diff:0.0012061
+ff_vfi_az_bisec_loop, it_iter:172, fl_diff:0.0011458
+ff_vfi_az_bisec_loop, it_iter:173, fl_diff:0.0010884
+ff_vfi_az_bisec_loop, it_iter:174, fl_diff:0.001034
+ff_vfi_az_bisec_loop, it_iter:175, fl_diff:0.00098221
+ff_vfi_az_bisec_loop, it_iter:176, fl_diff:0.00093306
+ff_vfi_az_bisec_loop, it_iter:177, fl_diff:0.00088637
+ff_vfi_az_bisec_loop, it_iter:178, fl_diff:0.00084201
+ff_vfi_az_bisec_loop, it_iter:179, fl_diff:0.00079988
+ff_vfi_az_bisec_loop, it_iter:180, fl_diff:0.00075986
+ff_vfi_az_bisec_loop, it_iter:181, fl_diff:0.00072184
+ff_vfi_az_bisec_loop, it_iter:182, fl_diff:0.00068573
+ff_vfi_az_bisec_loop, it_iter:183, fl_diff:0.00065142
+ff_vfi_az_bisec_loop, it_iter:184, fl_diff:0.00061883
+ff_vfi_az_bisec_loop, it_iter:185, fl_diff:0.00058787
+ff_vfi_az_bisec_loop, it_iter:186, fl_diff:0.00055846
+ff_vfi_az_bisec_loop, it_iter:187, fl_diff:0.00053053
+ff_vfi_az_bisec_loop, it_iter:188, fl_diff:0.00050399
+ff_vfi_az_bisec_loop, it_iter:189, fl_diff:0.00047878
+ff_vfi_az_bisec_loop, it_iter:190, fl_diff:0.00045483
+ff_vfi_az_bisec_loop, it_iter:191, fl_diff:0.00043208
+ff_vfi_az_bisec_loop, it_iter:192, fl_diff:0.00041046
+ff_vfi_az_bisec_loop, it_iter:193, fl_diff:0.00038993
+ff_vfi_az_bisec_loop, it_iter:194, fl_diff:0.00037043
+ff_vfi_az_bisec_loop, it_iter:195, fl_diff:0.0003519
+ff_vfi_az_bisec_loop, it_iter:196, fl_diff:0.0003343
+ff_vfi_az_bisec_loop, it_iter:197, fl_diff:0.00031758
+ff_vfi_az_bisec_loop, it_iter:198, fl_diff:0.0003017
+ff_vfi_az_bisec_loop, it_iter:199, fl_diff:0.00028661
+ff_vfi_az_bisec_loop, it_iter:200, fl_diff:0.00027227
+ff_vfi_az_bisec_loop, it_iter:201, fl_diff:0.00025866
+ff_vfi_az_bisec_loop, it_iter:202, fl_diff:0.00024572
+ff_vfi_az_bisec_loop, it_iter:203, fl_diff:0.00023343
+ff_vfi_az_bisec_loop, it_iter:204, fl_diff:0.00022176
+ff_vfi_az_bisec_loop, it_iter:205, fl_diff:0.00021067
+ff_vfi_az_bisec_loop, it_iter:206, fl_diff:0.00020013
+ff_vfi_az_bisec_loop, it_iter:207, fl_diff:0.00019012
+ff_vfi_az_bisec_loop, it_iter:208, fl_diff:0.00018061
+ff_vfi_az_bisec_loop, it_iter:209, fl_diff:0.00017158
+ff_vfi_az_bisec_loop, it_iter:210, fl_diff:0.000163
+ff_vfi_az_bisec_loop, it_iter:211, fl_diff:0.00015485
+ff_vfi_az_bisec_loop, it_iter:212, fl_diff:0.00014711
+ff_vfi_az_bisec_loop, it_iter:213, fl_diff:0.00013975
+ff_vfi_az_bisec_loop, it_iter:214, fl_diff:0.00013276
+ff_vfi_az_bisec_loop, it_iter:215, fl_diff:0.00012612
+ff_vfi_az_bisec_loop, it_iter:216, fl_diff:0.00011982
+ff_vfi_az_bisec_loop, it_iter:217, fl_diff:0.00011382
+ff_vfi_az_bisec_loop, it_iter:218, fl_diff:0.00010813
+ff_vfi_az_bisec_loop, it_iter:219, fl_diff:0.00010272
+ff_vfi_az_bisec_loop, it_iter:220, fl_diff:9.7588e-05
+ff_vfi_az_bisec_loop, it_iter:221, fl_diff:9.2708e-05
+ff_vfi_az_bisec_loop, it_iter:222, fl_diff:8.8072e-05
+ff_vfi_az_bisec_loop, it_iter:223, fl_diff:8.3668e-05
+ff_vfi_az_bisec_loop, it_iter:224, fl_diff:7.9485e-05
+ff_vfi_az_bisec_loop, it_iter:225, fl_diff:7.551e-05
+ff_vfi_az_bisec_loop, it_iter:226, fl_diff:7.1734e-05
+ff_vfi_az_bisec_loop, it_iter:227, fl_diff:6.8147e-05
+ff_vfi_az_bisec_loop, it_iter:228, fl_diff:6.474e-05
+ff_vfi_az_bisec_loop, it_iter:229, fl_diff:6.1502e-05
+ff_vfi_az_bisec_loop, it_iter:230, fl_diff:5.8427e-05
+ff_vfi_az_bisec_loop, it_iter:231, fl_diff:5.5505e-05
+ff_vfi_az_bisec_loop, it_iter:232, fl_diff:5.273e-05
+ff_vfi_az_bisec_loop, it_iter:233, fl_diff:5.0093e-05
+ff_vfi_az_bisec_loop, it_iter:234, fl_diff:4.7589e-05
+ff_vfi_az_bisec_loop, it_iter:235, fl_diff:4.5209e-05
+ff_vfi_az_bisec_loop, it_iter:236, fl_diff:4.2948e-05
+ff_vfi_az_bisec_loop, it_iter:237, fl_diff:4.0801e-05
+ff_vfi_az_bisec_loop, it_iter:238, fl_diff:3.8761e-05
+ff_vfi_az_bisec_loop, it_iter:239, fl_diff:3.6823e-05
+ff_vfi_az_bisec_loop, it_iter:240, fl_diff:3.4981e-05
+ff_vfi_az_bisec_loop, it_iter:241, fl_diff:3.3232e-05
+ff_vfi_az_bisec_loop, it_iter:242, fl_diff:3.1571e-05
+ff_vfi_az_bisec_loop, it_iter:243, fl_diff:2.9992e-05
+ff_vfi_az_bisec_loop, it_iter:244, fl_diff:2.8492e-05
+ff_vfi_az_bisec_loop, it_iter:245, fl_diff:2.7068e-05
+ff_vfi_az_bisec_loop, it_iter:246, fl_diff:2.5714e-05
+ff_vfi_az_bisec_loop, it_iter:247, fl_diff:2.4429e-05
+ff_vfi_az_bisec_loop, it_iter:248, fl_diff:2.3207e-05
+ff_vfi_az_bisec_loop, it_iter:249, fl_diff:2.2047e-05
+ff_vfi_az_bisec_loop, it_iter:250, fl_diff:2.0944e-05
+ff_vfi_az_bisec_loop, it_iter:251, fl_diff:1.9897e-05
+ff_vfi_az_bisec_loop, it_iter:252, fl_diff:1.8902e-05
+ff_vfi_az_bisec_loop, it_iter:253, fl_diff:1.7957e-05
+ff_vfi_az_bisec_loop, it_iter:254, fl_diff:1.7059e-05
+ff_vfi_az_bisec_loop, it_iter:255, fl_diff:1.6206e-05
+ff_vfi_az_bisec_loop, it_iter:256, fl_diff:1.5396e-05
+ff_vfi_az_bisec_loop, it_iter:257, fl_diff:1.4626e-05
+ff_vfi_az_bisec_loop, it_iter:258, fl_diff:1.3895e-05
+ff_vfi_az_bisec_loop, it_iter:259, fl_diff:1.32e-05
+ff_vfi_az_bisec_loop, it_iter:260, fl_diff:1.254e-05
+ff_vfi_az_bisec_loop, it_iter:261, fl_diff:1.1913e-05
+ff_vfi_az_bisec_loop, it_iter:262, fl_diff:1.1317e-05
+ff_vfi_az_bisec_loop, it_iter:263, fl_diff:1.0751e-05
+ff_vfi_az_bisec_loop, it_iter:264, fl_diff:1.0214e-05
+ff_vfi_az_bisec_loop, it_iter:265, fl_diff:9.7032e-06
+ff_vfi_az_bisec_loop, it_iter:266, fl_diff:9.218e-06
 </pre><h2 id="12">Convergence Results</h2><pre class="codeinput">it_iter_last = it_iter;
+mt_val_cur = mt_val_lst;
+mt_aprime = mt_aprime_lst;
 <span class="keyword">if</span> fl_diff &lt;= fl_tol_val || it_iter&gt;=it_maxiter_val
-    mt_val_cur = mt_val_lst;
-    mt_aprime = mt_aprime_lst;
     <span class="keyword">if</span> (it_iter&gt;=it_maxiter_val)
         flag = 2;
     <span class="keyword">else</span>
         flag = 1;
     <span class="keyword">end</span>
 <span class="keyword">else</span>
-    mt_val_cur = zeros(size(mt_val_cur));
-    mt_aprime = zeros(size(mt_val_cur));
     flag = 0;
 <span class="keyword">end</span>
 
 <span class="keyword">if</span> (bl_timer)
     toc
 <span class="keyword">end</span>
-</pre><pre class="codeoutput">Elapsed time is 0.180681 seconds.
+</pre><pre class="codeoutput">Elapsed time is 0.235964 seconds.
 </pre><h2 id="13">Results for Printing, and Graphing</h2><pre class="codeinput">mp_print_graph = containers.Map(<span class="string">'KeyType'</span>,<span class="string">'char'</span>, <span class="string">'ValueType'</span>,<span class="string">'any'</span>);
 mp_print_graph(<span class="string">'v'</span>) = mt_val_cur;
 mp_print_graph(<span class="string">'ap'</span>) = mt_aprime;
@@ -584,25 +673,25 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                     i     idx    value
                     __    ___    _____
 
-    fl_a_max         1     1        50
-    fl_a_min         2     2         0
-    fl_beta          3     3      0.94
-    fl_crra          4     4       1.5
-    fl_r             5     5     0.025
-    fl_shk_std       6     6       0.2
-    fl_w             7     7      1.28
-    fl_z_persist     8     8       0.8
-    it_a_n           9     9       100
-    it_z_n          10    10         7
+    fl_a_max         1     1       50 
+    fl_a_min         2     2        0 
+    fl_beta          3     3     0.95 
+    fl_crra          4     4      1.5 
+    fl_r             5     5     0.04 
+    fl_shk_std       6     6      0.2 
+    fl_w             7     7      1.4 
+    fl_z_persist     8     8      0.8 
+    it_a_n           9     9      100 
+    it_z_n          10    10        7 
 
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_params String
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                     i     idx         string     
-                    ___    ____    _______________
+                     i     idx          string      
+                    ___    ____    _________________
 
-    st_grid_type    "1"    "11"    "grid_linspace"
+    st_grid_type    "1"    "11"    "grid_powerspace"
 
 pos = 11 ; key = ls_ffsna
     'ap'
@@ -619,8 +708,8 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     bl_timer                   3     3          1
     ffsna_opt_it_col_n_keep    4     4          9
     ffsna_opt_it_row_n_keep    5     5         10
-    fl_lowestc                 6     6     -1e+11
-    fl_tol_val                 7     7     0.0001
+    fl_lowestc                 6     6     -1e+10
+    fl_tol_val                 7     7      1e-05
     it_maxiter_val             8     8        500
 
 ----------------------------------------
@@ -663,184 +752,275 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 valgap = norm(mt_val - mt_val_cur): value function difference across iterations
 polgap = norm(mt_pol_a - mt_pol_a_cur): policy function difference across iterations
 z1 = z1 perc change: sum((mt_pol_a ~= mt_pol_a_cur))/(it_a_n): percentage of state space points conditional on shock where the policy function is changing across iterations
-                  valgap      polgap     z_0_50352    z_0_57817    z_0_69323    z_0_87975    z_1_2028    z_1_8136    z_3_1094
+                  valgap      polgap     z_0_41816    z_0_54897    z_0_72069    z_0_94612    z_1_2421    z_1_6306    z_2_1407
                 __________    _______    _________    _________    _________    _________    ________    ________    ________
 
-    iter=1          40.836          0         0            0            0            0            0           0           0  
-    iter=2          31.071     382.51      0.98         0.98         0.98         0.98         0.99        0.99           1  
-    iter=3           25.53     128.62      0.96         0.96         0.96         0.96         0.97        0.99        0.99  
-    iter=4          21.538     64.485      0.93         0.93         0.93         0.93         0.94        0.96        0.99  
-    iter=5          18.447     38.839      0.89         0.89         0.89         0.89          0.9        0.93        0.96  
-    iter=6          15.961     26.406      0.84         0.84         0.84         0.85         0.84        0.88        0.92  
-    iter=7          13.914      18.57      0.78         0.78         0.78         0.78         0.77        0.82        0.86  
-    iter=8            12.2     13.722      0.66         0.67         0.69         0.71         0.71        0.76        0.79  
-    iter=9          10.746     10.574      0.57         0.57         0.58         0.63         0.62        0.68         0.7  
-    iter=10         9.5018     8.4949      0.48         0.49         0.49         0.52         0.52        0.57        0.63  
-    iter=11         8.4278     7.1199      0.39         0.39         0.39         0.41         0.42        0.45        0.54  
-    iter=12         7.4949     6.3316      0.32         0.32         0.33         0.34         0.35         0.4        0.45  
-    iter=13         6.6805     5.4631      0.27         0.27         0.29          0.3          0.3        0.31        0.38  
-    iter=14         5.9662       4.62      0.23         0.21         0.22         0.21         0.26        0.27         0.3  
-    iter=15          5.337     3.9983      0.17         0.19         0.19         0.22         0.19        0.21        0.29  
-    iter=16         4.7819     3.7602      0.15         0.17         0.17         0.17          0.2        0.22        0.21  
-    iter=17           4.29     2.9737      0.13         0.13         0.12         0.14         0.14        0.14         0.2  
-    iter=18         3.8532     2.7753      0.11         0.11         0.12         0.15         0.14        0.13        0.19  
-    iter=19         3.4653     2.8201       0.1         0.12         0.13         0.08         0.12        0.16        0.13  
-    iter=20         3.1195     2.6094      0.11          0.1         0.07         0.09         0.13        0.09        0.13  
-    iter=21         2.8106     1.9879      0.07         0.06         0.08          0.1         0.08        0.08        0.14  
-    iter=22         2.5347     1.9456      0.04         0.07         0.07         0.08         0.06        0.08         0.1  
-    iter=23         2.2881     1.8373      0.07         0.05         0.06         0.07         0.08        0.08        0.08  
-    iter=24         2.0672      1.639      0.05         0.05         0.06         0.05         0.05        0.07        0.09  
-    iter=25         1.8694     1.7912      0.03         0.06         0.06         0.04         0.07        0.08        0.06  
-    iter=26         1.6922     1.5028      0.04         0.04         0.05         0.04         0.05        0.04        0.07  
-    iter=27         1.5329     1.6826      0.05         0.05         0.02         0.03         0.05        0.04        0.07  
-    iter=28         1.3897     1.2917      0.03         0.02         0.04         0.04         0.04        0.02        0.04  
-    iter=29          1.261     1.2612      0.03         0.02         0.02         0.03         0.02        0.03        0.05  
-    iter=30         1.1453     1.0611      0.01         0.02         0.02         0.02         0.03        0.04        0.04  
-    iter=31         1.0414    0.87477      0.02         0.01         0.02         0.03         0.02        0.02        0.02  
-    iter=32        0.94814     1.1557      0.01         0.02         0.02         0.03         0.02        0.03        0.04  
-    iter=33        0.86421    0.71425      0.01         0.01         0.01         0.01         0.02        0.02        0.02  
-    iter=34        0.78869    0.93321      0.02         0.01         0.02         0.02         0.01        0.03        0.03  
-    iter=35        0.72065    0.87477         0         0.01         0.01         0.03         0.02        0.02        0.02  
-    iter=36        0.65931    0.81719      0.01         0.02         0.02         0.02         0.01        0.01        0.02  
-    iter=37        0.60401    0.81719      0.01         0.01            0         0.02         0.01        0.02        0.02  
-    iter=38        0.55416    0.81719         0            0         0.02         0.01         0.02        0.01        0.01  
-    iter=39        0.50918    0.71425      0.01         0.02         0.01         0.01            0        0.02        0.02  
-    iter=40        0.46858    0.50505         0            0            0            0         0.01        0.01        0.01  
-    iter=41        0.43187    0.71425      0.01            0         0.02            0         0.01        0.02           0  
-    iter=42        0.39867    0.71425      0.01         0.01            0            0         0.01           0        0.02  
-    iter=43        0.36857    0.71425         0         0.01         0.01         0.01         0.01        0.01        0.02  
-    iter=44        0.34125    0.71425         0            0            0            0            0        0.02           0  
-    iter=45        0.31638    0.50505         0         0.01            0            0            0           0        0.01  
-    iter=46         0.2937    0.50505      0.01            0         0.01            0         0.01        0.01           0  
-    iter=47        0.27297    0.71425         0            0            0            0            0           0        0.02  
-    iter=48        0.25399          0         0            0            0            0            0           0           0  
-    iter=49        0.23656          0         0            0            0            0            0           0           0  
-    iter=50        0.22054    0.50505         0            0            0            0         0.01           0        0.01  
-    iter=51        0.20577          0         0            0            0            0            0           0           0  
-    iter=52        0.19213    0.50505         0            0         0.01            0            0           0           0  
-    iter=53        0.17952          0         0            0            0            0            0           0           0  
-    iter=54        0.16784          0         0            0            0            0            0           0           0  
-    iter=55        0.15701    0.50505      0.01         0.01            0            0            0           0           0  
-    iter=56        0.14695    0.50505         0            0            0            0            0           0        0.01  
-    iter=57        0.13759          0         0            0            0            0            0           0           0  
-    iter=58        0.12888          0         0            0            0            0            0           0           0  
-    iter=59        0.12077    0.50505         0            0            0         0.01            0           0           0  
-    iter=60        0.11321          0         0            0            0            0            0           0           0  
-    iter=61        0.10614          0         0            0            0            0            0           0           0  
-    iter=62        0.09955          0         0            0            0            0            0           0           0  
-    iter=63       0.093387          0         0            0            0            0            0           0           0  
-    iter=64       0.087624          0         0            0            0            0            0           0           0  
-    iter=65       0.082231          0         0            0            0            0            0           0           0  
-    iter=66       0.077184          0         0            0            0            0            0           0           0  
-    iter=67       0.072457    0.50505         0            0            0            0         0.01           0           0  
-    iter=68       0.068029          0         0            0            0            0            0           0           0  
-    iter=69       0.063879          0         0            0            0            0            0           0           0  
-    iter=70       0.059989          0         0            0            0            0            0           0           0  
-    iter=71       0.056342          0         0            0            0            0            0           0           0  
-    iter=72        0.05292          0         0            0            0            0            0           0           0  
-    iter=73       0.049711          0         0            0            0            0            0           0           0  
-    iter=74       0.046699          0         0            0            0            0            0           0           0  
-    iter=75       0.043873          0         0            0            0            0            0           0           0  
-    iter=76        0.04122          0         0            0            0            0            0           0           0  
-    iter=77       0.038729          0         0            0            0            0            0           0           0  
-    iter=78       0.036391          0         0            0            0            0            0           0           0  
-    iter=79       0.034195          0         0            0            0            0            0           0           0  
-    iter=80       0.032133          0         0            0            0            0            0           0           0  
-    iter=81       0.030196          0         0            0            0            0            0           0           0  
-    iter=82       0.028377          0         0            0            0            0            0           0           0  
-    iter=83       0.026668          0         0            0            0            0            0           0           0  
-    iter=84       0.025063          0         0            0            0            0            0           0           0  
-    iter=85       0.023555          0         0            0            0            0            0           0           0  
-    iter=86       0.022138          0         0            0            0            0            0           0           0  
-    iter=87       0.020806          0         0            0            0            0            0           0           0  
-    iter=88       0.019555          0         0            0            0            0            0           0           0  
-    iter=89        0.01838          0         0            0            0            0            0           0           0  
-    iter=90       0.017275          0         0            0            0            0            0           0           0  
-    iter=91       0.016237          0         0            0            0            0            0           0           0  
-    iter=92       0.015261          0         0            0            0            0            0           0           0  
-    iter=93       0.014344          0         0            0            0            0            0           0           0  
-    iter=94       0.013483          0         0            0            0            0            0           0           0  
-    iter=95       0.012673          0         0            0            0            0            0           0           0  
-    iter=96       0.011912          0         0            0            0            0            0           0           0  
-    iter=97       0.011197          0         0            0            0            0            0           0           0  
-    iter=98       0.010524          0         0            0            0            0            0           0           0  
-    iter=99      0.0098924          0         0            0            0            0            0           0           0  
-    iter=100     0.0092986          0         0            0            0            0            0           0           0  
-    iter=101     0.0087403          0         0            0            0            0            0           0           0  
-    iter=102     0.0082157          0         0            0            0            0            0           0           0  
-    iter=103     0.0077225          0         0            0            0            0            0           0           0  
-    iter=104      0.007259          0         0            0            0            0            0           0           0  
-    iter=105     0.0068233          0         0            0            0            0            0           0           0  
-    iter=106     0.0064138          0         0            0            0            0            0           0           0  
-    iter=107     0.0060289          0         0            0            0            0            0           0           0  
-    iter=108      0.005667          0         0            0            0            0            0           0           0  
-    iter=109     0.0053269          0         0            0            0            0            0           0           0  
-    iter=110     0.0050073          0         0            0            0            0            0           0           0  
-    iter=111     0.0047068          0         0            0            0            0            0           0           0  
-    iter=112     0.0044243          0         0            0            0            0            0           0           0  
-    iter=113     0.0041588          0         0            0            0            0            0           0           0  
-    iter=114     0.0039093          0         0            0            0            0            0           0           0  
-    iter=115     0.0036747          0         0            0            0            0            0           0           0  
-    iter=116     0.0034542          0         0            0            0            0            0           0           0  
-    iter=117     0.0032469          0         0            0            0            0            0           0           0  
-    iter=118     0.0030521          0         0            0            0            0            0           0           0  
-    iter=119     0.0028689          0         0            0            0            0            0           0           0  
-    iter=120     0.0026968          0         0            0            0            0            0           0           0  
-    iter=121      0.002535          0         0            0            0            0            0           0           0  
-    iter=122     0.0023829          0         0            0            0            0            0           0           0  
-    iter=123     0.0022399          0         0            0            0            0            0           0           0  
-    iter=124     0.0021055          0         0            0            0            0            0           0           0  
-    iter=125     0.0019792          0         0            0            0            0            0           0           0  
-    iter=126     0.0018604          0         0            0            0            0            0           0           0  
-    iter=127     0.0017488          0         0            0            0            0            0           0           0  
-    iter=128     0.0016438          0         0            0            0            0            0           0           0  
-    iter=129     0.0015452          0         0            0            0            0            0           0           0  
-    iter=130     0.0014525          0         0            0            0            0            0           0           0  
-    iter=131     0.0013653          0         0            0            0            0            0           0           0  
-    iter=132     0.0012834          0         0            0            0            0            0           0           0  
-    iter=133     0.0012064          0         0            0            0            0            0           0           0  
-    iter=134      0.001134          0         0            0            0            0            0           0           0  
-    iter=135      0.001066          0         0            0            0            0            0           0           0  
-    iter=136      0.001002          0         0            0            0            0            0           0           0  
-    iter=137     0.0009419          0         0            0            0            0            0           0           0  
-    iter=138    0.00088539          0         0            0            0            0            0           0           0  
-    iter=139    0.00083227          0         0            0            0            0            0           0           0  
-    iter=140    0.00078233          0         0            0            0            0            0           0           0  
-    iter=141    0.00073539          0         0            0            0            0            0           0           0  
-    iter=142    0.00069127          0         0            0            0            0            0           0           0  
-    iter=143    0.00064979          0         0            0            0            0            0           0           0  
-    iter=144     0.0006108          0         0            0            0            0            0           0           0  
-    iter=145    0.00057415          0         0            0            0            0            0           0           0  
-    iter=146     0.0005397          0         0            0            0            0            0           0           0  
-    iter=147    0.00050732          0         0            0            0            0            0           0           0  
-    iter=148    0.00047688          0         0            0            0            0            0           0           0  
-    iter=149    0.00044827          0         0            0            0            0            0           0           0  
-    iter=150    0.00042137          0         0            0            0            0            0           0           0  
-    iter=151    0.00039609          0         0            0            0            0            0           0           0  
-    iter=152    0.00037233          0         0            0            0            0            0           0           0  
-    iter=153    0.00034999          0         0            0            0            0            0           0           0  
-    iter=154    0.00032899          0         0            0            0            0            0           0           0  
-    iter=155    0.00030925          0         0            0            0            0            0           0           0  
-    iter=156    0.00029069          0         0            0            0            0            0           0           0  
-    iter=157    0.00027325          0         0            0            0            0            0           0           0  
-    iter=158    0.00025686          0         0            0            0            0            0           0           0  
-    iter=159    0.00024144          0         0            0            0            0            0           0           0  
-    iter=160    0.00022696          0         0            0            0            0            0           0           0  
-    iter=161    0.00021334          0         0            0            0            0            0           0           0  
-    iter=162    0.00020054          0         0            0            0            0            0           0           0  
-    iter=163    0.00018851          0         0            0            0            0            0           0           0  
-    iter=164     0.0001772          0         0            0            0            0            0           0           0  
-    iter=165    0.00016657          0         0            0            0            0            0           0           0  
-    iter=166    0.00015657          0         0            0            0            0            0           0           0  
-    iter=167    0.00014718          0         0            0            0            0            0           0           0  
-    iter=168    0.00013835          0         0            0            0            0            0           0           0  
-    iter=169    0.00013005          0         0            0            0            0            0           0           0  
-    iter=170    0.00012224          0         0            0            0            0            0           0           0  
-    iter=171    0.00011491          0         0            0            0            0            0           0           0  
-    iter=172    0.00010801          0         0            0            0            0            0           0           0  
-    iter=173    0.00010153          0         0            0            0            0            0           0           0  
-    iter=174    9.5441e-05          0         0            0            0            0            0           0           0  
-    iter=175    8.9715e-05          0         0            0            0            0            0           0           0  
+    iter=1          34.289          0         0            0            0            0            0           0           0  
+    iter=2          25.322      277.4      0.92         0.92         0.94            1            1           1           1  
+    iter=3          20.929     92.733      0.85         0.84         0.87            1            1           1           1  
+    iter=4          17.936     46.304      0.73         0.85         0.84         0.89            1           1           1  
+    iter=5          15.688     27.525      0.74         0.72         0.78         0.84         0.85        0.99           1  
+    iter=6           13.91     18.948       0.6         0.57         0.66         0.68         0.78        0.83        0.92  
+    iter=7          12.456     13.255      0.44         0.44          0.5         0.54         0.56        0.66        0.69  
+    iter=8          11.237     10.001      0.26         0.26         0.33         0.38         0.49        0.54        0.58  
+    iter=9            10.2     8.3459      0.22         0.28         0.27         0.29         0.33        0.35        0.45  
+    iter=10         9.3022     6.4369      0.11         0.26         0.19         0.26         0.29        0.29        0.36  
+    iter=11         8.5194     6.7961      0.12         0.21         0.16         0.19         0.19        0.26        0.28  
+    iter=12         7.8306     4.0701      0.23         0.09         0.08         0.12          0.2        0.27        0.22  
+    iter=13         7.2177     4.2137      0.13          0.1         0.09         0.16         0.17        0.15        0.23  
+    iter=14         6.6717     4.2145      0.11          0.1         0.08         0.13         0.09        0.12         0.2  
+    iter=15          6.184     4.3187       0.1         0.09         0.07         0.08         0.12        0.14        0.15  
+    iter=16         5.7438      3.992      0.09         0.03            0         0.05         0.09        0.13        0.12  
+    iter=17          5.341     2.6714         0            0            0         0.08         0.11        0.11        0.09  
+    iter=18         4.9701     2.4872         0         0.01            0         0.06         0.08        0.06        0.08  
+    iter=19         4.6287     2.6982         0            0         0.12         0.07         0.09        0.06        0.08  
+    iter=20         4.3163     2.4189      0.01            0         0.15         0.07         0.04        0.05        0.04  
+    iter=21         4.0301     2.7372         0            0         0.09         0.06         0.02        0.09        0.12  
+    iter=22         3.7679     3.4505         0            0         0.09         0.06         0.03        0.04        0.07  
+    iter=23         3.5273     2.6704         0            0         0.08         0.01         0.03        0.05        0.02  
+    iter=24         3.3055     3.0985         0            0         0.08            0         0.03        0.04        0.04  
+    iter=25         3.1008     2.4261         0         0.01         0.05         0.01         0.01        0.02        0.05  
+    iter=26         2.9109     2.7049         0          0.1            0            0         0.03        0.07        0.02  
+    iter=27         2.7362     4.4409         0         0.21            0         0.01         0.02        0.05        0.02  
+    iter=28         2.5744     2.2918         0         0.05         0.01         0.01         0.03        0.02        0.02  
+    iter=29         2.4231     2.1533         0         0.02            0            0         0.02        0.04        0.04  
+    iter=30         2.2815     4.3567      0.15         0.01            0            0         0.02        0.03        0.01  
+    iter=31         2.1498     2.4368      0.07         0.01            0            0         0.02        0.01        0.03  
+    iter=32         2.0256     1.5316      0.03         0.01            0            0         0.02           0        0.03  
+    iter=33         1.9085     1.2249      0.02         0.01            0            0         0.02        0.01        0.02  
+    iter=34         1.7983     1.2729      0.01            0         0.01            0         0.02           0        0.02  
+    iter=35         1.6946     1.3216      0.01         0.01            0            0         0.02        0.01           0  
+    iter=36         1.5971      1.017      0.01            0            0            0         0.01           0        0.03  
+    iter=37         1.5054     1.6114      0.01         0.02            0            0         0.02        0.02        0.01  
+    iter=38         1.4193     1.6916         0            0            0            0         0.02           0        0.02  
+    iter=39         1.3385     1.0491      0.01            0            0            0         0.01           0        0.01  
+    iter=40         1.2625     1.5221         0            0            0            0         0.02        0.01        0.02  
+    iter=41         1.1912     1.5737      0.01         0.01            0         0.01         0.02        0.01        0.01  
+    iter=42         1.1241     1.1403         0            0            0            0         0.01           0        0.01  
+    iter=43         1.0611     1.6521         0            0            0            0         0.02           0        0.02  
+    iter=44          1.002     1.7052         0            0            0            0         0.02        0.01        0.02  
+    iter=45        0.94638      1.234      0.01            0            0            0         0.01           0        0.01  
+    iter=46        0.89412     1.2531         0            0            0            0         0.01        0.01        0.01  
+    iter=47        0.84489     1.1219         0            0            0            0            0           0        0.01  
+    iter=48         0.7985      0.664         0            0            0            0         0.01        0.01           0  
+    iter=49        0.75475    0.19503         0            0            0            0            0        0.01           0  
+    iter=50        0.71346     1.1403         0         0.01            0            0            0           0        0.01  
+    iter=51         0.6745    0.64861      0.01            0            0            0            0           0           0  
+    iter=52         0.6377    0.11898         0            0            0            0            0        0.01           0  
+    iter=53        0.60297     1.1589         0            0            0            0            0           0        0.01  
+    iter=54        0.57016          0         0            0            0            0            0           0           0  
+    iter=55        0.53917     0.6795         0            0            0            0            0        0.01        0.01  
+    iter=56        0.50992      1.211         0            0            0            0            0           0        0.02  
+    iter=57         0.4823          0         0            0            0            0            0           0           0  
+    iter=58         0.4562          0         0            0            0            0            0           0           0  
+    iter=59        0.43154          0         0            0            0            0            0           0           0  
+    iter=60        0.40825     1.1963         0            0            0            0            0           0        0.01  
+    iter=61        0.38625          0         0            0            0            0            0           0           0  
+    iter=62        0.36545          0         0            0            0            0            0           0           0  
+    iter=63        0.34581          0         0            0            0            0            0           0           0  
+    iter=64        0.32724          0         0            0            0            0            0           0           0  
+    iter=65         0.3097     1.2151         0            0            0            0            0           0        0.01  
+    iter=66        0.29313          0         0            0            0            0            0           0           0  
+    iter=67        0.27746    0.36776         0            0            0            0            0        0.01           0  
+    iter=68        0.26265          0         0            0            0            0            0           0           0  
+    iter=69        0.24866    0.44641         0            0            0            0            0           0        0.01  
+    iter=70        0.23542          0         0            0            0            0            0           0           0  
+    iter=71        0.22292      1.234         0            0            0            0            0           0        0.01  
+    iter=72         0.2111    0.69512      0.01            0            0            0            0        0.01           0  
+    iter=73        0.19992          0         0            0            0            0            0           0           0  
+    iter=74        0.18935          0         0            0            0            0            0           0           0  
+    iter=75        0.17935          0         0            0            0            0            0           0           0  
+    iter=76        0.16989          0         0            0            0            0            0           0           0  
+    iter=77        0.16094      0.102         0            0            0            0            0        0.01           0  
+    iter=78        0.15248          0         0            0            0            0            0           0           0  
+    iter=79        0.14447          0         0            0            0            0            0           0           0  
+    iter=80         0.1369          0         0            0            0            0            0           0           0  
+    iter=81        0.12974     1.2531         0            0            0            0            0           0        0.01  
+    iter=82        0.12295          0         0            0            0            0            0           0           0  
+    iter=83        0.11654          0         0            0            0            0            0           0           0  
+    iter=84        0.11046          0         0            0            0            0            0           0           0  
+    iter=85        0.10471          0         0            0            0            0            0           0           0  
+    iter=86       0.099265          0         0            0            0            0            0           0           0  
+    iter=87        0.09411          0         0            0            0            0            0           0           0  
+    iter=88       0.089228          0         0            0            0            0            0           0           0  
+    iter=89       0.084606          0         0            0            0            0            0           0           0  
+    iter=90       0.080229          0         0            0            0            0            0           0           0  
+    iter=91       0.076083          0         0            0            0            0            0           0           0  
+    iter=92       0.072155          0         0            0            0            0            0           0           0  
+    iter=93       0.068435          0         0            0            0            0            0           0           0  
+    iter=94        0.06491          0         0            0            0            0            0           0           0  
+    iter=95       0.061571          0         0            0            0            0            0           0           0  
+    iter=96       0.058406          0         0            0            0            0            0           0           0  
+    iter=97       0.055408          0         0            0            0            0            0           0           0  
+    iter=98       0.052566          0         0            0            0            0            0           0           0  
+    iter=99       0.049872          0         0            0            0            0            0           0           0  
+    iter=100      0.047319          0         0            0            0            0            0           0           0  
+    iter=101      0.044899          0         0            0            0            0            0           0           0  
+    iter=102      0.042604          0         0            0            0            0            0           0           0  
+    iter=103      0.040429          0         0            0            0            0            0           0           0  
+    iter=104      0.038366          0         0            0            0            0            0           0           0  
+    iter=105       0.03641          0         0            0            0            0            0           0           0  
+    iter=106      0.034556          0         0            0            0            0            0           0           0  
+    iter=107      0.032797          0         0            0            0            0            0           0           0  
+    iter=108      0.031129          0         0            0            0            0            0           0           0  
+    iter=109      0.029546          0         0            0            0            0            0           0           0  
+    iter=110      0.028046          0         0            0            0            0            0           0           0  
+    iter=111      0.026622          0         0            0            0            0            0           0           0  
+    iter=112      0.025271          0         0            0            0            0            0           0           0  
+    iter=113       0.02399          0         0            0            0            0            0           0           0  
+    iter=114      0.022774          0         0            0            0            0            0           0           0  
+    iter=115      0.021621          0         0            0            0            0            0           0           0  
+    iter=116      0.020527          0         0            0            0            0            0           0           0  
+    iter=117      0.019488          0         0            0            0            0            0           0           0  
+    iter=118      0.018503          0         0            0            0            0            0           0           0  
+    iter=119      0.017567          0         0            0            0            0            0           0           0  
+    iter=120       0.01668          0         0            0            0            0            0           0           0  
+    iter=121      0.015838          0         0            0            0            0            0           0           0  
+    iter=122      0.015038          0         0            0            0            0            0           0           0  
+    iter=123      0.014279          0         0            0            0            0            0           0           0  
+    iter=124      0.013559          0         0            0            0            0            0           0           0  
+    iter=125      0.012876          0         0            0            0            0            0           0           0  
+    iter=126      0.012227          0         0            0            0            0            0           0           0  
+    iter=127      0.011611          0         0            0            0            0            0           0           0  
+    iter=128      0.011026          0         0            0            0            0            0           0           0  
+    iter=129      0.010471          0         0            0            0            0            0           0           0  
+    iter=130     0.0099436          0         0            0            0            0            0           0           0  
+    iter=131     0.0094432          0         0            0            0            0            0           0           0  
+    iter=132     0.0089681          0         0            0            0            0            0           0           0  
+    iter=133     0.0085171          0         0            0            0            0            0           0           0  
+    iter=134     0.0080888          0         0            0            0            0            0           0           0  
+    iter=135     0.0076822          0         0            0            0            0            0           0           0  
+    iter=136     0.0072961          0         0            0            0            0            0           0           0  
+    iter=137     0.0069295          0         0            0            0            0            0           0           0  
+    iter=138     0.0065814          0         0            0            0            0            0           0           0  
+    iter=139     0.0062508          0         0            0            0            0            0           0           0  
+    iter=140      0.005937          0         0            0            0            0            0           0           0  
+    iter=141     0.0056389          0         0            0            0            0            0           0           0  
+    iter=142     0.0053558          0         0            0            0            0            0           0           0  
+    iter=143      0.005087          0         0            0            0            0            0           0           0  
+    iter=144     0.0048318          0         0            0            0            0            0           0           0  
+    iter=145     0.0045894          0         0            0            0            0            0           0           0  
+    iter=146     0.0043591          0         0            0            0            0            0           0           0  
+    iter=147     0.0041405          0         0            0            0            0            0           0           0  
+    iter=148     0.0039328          0         0            0            0            0            0           0           0  
+    iter=149     0.0037356          0         0            0            0            0            0           0           0  
+    iter=150     0.0035483          0         0            0            0            0            0           0           0  
+    iter=151     0.0033705          0         0            0            0            0            0           0           0  
+    iter=152     0.0032015          0         0            0            0            0            0           0           0  
+    iter=153     0.0030411          0         0            0            0            0            0           0           0  
+    iter=154     0.0028887          0         0            0            0            0            0           0           0  
+    iter=155     0.0027439          0         0            0            0            0            0           0           0  
+    iter=156     0.0026064          0         0            0            0            0            0           0           0  
+    iter=157     0.0024758          0         0            0            0            0            0           0           0  
+    iter=158     0.0023518          0         0            0            0            0            0           0           0  
+    iter=159      0.002234          0         0            0            0            0            0           0           0  
+    iter=160     0.0021221          0         0            0            0            0            0           0           0  
+    iter=161     0.0020158          0         0            0            0            0            0           0           0  
+    iter=162     0.0019149          0         0            0            0            0            0           0           0  
+    iter=163      0.001819          0         0            0            0            0            0           0           0  
+    iter=164     0.0017279          0         0            0            0            0            0           0           0  
+    iter=165     0.0016414          0         0            0            0            0            0           0           0  
+    iter=166     0.0015592          0         0            0            0            0            0           0           0  
+    iter=167     0.0014812          0         0            0            0            0            0           0           0  
+    iter=168      0.001407          0         0            0            0            0            0           0           0  
+    iter=169     0.0013366          0         0            0            0            0            0           0           0  
+    iter=170     0.0012697          0         0            0            0            0            0           0           0  
+    iter=171     0.0012061          0         0            0            0            0            0           0           0  
+    iter=172     0.0011458          0         0            0            0            0            0           0           0  
+    iter=173     0.0010884          0         0            0            0            0            0           0           0  
+    iter=174      0.001034          0         0            0            0            0            0           0           0  
+    iter=175    0.00098221          0         0            0            0            0            0           0           0  
+    iter=176    0.00093306          0         0            0            0            0            0           0           0  
+    iter=177    0.00088637          0         0            0            0            0            0           0           0  
+    iter=178    0.00084201          0         0            0            0            0            0           0           0  
+    iter=179    0.00079988          0         0            0            0            0            0           0           0  
+    iter=180    0.00075986          0         0            0            0            0            0           0           0  
+    iter=181    0.00072184          0         0            0            0            0            0           0           0  
+    iter=182    0.00068573          0         0            0            0            0            0           0           0  
+    iter=183    0.00065142          0         0            0            0            0            0           0           0  
+    iter=184    0.00061883          0         0            0            0            0            0           0           0  
+    iter=185    0.00058787          0         0            0            0            0            0           0           0  
+    iter=186    0.00055846          0         0            0            0            0            0           0           0  
+    iter=187    0.00053053          0         0            0            0            0            0           0           0  
+    iter=188    0.00050399          0         0            0            0            0            0           0           0  
+    iter=189    0.00047878          0         0            0            0            0            0           0           0  
+    iter=190    0.00045483          0         0            0            0            0            0           0           0  
+    iter=191    0.00043208          0         0            0            0            0            0           0           0  
+    iter=192    0.00041046          0         0            0            0            0            0           0           0  
+    iter=193    0.00038993          0         0            0            0            0            0           0           0  
+    iter=194    0.00037043          0         0            0            0            0            0           0           0  
+    iter=195     0.0003519          0         0            0            0            0            0           0           0  
+    iter=196     0.0003343          0         0            0            0            0            0           0           0  
+    iter=197    0.00031758          0         0            0            0            0            0           0           0  
+    iter=198     0.0003017          0         0            0            0            0            0           0           0  
+    iter=199    0.00028661          0         0            0            0            0            0           0           0  
+    iter=200    0.00027227          0         0            0            0            0            0           0           0  
+    iter=201    0.00025866          0         0            0            0            0            0           0           0  
+    iter=202    0.00024572          0         0            0            0            0            0           0           0  
+    iter=203    0.00023343          0         0            0            0            0            0           0           0  
+    iter=204    0.00022176          0         0            0            0            0            0           0           0  
+    iter=205    0.00021067          0         0            0            0            0            0           0           0  
+    iter=206    0.00020013          0         0            0            0            0            0           0           0  
+    iter=207    0.00019012          0         0            0            0            0            0           0           0  
+    iter=208    0.00018061          0         0            0            0            0            0           0           0  
+    iter=209    0.00017158          0         0            0            0            0            0           0           0  
+    iter=210      0.000163          0         0            0            0            0            0           0           0  
+    iter=211    0.00015485          0         0            0            0            0            0           0           0  
+    iter=212    0.00014711          0         0            0            0            0            0           0           0  
+    iter=213    0.00013975          0         0            0            0            0            0           0           0  
+    iter=214    0.00013276          0         0            0            0            0            0           0           0  
+    iter=215    0.00012612          0         0            0            0            0            0           0           0  
+    iter=216    0.00011982          0         0            0            0            0            0           0           0  
+    iter=217    0.00011382          0         0            0            0            0            0           0           0  
+    iter=218    0.00010813          0         0            0            0            0            0           0           0  
+    iter=219    0.00010272          0         0            0            0            0            0           0           0  
+    iter=220    9.7588e-05          0         0            0            0            0            0           0           0  
+    iter=221    9.2708e-05          0         0            0            0            0            0           0           0  
+    iter=222    8.8072e-05          0         0            0            0            0            0           0           0  
+    iter=223    8.3668e-05          0         0            0            0            0            0           0           0  
+    iter=224    7.9485e-05          0         0            0            0            0            0           0           0  
+    iter=225     7.551e-05          0         0            0            0            0            0           0           0  
+    iter=226    7.1734e-05          0         0            0            0            0            0           0           0  
+    iter=227    6.8147e-05          0         0            0            0            0            0           0           0  
+    iter=228     6.474e-05          0         0            0            0            0            0           0           0  
+    iter=229    6.1502e-05          0         0            0            0            0            0           0           0  
+    iter=230    5.8427e-05          0         0            0            0            0            0           0           0  
+    iter=231    5.5505e-05          0         0            0            0            0            0           0           0  
+    iter=232     5.273e-05          0         0            0            0            0            0           0           0  
+    iter=233    5.0093e-05          0         0            0            0            0            0           0           0  
+    iter=234    4.7589e-05          0         0            0            0            0            0           0           0  
+    iter=235    4.5209e-05          0         0            0            0            0            0           0           0  
+    iter=236    4.2948e-05          0         0            0            0            0            0           0           0  
+    iter=237    4.0801e-05          0         0            0            0            0            0           0           0  
+    iter=238    3.8761e-05          0         0            0            0            0            0           0           0  
+    iter=239    3.6823e-05          0         0            0            0            0            0           0           0  
+    iter=240    3.4981e-05          0         0            0            0            0            0           0           0  
+    iter=241    3.3232e-05          0         0            0            0            0            0           0           0  
+    iter=242    3.1571e-05          0         0            0            0            0            0           0           0  
+    iter=243    2.9992e-05          0         0            0            0            0            0           0           0  
+    iter=244    2.8492e-05          0         0            0            0            0            0           0           0  
+    iter=245    2.7068e-05          0         0            0            0            0            0           0           0  
+    iter=246    2.5714e-05          0         0            0            0            0            0           0           0  
+    iter=247    2.4429e-05          0         0            0            0            0            0           0           0  
+    iter=248    2.3207e-05          0         0            0            0            0            0           0           0  
+    iter=249    2.2047e-05          0         0            0            0            0            0           0           0  
+    iter=250    2.0944e-05          0         0            0            0            0            0           0           0  
+    iter=251    1.9897e-05          0         0            0            0            0            0           0           0  
+    iter=252    1.8902e-05          0         0            0            0            0            0           0           0  
+    iter=253    1.7957e-05          0         0            0            0            0            0           0           0  
+    iter=254    1.7059e-05          0         0            0            0            0            0           0           0  
+    iter=255    1.6206e-05          0         0            0            0            0            0           0           0  
+    iter=256    1.5396e-05          0         0            0            0            0            0           0           0  
+    iter=257    1.4626e-05          0         0            0            0            0            0           0           0  
+    iter=258    1.3895e-05          0         0            0            0            0            0           0           0  
+    iter=259      1.32e-05          0         0            0            0            0            0           0           0  
+    iter=260     1.254e-05          0         0            0            0            0            0           0           0  
+    iter=261    1.1913e-05          0         0            0            0            0            0           0           0  
+    iter=262    1.1317e-05          0         0            0            0            0            0           0           0  
+    iter=263    1.0751e-05          0         0            0            0            0            0           0           0  
+    iter=264    1.0214e-05          0         0            0            0            0            0           0           0  
+    iter=265    9.7032e-06          0         0            0            0            0            0           0           0  
+    iter=266     9.218e-06          0         0            0            0            0            0           0           0  
 
 </pre><h2 id="16">ls_ffcmd summary</h2><pre class="codeinput"><span class="keyword">if</span> (~isempty(ls_ffcmd))
     mp_ffcmd = containers.Map(ls_ffcmd, values(mp_print_graph, ls_ffcmd));
@@ -850,105 +1030,105 @@ z1 = z1 perc change: sum((mt_pol_a ~= mt_pol_a_cur))/(it_a_n): percentage of sta
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari      min         max  
-                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    ________    _______
+                   i    idx    ndim    numel    rowN    colN     sum       mean        std      coefvari      min        max  
+                   _    ___    ____    _____    ____    ____    ______    _______    _______    ________    _______    _______
 
-    ap             1     1      2       700     100      7       16864     24.091      14.08    0.58446            0         50
-    c              2     2      2       700     100      7      2197.8     3.1397     0.9468    0.30156       0.6445     5.2301
-    coh            3     3      2       700     100      7       19061     27.231     14.995    0.55066       0.6445      55.23
-    savefraccoh    4     4      2       700     100      7      584.41    0.83488    0.13791    0.16519            0    0.91797
-    v              5     5      2       700     100      7      7169.7     10.242     3.2404    0.31637     -0.30178     15.112
-    y              6     6      2       700     100      7      1561.4     2.2306      1.166    0.52274       0.6445     5.2301
+    ap             1     1      2       700     100      7       10003     14.291     14.535     1.0171           0         50
+    c              2     2      2       700     100      7      1545.9     2.2084    0.89372    0.40469     0.58543     4.9969
+    coh            3     3      2       700     100      7       11549     16.499     15.385    0.93246     0.58543     54.997
+    savefraccoh    4     4      2       700     100      7      479.94    0.68563    0.27152    0.39602           0    0.93121
+    v              5     5      2       700     100      7      7299.4     10.428     4.5262    0.43406      1.6927     19.139
+    y              6     6      2       700     100      7      1473.6     2.1052     0.9999    0.47497     0.58543     4.9969
 
 xxx TABLE:ap xxxxxxxxxxxxxxxxxx
-              c1         c2         c3         c4         c5         c6         c7  
-            _______    _______    _______    _______    _______    _______    ______
+              c1        c2          c3           c4         c5         c6        c7  
+            ______    ______    __________    ________    _______    ______    ______
 
-    r1            0          0          0          0          0    0.50505    2.0202
-    r2            0          0          0    0.50505    0.50505     1.0101    2.5253
-    r3      0.50505    0.50505    0.50505    0.50505     1.0101     1.5152    3.0303
-    r4       1.0101     1.0101     1.0101     1.0101     1.5152     2.0202    3.5354
-    r5       1.5152     1.5152     1.5152     1.5152     2.0202     2.5253    4.0404
-    r96      45.455     45.455      45.96      45.96      45.96      46.97    48.485
-    r97       45.96      45.96      45.96     46.465     46.465     47.475     48.99
-    r98      46.465     46.465     46.465      46.97      46.97      47.98     48.99
-    r99       46.97      46.97      46.97     47.475     47.475     48.485    49.495
-    r100     47.475     47.475     47.475      47.98      47.98      48.99        50
+    r1           0         0             0    0.092813    0.31242    0.7048    1.3008
+    r2           0         0             0    0.092813    0.31242    0.7048    1.3008
+    r3           0         0             0    0.092813    0.31242    0.7048    1.3008
+    r4           0         0             0    0.092813    0.31242    0.7048    1.3008
+    r5           0         0    0.00051272    0.092813    0.31242    0.7048    1.3008
+    r96     43.924    43.924        43.924      43.924     45.102    45.102    46.298
+    r97     45.102    45.102        45.102      45.102     46.298    46.298    47.513
+    r98     46.298    46.298        46.298      46.298     47.513    47.513    48.747
+    r99     47.513    47.513        47.513      47.513     48.747    48.747        50
+    r100    48.747    48.747        48.747      48.747         50        50        50
 
 xxx TABLE:c xxxxxxxxxxxxxxxxxx
-              c1        c2         c3         c4        c5        c6        c7  
-            ______    _______    _______    ______    ______    ______    ______
+              c1         c2         c3        c4        c5        c6        c7  
+            _______    _______    ______    ______    ______    ______    ______
 
-    r1      0.6445    0.74006    0.88734    1.1261    1.5396    1.8164    1.9599
-    r2      1.1622     1.2577      1.405    1.1387    1.5523     1.829    1.9725
-    r3      1.1748     1.2704     1.4176    1.6564    1.5649    1.8417    1.9851
-    r4      1.1874      1.283     1.4303     1.669    1.5775    1.8543    1.9978
-    r5      1.2001     1.2956     1.4429    1.6816    1.5901    1.8669    2.0104
-    r96     4.3692     4.4648      4.107    4.3458    4.7593    4.5311    4.6745
-    r97     4.3819     4.4774     4.6247    4.3584     4.772    4.5437    4.6872
-    r98     4.3945     4.4901     4.6373     4.371    4.7846    4.5563    5.2048
-    r99     4.4071     4.5027       4.65    4.3837    4.7972    4.5689    5.2175
-    r100    4.4198     4.5153     4.6626    4.3963    4.8098    4.5816    5.2301
+    r1      0.58543    0.76855     1.009    1.2318    1.4265     1.578    1.6961
+    r2      0.58596    0.76909    1.0095    1.2323     1.427    1.5786    1.6967
+    r3      0.58845    0.77157     1.012    1.2348    1.4295    1.5811    1.6992
+    r4      0.59374    0.77687    1.0173    1.2401    1.4348    1.5864    1.7045
+    r5      0.60249    0.78562    1.0255    1.2488    1.4435    1.5951    1.7132
+    r96       3.567     3.7501    3.9905    4.3062     3.543    4.0869    3.6047
+    r97      3.6336     3.8167    4.0571    4.3727    3.5908    4.1347    3.6337
+    r98      3.7011     3.8842    4.1246    4.4402    3.6394    4.1834    3.6634
+    r99      3.7693     3.9525    4.1929    4.5085    3.6888    4.2327    3.6937
+    r100     3.8385     4.0216     4.262    4.5776    3.7389    4.2828    4.9969
 
 xxx TABLE:coh xxxxxxxxxxxxxxxxxx
-              c1        c2         c3         c4        c5        c6        c7  
-            ______    _______    _______    ______    ______    ______    ______
+              c1         c2         c3        c4        c5        c6        c7  
+            _______    _______    ______    ______    ______    ______    ______
 
-    r1      0.6445    0.74006    0.88734    1.1261    1.5396    2.3215    3.9801
-    r2      1.1622     1.2577      1.405    1.6438    2.0573    2.8391    4.4978
-    r3      1.6799     1.7754     1.9227    2.1614     2.575    3.3568    5.0154
-    r4      2.1975     2.2931     2.4404    2.6791    3.0927    3.8745    5.5331
-    r5      2.7152     2.8108      2.958    3.1968    3.6103    4.3922    6.0508
-    r96     49.824     49.919     50.067    50.305    50.719    51.501    53.159
-    r97     50.341     50.437     50.584    50.823    51.237    52.018    53.677
-    r98     50.859     50.955     51.102    51.341    51.754    52.536    54.195
-    r99     51.377     51.472      51.62    51.858    52.272    53.054    54.712
-    r100    51.895      51.99     52.137    52.376     52.79    53.571     55.23
+    r1      0.58543    0.76855     1.009    1.3246    1.7389    2.2828    2.9969
+    r2      0.58596    0.76909    1.0095    1.3251    1.7394    2.2834    2.9974
+    r3      0.58845    0.77157     1.012    1.3276    1.7419    2.2859    2.9999
+    r4      0.59374    0.77687    1.0173    1.3329    1.7472    2.2911    3.0052
+    r5      0.60249    0.78562     1.026    1.3416     1.756    2.2999     3.014
+    r96      47.491     47.674    47.915     48.23    48.644    49.188    49.902
+    r97      48.735     48.918    49.159    49.474    49.889    50.433    51.147
+    r98      49.999     50.182    50.422    50.738    51.152    51.696     52.41
+    r99      51.282     51.465    51.706    52.021    52.436     52.98    53.694
+    r100     52.585     52.769    53.009    53.325    53.739    54.283    54.997
 
 xxx TABLE:savefraccoh xxxxxxxxxxxxxxxxxx
-              c1         c2         c3         c4         c5         c6         c7   
-            _______    _______    _______    _______    _______    _______    _______
+              c1         c2           c3           c4         c5         c6         c7   
+            _______    _______    __________    ________    _______    _______    _______
 
-    r1            0          0          0          0          0    0.21756    0.50758
-    r2            0          0          0    0.30725    0.24549    0.35578    0.56145
-    r3      0.30065    0.28447    0.26268    0.23366    0.39227    0.45137     0.6042
-    r4      0.45965     0.4405    0.41391    0.37703    0.48992    0.52141    0.63894
-    r5      0.55802    0.53905    0.51221    0.47396    0.55956    0.57494    0.66775
-    r96     0.91231    0.91056    0.91797    0.91361    0.90616    0.91202    0.91207
-    r97     0.91296    0.91123    0.90857    0.91424    0.90686    0.91265    0.91268
-    r98     0.91359    0.91188    0.90925    0.91486    0.90755    0.91327    0.90396
-    r99     0.91422    0.91252    0.90992    0.91547    0.90823    0.91388    0.90464
-    r100    0.91483    0.91315    0.91057    0.91606    0.90889    0.91448     0.9053
+    r1            0          0             0     0.07007    0.17967    0.30874    0.43404
+    r2            0          0             0    0.070042    0.17961    0.30866    0.43396
+    r3            0          0             0    0.069911    0.17935    0.30833     0.4336
+    r4            0          0             0    0.069633    0.17881    0.30762    0.43284
+    r5            0          0    0.00049972    0.069179    0.17792    0.30645    0.43158
+    r96     0.92489    0.92134       0.91672     0.91072    0.92717    0.91691    0.92776
+    r97     0.92544    0.92198       0.91747     0.91162    0.92802    0.91801    0.92895
+    r98     0.92598     0.9226        0.9182     0.91249    0.92885    0.91908     0.9301
+    r99      0.9265     0.9232       0.91891     0.91333    0.92965    0.92011    0.93121
+    r100      0.927    0.92379        0.9196     0.91416    0.93042     0.9211    0.90914
 
 xxx TABLE:v xxxxxxxxxxxxxxxxxx
-               c1         c2         c3        c4        c5        c6        c7  
-            ________    _______    ______    ______    ______    ______    ______
+              c1        c2        c3        c4        c5        c6        c7  
+            ______    ______    ______    ______    ______    ______    ______
 
-    r1      -0.30178    0.51348    1.4224    2.4317     3.553    4.8978    6.6446
-    r2       0.33426      1.055    1.8583    2.7718    3.8436    5.1353    6.8229
-    r3       0.88767     1.5337    2.2607     3.092    4.1185    5.3648    6.9953
-    r4        1.3753     1.9635    2.6318    3.4067    4.3851    5.5852    7.1622
-    r5        1.8107     2.3542     2.978    3.7101    4.6411    5.7965    7.3247
-    r96       13.635     13.731    13.849    14.001    14.202    14.487    14.924
-    r97       13.694     13.789    13.906    14.057    14.255    14.539    14.971
-    r98       13.752     13.846    13.962    14.112    14.309    14.589    15.018
-    r99        13.81     13.903    14.018    14.166    14.361    14.639    15.065
-    r100      13.867      13.96    14.074     14.22    14.414    14.689    15.112
+    r1      1.6927    2.9404    4.0961    5.1825    6.2429    7.3118    8.4139
+    r2      1.6939    2.9412    4.0966    5.1829    6.2432    7.3121    8.4142
+    r3      1.6994    2.9449    4.0991    5.1847    6.2446    7.3134    8.4153
+    r4       1.711    2.9527    4.1042    5.1885    6.2477     7.316    8.4177
+    r5      1.7299    2.9653    4.1127    5.1948    6.2528    7.3204    8.4216
+    r96     17.243    17.396    17.566    17.758    17.992     18.26    18.553
+    r97     17.421     17.57    17.736    17.924    18.152    18.415      18.7
+    r98     17.598    17.743    17.905    18.088    18.311    18.569    18.847
+    r99     17.773    17.914    18.072    18.252     18.47    18.722    18.993
+    r100    17.947    18.084    18.239    18.414    18.627    18.874    19.139
 
 xxx TABLE:y xxxxxxxxxxxxxxxxxx
-              c1         c2         c3         c4        c5        c6        c7  
-            _______    _______    _______    ______    ______    ______    ______
+              c1         c2         c3        c4        c5        c6        c7  
+            _______    _______    ______    ______    ______    ______    ______
 
-    r1       0.6445    0.74006    0.88734    1.1261    1.5396    2.3215    3.9801
-    r2      0.65713    0.75268    0.89997    1.1387    1.5523    2.3341    3.9927
-    r3      0.66975    0.76531    0.91259    1.1513    1.5649    2.3467    4.0053
-    r4      0.68238    0.77794    0.92522     1.164    1.5775    2.3593     4.018
-    r5      0.69501    0.79056    0.93784    1.1766    1.5901     2.372    4.0306
-    r96       1.844     1.9396     2.0868    2.3256    2.7391     3.521    5.1796
-    r97      1.8566     1.9522     2.0995    2.3382    2.7518    3.5336    5.1922
-    r98      1.8692     1.9648     2.1121    2.3508    2.7644    3.5462    5.2048
-    r99      1.8819     1.9774     2.1247    2.3635     2.777    3.5588    5.2175
-    r100     1.8945     1.9901     2.1373    2.3761    2.7896    3.5715    5.2301
+    r1      0.58543    0.76855     1.009    1.3246    1.7389    2.2828    2.9969
+    r2      0.58545    0.76858     1.009    1.3246    1.7389    2.2829    2.9969
+    r3      0.58555    0.76867    1.0091    1.3247     1.739     2.283     2.997
+    r4      0.58575    0.76887    1.0093    1.3249    1.7392    2.2832    2.9972
+    r5      0.58609    0.76921    1.0096    1.3252    1.7396    2.2835    2.9976
+    r96      2.3895     2.5726     2.813    3.1286     3.543    4.0869     4.801
+    r97      2.4373     2.6205    2.8609    3.1765    3.5908    4.1347    4.8488
+    r98      2.4859     2.6691    2.9095    3.2251    3.6394    4.1834    4.8974
+    r99      2.5353     2.7184    2.9588    3.2744    3.6888    4.2327    4.9468
+    r100     2.5854     2.7686     3.009    3.3246    3.7389    4.2828    4.9969
 
 </pre><h2 id="17">ls_ffsna summarize full</h2><pre class="codeinput"><span class="keyword">if</span> (~isempty(ls_ffsna))
 
@@ -979,109 +1159,109 @@ xxx TABLE:y xxxxxxxxxxxxxxxxxx
 
 <span class="keyword">end</span>
 </pre><pre class="codeoutput">xxx  ff_vfi_az_vec, outcome=ap  xxxxxxxxxxxxxxxxxxxxxxxxxxx
-    group       a       mean_z_0_50352    mean_z_0_57817    mean_z_0_69323    mean_z_0_87975    mean_z_1_2028    mean_z_1_8136    mean_z_3_1094
-    _____    _______    ______________    ______________    ______________    ______________    _____________    _____________    _____________
+    group        a         mean_z_0_41816    mean_z_0_54897    mean_z_0_72069    mean_z_0_94612    mean_z_1_2421    mean_z_1_6306    mean_z_2_1407
+    _____    __________    ______________    ______________    ______________    ______________    _____________    _____________    _____________
 
-       1           0             0                 0                 0                 0                 0          0.50505          2.0202    
-       2     0.50505             0                 0                 0           0.50505           0.50505           1.0101          2.5253    
-       3      1.0101       0.50505           0.50505           0.50505           0.50505            1.0101           1.5152          3.0303    
-       4      1.5152        1.0101            1.0101            1.0101            1.0101            1.5152           2.0202          3.5354    
-       5      2.0202        1.5152            1.5152            1.5152            1.5152            2.0202           2.5253          4.0404    
-       6      2.5253        2.0202            2.0202            2.0202            2.0202            2.5253           3.0303          4.5455    
-       7      3.0303        2.5253            2.5253            2.5253            2.5253            3.0303           3.5354          5.0505    
-       8      3.5354        3.0303            3.0303            3.0303            3.0303            3.5354           4.0404          5.5556    
-       9      4.0404        3.5354            3.5354            3.5354            3.5354            4.0404           4.5455          5.5556    
-      10      4.5455        4.0404            4.0404            4.0404            4.0404            4.5455           5.0505          6.0606    
-      11      5.0505        4.0404            4.5455            4.5455            4.5455            4.5455           5.5556          6.5657    
-      12      5.5556        4.5455            4.5455            5.0505            5.0505            5.0505           6.0606          7.0707    
-      13      6.0606        5.0505            5.0505            5.5556            5.5556            5.5556           6.5657          7.5758    
-      14      6.5657        5.5556            5.5556            5.5556            6.0606            6.0606           7.0707          8.0808    
-      15      7.0707        6.0606            6.0606            6.0606            6.5657            6.5657           7.5758          8.5859    
-      16      7.5758        6.5657            6.5657            6.5657            7.0707            7.0707           7.5758          9.0909    
-      17      8.0808        7.0707            7.0707            7.0707            7.5758            7.5758           8.0808           9.596    
-      18      8.5859        7.5758            7.5758            7.5758            8.0808            8.0808           8.5859          10.101    
-      19      9.0909        8.0808            8.0808            8.0808            8.5859            8.5859           9.0909          10.606    
-      20       9.596        8.5859            8.5859            8.5859            8.5859            9.0909            9.596          11.111    
-      21      10.101        9.0909            9.0909            9.0909            9.0909             9.596           10.101          11.616    
-      22      10.606         9.596             9.596             9.596             9.596            10.101           10.606          12.121    
-      23      11.111        10.101            10.101            10.101            10.101            10.606           11.111          12.626    
-      24      11.616        10.606            10.606            10.606            10.606            11.111           11.616          13.131    
-      25      12.121        11.111            11.111            11.111            11.111            11.616           12.121          13.636    
-      26      12.626        11.616            11.616            11.616            11.616            12.121           12.626          14.141    
-      27      13.131        12.121            12.121            12.121            12.121            12.626           13.131          14.646    
-      28      13.636        12.626            12.626            12.626            12.626            13.131           13.636          15.152    
-      29      14.141        13.131            13.131            13.131            13.131            13.636           14.141          15.657    
-      30      14.646        13.131            13.636            13.636            13.636            14.141           14.646          16.162    
-      31      15.152        13.636            14.141            14.141            14.141            14.646           15.152          16.667    
-      32      15.657        14.141            14.141            14.646            14.646            15.152           15.657          17.172    
-      33      16.162        14.646            14.646            15.152            15.152            15.152           16.162          17.677    
-      34      16.667        15.152            15.152            15.657            15.657            15.657           16.667          17.677    
-      35      17.172        15.657            15.657            16.162            16.162            16.162           17.172          18.182    
-      36      17.677        16.162            16.162            16.162            16.667            16.667           17.677          18.687    
-      37      18.182        16.667            16.667            16.667            17.172            17.172           18.182          19.192    
-      38      18.687        17.172            17.172            17.172            17.677            17.677           18.687          19.697    
-      39      19.192        17.677            17.677            17.677            18.182            18.182           19.192          20.202    
-      40      19.697        18.182            18.182            18.182            18.687            18.687           19.192          20.707    
-      41      20.202        18.687            18.687            18.687            19.192            19.192           19.697          21.212    
-      42      20.707        19.192            19.192            19.192            19.697            19.697           20.202          21.717    
-      43      21.212        19.697            19.697            19.697            20.202            20.202           20.707          22.222    
-      44      21.717        20.202            20.202            20.202            20.202            20.707           21.212          22.727    
-      45      22.222        20.707            20.707            20.707            20.707            21.212           21.717          23.232    
-      46      22.727        21.212            21.212            21.212            21.212            21.717           22.222          23.737    
-      47      23.232        21.717            21.717            21.717            21.717            22.222           22.727          24.242    
-      48      23.737        22.222            22.222            22.222            22.222            22.727           23.232          24.747    
-      49      24.242        22.727            22.727            22.727            22.727            23.232           23.737          25.253    
-      50      24.747        23.232            23.232            23.232            23.232            23.737           24.242          25.758    
-      51      25.253        23.737            23.737            23.737            23.737            24.242           24.747          26.263    
-      52      25.758        24.242            24.242            24.242            24.242            24.747           25.253          26.768    
-      53      26.263        24.747            24.747            24.747            24.747            25.253           25.758          27.273    
-      54      26.768        25.253            25.253            25.253            25.253            25.758           26.263          27.778    
-      55      27.273        25.758            25.758            25.758            25.758            26.263           26.768          28.283    
-      56      27.778        25.758            26.263            26.263            26.263            26.768           27.273          28.788    
-      57      28.283        26.263            26.768            26.768            26.768            27.273           27.778          29.293    
-      58      28.788        26.768            27.273            27.273            27.273            27.778           28.283          29.798    
-      59      29.293        27.273            27.273            27.778            27.778            28.283           28.788          30.303    
-      60      29.798        27.778            27.778            28.283            28.283            28.788           29.293          30.808    
-      61      30.303        28.283            28.283            28.788            28.788            29.293           29.798          31.313    
-      62      30.808        28.788            28.788            29.293            29.293            29.798           30.303          31.818    
-      63      31.313        29.293            29.293            29.798            29.798            29.798           30.808          32.323    
-      64      31.818        29.798            29.798            29.798            30.303            30.303           31.313          32.323    
-      65      32.323        30.303            30.303            30.303            30.808            30.808           31.818          32.828    
-      66      32.828        30.808            30.808            30.808            31.313            31.313           32.323          33.333    
-      67      33.333        31.313            31.313            31.313            31.818            31.818           32.828          33.838    
-      68      33.838        31.818            31.818            31.818            32.323            32.323           33.333          34.343    
-      69      34.343        32.323            32.323            32.323            32.828            32.828           33.838          34.848    
-      70      34.848        32.828            32.828            32.828            33.333            33.333           33.838          35.354    
-      71      35.354        33.333            33.333            33.333            33.838            33.838           34.343          35.859    
-      72      35.859        33.838            33.838            33.838            34.343            34.343           34.848          36.364    
-      73      36.364        34.343            34.343            34.343            34.848            34.848           35.354          36.869    
-      74      36.869        34.848            34.848            34.848            35.354            35.354           35.859          37.374    
-      75      37.374        35.354            35.354            35.354            35.354            35.859           36.364          37.879    
-      76      37.879        35.859            35.859            35.859            35.859            36.364           36.869          38.384    
-      77      38.384        36.364            36.364            36.364            36.364            36.869           37.374          38.889    
-      78      38.889        36.869            36.869            36.869            36.869            37.374           37.879          39.394    
-      79      39.394        37.374            37.374            37.374            37.374            37.879           38.384          39.899    
-      80      39.899        37.879            37.879            37.879            37.879            38.384           38.889          40.404    
-      81      40.404        38.384            38.384            38.384            38.384            38.889           39.394          40.909    
-      82      40.909        38.889            38.889            38.889            38.889            39.394           39.899          41.414    
-      83      41.414        39.394            39.394            39.394            39.394            39.899           40.404          41.919    
-      84      41.919        39.899            39.899            39.899            39.899            40.404           40.909          42.424    
-      85      42.424        40.404            40.404            40.404            40.404            40.909           41.414          42.929    
-      86      42.929        40.909            40.909            40.909            40.909            41.414           41.919          43.434    
-      87      43.434        40.909            41.414            41.414            41.414            41.919           42.424          43.939    
-      88      43.939        41.414            41.919            41.919            41.919            42.424           42.929          44.444    
-      89      44.444        41.919            42.424            42.424            42.424            42.929           43.434          44.949    
-      90      44.949        42.424            42.929            42.929            42.929            43.434           43.939          45.455    
-      91      45.455        42.929            42.929            43.434            43.434            43.939           44.444           45.96    
-      92       45.96        43.434            43.434            43.939            43.939            44.444           44.949          46.465    
-      93      46.465        43.939            43.939            44.444            44.444            44.949           45.455           46.97    
-      94       46.97        44.444            44.444            44.949            44.949            45.455            45.96          47.475    
-      95      47.475        44.949            44.949            45.455            45.455            45.455           46.465           47.98    
-      96       47.98        45.455            45.455             45.96             45.96             45.96            46.97          48.485    
-      97      48.485         45.96             45.96             45.96            46.465            46.465           47.475           48.99    
-      98       48.99        46.465            46.465            46.465             46.97             46.97            47.98           48.99    
-      99      49.495         46.97             46.97             46.97            47.475            47.475           48.485          49.495    
-     100          50        47.475            47.475            47.475             47.98             47.98            48.99              50    
+       1              0              0                 0                  0         0.092813          0.31242           0.7048          1.3008    
+       2     0.00051272              0                 0                  0         0.092813          0.31242           0.7048          1.3008    
+       3      0.0029004              0                 0                  0         0.092813          0.31242           0.7048          1.3008    
+       4      0.0079925              0                 0                  0         0.092813          0.31242           0.7048          1.3008    
+       5       0.016407              0                 0         0.00051272         0.092813          0.31242           0.7048          1.3008    
+       6       0.028662              0                 0          0.0079925         0.092813          0.31242           0.7048          1.3008    
+       7       0.045213              0                 0           0.016407          0.12459          0.37601           0.7048          1.3008    
+       8        0.06647              0                 0           0.028662          0.12459          0.37601           0.8068          1.3008    
+       9       0.092813      0.0029004          0.016407           0.045213          0.16214          0.37601           0.8068          1.3008    
+      10        0.12459       0.016407          0.028662            0.06647          0.20576           0.4468           0.8068          1.3008    
+      11        0.16214       0.045213          0.045213           0.092813          0.20576           0.4468           0.8068          1.3008    
+      12        0.20576        0.06647           0.06647            0.12459          0.25576          0.52503          0.91719          1.4468    
+      13        0.25576       0.092813           0.12459            0.16214          0.31242          0.52503          0.91719          1.4468    
+      14        0.31242        0.12459           0.16214            0.20576          0.37601          0.61095           1.0362          1.6023    
+      15        0.37601        0.16214           0.20576            0.25576           0.4468          0.61095           1.0362          1.6023    
+      16         0.4468        0.20576           0.25576            0.31242           0.4468           0.7048            1.164          1.6023    
+      17        0.52503        0.25576           0.31242            0.37601          0.52503           0.8068            1.164          1.7673    
+      18        0.61095        0.31242           0.37601             0.4468          0.61095          0.91719           1.3008          1.7673    
+      19         0.7048        0.37601            0.4468            0.52503           0.7048          0.91719           1.3008          1.9422    
+      20         0.8068        0.52503           0.52503            0.61095           0.8068           1.0362           1.4468          1.9422    
+      21        0.91719        0.61095           0.61095             0.7048          0.91719            1.164           1.6023           2.127    
+      22         1.0362         0.7048            0.7048             0.8068           1.0362           1.3008           1.7673          2.3221    
+      23          1.164         0.8068            0.8068            0.91719            1.164           1.4468           1.7673          2.3221    
+      24         1.3008        0.91719           0.91719             1.0362           1.3008           1.6023           1.9422          2.5275    
+      25         1.4468         1.0362            1.0362              1.164           1.4468           1.6023            2.127          2.5275    
+      26         1.6023          1.164            1.3008             1.3008           1.6023           1.7673           2.3221          2.7434    
+      27         1.7673         1.3008            1.4468             1.4468           1.7673           1.9422           2.3221            2.97    
+      28         1.9422         1.4468            1.6023             1.6023           1.9422            2.127           2.5275          3.2075    
+      29          2.127         1.6023            1.7673             1.7673           1.9422           2.3221           2.7434          3.2075    
+      30         2.3221         1.7673            1.9422             1.9422            2.127           2.5275             2.97           3.456    
+      31         2.5275         1.9422             2.127              2.127           2.3221           2.7434           3.2075          3.7158    
+      32         2.7434          2.127            2.3221             2.3221           2.5275             2.97            3.456          3.9869    
+      33           2.97         2.3221            2.5275             2.5275           2.7434           3.2075            3.456          4.2696    
+      34         3.2075         2.5275            2.7434             2.7434             2.97            3.456           3.7158          4.2696    
+      35          3.456         2.7434              2.97             3.2075           3.2075           3.7158           3.9869           4.564    
+      36         3.7158         3.2075            3.2075              3.456            3.456           3.9869           4.2696          4.8702    
+      37         3.9869          3.456             3.456             3.7158           3.7158           4.2696            4.564          5.1884    
+      38         4.2696         3.7158            3.7158             3.9869           3.9869           4.2696           4.8702          5.5188    
+      39          4.564         3.9869            3.9869             4.2696           4.2696            4.564           5.1884          5.8615    
+      40         4.8702         4.2696            4.2696              4.564            4.564           4.8702           5.5188          5.8615    
+      41         5.1884          4.564             4.564             4.8702           4.8702           5.1884           5.8615          6.2166    
+      42         5.5188         4.8702            4.8702             5.1884           5.1884           5.5188           6.2166          6.5844    
+      43         5.8615         5.1884            5.1884             5.5188           5.5188           5.8615           6.5844          6.9649    
+      44         6.2166         5.5188            5.5188             5.8615           5.8615           6.2166           6.5844          7.3583    
+      45         6.5844         5.8615            5.8615             6.2166           6.2166           6.5844           6.9649          7.7647    
+      46         6.9649         6.2166            6.2166             6.5844           6.5844           6.9649           7.3583          8.1844    
+      47         7.3583         6.5844            6.5844             6.9649           6.9649           7.3583           7.7647          8.6173    
+      48         7.7647         6.9649            6.9649             7.3583           7.3583           7.7647           8.1844          9.0637    
+      49         8.1844         7.3583            7.3583             7.7647           7.7647           8.1844           8.6173          9.0637    
+      50         8.6173         7.7647            7.7647             8.1844           8.1844           8.6173           9.0637          9.5237    
+      51         9.0637         8.1844            8.1844             8.6173           8.6173           9.0637           9.5237          9.9975    
+      52         9.5237         8.6173            8.6173             9.0637           9.0637           9.5237           9.9975          10.485    
+      53         9.9975         9.0637            9.0637             9.5237           9.5237           9.9975           10.485          10.987    
+      54         10.485         9.5237            9.5237             9.9975           9.9975           10.485           10.987          11.502    
+      55         10.987         9.9975            10.485             10.485           10.485           10.987           11.502          12.032    
+      56         11.502         10.485            10.987             10.987           10.987           11.502           12.032          12.577    
+      57         12.032         10.987            11.502             11.502           11.502           12.032           12.577          13.136    
+      58         12.577         11.502            12.032             12.032           12.032           12.577           13.136          13.709    
+      59         13.136         12.032            12.577             12.577           12.577           13.136           13.709          14.298    
+      60         13.709         12.577            13.136             13.136           13.136           13.709           14.298          14.901    
+      61         14.298         13.136            13.709             13.709           13.709           14.298           14.901          15.519    
+      62         14.901         13.709            14.298             14.298           14.298           14.901           15.519          16.152    
+      63         15.519         14.298            14.901             14.901           14.901           15.519           16.152          16.801    
+      64         16.152         14.901            15.519             15.519           15.519           16.152           16.801          16.801    
+      65         16.801         16.152            16.152             16.152           16.152           16.801           17.465          17.465    
+      66         17.465         16.801            16.801             16.801           16.801           17.465           18.144          18.144    
+      67         18.144         17.465            17.465             17.465           17.465           18.144           18.839          18.839    
+      68         18.839         18.144            18.144             18.144           18.144           18.839           18.839           19.55    
+      69          19.55         18.839            18.839             18.839           18.839            19.55            19.55          20.277    
+      70         20.277          19.55             19.55              19.55            19.55           20.277           20.277           21.02    
+      71          21.02         20.277            20.277             20.277           20.277            21.02            21.02          21.778    
+      72         21.778          21.02             21.02              21.02            21.02           21.778           21.778          22.553    
+      73         22.553         21.778            21.778             21.778           21.778           22.553           22.553          23.345    
+      74         23.345         22.553            22.553             22.553           22.553           23.345           23.345          24.152    
+      75         24.152         23.345            23.345             23.345           23.345           24.152           24.152          24.977    
+      76         24.977         24.152            24.152             24.152           24.152           24.977           24.977          25.818    
+      77         25.818         24.977            24.977             24.977           24.977           25.818           25.818          26.675    
+      78         26.675         25.818            25.818             25.818           25.818           26.675           26.675           27.55    
+      79          27.55         26.675            26.675             26.675           26.675            27.55            27.55          28.441    
+      80         28.441          27.55             27.55              27.55            27.55           28.441           28.441           29.35    
+      81          29.35         28.441            28.441             28.441           28.441            29.35            29.35          30.276    
+      82         30.276          29.35             29.35              29.35            29.35           30.276           30.276          31.219    
+      83         31.219         30.276            30.276             30.276           30.276           31.219           31.219          32.179    
+      84         32.179         31.219            31.219             31.219           31.219           32.179           32.179          33.157    
+      85         33.157         32.179            32.179             32.179           32.179           33.157           33.157          34.153    
+      86         34.153         33.157            33.157             33.157           33.157           34.153           34.153          35.166    
+      87         35.166         34.153            34.153             34.153           34.153           35.166           35.166          36.198    
+      88         36.198         35.166            35.166             35.166           35.166           36.198           36.198          37.247    
+      89         37.247         36.198            36.198             36.198           36.198           37.247           37.247          38.314    
+      90         38.314         37.247            37.247             37.247           37.247           38.314           38.314          39.399    
+      91         39.399         38.314            38.314             38.314           38.314           39.399           39.399          40.503    
+      92         40.503         39.399            39.399             39.399           39.399           40.503           40.503          41.625    
+      93         41.625         40.503            40.503             40.503           40.503           41.625           41.625          42.765    
+      94         42.765         41.625            41.625             41.625           41.625           42.765           42.765          43.924    
+      95         43.924         42.765            42.765             42.765           42.765           43.924           43.924          45.102    
+      96         45.102         43.924            43.924             43.924           43.924           45.102           45.102          46.298    
+      97         46.298         45.102            45.102             45.102           45.102           46.298           46.298          47.513    
+      98         47.513         46.298            46.298             46.298           46.298           47.513           47.513          48.747    
+      99         48.747         47.513            47.513             47.513           47.513           48.747           48.747              50    
+     100             50         48.747            48.747             48.747           48.747               50               50              50    
 
 </pre><h2 id="18">ls_ffgrh graph</h2><pre class="codeinput"><span class="keyword">if</span> (~isempty(ls_ffgrh))
 
@@ -1100,7 +1280,7 @@ xxx TABLE:y xxxxxxxxxxxxxxxxxx
 
     <span class="comment">% Overide graph options here with external parameters</span>
     <span class="keyword">if</span> (length(varargin)&gt;=3)
-        mp_support_graph = [mp_support_graph; mp_support_graph_ext];
+        mp_support_graph = [mp_support_graph; mp_support_ext];
     <span class="keyword">end</span>
 
     <span class="comment">% summarize</span>
@@ -1187,8 +1367,9 @@ xxx TABLE:y xxxxxxxxxxxxxxxxxx
 %    MP_SUPPORT_GRAPH) also changing graphing options, see the
 %    FF_GRAPH_GRID function for what key value paris can be specified.
 %
-%    see also FX_VFI_AZ_VEC, FF_VFI_AZ_LOOP, FF_GRAPH_GRID,
-%    FF_VFI_AZ_BISEC_LOOP, FF_VFI_AZ_BISEC_VEC
+%    see also FX_VFI_AZ_VEC, FF_VFI_AZ_LOOP, FF_VFI_AZ_BISEC_LOOP,
+%    FF_VFI_AZ_BISEC_VEC, FF_VFI_AZ_MZOOM_LOOP, FF_VFI_AZ_MZOOM_VEC,
+%    FF_GRAPH_GRID
 %
 
 %%
@@ -1201,8 +1382,6 @@ if (~isempty(varargin))
         [mp_params_ext] = varargin{:};
     elseif (length(varargin) == 2)
         [mp_params_ext, mp_support_ext] = varargin{:};
-    elseif (length(varargin) == 3)
-        [mp_params_ext, mp_support_ext, mp_support_graph_ext] = varargin{:};
     end
     
 else
@@ -1225,15 +1404,15 @@ end
 % support_map
 mp_params = containers.Map('KeyType','char', 'ValueType','any');
 mp_params('fl_crra') = 1.5;
-mp_params('fl_beta') = 0.94;
+mp_params('fl_beta') = 0.95;
 
-mp_params('fl_w') = 1.28;
-mp_params('fl_r') = 0.025;
+mp_params('fl_w') = 1.40;
+mp_params('fl_r') = 0.04;
 
 mp_params('fl_a_min') = 0;
 mp_params('fl_a_max') = 50;
 mp_params('it_a_n') = 100;
-mp_params('st_grid_type') = 'grid_linspace';
+mp_params('st_grid_type') = 'grid_powerspace';
 
 mp_params('fl_z_persist') = 0.80;
 mp_params('fl_shk_std') = 0.20;
@@ -1261,23 +1440,23 @@ ar_a = ar_a';
 
 % shock vector and transition, normalize mean exp(shk) to 1
 [ar_z, mt_z_trans] = ffy_rouwenhorst(fl_z_persist, fl_shk_std, it_z_n, false);
-ar_z = exp(ar_z');
+% [ar_z, mt_z_trans] = ffy_tauchen(fl_z_persist, fl_shk_std, it_z_n, false);
 % normalize mean of exp to 1, fl_shk_std does not shift mean.
 ar_z_stationary = mt_z_trans^1000;
 ar_z_stationary = ar_z_stationary(1,:);
-fl_labor_agg = ar_z_stationary*exp(ar_z');
-ar_z = exp(ar_z)/fl_labor_agg;
+fl_labor_agg = ar_z_stationary*exp(ar_z);
+ar_z = exp(ar_z')/fl_labor_agg;
 
 %% Default Support Parameters
 % support_map
 mp_support = containers.Map('KeyType','char', 'ValueType','any');
 
 % Model Control
-mp_support('fl_lowestc') = -10e10;
+mp_support('fl_lowestc') = -1e10;
 
 % Iteration Control
 mp_support('it_maxiter_val') = 500;
-mp_support('fl_tol_val') = 10e-5;
+mp_support('fl_tol_val') = 1e-5;
 
 % printer various information
 mp_support('bl_timer') = true;
@@ -1325,11 +1504,12 @@ params_group = values(mp_support, ...
 % ls_ffsna, and ls_ffgrh.
 
 % If to store additional outcomes
-cl_more = {'c', 'y'};
+cl_more = {'c', 'y', 'coh', 'savefraccoh'};
 ar_find_slout = cell2mat(cellfun(@(m) find(strcmp(ls_slout, m)), cl_more, 'UniformOutput', false));
 ar_find_ffcmd = cell2mat(cellfun(@(m) find(strcmp(ls_ffcmd, m)), cl_more, 'UniformOutput', false));
 ar_find_ffsna = cell2mat(cellfun(@(m) find(strcmp(ls_ffsna, m)), cl_more, 'UniformOutput', false));
 ar_find_ffgrh = cell2mat(cellfun(@(m) find(strcmp(ls_ffgrh, m)), cl_more, 'UniformOutput', false));
+bl_store_more = false;
 if (length(ar_find_slout) + length(ar_find_ffcmd) + length(ar_find_ffsna) + length(ar_find_ffgrh) >1)
     bl_store_more = true;
 end
@@ -1481,17 +1661,15 @@ end
 
 %% Convergence Results
 it_iter_last = it_iter;
+mt_val_cur = mt_val_lst;
+mt_aprime = mt_aprime_lst;
 if fl_diff <= fl_tol_val || it_iter>=it_maxiter_val
-    mt_val_cur = mt_val_lst;
-    mt_aprime = mt_aprime_lst;
     if (it_iter>=it_maxiter_val)
         flag = 2;
     else
         flag = 1;
     end
 else
-    mt_val_cur = zeros(size(mt_val_cur));
-    mt_aprime = zeros(size(mt_val_cur));
     flag = 0;
 end
 
@@ -1594,7 +1772,7 @@ if (~isempty(ls_ffgrh))
     
     % Overide graph options here with external parameters
     if (length(varargin)>=3)
-        mp_support_graph = [mp_support_graph; mp_support_graph_ext];
+        mp_support_graph = [mp_support_graph; mp_support_ext];
     end
     
     % summarize 

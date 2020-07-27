@@ -8,7 +8,7 @@
   core :
     - package: MEconTools
       code: |
-        ff_summ_nd_array()
+        [ff_summ_nd_array()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/summ/ff_summ_nd_array.m)
   date: 2020-06-22
   date_start: 2020-06-22
   output:

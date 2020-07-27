@@ -58,14 +58,14 @@ if (~isempty(varargin))
 
 else
 
-    fl_a_min = 0;
+    fl_a_min = 1;
     fl_a_max = 50;
     it_a_points = 25;
     bl_verbose = true;
     
 %     st_grid_type = 'grid_linspace';
-    st_grid_type = 'grid_log10space';
-%     st_grid_type = 'grid_powerspace';
+%     st_grid_type = 'grid_log10space';
+    st_grid_type = 'grid_powerspace';
 %     st_grid_type = 'grid_evenlog';
     
 end
@@ -80,7 +80,7 @@ mp_grid_control('grid_log10space_x1') = 0.3;
 mp_grid_control('grid_log10space_x2') = 3;
 
 % Options for st_grid_type == grid_powerspace
-mp_grid_control('grid_powerspace_power') = 3;
+mp_grid_control('grid_powerspace_power') = 2.5;
 
 % Options for st_grid_type == grid_evenlog
 mp_grid_control('grid_evenlog_threshold') = 1;
@@ -121,8 +121,8 @@ elseif (strcmp(st_grid_type, 'grid_powerspace'))
     
     ar_fl_saveborr=zeros(it_a_points, 1);
 
-    for i=2:(it_a_points)
-        ar_fl_saveborr(i)=fl_a_max*((i-1)/(it_a_points-1))^grid_powerspace_power;
+    for i=1:(it_a_points)
+        ar_fl_saveborr(i)= fl_a_min + (fl_a_max-fl_a_min)*((i-1)/(it_a_points-1))^grid_powerspace_power;
     end
                 
 elseif (strcmp(st_grid_type, 'grid_evenlog'))

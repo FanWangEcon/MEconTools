@@ -1,4 +1,4 @@
-%% FF_DS_AZ_LOOP (looped discrete choice) Dynamic Savings Distribution
+%% FF_DS_AZ_LOOP (Looped Discrete Choice) Dynamic Savings Distribution
 %    For the AZ model, dynamic savings with Shocks. Looped distributional
 %    solution for discrete asset choices. Policy function maps to
 %    state-space. Given Shock transition and policy function, the model
@@ -63,7 +63,8 @@
 %    should generally not be called, the function should solve for value
 %    and policy function given new parameters.
 %
-%    see also FX_DS_AZ_LOOP, FF_DS_AZ_CTS_LOOP, FF_DS_AZ_CTS_VEC
+%    see also FX_DS_AZ_LOOP, FF_DS_AZ_CTS_LOOP, FF_DS_AZ_CTS_VEC,
+%    FF_GRAPH_GRID
 %
 
 %%
@@ -95,6 +96,7 @@ else
     mp_support_ext('bl_timer') = true;
     mp_support_ext('bl_print_params') = true;
     mp_support_ext('bl_print_iterinfo') = true;
+    mp_support_ext('bl_show_stats_table') = true;    
        
     %savings, fz, mass over shocks
     mp_support_ext('ls_dsout') = {'faz', 'fa', 'fz'};
@@ -112,7 +114,7 @@ end
 %% Default Model Parameters
 % Parameters for both VFI and Dist
 mp_params = containers.Map('KeyType','char', 'ValueType','any');
-mp_params('solu_method') = 'bisec';
+mp_params('solu_method') = 'vec';
 
 mp_params('fl_crra') = 1.5;
 mp_params('fl_beta') = 0.95;
@@ -122,7 +124,7 @@ mp_params('fl_r') = 0.04;
 
 mp_params('fl_a_min') = 0;
 mp_params('fl_a_max') = 50;
-mp_params('it_a_n') = 105;
+mp_params('it_a_n') = 100;
 mp_params('st_grid_type') = 'grid_powerspace';
 
 mp_params('fl_z_persist') = 0.80;
@@ -168,6 +170,7 @@ mp_support('fl_tol_ds') = 1e-5;
 mp_support('bl_timer') = true;
 mp_support('bl_print_params') = false;
 mp_support('bl_print_iterinfo') = false;
+mp_support('bl_show_stats_table') = false;
 
 % These names must match keys of mp_solu:
 %savings, fz, mass over shocks
@@ -177,9 +180,9 @@ mp_support('ls_stout') = {'ap', 'v', 'c', 'y', 'coh', 'savefraccoh'};
 % outcome for ff_container_map_display
 mp_support('ls_ddcmd') = {'faz', 'fa', 'fz'};
 % present which distribution: only faz is allowed
-mp_support('ls_ddsna') = {'faz'};
+mp_support('ls_ddsna') = {};
 % which distributional outcomes to graph: faz or fa allowed
-mp_support('ls_ddgrh') = {'faz', 'fa'};
+mp_support('ls_ddgrh') = {'fa'};
 mp_support('ddcmd_opt_it_row_n_keep') = 10;
 mp_support('ddcmd_opt_it_col_n_keep') = 9;
 
@@ -191,8 +194,8 @@ end
 % Parse mp_support
 params_group = values(mp_support, {'it_maxiter_ds', 'fl_tol_ds'});
 [it_maxiter_ds, fl_tol_ds] = params_group{:};
-params_group = values(mp_support, {'bl_timer', 'bl_print_iterinfo'});
-[bl_timer, bl_print_iterinfo] = params_group{:};
+params_group = values(mp_support, {'bl_timer', 'bl_print_iterinfo', 'bl_show_stats_table'});
+[bl_timer, bl_print_iterinfo, bl_show_stats_table] = params_group{:};
 params_group = values(mp_support, {'ls_stout', 'ls_dsout', 'ls_ddcmd', 'ls_ddsna', 'ls_ddgrh', ...
     'ddcmd_opt_it_row_n_keep', 'ddcmd_opt_it_col_n_keep'});
 [ls_stout, ls_dsout, ls_ddcmd, ls_ddsna, ls_ddgrh, ...
@@ -200,19 +203,11 @@ params_group = values(mp_support, {'ls_stout', 'ls_dsout', 'ls_ddcmd', 'ls_ddsna
 
 %% Solve the Value Function
 
-if (length(varargin) ~= 4)
+if (length(varargin) <= 4)
     
     mp_support('ls_slout') = mp_support('ls_stout');
     
-    if (strcmp(solu_method, 'bisec_loop'))
-        [mp_valpol] = ff_vfi_az_bisec_loop(mp_params, mp_support);
-    elseif (strcmp(solu_method, 'bisec_vec'))
-        [mp_valpol] = ff_vfi_az_bisec_vec(mp_params, mp_support);
-    elseif (strcmp(solu_method, 'mzoom_loop'))
-        [mp_valpol] = ff_vfi_az_mzoom_loop(mp_params, mp_support);
-    elseif (strcmp(solu_method, 'mzoom_vec'))
-        [mp_valpol] = ff_vfi_az_mzoom_vec(mp_params, mp_support);
-    elseif (strcmp(solu_method, 'loop'))
+    if (strcmp(solu_method, 'loop'))
         [mp_valpol] = ff_vfi_az_loop(mp_params, mp_support);
     elseif (strcmp(solu_method, 'vec'))
         [mp_valpol] = ff_vfi_az_vec(mp_params, mp_support);
@@ -234,7 +229,7 @@ mt_dist_perc_change = zeros([it_maxiter_ds, it_z_n]);
 
 %% Start Timer
 if (bl_timer)
-    tic
+    tm_start_tic = tic;
 end
 
 %% Iterate and Get Distribution
@@ -316,7 +311,8 @@ end
 
 %% Timer Stop
 if (bl_timer)
-    toc
+    tm_total = toc(tm_start_tic);
+    disp(['FF_DS_AZ_LOOP finished. Distribution took = ' num2str(tm_total)])
 end
 
 %% Results for Printing, and Graphing
@@ -395,7 +391,7 @@ if (~isempty(ls_ddgrh))
     mp_support_graph('st_legend_loc') = 'best';
     mp_support_graph('bl_graph_logy') = true; % do not log
     mp_support_graph('st_rowvar_name') = 'shock=';
-    mp_support_graph('it_legend_select') = 11; % how many shock legends to show
+    mp_support_graph('it_legend_select') = 5; % how many shock legends to show
     mp_support_graph('st_rounding') = '6.2f'; % format shock legend
     
     % Overide graph options here with external parameters
@@ -413,6 +409,7 @@ if (~isempty(ls_ddgrh))
         
         if (strcmp(st_mt_name, 'faz'))
             
+            % First Show F(a,z) as Y
             % Color
             mp_support_graph('cl_colors') = 'copper'; % any predefined matlab colormap           
             % Update Title and Y label            
@@ -422,6 +419,18 @@ if (~isempty(ls_ddgrh))
             % Call function
             ff_graph_grid(mt_cur', ar_z, ar_a, mp_support_graph);
             
+            % Show F(a,z) as Scatter Size
+            % Color
+            mp_support_graph('cl_colors') = 'black'; % any predefined matlab colormap           
+            % Update Title and Y label            
+            mp_support_graph('cl_st_graph_title') = {['F(a,z), Prob Mass at State-Space as Scatter Size']};
+            mp_support_graph('cl_st_ytitle') = {'shock states, z'};
+            mp_support_graph('cl_st_xtitle') = {'savings states, a'};
+            mp_support_graph('st_rowvar_name') = 'z =';
+            mp_support_graph('bl_graph_logy') = false;
+            % Call function distributional
+            ff_graph_grid(mt_cur', ar_z, ar_a, mp_support_graph, 'dist');
+                        
         elseif (strcmp(st_mt_name, 'fa'))
             
             % Color
@@ -429,7 +438,7 @@ if (~isempty(ls_ddgrh))
             % Update Title and Y label
             mp_support_graph('cl_st_graph_title') = {['f(a), savings state =x, marginal']};
             mp_support_graph('cl_st_ytitle') = {['f(a) marginal mass']};
-            mp_support_graph('cl_st_xtitle') = {'savings states, a'};
+            mp_support_graph('cl_st_xtitle') = {'savings states, a'};            
             % Call function
             ff_graph_grid(mt_cur', ["shock"], ar_a, mp_support_graph);
 
@@ -475,7 +484,7 @@ if (~isempty(ls_stout))
     % controls
     mp_support = containers.Map('KeyType','char', 'ValueType','any');
     mp_support('ar_fl_percentiles') = [0.01 0.1 1 5 10 20 25 30 40 50 60 70 75 80 90 95 99 99.9 99.99];
-    mp_support('bl_display_final') = true;
+    mp_support('bl_display_final') = bl_show_stats_table;
     mp_support('bl_display_detail') = false;
     mp_support('bl_display_drvm2outcomes') = false;
     mp_support('bl_display_drvstats') = false;

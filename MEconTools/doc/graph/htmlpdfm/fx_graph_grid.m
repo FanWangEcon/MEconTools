@@ -7,13 +7,21 @@
 % *ff_graph_grid*> from the <https://fanwangecon.github.io/MEconTools/ *MEconTools 
 % Package*>*.* This function can graph out value and policy functions given one 
 % state vector (x-axis), conditional on other states  (line groups). Can handle 
-% a few lines (scatter + lines), or many groups (jet spectrum).
+% a few lines (scatter + lines), or many groups (jet spectrum). Can handle policy 
+% and value function graphs, or distributional plots.
 %% Test FF_GRAPH_GRID Defaults
 % Call the function with defaults.
 
 ff_graph_grid();
 %% Test FF_GRAPH_GRID Random Matrix Pick Markers and Colors
-% Call the function with defaults.
+% Call the function with defaults. Graph a matrix, each row of the matrix is 
+% a separate line, each column a point along the x-axis, value of the matrix are 
+% plotting on the y-axis. 
+%% 
+% * ar_row_grid: the values associated with each row, what will show up in the 
+% legend
+% * ar_col_grid: the values associated with each column
+% * mt_support_graph: various controls, color, etc...
 
 rng(123);
 mt_value = [normrnd(50,10,[1, 50]); ...
@@ -106,3 +114,41 @@ mp_support_graph('it_legend_select') = 15;
 mp_support_graph('cl_colors') = 'winter'; % any predefined matlab colormap
 % Call function
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);
+%% Test FF_GRAPH_GRID Joint Probability Mass Output as Scatter Size
+% Along two dimensions of the state-space, we might want to visualize the probability 
+% mass distribution P(a,z) . We will show A and Z as the X and Y dimensions, and 
+% use Scatter size for mass at each point. 
+% 
+% In the default mode, each ar_row_grid can be a string array, providing labels 
+% for each data matrix row, shown with different colors. Here, the ar_row_grid 
+% must be numeric.
+
+% Joint Normal Mass
+rng(456);
+mu = [0 25];
+sigma = [3 -0.3; -0.3 25];
+ar_z = linspace(-3, 3, 10);
+ar_a = linspace(0, 50, 10);
+[mt_a, mt_z] = meshgrid(ar_a, ar_z);
+mt_x = [mt_z(:) mt_a(:)];
+ar_prob = mvnpdf(mt_x, mu, sigma);
+mt_prob = reshape(ar_prob,length(ar_a),length(ar_z));
+mt_prob = mt_prob/sum(mt_prob, 'all');
+% container map settings
+mp_support_graph = containers.Map('KeyType', 'char', 'ValueType', 'any');
+mp_support_graph('cl_st_graph_title') = {'Scatter Size = F(a,z), Prob Mass at State-Space'};
+mp_support_graph('cl_st_ytitle') = {'Shocks, z'};
+mp_support_graph('cl_st_xtitle') = {'Savings States, a'};
+mp_support_graph('st_legend_loc') = 'eastoutside';
+mp_support_graph('bl_graph_logy') = false; % do not log
+mp_support_graph('st_rowvar_name') = 'z=';
+mp_support_graph('it_legend_select') = 3; % how many shock legends to show
+mp_support_graph('st_rounding') = '6.2f'; % format shock legend
+mp_support_graph('cl_colors') = 'parula'; % any predefined matlab colormap
+mp_support_graph('it_dist_csize_multiple') = 5000;
+
+% Call function
+ar_row_grid = ar_z;
+ar_col_grid = ar_a;
+st_figtype = 'dist';
+ff_graph_grid(mt_prob, (ar_z), ar_col_grid, mp_support_graph, st_figtype);

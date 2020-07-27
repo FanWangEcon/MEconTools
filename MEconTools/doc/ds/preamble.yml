@@ -1,0 +1,49 @@
+- file: fx_ds_az_loop
+  title: "Matlab FX_DS_AZ_LOOP Looped Grid Solution for the Stationary Distribution of Optimal Savings Dynamic Programming Problem"
+  titleshort: "Looped Grid Stationary Distribution Dynamic Savings Problem"
+  description: |
+    Stationary distribution for infinite horizon constrained dynamic savings problem with persistent shock.
+    The state-space and choice-space share the same asset grid.
+    Looped algorithm.
+  core :
+    - package: MEconTools
+      code: |
+        [ff_ds_az_loop()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/ds/ff_ds_az_loop.m)
+  date: 2020-07-25
+  date_start: 2020-07-25
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue
+
+- file: fx_ds_az_cts_loop
+  title: "Matlab FF_DS_AZ_CTS_LOOP Looped Exact Solution for the Stationary Distribution of Optimal Savings Dynamic Programming Problem"
+  titleshort: "Looped Exact Stationary Distribution Dynamic Savings Problem"
+  description: |
+    Stationary distribution for infinite horizon constrained dynamic savings problem with persistent shock.
+    The state-space is on a grid, the choice space are continuous percentages of cash-on-hand.
+    Looped algorithm.
+  core :
+    - package: MEconTools
+      code: |
+        [ff_ds_az_cts_loop()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/ds/ff_ds_az_cts_loop.m)
+  date: 2020-07-25
+  date_start: 2020-07-25
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue

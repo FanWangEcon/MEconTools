@@ -6,7 +6,7 @@
   core :
     - package: MEconTools
       code: |
-        ff_saveborr_grid()
+        [ff_saveborr_grid()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/generate/ff_saveborr_grid.m)
   date: 2020-06-28
   date_start: 2020-06-28
   output:

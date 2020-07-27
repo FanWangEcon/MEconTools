@@ -278,7 +278,10 @@ for it_multi_section_iter=1:it_mzoom_max_iter
     ar_upper_x_cur = ar_upper_bd' - (ar_upper_bd' - ar_upper_x_cur).*it_mzoom_zm_ratio;
 
 end
+
 ar_opti_save_frac = (ar_upper_bd+ar_lower_bd)/2;
+ar_opti_save_frac(ar_lower_bd==fl_x_left_start) = fl_x_left_start;
+ar_opti_save_frac(ar_upper_bd==fl_x_right_start) = fl_x_right_start;
 
 %% Get Levels
 if (nargout>=2 || isempty(varargin))

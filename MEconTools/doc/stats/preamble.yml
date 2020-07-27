@@ -6,7 +6,7 @@
   core :
     - package: MEconTools
       code: |
-        ff_disc_rand_var_mass2covcor()
+        [ff_disc_rand_var_mass2covcor()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/stats/ff_disc_rand_var_mass2covcor.m)
   date: 2020-06-22
   date_start: 2020-06-22
   output:
@@ -30,7 +30,7 @@
   core :
     - package: MEconTools
       code: |
-        ff_disc_rand_var_mass2outcomes()
+        [ff_disc_rand_var_mass2outcomes()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/stats/ff_disc_rand_var_mass2outcomes.m)
   date: 2020-06-22
   date_start: 2020-06-22
   output:
@@ -53,7 +53,7 @@
   core :
     - package: MEconTools
       code: |
-        ff_disc_rand_var_stats()
+        [ff_disc_rand_var_stats()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/stats/ff_disc_rand_var_stats.m)
   date: 2020-06-22
   date_start: 2020-06-22
   output:
@@ -72,12 +72,13 @@
   title: "Matlab Joint Probability Mass Distribution Statistics over Multiple Variables"
   titleshort: "Gateway Joint Probability Mass Statistics"
   description: |
-    Given probability mass function f(s), and information y(s), x(s), z(s) at each element of the state-space, compute statistics for each variable, y, x, z, which are all discrete random variables.
-    Compute their correlation and covariance.
+    Given model policy functions and stationary distribution, compute distributional statistics.
+    Given discrete probability mass function f(s), and information y(s), x(s), z(s) at each element of the state-space, compute statistics for each variable, y, x, z, which are all discrete random variables.
+    Compute correlation and covariance betwen input discrete random variables.
   core :
     - package: MEconTools
       code: |
-        ff_simu_stats()
+        [ff_simu_stats()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/stats/ff_simu_stats.m)
   date: 2020-06-22
   date_start: 2020-06-22
   output:

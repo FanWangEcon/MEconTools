@@ -12,6 +12,12 @@ rmd_files:
   - MEconTools/doc/vfi/fx_vfi_az_vec.Rmd
   - MEconTools/doc/vfi/fx_vfi_az_bisec_loop.Rmd
   - MEconTools/doc/vfi/fx_vfi_az_bisec_vec.Rmd
+  - MEconTools/doc/vfi/fx_vfi_az_mzoom_loop.Rmd
+  - MEconTools/doc/vfi/fx_vfi_az_mzoom_vec.Rmd
+
+  - MEconTools/doc/ds/main.Rmd
+  - MEconTools/doc/ds/fx_ds_az_loop.Rmd
+  - MEconTools/doc/ds/fx_ds_az_cts_loop.Rmd
 
   - MEconTools/doc/summ/main.Rmd
   - MEconTools/doc/summ/fx_summ_nd_array.Rmd
@@ -39,6 +45,10 @@ rmd_files:
   - MEconTools/doc/external/main.Rmd
   - MEconTools/doc/external/fxy_tauchen.Rmd
   - MEconTools/doc/external/fxy_rouwenhorst.Rmd
+
+  - MEconTools/doc/sys/main.Rmd
+  - MEconTools/doc/sys/fx_find_files.Rmd
+  - MEconTools/doc/sys/fx_mlx2htmlpdf_runandexport.Rmd
 
   - README_appendix.md
   - title.Rmd

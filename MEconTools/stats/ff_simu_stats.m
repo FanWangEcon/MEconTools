@@ -176,7 +176,11 @@ for it_y_ctr=1:length(ar_st_y_name)
     %
     
     st_y_key = ar_st_y_name(it_y_ctr);
-    cl_mt_xyz_of_s = mp_cl_mt_xyz_of_s(st_y_key);
+    try
+        cl_mt_xyz_of_s = mp_cl_mt_xyz_of_s(st_y_key);
+    catch
+        1
+    end
     mt_y_of_s = cl_mt_xyz_of_s{1};
     
     % run function ff_disc_rand_var_mass2outcomes.m

@@ -67,6 +67,12 @@
          <source>ff_optim_mlsec_savezrone</source>
          <file>optim/html/ff_optim_mlsec_savezrone.html</file>
       </demoitem>
+      <demoitem>
+         <label>ff_optim_mzoom_savezrone</label>
+         <type>other</type>
+         <source>ff_optim_mzoom_savezrone</source>
+         <file>optim/html/ff_optim_mzoom_savezrone.html</file>
+      </demoitem>
    </demosection>
    <demosection>
       <label>vfi</label>
@@ -87,6 +93,18 @@
          <type>other</type>
          <source>ff_vfi_az_loop</source>
          <file>vfi/html/ff_vfi_az_loop.html</file>
+      </demoitem>
+      <demoitem>
+         <label>ff_vfi_az_mzoom_loop</label>
+         <type>other</type>
+         <source>ff_vfi_az_mzoom_loop</source>
+         <file>vfi/html/ff_vfi_az_mzoom_loop.html</file>
+      </demoitem>
+      <demoitem>
+         <label>ff_vfi_az_mzoom_vec</label>
+         <type>other</type>
+         <source>ff_vfi_az_mzoom_vec</source>
+         <file>vfi/html/ff_vfi_az_mzoom_vec.html</file>
       </demoitem>
       <demoitem>
          <label>ff_vfi_az_vec</label>
@@ -135,6 +153,21 @@
          <type>other</type>
          <source>ff_sup_save_prep</source>
          <file>table/html/ff_sup_save_prep.html</file>
+      </demoitem>
+   </demosection>
+   <demosection>
+      <label>ds</label>
+      <demoitem>
+         <label>ff_ds_az_cts_loop</label>
+         <type>other</type>
+         <source>ff_ds_az_cts_loop</source>
+         <file>ds/html/ff_ds_az_cts_loop.html</file>
+      </demoitem>
+      <demoitem>
+         <label>ff_ds_az_loop</label>
+         <type>other</type>
+         <source>ff_ds_az_loop</source>
+         <file>ds/html/ff_ds_az_loop.html</file>
       </demoitem>
    </demosection>
 </demos>

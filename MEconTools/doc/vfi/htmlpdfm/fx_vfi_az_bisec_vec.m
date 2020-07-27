@@ -1,4 +1,4 @@
-%% FF_VFI_AZ_BISEC_VEC Dynamic Savings Problem Vectorized Continuous Exact
+%% FF_VFI_AZ_BISEC_VEC Savings Vectorized Exact (FOC) Examples
 % *back to* <https://fanwangecon.github.io *Fan*>*'s* <https://fanwangecon.github.io/Math4Econ/ 
 % *Intro Math for Econ*>*,*  <https://fanwangecon.github.io/M4Econ/ *Matlab Examples*>*, 
 % or* <https://fanwangecon.github.io/CodeDynaAsset/ *Dynamic Asset*> *Repositories*
@@ -7,36 +7,42 @@
 % *ff_vfi_az_bisec_vec*> from the <https://fanwangecon.github.io/MEconTools/ *MEconTools 
 % Package*>*.* This function solves the dynamic programming problem for a (a,z) 
 % model. Households can save a, and face AR(1) shock z. The problem is solved 
-% over the infinite horizon. This is a vectorized code, it is much faster for 
-% larger state-space problems then looped code.
-% 
-% The code uses continuous choices, solved with bi(multi)section. The state-space 
-% is on a grid, but choice grids are in terms of percentage of resources available, 
-% which is individual specific, to save and solved exactly up to ((1/(2)^16)*100=0.001525878) 
-% percentage of cash on hand. THe  <https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_vec.m 
-% *ff_vfi_az_vec*> from the <https://fanwangecon.github.io/MEconTools/ *MEconTools 
-% Package*> solves the same problem using vectorized common grid code where the 
-% choice set and state space share the same grid. 
+% over the infinite horizon.
 % 
 % This is the vectorized code, its speed is much faster than the looped code. 
 % The function is designed to have small memory footprint and requires low computing 
 % resources, yet is fast.
 % 
-% *Links to Four Code:*
+% The code uses *continuous choices*, solved with bi(multi)section. The state-space 
+% is on a grid, but choice grids are in terms of percentage of resources available, 
+% which is individual specific, to save and solved exactly up to ((1/(2)^16)*100=0.001525878) 
+% percentage of cash on hand. The  <https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_vec.m 
+% *ff_vfi_az_vec*> from the <https://fanwangecon.github.io/MEconTools/ *MEconTools 
+% Package*> solves the same problem using vectorized common grid code where the 
+% choice set and state space share the same grid. The common grid function is 
+% faster, but less precise for the same number of asset grid points.
 % 
-% Four Core Savings/Borrowing Dynamic Programming Solution Functions that are 
-% functions in the <https://fanwangecon.github.io/MEconTools/ *MEconTools Package*>*.* 
-% :
+% *Links to Other Code:*
+% 
+% Core Savings/Borrowing Dynamic Programming Solution Functions that are functions 
+% in the <https://fanwangecon.github.io/MEconTools/ *MEconTools Package*>*.* :
 %% 
 % * Common Choice and States Grid _*Loop*_: <https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_loop.m 
-% *ff_vfi_az_loop*>, slow should use for testing new models
+% *ff_vfi_az_loop*>
 % * Common Choice and States Grid _*Vectorized*_:  <https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_vec.m 
-% *ff_vfi_az_vec*>, fast good for many purposes
-% * States Grid + Continuous Exact Savings as Share of Cash-on-Hand _*Loop*_:<https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_loop.m  
-% *ff_vfi_az_bisec_loop*>, high precision even with small grid
-% * States Grid + Continuous Exact Savings as Share of Cash-on-Hand _*Vectorized*_: 
-% <https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_vec.m 
-% *ff_vfi_az_bisec_vec*>, precision and speed
+% *ff_vfi_az_vec*>
+% * States Grid + Continuous Exact Savings as Share of Cash-on-Hand, rely on 
+% FOC, _*Loop*_:<https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_loop.m  
+% *ff_vfi_az_bisec_loop*>
+% * States Grid + Continuous Exact Savings as Share of Cash-on-Hand, rely on 
+% FOC _*Vectorized*_: <https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_vec.m 
+% *ff_vfi_az_bisec_vec*>
+% * States Grid + Continuous Exact Savings as Share of Cash-on-Hand, VALUE comparison, 
+% _*Loop*_:<https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_mzoom_loop.m  
+% *ff_vfi_az_mzoom_loop*>
+% * States Grid + Continuous Exact Savings as Share of Cash-on-Hand, VALUE comparison, 
+% _*Vectorized*_: <https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_mzoom_vec.m 
+% *ff_vfi_az_mzoom_vec*>
 %% Test FF_VFI_AZ_BISEC_VEC Defaults
 % Call the function with defaults. By default, shows the asset policy function 
 % summary. Model parameters can be changed by the mp_params.
@@ -54,23 +60,17 @@ ff_vfi_az_bisec_vec(mp_params);
 mp_support = containers.Map('KeyType','char', 'ValueType','any');
 mp_support('bl_timer') = true;
 mp_support('ls_ffcmd') = {};
-%% 
 % A grid 50, shock grid 5:
-
 mp_params = containers.Map('KeyType','char', 'ValueType','any');
 mp_params('it_a_n') = 50;
 mp_params('it_z_n') = 5;
 ff_vfi_az_bisec_vec(mp_params, mp_support);
-%% 
 % A grid 750, shock grid 15:
-
 mp_params = containers.Map('KeyType','char', 'ValueType','any');
 mp_params('it_a_n') = 750;
 mp_params('it_z_n') = 15;
 ff_vfi_az_bisec_vec(mp_params, mp_support);
-%% 
 % A grid 600, shock grid 45:
-
 mp_params = containers.Map('KeyType','char', 'ValueType','any');
 mp_params('it_a_n') = 600;
 mp_params('it_z_n') = 45;
@@ -82,9 +82,11 @@ mp_params = containers.Map('KeyType','char', 'ValueType','any');
 mp_params('it_a_n') = 50;
 mp_params('it_z_n') = 5;
 mp_support = containers.Map('KeyType','char', 'ValueType','any');
-mp_support('bl_timer') = false;
+mp_support('bl_timer') = true;
 mp_support('bl_print_params') = false;
 mp_support('bl_print_iterinfo') = false;
+mp_support('ls_ffcmd') = {};
+ff_vfi_az_vec(mp_params, mp_support);
 %% 
 % Run the function and show policy function for savings choice. For ls_ffcmd, 
 % ls_ffsna, ls_ffgrh, can include these: 'v', 'ap', 'c', 'y', 'coh', 'savefraccoh'. 
@@ -121,8 +123,8 @@ mp_support('ls_ffcmd') = {'savefraccoh'};
 mp_support('ls_ffsna') = {};
 mp_support('ls_ffgrh') = {};
 mp_params = containers.Map('KeyType','char', 'ValueType','any');
-mp_params('it_a_n') = 750;
-mp_params('it_z_n') = 9;
+mp_params('it_a_n') = 100;
+mp_params('it_z_n') = 7;
 mp_params('fl_a_max') = 50;
 mp_params('st_grid_type') = 'grid_powerspace';
 %% 
@@ -147,8 +149,8 @@ mp_support('ls_ffcmd') = {'savefraccoh'};
 mp_support('ls_ffsna') = {};
 mp_support('ls_ffgrh') = {'savefraccoh'};
 mp_params = containers.Map('KeyType','char', 'ValueType','any');
-mp_params('it_a_n') = 750;
-mp_params('it_z_n') = 9;
+mp_params('it_a_n') = 100;
+mp_params('it_z_n') = 7;
 mp_params('fl_a_max') = 50;
 mp_params('st_grid_type') = 'grid_powerspace';
 %% 
@@ -175,10 +177,12 @@ mp_support('ls_ffcmd') = {'savefraccoh'};
 mp_support('ls_ffsna') = {};
 mp_support('ls_ffgrh') = {};
 mp_params = containers.Map('KeyType','char', 'ValueType','any');
-mp_params('it_a_n') = 750;
-mp_params('it_z_n') = 9;
+mp_params('it_a_n') = 150;
+mp_params('it_z_n') = 15;
 mp_params('fl_a_max') = 50;
 mp_params('st_grid_type') = 'grid_powerspace';
+% graph color spectrum
+mp_params('cl_colors') = 'copper';
 %% 
 % Lower standard deviation of shock:
 

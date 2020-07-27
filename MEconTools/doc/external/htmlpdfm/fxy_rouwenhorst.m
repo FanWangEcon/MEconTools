@@ -26,8 +26,13 @@ ffy_rouwenhorst(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
 %% Test FFY_ROUWENHORST High Persistence, Low SD
 
 [fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...
-    deal(0.99, 0.01, 7, true);
-ffy_rouwenhorst(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+    deal(0.90, 0.02, 7, true);
+[ar_z, mt_z_trans] = ffy_tauchen(fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose);
+ar_z_stationary = mt_z_trans^1000;
+ar_z_stationary = ar_z_stationary(1,:);
+fl_labor_agg = ar_z_stationary*exp(ar_z);
+ar_z = exp(ar_z')/fl_labor_agg;
+
 %% Test FFY_ROUWENHORST Low Persistence, Low SD
 
 [fl_ar1_persistence, fl_shk_std, it_disc_points, bl_verbose] = ...

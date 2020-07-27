@@ -1,10 +1,10 @@
 - file: fx_vfi_az_loop
-  title: "Matlab FF_VFI_AZ_LOOP Looped Solution for Optimal Savings Dynamic Programming Problem in Infinite Horizon"
+  title: "Matlab FF_VFI_AZ_LOOP Looped Grid Solution for Optimal Savings Dynamic Programming Problem in Infinite Horizon"
   titleshort: "Looped Grid Infinite Horizon Dynamic Savings Problem"
   description: |
     Infinite horizon constrained dynamic savings problem with persistent shock.
     The state-space and choice-space share the same asset grid.
-    Looped common level-grid algorithm, slow but easy to modify, useful for developing new models.
+    Looped algorithm, slow but easy to modify, useful for developing new models.
   core :
     - package: MEconTools
       code: |
@@ -24,12 +24,10 @@
   urlcolor: blue
 
 - file: fx_vfi_az_vec
-  title: "Matlab FF_VFI_AZ_VEC Vectorized Solution for Optimal Savings Dynamic Programming Problem in Infinite Horizon"
+  title: "Matlab FF_VFI_AZ_VEC Vectorized Grid Solution for Optimal Savings Dynamic Programming Problem in Infinite Horizon"
   titleshort: "Vectorized Grid Infinite Horizon Dynamic Savings Problem"
   description: |
-    Infinite horizon constrained dynamic savings problem with persistent shock.
-    The state-space and choice-space share the same asset grid.
-    Vectorized common level-grid algorithm, fast and sufficiently approximate value(a,z), but c(a,z) not precise.
+    Vectorized version of [ff_vfi_az_loop()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_loop.m), fast and sufficiently approximate value(a,z), but choices not precise.
     Broadcast and vectorized evaluation and maximization.
     Solve u(c) once, and retrieve with cell arrays.
   core :
@@ -51,8 +49,8 @@
   urlcolor: blue
 
 - file: fx_vfi_az_bisec_loop
-  title: "Matlab FF_VFI_AZ_LOOP Looped Exact Solution for Optimal Savings Dynamic Programming Problem in Infinite Horizon"
-  titleshort: "Looped Exact Infinite Horizon Dynamic Savings Problem"
+  title: "Matlab FF_VFI_AZ_BISEC_LOOP Looped Exact FOC Solution for Optimal Savings Dynamic Programming Problem in Infinite Horizon"
+  titleshort: "Looped Exact FOC Infinite Horizon Dynamic Savings Problem"
   description: |
     Infinite horizon constrained dynamic savings problem with persistent shock.
     The state-space is on a grid, the choice space are continuous percentages of cash-on-hand.
@@ -78,18 +76,65 @@
   urlcolor: blue
 
 - file: fx_vfi_az_bisec_vec
-  title: "Matlab FF_VFI_AZ_VEC Vectorized Exact Solution for Optimal Savings Dynamic Programming Problem in Infinite Horizon"
-  titleshort: "Vectorized Exact Infinite Horizon Dynamic Savings Problem"
+  title: "Matlab FF_VFI_AZ_BISEC_VEC Vectorized Exact FOC Solution for Optimal Savings Dynamic Programming Problem in Infinite Horizon"
+  titleshort: "Vectorized Exact FOC Infinite Horizon Dynamic Savings Problem"
   description: |
-    Infinite horizon constrained dynamic savings problem with persistent shock.
-    The state-space is on a grid, the choice space are continuous percentages of cash-on-hand.
-    Vectorized exact savings-percentage algorithm, high precision and high speed.
-    Solves for EV(ap,z) given shock state and for a savings choice. [Vectorized Bisection](https://fanwangecon.github.io/MEconTools/MEconTools/doc/optim/htmlpdfm/fx_optim_bisec_savezrone.html) based on FOC with analytical du(c(ap))/dap and spline slopes dEV(ap,z)/dap.
+    Vectorized version of [ff_vfi_az_bisec_loop()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_loop.m) exact savings-percentage algorithm, high precision and high speed.
   core :
     - package: MEconTools
       code: |
         [ff_vfi_az_bisec_vec()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_bisec_vec.m)
         [ff_optim_bisec_savezrone()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/optim/ff_optim_bisec_savezrone.m)
+  date: 2020-06-30
+  date_start: 2020-06-30
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue
+
+- file: fx_vfi_az_mzoom_loop
+  title: "Matlab FF_VFI_AZ_MZOOM_LOOP Looped Exact Value Solution for Optimal Savings Dynamic Programming Problem in Infinite Horizon"
+  titleshort: "Looped Exact Value Infinite Horizon Dynamic Savings Problem"
+  description: |
+    Looped infinite horizon constrained dynamic savings problem with persistent shock.
+    The state-space is on a grid, the choice space are continuous percentages of cash-on-hand.
+    Evaluate value at choice grid iteratively by zooming-in to construct finer savings percentages.
+  core :
+    - package: MEconTools
+      code: |
+        [ff_vfi_az_mzoom_loop()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_mzoom_loop.m)
+        [ff_optim_mzoom_savezrone()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/optim/ff_optim_mzoom_savezrone.m)
+  date: 2020-06-30
+  date_start: 2020-06-30
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue
+
+- file: fx_vfi_az_mzoom_vec
+  title: "Matlab FF_VFI_AZ_MZOOM_VEC Vectorized Exact Value Solution for Optimal Savings Dynamic Programming Problem in Infinite Horizon"
+  titleshort: "Vectorized Exact Value Infinite Horizon Dynamic Savings Problem"
+  description: |
+    Vectorized version of [ff_vfi_az_mzoom_loop()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_mzoom_loop.m) exact savings-percentage algorithm.
+  core :
+    - package: MEconTools
+      code: |
+        [ff_vfi_az_mzoom_vec()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_vfi_az_mzoom_vec.m)
+        [ff_optim_mzoom_savezrone()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/optim/ff_optim_mzoom_savezrone.m)
   date: 2020-06-30
   date_start: 2020-06-30
   output:

@@ -65,7 +65,8 @@ mp_mzoom_ctrlinfo = containers.Map('KeyType','char', 'ValueType','any');
 mp_mzoom_ctrlinfo('it_mzoom_jnt_pnts') = 50;
 mp_mzoom_ctrlinfo('it_mzoom_max_iter') = 3;
 mp_mzoom_ctrlinfo('it_mzoom_zm_ratio') = 0;
-ff_optim_mzoom_savezrone(fc_util, bl_verbose, bl_timer, mp_mzoom_ctrlinfo);
+[fl_opti_save_frac, fl_opti_save_level] = ...
+    ff_optim_mzoom_savezrone(fc_util, bl_verbose, bl_timer, mp_mzoom_ctrlinfo);
 %% Test FF_OPTIM_MZOOM_SAVEZRONE 8 Individuals 3 Iterations 10 Points Per Iteration, 0.25 zoom in ratio
 % 10 grid points per iteration, and 3 iterations.
 
@@ -84,7 +85,8 @@ mp_mzoom_ctrlinfo = containers.Map('KeyType','char', 'ValueType','any');
 mp_mzoom_ctrlinfo('it_mzoom_jnt_pnts') = 10;
 mp_mzoom_ctrlinfo('it_mzoom_max_iter') = 3;
 mp_mzoom_ctrlinfo('it_mzoom_zm_ratio') = 0.25;
-ff_optim_mzoom_savezrone(fc_util, bl_verbose, bl_timer, mp_mzoom_ctrlinfo);
+[fl_opti_save_frac, fl_opti_save_level] = ...
+    ff_optim_mzoom_savezrone(fc_util, bl_verbose, bl_timer, mp_mzoom_ctrlinfo);
 %% Test FF_OPTIM_MZOOM_SAVEZRONE Speed
 % Test Speed doing 6.25 million state-spcae points for a savings problem:
 

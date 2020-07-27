@@ -6,7 +6,7 @@
   core :
     - package: MEconTools
       code: |
-        ffy_tauchen()
+        [ffy_tauchen()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/external/stats/ffy_tauchen.m)
   date: 2020-06-28
   date_start: 2020-06-28
   output:
@@ -29,7 +29,7 @@
   core :
     - package: MEconTools
       code: |
-        ffy_rouwenhorst()
+        [ffy_rouwenhorst()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/external/stats/ffy_rouwenhorst.m)
   date: 2020-06-28
   date_start: 2020-06-28
   output:
