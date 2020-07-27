@@ -7,7 +7,7 @@
     <param.summary>Dynamic programming and related.</param.summary>
     <param.description>Dynamic programming and related.</param.description>
     <param.screenshot>${PROJECT_ROOT}\img\toolboxlogo.png</param.screenshot>
-    <param.version>0.1.26</param.version>
+    <param.version>0.1.28</param.version>
     <param.output>${PROJECT_ROOT}\MEconTools.mltbx</param.output>
     <param.products.name />
     <param.products.id />
@@ -33,12 +33,19 @@
 % All files matching a pattern in all subfolders of the toolbox folder:
 % **/*.bak
 %
+*/img/*
+*img/*
+img/*
+**/*img*
+*/*_images/*
+**/*_images
 */htmlpdfm/*
 *htmlpdfm/*
 htmlpdfm/*
 **/*htmlpdfm*
 **/*.Rmd
-**/*fx*.html</param.exclude.filters>
+**/*fx*.html
+**/.Rprofile</param.exclude.filters>
     <param.exclude.pcodedmfiles>true</param.exclude.pcodedmfiles>
     <param.examples>&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;examples&gt;
@@ -148,7 +155,6 @@ htmlpdfm/*
          &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_08.png&lt;/file&gt;
          &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_09.png&lt;/file&gt;
          &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_10.png&lt;/file&gt;
-         &lt;file type="image"&gt;/vfi/html/ff_vfi_az_loop_11.png&lt;/file&gt;
       &lt;/example&gt;
       &lt;example name="ff_vfi_az_mzoom_loop" type="html"&gt;
          &lt;file type="source"&gt;/vfi/html/ff_vfi_az_mzoom_loop.html&lt;/file&gt;
@@ -248,6 +254,8 @@ htmlpdfm/*
          &lt;file type="image"&gt;/ds/html/ff_ds_az_cts_loop_04.png&lt;/file&gt;
          &lt;file type="image"&gt;/ds/html/ff_ds_az_cts_loop_05.png&lt;/file&gt;
          &lt;file type="image"&gt;/ds/html/ff_ds_az_cts_loop_06.png&lt;/file&gt;
+         &lt;file type="image"&gt;/ds/html/ff_ds_az_cts_loop_07.png&lt;/file&gt;
+         &lt;file type="image"&gt;/ds/html/ff_ds_az_cts_loop_08.png&lt;/file&gt;
       &lt;/example&gt;
       &lt;example name="ff_ds_az_loop" type="html"&gt;
          &lt;file type="source"&gt;/ds/html/ff_ds_az_loop.html&lt;/file&gt;
