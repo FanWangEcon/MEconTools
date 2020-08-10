@@ -47,3 +47,26 @@
         in_header: '../../../hdga.html'
   always_allow_html: true
   urlcolor: blue
+
+- file: fx_ds_az_cts_vec
+  title: "Matlab FF_DS_AZ_CTS_VEC Vectorized Exact Solution for the Stationary Distribution of Optimal Savings Dynamic Programming Problem"
+  titleshort: "Vectorized Exact Stationary Distribution Dynamic Savings Problem"
+  description: |
+    This is the vectorized version of [ff_ds_az_cts_loop()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/ds/ff_ds_az_cts_loop.m).
+  core :
+    - package: MEconTools
+      code: |
+        [ff_ds_az_cts_vec(8)](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/ds/ff_ds_az_cts_vec.m)
+  date: 2020-08-10
+  date_start: 2020-08-10
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue
