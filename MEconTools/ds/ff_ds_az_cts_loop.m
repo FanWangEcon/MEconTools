@@ -87,6 +87,7 @@ if (~isempty(varargin))
     end
     
 else
+    clc;
     close all;
     
     mp_params_ext = containers.Map('KeyType','char', 'ValueType','any');    
@@ -143,12 +144,12 @@ mp_params('fl_r') = 0.04;
 
 mp_params('fl_a_min') = 0;
 mp_params('fl_a_max') = 50;
-mp_params('it_a_n') = 100;
+mp_params('it_a_n') = 200;
 mp_params('st_grid_type') = 'grid_powerspace';
 
 mp_params('fl_z_persist') = 0.80;
 mp_params('fl_shk_std') = 0.20;
-mp_params('it_z_n') = 7;
+mp_params('it_z_n') = 15;
 
 % override default support_map values
 if (length(varargin)>=1 || isempty(varargin))

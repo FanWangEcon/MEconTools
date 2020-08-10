@@ -1,76 +1,43 @@
-%% FF_DS_AZ_CTS_LOOP (looped discrete choice) Dynamic Savings Distribution
-%    Looped distributional solution for continuous asset choices. When For
-%    the AZ model, dynamic savings with Shocks. Looped distributional
-%    solution for continuous or discrete asset choices. Policy function
-%    does not map to state-space. Given Shock transition and policy function, the
-%    model generates various joint discrete random variables. Distributions
-%    over consumption, savings, cash-on-hand, income, etc...
+%% FF_DS_AZ_CTS_VEC (Vectorized Continuous Choice) Dynamic Savings Distribution
+%    Vectorized distributional solution for continuous asset choices. When For
+%    the AZ model, dynamic savings with Shocks. Mostly vectorized distributional
+%    solution for continuous or discrete asset choices. This is the
+%    vectorized version of FF_DS_AZ_CTS_LOOP.
 %
-%    Assign continuous mass to the closest higher and lower asset point.
-%    This function takes as inputs solutions from VFI. Either from MZOOM or
-%    BISEC that generate continuous optimal choices. The function also
-%    works with asset choices that are already on the grid.
+%    Vectorization from matrix multiplication to generate P(z',a'|z,a)
+%    matrix for a particular z,a. Rows are a', and columns are z'.
 %
 %    * MP_PARAMS controls model preference, prices, shock and asset grid
 %    parameters.
 %    * MP_SUPPORT controls convergence criterion, printing and summary
 %    controls
 %
-%    % Some MP_PARAMS that can be modified, see below
-%    mp_params = containers.Map('KeyType','char', 'ValueType','any');     
-%    mp_params('solu_method') = 'mzoom_vec'; % 'bisec_vec', 'vec'
-%    mp_params('fl_crra') = 1.5;
-%    mp_params('fl_beta') = 0.95;
-%    mp_params('fl_w') = 1.05;
-%    mp_params('fl_r') = 0.03;
-%    mp_params('it_a_n') = 25;
-%    mp_params('it_z_n') = 5;
+%    [MP_DIST_OUT, MP_VALPOL, FLAG] = FF_DS_AZ_CTS_LOOP() default savings
+%    and shock model distributional simulation.
 %
-%    mp_support = containers.Map('KeyType','char', 'ValueType','any');
-%    mp_support('it_maxiter_ds') = 500;
-%    mp_support('fl_tol_ds') = 10e-5;
-%    % printer various information
-%    mp_support('bl_timer') = true;
-%    mp_support('bl_print_params') = false;
-%    mp_support('bl_print_iterinfo') = false;
-%    % These names must match keys of mp_solu: v=value, ap=savings choice,
-%    c=consumption, y=income, coh=cash-on-hand (income + savings),
-%    savefraccoh = ap/coh.
-%    % generate distributional mass for what faz joint mass, fa mass over
-%    savings, fz, mass over shocks
-%    mp_support('ls_dsout') = {'faz', 'fa', 'fz'};
-%    % Solution outcomes for statistics: must include ap for distribution
-%    mp_support('ls_slout') = {'ap', 'v', 'c', 'y', 'coh', 'savefraccoh'};
-%    % present which distribution: only faz is allowed
-%    mp_support_ext('ls_ddsna') = {'faz'};
-%    % which distributional outcomes to graph: faz or fa allowed
-%    mp_support_ext('ls_ddgrh') = {'faz', 'fa', 'fz'};
+%    [MP_DIST_OUT, MP_VALPOL, FLAG] = FF_DS_AZ_CTS_LOOP(MP_PARAMS) change
+%    model parameters through MP_PARAMS
 %
-%    [MP_VALPOLDIST_OUT, FLAG] = FF_DS_AZ_CTS_LOOP() default
-%    savings and shock model distributional simulation.
-%
-%    [MP_VALPOLDIST_OUT, FLAG] = FF_DS_AZ_CTS_LOOP(MP_PARAMS)
-%    change model parameters through MP_PARAMS
-%
-%    [MP_VALPOLDIST_OUT, FLAG] = FF_DS_AZ_CTS_LOOP(MP_PARAMS,
+%    [MP_DIST_OUT, MP_VALPOL, FLAG] = FF_DS_AZ_CTS_LOOP(MP_PARAMS,
 %    MP_SUPPORT) change various printing, storaging, graphing, convergence
 %    etc controls through MP_SUPPORT
 %
-%    [MP_VALPOLDIST_OUT, FLAG] = FF_VFI_AZ_LOOP(MP_PARAMS, MP_SUPPORT,
+%    [MP_DIST_OUT, MP_VALPOL, FLAG] = FF_VFI_AZ_LOOP(MP_PARAMS, MP_SUPPORT,
 %    MP_SUPPORT_GRAPH) also changing graphing options, see the
 %    FF_GRAPH_GRID function for what key value paris can be specified.
 %
-%    [MP_VALPOLDIST_OUT, FLAG] = FF_VFI_AZ_LOOP(MP_PARAMS, MP_SUPPORT,
+%    [MP_DIST_OUT, MP_VALPOL, FLAG] = FF_VFI_AZ_LOOP(MP_PARAMS, MP_SUPPORT,
 %    MP_SUPPORT_GRAPH, MP_VALPOL) Solve the distributional problem given
 %    provided MP_VALPOL which is the map that is the output of VFI. This
 %    should generally not be called, the function should solve for value
 %    and policy function given new parameters.
 %
-%    see also FX_DS_AZ_CTS_LOOP, FF_DS_AZ_CTS_VEC, FF_DS_AZ_LOOP
+%    see also FX_DS_AZ_CTS_VEC, FF_DS_AZ_CTS_LOOP, FF_DS_AZ_LOOP,
+%    FF_GRAPH_GRID
 %
 
 %%
-function [mp_valpoldist_out, flag] = ff_ds_az_cts_loop(varargin)
+function [mp_dist_out, mp_valpol, flag] = ff_ds_az_cts_vec(varargin)
 
 %% Set Default and Parse Inputs
 if (~isempty(varargin))
@@ -86,51 +53,69 @@ if (~isempty(varargin))
     end
     
 else
+    clc;
     close all;
     
-    mp_params_ext = containers.Map('KeyType','char', 'ValueType','any');    
-%     mp_params_ext('solu_method') = 'bisec_vec';
-    mp_params_ext('solu_method') = 'mzoom_vec';
-%     mp_params_ext('solu_method') = 'vec';
+    mp_params_ext = containers.Map('KeyType','char', 'ValueType','any');
+    mp_params_ext('solu_method') = 'bisec_vec';
+    %     mp_params_ext('solu_method') = 'mzoom_vec';
+    %     mp_params_ext('solu_method') = 'vec';
     
     mp_support_ext = containers.Map('KeyType','char', 'ValueType','any');
-        
+    
     mp_support_ext('bl_timer') = true;
-    mp_support_ext('bl_print_params') = true;
-    mp_support_ext('bl_print_iterinfo') = true;
-       
+    mp_support_ext('bl_print_params') = false;
+    mp_support_ext('bl_print_iterinfo') = false;
+    mp_support_ext('bl_show_stats_table') = true;
+    
     %savings, fz, mass over shocks
     mp_support_ext('ls_dsout') = {'faz', 'fa', 'fz'};
     % Solution outcomes for statistics: must include ap for distribution
     mp_support_ext('ls_slout') = {'ap', 'v', 'c', 'y', 'coh', 'savefraccoh'};
     % outcome for ff_container_map_display
     mp_support_ext('ls_ddcmd') = {'faz', 'fa', 'fz'};
-    % which distributional outcomes to graph: faz or fa allowed
+    % which distributional outcomes to graph
     mp_support_ext('ls_ddgrh') = {'faz', 'fa', 'fz'};
-    mp_support_ext('ddcmd_opt_it_row_n_keep') = 10;
+    mp_support_ext('ddcmd_opt_it_row_n_keep') = 75;
     mp_support_ext('ddcmd_opt_it_col_n_keep') = 9;
     
+    %     %savings, fz, mass over shocks
+    %     mp_support_ext('ls_dsout') = {'faz', 'fa', 'fz'};
+    %     % Solution outcomes for statistics: must include ap for distribution
+    %     mp_support_ext('ls_slout') = {'ap', 'v', 'c', 'y', 'coh', 'savefraccoh'};
+    %     % outcome for ff_container_map_display
+    %     mp_support_ext('ls_ddcmd') = {'faz', 'fa', 'fz'};
+    %     % which distributional outcomes to graph: faz or fa allowed
+    %     mp_support_ext('ls_ddgrh') = {};
+    %     mp_support_ext('ddcmd_opt_it_row_n_keep') = 10;
+    %     mp_support_ext('ddcmd_opt_it_col_n_keep') = 9;
+    %
+    %     mp_support_ext('ls_ffcmd') = {'v', 'ap', 'c', 'y', 'coh', 'savefraccoh'};
+    %     mp_support_ext('ls_ffsna') = {'ap'};
+    %     mp_support_ext('ls_ffgrh') = {};
+    %     mp_support_ext('ls_store') = {'v', 'ap', 'c', 'y', 'coh'};
+    %
 end
 
 %% Default Model Parameters
 % Parameters for both VFI and Dist
 mp_params = containers.Map('KeyType','char', 'ValueType','any');
-mp_params('solu_method') = 'bisec';
+mp_params('solu_method') = 'bisec_vec';
 
 mp_params('fl_crra') = 1.5;
 mp_params('fl_beta') = 0.95;
 
 mp_params('fl_w') = 1.40;
-mp_params('fl_r') = 0.045;
+mp_params('fl_r') = 0.04;
 
 mp_params('fl_a_min') = 0;
 mp_params('fl_a_max') = 50;
-mp_params('it_a_n') = 750;
+mp_params('it_a_n') = 200;
 mp_params('st_grid_type') = 'grid_powerspace';
 
 mp_params('fl_z_persist') = 0.80;
-mp_params('fl_shk_std') = 0.25;
-mp_params('it_z_n') = 11;
+mp_params('fl_shk_std') = 0.20;
+mp_params('it_z_n') = 15;
 
 % override default support_map values
 if (length(varargin)>=1 || isempty(varargin))
@@ -170,6 +155,8 @@ mp_support('fl_tol_ds') = 1e-5;
 mp_support('bl_timer') = true;
 mp_support('bl_print_params') = false;
 mp_support('bl_print_iterinfo') = false;
+% final stats table
+mp_support('bl_show_stats_table') = true;
 
 % These names must match keys of mp_solu:
 %savings, fz, mass over shocks
@@ -179,9 +166,9 @@ mp_support('ls_stout') = {'ap', 'v', 'c', 'y', 'coh', 'savefraccoh'};
 % outcome for ff_container_map_display
 mp_support('ls_ddcmd') = {'faz', 'fa', 'fz'};
 % present which distribution: only faz is allowed
-mp_support('ls_ddsna') = {'faz'};
+mp_support('ls_ddsna') = {};
 % which distributional outcomes to graph: faz or fa allowed
-mp_support('ls_ddgrh') = {'faz', 'fa'};
+mp_support('ls_ddgrh') = {'fa'};
 mp_support('ddcmd_opt_it_row_n_keep') = 10;
 mp_support('ddcmd_opt_it_col_n_keep') = 9;
 
@@ -193,8 +180,8 @@ end
 % Parse mp_support
 params_group = values(mp_support, {'it_maxiter_ds', 'fl_tol_ds'});
 [it_maxiter_ds, fl_tol_ds] = params_group{:};
-params_group = values(mp_support, {'bl_timer', 'bl_print_iterinfo'});
-[bl_timer, bl_print_iterinfo] = params_group{:};
+params_group = values(mp_support, {'bl_timer', 'bl_print_iterinfo', 'bl_show_stats_table'});
+[bl_timer, bl_print_iterinfo, bl_show_stats_table] = params_group{:};
 params_group = values(mp_support, {'ls_stout', 'ls_dsout', 'ls_ddcmd', 'ls_ddsna', 'ls_ddgrh', ...
     'ddcmd_opt_it_row_n_keep', 'ddcmd_opt_it_col_n_keep'});
 [ls_stout, ls_dsout, ls_ddcmd, ls_ddsna, ls_ddgrh, ...
@@ -218,10 +205,10 @@ if (length(varargin) ~= 4)
         [mp_valpol] = ff_vfi_az_loop(mp_params, mp_support);
     elseif (strcmp(solu_method, 'vec'))
         [mp_valpol] = ff_vfi_az_vec(mp_params, mp_support);
-    end    
+    end
     
 end
-   
+
 mt_aprime = mp_valpol('ap');
 
 %% Initialize Matrix
@@ -234,8 +221,9 @@ mt_dist_perc_change = zeros([it_maxiter_ds, it_z_n]);
 
 %% Start Timer
 if (bl_timer)
-    tic
+    tm_start_tic = tic;
 end
+
 
 %% Match Asset Choices and Asset Grid Index
 % find the closest lower and higher index a grid point to aprime choice,
@@ -264,13 +252,11 @@ mt_fl_ap_near_lower = reshape(ar_a(mt_it_ap_near_lower_idx(:)), size(mt_aprime))
 mt_fl_ap_near_higher = reshape(ar_a(mt_it_ap_near_higher_idx(:)), size(mt_aprime));
 
 % distance to lowe and higher index
-mt_fl_lower_idx_share = (mt_aprime - mt_fl_ap_near_lower)./(mt_fl_ap_near_higher - mt_fl_ap_near_lower);
+mt_fl_lower_idx_share = 1 - (mt_aprime - mt_fl_ap_near_lower)./(mt_fl_ap_near_higher - mt_fl_ap_near_lower);
 mt_fl_lower_idx_share(mt_it_ap_near_higher_idx == mt_it_ap_near_lower_idx) = 0;
-mt_fl_higher_idx_share = 1 - mt_fl_lower_idx_share;
 
 %% Iterate and Get Distribution
 % initialize
-fl_diff = 1;
 it_iter = 0;
 
 % After converge, one more iteration to store results
@@ -280,66 +266,57 @@ bl_converged = false;
 % Loop 0, continuous VFI iteration until convergence
 while bl_continue
     it_iter = it_iter + 1;
-        
+    
     % initialize empty
     mt_dist_az = mt_dist_az_zeros;
-
+    
     % loop 1: over exogenous states
     for it_z_i = 1:it_z_n
-
-        % loop 2: over endogenous states
+        
+        % current probablity at f(:,z) for all a
+        ar_cur_za_prob = mt_dist_az_cur(:, it_z_i);
+        
+        % Proportion of Current Mass to send to the left closest
+        ar_aprime_lower_share = mt_fl_lower_idx_share(:, it_z_i);
+        ar_aprime_higher_share = 1 - ar_aprime_lower_share;        
+        
+        % f(z'|z) transition for all z'
+        ar_ztoz_trans = mt_z_trans(it_z_i, :);
+        
+        % f(a',z'|a,z)*f(a,z) generate matrix, for all a',z'
+        mt_zfromza_lower = (ar_aprime_lower_share.*ar_cur_za_prob)*ar_ztoz_trans;
+        mt_zfromza_higher = (ar_aprime_higher_share.*ar_cur_za_prob)*ar_ztoz_trans;
+        
+        % Lower and higher arrays
         for it_a_j = 1:length(ar_a)
-            
-            % f(a'|a) = 1 for only one a'
-            % get lowe rand higher index
-            it_aprime_lower_idx = mt_it_ap_near_lower_idx(it_a_j, it_z_i);
-            it_aprime_higher_idx = mt_it_ap_near_lower_idx(it_a_j, it_z_i);
-            fl_aprime_lower_share = mt_fl_lower_idx_share(it_a_j, it_z_i);
-            fl_aprime_higher_share = mt_fl_higher_idx_share(it_a_j, it_z_i);
-
-            % loop 3: loop over future shocks
-            % E_{a,z}(f(a',z'|a,z)*f(a,z))
-            for it_zp_q = 1:it_z_n
-
-                % current probablity at (a,z)
-                fl_cur_za_prob = mt_dist_az_cur(it_a_j, it_z_i);
-
-                % f(z'|z) transition
-                fl_ztoz_trans =  mt_z_trans(it_z_i, it_zp_q);
-
-                % f(a',z'|a,z)*f(a,z)
-                fl_zfromza_lower = fl_aprime_lower_share*fl_cur_za_prob*fl_ztoz_trans;
-                fl_zfromza_higher = fl_aprime_higher_share*fl_cur_za_prob*fl_ztoz_trans;
-
-                % cumulating
-                mt_dist_az(it_aprime_lower_idx, it_zp_q) = mt_dist_az(it_aprime_lower_idx, it_zp_q) + fl_zfromza_lower;                
-                mt_dist_az(it_aprime_higher_idx, it_zp_q) = mt_dist_az(it_aprime_higher_idx, it_zp_q) + fl_zfromza_higher;
-            end
-
+            it_aprime_lower = mt_it_ap_near_lower_idx(it_a_j, it_z_i);
+            it_aprime_higher = mt_it_ap_near_higher_idx(it_a_j, it_z_i);
+            mt_dist_az(it_aprime_lower, :) = mt_dist_az(it_aprime_lower, :) + mt_zfromza_lower(it_a_j, :);
+            mt_dist_az(it_aprime_higher, :) = mt_dist_az(it_aprime_higher, :) + mt_zfromza_higher(it_a_j, :);
         end
-
+        
     end
-
+    
     % Difference across iterations
-    fl_diff = norm(mt_dist_az-mt_dist_az_cur);    
+    fl_diff = norm(mt_dist_az-mt_dist_az_cur);
     if (bl_print_iterinfo)
         ar_dist_diff_norm(it_iter) = fl_diff;
         mt_dist_perc_change(it_iter, :) = sum((abs(mt_dist_az - mt_dist_az_cur) > fl_tol_ds))/(it_a_n);
     end
     
     % Update
-    mt_dist_az_cur = mt_dist_az;   
-       
+    mt_dist_az_cur = mt_dist_az;
+    
     % Update Continue Criterion
     if bl_converged
         bl_continue = false;
     elseif(fl_diff <= fl_tol_ds || it_iter >= it_maxiter_ds)
         bl_converged = true;
-        if (fl_diff <= fl_tol_ds) 
+        if (fl_diff <= fl_tol_ds)
             flag = 1;
         else
             flag = 2;
-        end        
+        end
     end
     
     % Print Iteration Record
@@ -352,7 +329,8 @@ end
 
 %% Timer Stop
 if (bl_timer)
-    toc
+    tm_total = toc(tm_start_tic);
+    disp(['FF_DS_AZ_CTS_LOOP finished. Distribution took = ' num2str(tm_total)])
 end
 
 %% Results for Printing, and Graphing
@@ -432,7 +410,7 @@ if (~isempty(ls_ddgrh))
     mp_support_graph('st_legend_loc') = 'best';
     mp_support_graph('bl_graph_logy') = true; % do not log
     mp_support_graph('st_rowvar_name') = 'shock=';
-    mp_support_graph('it_legend_select') = 5; % how many shock legends to show
+    mp_support_graph('it_legend_select') = 11; % how many shock legends to show
     mp_support_graph('st_rounding') = '6.2f'; % format shock legend
     
     % Overide graph options here with external parameters
@@ -451,43 +429,55 @@ if (~isempty(ls_ddgrh))
         if (strcmp(st_mt_name, 'faz'))
             
             % Color
-            mp_support_graph('cl_colors') = 'copper'; % any predefined matlab colormap           
-            % Update Title and Y label            
-            mp_support_graph('cl_st_graph_title') = {['f(a,z), savings state =x, shock state = color, joint']};
+            mp_support_graph('cl_colors') = 'copper'; % any predefined matlab colormap
+            % Update Title and Y label
+            mp_support_graph('cl_st_graph_title') = {['Joint Stationary Discrete Probability: f(a,z), savings=x, shock=color']};
             mp_support_graph('cl_st_ytitle') = {['f(a,z) joint mass']};
             mp_support_graph('cl_st_xtitle') = {'savings states, a'};
             % Call function
             ff_graph_grid(mt_cur', ar_z, ar_a, mp_support_graph);
             
+            % Show F(a,z) as Scatter Size
+            % Color
+            mp_support_graph('cl_colors') = 'black'; % any predefined matlab colormap
+            % Update Title and Y label
+            mp_support_graph('cl_st_graph_title') = {['F(a,z), Prob Mass at State-Space as Scatter Size']};
+            mp_support_graph('cl_st_ytitle') = {'shock states, z'};
+            mp_support_graph('cl_st_xtitle') = {'savings states, a'};
+            mp_support_graph('st_rowvar_name') = 'z =';
+            mp_support_graph('bl_graph_logy') = false;
+            % Call function distributional
+            ff_graph_grid(mt_cur', ar_z, ar_a, mp_support_graph, 'dist');
+            
         elseif (strcmp(st_mt_name, 'fa'))
             
             % Color
-            mp_support_graph('cl_colors') = 'lines'; % any predefined matlab colormap            
+            mp_support_graph('cl_colors') = 'lines'; % any predefined matlab colormap
             % Update Title and Y label
-            mp_support_graph('cl_st_graph_title') = {['f(a), savings state =x, marginal']};
+            mp_support_graph('cl_st_graph_title') = {['Marginal Stationary Probability: f(a), savings=x']};
             mp_support_graph('cl_st_ytitle') = {['f(a) marginal mass']};
             mp_support_graph('cl_st_xtitle') = {'savings states, a'};
             % Call function
             ff_graph_grid(mt_cur', ["shock"], ar_a, mp_support_graph);
-
+            
         elseif (strcmp(st_mt_name, 'fz'))
             
             % Color
-            mp_support_graph('cl_colors') = 'gray'; % any predefined matlab colormap            
+            mp_support_graph('cl_colors') = 'gray'; % any predefined matlab colormap
             % Update Title and Y label
-            mp_support_graph('cl_st_graph_title') = {['f(z), shock state =x, stationary']};
+            mp_support_graph('cl_st_graph_title') = {['Exogenous Stationary Marginal Probability: f(z), shock=x']};
             mp_support_graph('cl_st_ytitle') = {['f(z) marginal mass']};
             mp_support_graph('cl_st_xtitle') = {'shock states, z'};
             % Call function
             ff_graph_grid(mt_cur', ["f(z)"], ar_z, mp_support_graph);
-                        
-        end      
+            
+        end
     end
     
 end
 
 %% Store Results for Output
-mp_valpoldist_out = containers.Map(ls_dsout, values(mp_print_graph, ls_dsout));
+mp_dist_out = containers.Map(ls_dsout, values(mp_print_graph, ls_dsout));
 
 %% Distributional Statistics
 if (~isempty(ls_stout))
@@ -508,19 +498,20 @@ if (~isempty(ls_stout))
     
     % Add Names to list
     mp_cl_ar_xyz_of_s('ar_st_y_name') = string(ls_stout);
-
+    
     % controls
-    mp_support = containers.Map('KeyType','char', 'ValueType','any');
-    mp_support('ar_fl_percentiles') = [0.01 0.1 1 5 10 20 25 30 40 50 60 70 75 80 90 95 99 99.9 99.99];
-    mp_support('bl_display_final') = true;
-    mp_support('bl_display_detail') = false;
-    mp_support('bl_display_drvm2outcomes') = false;
-    mp_support('bl_display_drvstats') = false;
-    mp_support('bl_display_drvm2covcor') = false;
-
+    mp_support_simustats = containers.Map('KeyType','char', 'ValueType','any');
+    mp_support_simustats('ar_fl_percentiles') = [0.01 0.1 1 5 10 20 25 30 40 50 60 70 75 80 90 95 99 99.9 99.99];
+    mp_support_simustats('bl_display_final') = bl_show_stats_table;
+    mp_support_simustats('bl_display_detail') = false;
+    mp_support_simustats('bl_display_drvm2outcomes') = false;
+    mp_support_simustats('bl_display_drvstats') = false;
+    mp_support_simustats('bl_display_drvm2covcor') = false;
+    mp_support_simustats = [mp_support_simustats; mp_support];
+    
     % Call Function
-    mp_cl_mt_xyz_of_s = ff_simu_stats(mt_dist_az(:), mp_cl_ar_xyz_of_s, mp_support);
-    mp_valpoldist_out('mp_cl_mt_xyz_of_s') = mp_cl_mt_xyz_of_s;
+    mp_cl_mt_xyz_of_s = ff_simu_stats(mt_dist_az(:), mp_cl_ar_xyz_of_s, mp_support_simustats);
+    mp_dist_out('mp_cl_mt_xyz_of_s') = mp_cl_mt_xyz_of_s;
 end
 
 end
