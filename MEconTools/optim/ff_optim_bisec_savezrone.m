@@ -162,10 +162,11 @@ end
 %% Evaluate At lower and Upper Savings Bounds
 [ar_lower_fx, ~] = fc_deri_wth_uniroot(fl_x_left_start);
 [ar_upper_fx, ~] = fc_deri_wth_uniroot(fl_x_right_start);
-ar_lower_fx_init = ar_lower_fx;
-ar_upper_fx_init = ar_upper_fx;
+ar_lower_times_upper_fx = ar_lower_fx.*ar_upper_fx;
 ar_lower_x = fl_x_left_start + zeros(size(ar_lower_fx));
+clear fl_x_left_start
 ar_upper_x = fl_x_right_start + zeros(size(ar_upper_fx));
+clear fl_x_right_start
 if (bl_verbose)
     tb_bisec_info = array2table([ar_lower_x, ar_upper_x, ar_lower_fx, ar_upper_fx]');
     tb_bisec_info.Properties.RowNames = ...
@@ -173,6 +174,7 @@ if (bl_verbose)
     ar_st_cates = ["init", "init", "init", "init"];
     tb_bisec_info = addvars(tb_bisec_info, ar_st_cates', 'Before', 1);
 end
+clear ar_upper_fx 
 
 %% First Mid Point
 it_ctr_bisec = 1;
@@ -199,12 +201,17 @@ while (it_ctr_bisec <= it_bisect_max_iter)
     f_ap = ar_lower_fx.*ar_mid_fx;
     ar_upper_x(f_ap<0) = ar_mid_x(f_ap<0);
     ar_lower_x(f_ap>=0) = ar_mid_x(f_ap>=0);
+    clear f_ap
     
     % Update mide point
     ar_mid_x = (ar_lower_x + ar_upper_x)/2;
     
     % Evaluate mid-point
-    [ar_mid_fx, ar_mid_saveborr_level] = fc_deri_wth_uniroot(ar_mid_x);
+    if (it_ctr_bisec == it_bisect_max_iter || bl_verbose)
+        [ar_mid_fx, ar_mid_saveborr_level] = fc_deri_wth_uniroot(ar_mid_x);
+    else
+        [ar_mid_fx] = fc_deri_wth_uniroot(ar_mid_x);
+    end
     
     if (bl_verbose)
         tb_p = array2table([ar_mid_fx, ar_mid_x]');
@@ -229,24 +236,25 @@ while (it_ctr_bisec <= it_bisect_max_iter)
     it_ctr_bisec = it_ctr_bisec + 1;
 end
 
+clear ar_lower_fx
 %% Return 
+if (bl_verbose)
+    ar_opti_save_level = ar_mid_saveborr_level;
+    ar_opti_foc_obj = ar_mid_fx;    
+end
 
-ar_opti_save_frac = ar_mid_x;
-ar_opti_save_level = ar_mid_saveborr_level;
-ar_opti_foc_obj = ar_mid_fx;
-
-if(isscalar(ar_opti_save_frac))
-    if (ar_lower_fx_init*ar_upper_fx_init > 0)
-        ar_opti_save_frac = NaN;
-        ar_opti_save_level = NaN;
-        ar_opti_foc_obj = NaN;
+if(isscalar(ar_mid_x))
+    if (ar_lower_times_upper_fx > 0)
+        ar_mid_x = NaN;
+        ar_mid_saveborr_level = NaN;
+        ar_mid_fx = NaN;
     end
 else
-    ar_nosolu = (ar_lower_fx_init.*ar_upper_fx_init);
-    ar_opti_save_frac(ar_nosolu>0) = NaN;
-    ar_opti_save_level(ar_nosolu>0) = NaN;
-    ar_opti_foc_obj(ar_nosolu>0) = NaN;
+    ar_mid_x(ar_lower_times_upper_fx>0) = NaN;
+    ar_mid_saveborr_level(ar_lower_times_upper_fx>0) = NaN;
+    ar_mid_fx(ar_lower_times_upper_fx>0) = NaN;
 end
+clear ar_lower_times_upper_fx
 
 %% Timer End
 if (bl_timer)
@@ -257,7 +265,7 @@ end
 if (bl_verbose)
     
     print_string = ['iteration=' num2str(it_ctr_bisec) ...
-        ', norm(ar_mid_fx)=' num2str(norm(ar_mid_fx))];
+        ', norm(ar_mid_fx)=' num2str(norm(ar_opti_foc_obj))];
     disp(['BISECT END: ' print_string]);
     
     % get exact solution
@@ -267,7 +275,7 @@ if (bl_verbose)
         tb_p_exact = array2table(...
             [ar_opti_saveborr_frac, ar_opti_saveborr_level,...
             abs(ar_opti_saveborr_frac-ar_mid_x),...
-            abs(ar_opti_saveborr_level-ar_mid_saveborr_level)]');
+            abs(ar_opti_saveborr_level-ar_opti_save_level)]');
         ar_st_row_names = string([...
             "exact solu saveborr frac",...
             "exact solu saveborr level",...
@@ -302,10 +310,10 @@ if (bl_verbose)
 
     % print as container:
     mp_container_map = containers.Map('KeyType','char', 'ValueType','any');
-    mp_container_map('ar_opti_save_frac') = ar_opti_save_frac';
-    mp_container_map('ar_opti_foc_obj') = ar_opti_foc_obj';
+    mp_container_map('ar_opti_save_frac') = ar_mid_x';
+    mp_container_map('ar_opti_foc_obj') = ar_mid_fx';
     if (nargout>=2)
-        mp_container_map('ar_opti_save_level') = ar_opti_save_level';
+        mp_container_map('ar_opti_save_level') = ar_mid_saveborr_level';
     end
     ff_container_map_display(mp_container_map, 10, 10);    
 
@@ -315,11 +323,11 @@ end
 varargout = cell(nargout,0);
 for it_k = 1:nargout
     if (it_k==1)
-        ob_out_cur = ar_opti_save_frac;
+        ob_out_cur = ar_mid_x;
     elseif (it_k==2)
-        ob_out_cur = ar_opti_save_level;
+        ob_out_cur = ar_mid_saveborr_level;
     elseif (it_k==3)
-        ob_out_cur = ar_opti_foc_obj;
+        ob_out_cur = ar_mid_fx;
     elseif (it_k==4 && bl_verbose)
         ob_out_cur = tb_bisec_info;
     end

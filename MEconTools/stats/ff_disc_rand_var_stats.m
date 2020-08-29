@@ -3,7 +3,7 @@
 %    to calculate various statistics
 %
 %    Statistics include: mean, standard deviation, min, max,  percentiles,
-%    proportion of outcomes held by x percentiles, etc. 
+%    proportion of outcomes held by x percentiles, etc.
 %
 %    * ST_VAR_NAME string name of the variable (choice/outcome) been
 %    analyzed
@@ -48,7 +48,7 @@ bl_display_drvstats = false;
 
 % parse inputs
 if (~isempty(varargin))
-    
+   
     if (length(varargin) == 3)
         [st_var_name, ar_choice_unique_sorted, ar_choice_prob] = varargin{:};
     elseif (length(varargin) == 4)
@@ -58,9 +58,9 @@ if (~isempty(varargin))
         [st_var_name, ar_choice_unique_sorted, ar_choice_prob, ...
             ar_fl_percentiles, bl_display_drvstats] = varargin{:};
     end
-    
+   
 else
-    
+   
     fl_binom_n = 30;
     fl_binom_p = 0.3;
     ar_binom_x = 0:1:fl_binom_n;
@@ -90,6 +90,8 @@ end
 
 % Mean of discrete random variable
 fl_choice_mean = ar_choice_prob*ar_choice_unique_sorted';
+fl_choice_sum_unweighted = sum(ar_choice_unique_sorted);
+
 % SD of discrete random variable
 fl_choice_sd = sqrt(ar_choice_prob*((ar_choice_unique_sorted'-fl_choice_mean).^2));
 % Coef of Variation of discrete random variable
@@ -164,6 +166,7 @@ ds_stats_map('fl_choice_sd') = fl_choice_sd;
 ds_stats_map('fl_choice_coefofvar') = fl_choice_coefofvar;
 ds_stats_map('fl_choice_min') = fl_choice_min;
 ds_stats_map('fl_choice_max') = fl_choice_max;
+ds_stats_map('fl_choice_sum_unweighted') = fl_choice_sum_unweighted;
 ds_stats_map('fl_choice_prob_zero') = fl_choice_prob_zero;
 ds_stats_map('fl_choice_prob_below_zero') = fl_choice_prob_below_zero;
 ds_stats_map('fl_choice_prob_above_zero') = fl_choice_prob_above_zero;

@@ -11,7 +11,7 @@
 %    * MP_SUPPORT_EXT container map with various control strings with
 %    defaults
 %
-%    MP_MT_XYZ_OF_S keys and Example Values: 
+%    MP_MT_XYZ_OF_S keys and Example Values:
 %
 %    mp_mt_xyz_of_s = containers.Map('KeyType', 'char', 'ValueType', 'any');
 %    mp_mt_xyz_of_s('ar_st_y_name') = {'cl_mt_pol_a', 'cl_mt_pol_b', 'cl_mt_pol_c'};
@@ -72,22 +72,22 @@ function mp_cl_mt_xyz_of_s = ff_simu_stats(varargin)
 % approximates normal.
 
 if (~isempty(varargin))
-    
+
     if (length(varargin)==2)
         [mt_f_of_s, mp_cl_mt_xyz_of_s] = varargin{:};
     elseif (length(varargin)==3)
         [mt_f_of_s, mp_cl_mt_xyz_of_s, mp_support_ext] = varargin{:};
     end
-    
+
     % if invoked from outside overrid fully
 else
-    
+
     it_states = 6;
     it_shocks = 5;
     fl_binom_n = it_states-1;
     ar_binom_p = (1:(it_shocks))./(it_shocks+2);
     ar_binom_x = (0:1:(it_states-1)) -3;
-    
+
     % f(z)
     ar_binom_p_prob = binopdf(0:(it_shocks-1), it_shocks-1, 0.5);
     % f(a,z), mass for a, z
@@ -100,15 +100,15 @@ else
         % f(a,z)=f(a|z)*f(z)
         mt_f_of_s(:, it_z) = f_a_condi_z*f_z;
     end
-    
+
     % y(a,z), some non-smooth structure
     rng(123);
     mt_pol_a = ar_binom_x' - 0.01*ar_binom_x'.^2  + ar_binom_p - 0.5*ar_binom_p.^2 + rand([it_states, it_shocks]);
     mt_pol_a = round(mt_pol_a*3);
-    
+
     rng(456);
     mt_pol_c = 10 -(mt_pol_a) + 15*(rand([it_states, it_shocks])-0.5);
-    
+
     % Generate result_map
     % two column, the second zero(1) component left for disc rand var of a,
     % c
@@ -116,7 +116,7 @@ else
     mp_cl_mt_xyz_of_s('cl_mt_pol_a') = {mt_pol_a, zeros(1)};
     mp_cl_mt_xyz_of_s('cl_mt_pol_c') = {mt_pol_c, zeros(1)};
     mp_cl_mt_xyz_of_s('ar_st_y_name') = ["cl_mt_pol_a", "cl_mt_pol_c"];
-    
+
 end
 
 %% Set and Update Support Map
@@ -157,7 +157,7 @@ params_group = values(mp_cl_mt_xyz_of_s, {'ar_st_y_name'});
 %% *f(y), f(c), f(a)*: Generate Key Distributional Statistics for Each outcome
 
 for it_y_ctr=1:length(ar_st_y_name)
-    
+
     %% *f(y), f(c), f(a)*: Find p(outcome(states)), proability mass function for each outcome
     % Using from tools:
     % <https://fanwangecon.github.io/CodeDynaAsset/tools/html/ff_disc_rand_var_mass2outcomes.html
@@ -174,7 +174,7 @@ for it_y_ctr=1:length(ar_st_y_name)
     % small simulation grids. These two might be different because pol_a is
     % based on a choices, mt_dist_az is based on a states
     %
-    
+
     st_y_key = ar_st_y_name(it_y_ctr);
     try
         cl_mt_xyz_of_s = mp_cl_mt_xyz_of_s(st_y_key);
@@ -182,7 +182,7 @@ for it_y_ctr=1:length(ar_st_y_name)
         1
     end
     mt_y_of_s = cl_mt_xyz_of_s{1};
-    
+
     % run function ff_disc_rand_var_mass2outcomes.m
     if (size(mt_y_of_s, 2) == 1)
         % matrix inputs are single column
@@ -193,7 +193,7 @@ for it_y_ctr=1:length(ar_st_y_name)
         [ar_f_of_y, ar_y_unique_sorted, mt_f_of_y_srow, mt_f_of_y_scol] = ...
             ff_disc_rand_var_mass2outcomes(st_y_key, mt_y_of_s, mt_f_of_s, bl_display_drvm2outcomes);
     end
-    
+
     %% *f(y), f(c), f(a)*: Compute Statistics for outcomes
     %
     % * $\mu_Y = E(Y) = \sum_{y} p(Y=y) \cdot y $
@@ -203,14 +203,15 @@ for it_y_ctr=1:length(ar_st_y_name)
     % * percentiles: $min_{y} \left\{ P(Y \le y) - percentile \mid P(Y \le y) \ge percentile \right\}$
     % * fraction of outcome held by up to percentiles: $E(Y<y)/E(Y)$
     %
-    
+
     % run function ff_disc_rand_var_stats.m from tools:
     [ds_stats_map] = ff_disc_rand_var_stats(st_y_key, ar_y_unique_sorted', ar_f_of_y', ...
         ar_fl_percentiles, bl_display_drvstats);
-    
+
     % prcess results
     % retrieve scalar statistics:
     fl_choice_mean = ds_stats_map('fl_choice_mean');
+    fl_choice_sum_unweighted = ds_stats_map('fl_choice_sum_unweighted');
     fl_choice_sd = ds_stats_map('fl_choice_sd');
     fl_choice_coefofvar = ds_stats_map('fl_choice_coefofvar');
     fl_choice_min = ds_stats_map('fl_choice_min');
@@ -223,10 +224,10 @@ for it_y_ctr=1:length(ar_st_y_name)
     % retrieve distributional array stats
     ar_choice_percentiles = ds_stats_map('ar_choice_percentiles');
     ar_choice_perc_fracheld = ds_stats_map('ar_choice_perc_fracheld');
-    
+
     %% *f(y), f(c), f(a)*: Store Statistics Specific to Each Outcome
     % see intro section
-    
+
     % Append prob mass functions to ds_stats_map
     if (size(mt_y_of_s, 2) > 1)
         ds_stats_map('mt_f_of_y_srow') = mt_f_of_y_srow;
@@ -245,9 +246,9 @@ for it_y_ctr=1:length(ar_st_y_name)
     % in result_map
     cl_mt_xyz_of_s{2} = ds_stats_map;
     mp_cl_mt_xyz_of_s(st_y_key) = cl_mt_xyz_of_s;
-    
+
     % key stats
-    ar_keystats = [fl_choice_mean fl_choice_sd fl_choice_coefofvar fl_choice_min fl_choice_max ...
+    ar_keystats = [fl_choice_mean fl_choice_sum_unweighted fl_choice_sd fl_choice_coefofvar fl_choice_min fl_choice_max ...
         fl_choice_prob_zero fl_choice_prob_below_zero fl_choice_prob_above_zero ...
         fl_choice_prob_min fl_choice_prob_max ar_choice_percentiles];
     cl_xyz_names(it_y_ctr) = st_y_key;
@@ -258,13 +259,13 @@ for it_y_ctr=1:length(ar_st_y_name)
         mt_outcomes_meansdperc = [mt_outcomes_meansdperc; ar_keystats];
         mt_outcomes_fracheld = [mt_outcomes_fracheld; ar_choice_perc_fracheld];
     end
-    
+
 end
 
-% Store Stats    
+% Store Stats
 tb_outcomes_meansdperc = array2table(mt_outcomes_meansdperc);
 ar_fl_percentiles = ds_stats_map('ar_fl_percentiles');
-cl_col_names = ['mean', 'sd', 'coefofvar', 'min', 'max', ...
+cl_col_names = ['mean', 'unweighted_sum' 'sd', 'coefofvar', 'min', 'max', ...
     'pYis0', 'pYls0', 'pYgr0', 'pYisMINY', 'pYisMAXY', ...
     strcat('p', string(ar_fl_percentiles))];
 tb_outcomes_meansdperc.Properties.VariableNames = matlab.lang.makeValidName(cl_col_names);
@@ -284,7 +285,7 @@ tb_outcomes_fracheld.Properties.RowNames = matlab.lang.makeValidName(cl_xyz_name
 if (bl_display_detail)
     disp('xxx tb_outcomes_fracheld: fraction of asset/income/etc held by hh up to this percentile xxx')
     disp(rows2vars(tb_outcomes_fracheld));
-end    
+end
 
 %% Covariance and Correlation
 % Having computed elsewhere E(X), E(Y), and SD(X), SD(Y), and given X(a,z)
@@ -302,7 +303,7 @@ end
 % $$\rho_{x,y} = \frac{\mathrm{Cov}\left(x,y\right)}{\sigma_x \cdot \sigma_y}$$
 
 for it_x_ctr=1:length(ar_st_y_name)
-    
+
     % Get X Info
     st_x_key = ar_st_y_name(it_x_ctr);
     cl_mt_xyz_of_s = mp_cl_mt_xyz_of_s(st_x_key);
@@ -311,13 +312,13 @@ for it_x_ctr=1:length(ar_st_y_name)
     mt_x_of_s = cl_mt_xyz_of_s{1};
     fl_x_mean = ds_stats_map('fl_choice_mean');
     fl_x_sd = ds_stats_map('fl_choice_sd');
-    
+
     % Initiate storage
     ar_fl_cov_var_xy = zeros([1,length(ar_st_y_name)*2]);
     ar_st_covvar = strings([1,length(ar_st_y_name)*2]);
-    
+
     for it_y_ctr=1:length(ar_st_y_name)
-        
+
         % Get y Info
         st_y_key = ar_st_y_name(it_y_ctr);
         cl_mt_xyz_of_s = mp_cl_mt_xyz_of_s(st_y_key);
@@ -326,37 +327,37 @@ for it_x_ctr=1:length(ar_st_y_name)
         mt_y_of_s = cl_mt_xyz_of_s{1};
         fl_y_mean = ds_stats_map('fl_choice_mean');
         fl_y_sd = ds_stats_map('fl_choice_sd');
-        
+
         % call ff_disc_rand_var_mass2covcor.m
         [fl_cov_xy, fl_cor_xy] = ff_disc_rand_var_mass2covcor(...
             mt_x_of_s, mt_y_of_s, mt_f_of_s, ...
             fl_x_mean, fl_x_sd, ...
             fl_y_mean, fl_y_sd, bl_display_drvm2covcor);
-        
+
         % only include the y name, x name is from the row
         st_x_y_cov = strjoin(["fl_cov_" st_y_key], '');
         st_x_y_cor = strjoin(["fl_cor_" st_y_key], '');
         ds_stats_map(st_x_y_cov) = fl_cov_xy;
         ds_stats_map(st_x_y_cor) = fl_cor_xy;
-        
+
         ar_fl_cov_var_xy(it_y_ctr*2-1) = fl_cov_xy;
         ar_fl_cov_var_xy(it_y_ctr*2) = fl_cor_xy;
         ar_st_covvar(it_y_ctr*2-1) = string(st_x_y_cov);
         ar_st_covvar(it_y_ctr*2) = string(st_x_y_cor);
-        
+
         cl_mt_xyz_of_s{2} = ds_stats_map;
         mp_cl_mt_xyz_of_s(st_y_key) = cl_mt_xyz_of_s;
     end
-    
+
     if (it_x_ctr == 1)
         mt_fl_cov_var_xy = ar_fl_cov_var_xy;
     else
         mt_fl_cov_var_xy = [mt_fl_cov_var_xy; ar_fl_cov_var_xy];
     end
-    
+
 end
 
-% Store Stats       
+% Store Stats
 tb_fl_cov_var_xy = array2table(mt_fl_cov_var_xy);
 tb_fl_cov_var_xy.Properties.VariableNames = matlab.lang.makeValidName(ar_st_covvar);
 tb_fl_cov_var_xy.Properties.RowNames = matlab.lang.makeValidName(cl_xyz_names);
@@ -372,13 +373,13 @@ end
 % Add to result_map
 mt_outcomes = [mt_outcomes_meansdperc, mt_fl_cov_var_xy, mt_outcomes_fracheld];
 mp_cl_mt_xyz_of_s('mt_outcomes') = mt_outcomes;
-% Store Stats    
+% Store Stats
 tb_outcomes = [tb_outcomes_meansdperc, tb_fl_cov_var_xy, tb_outcomes_fracheld];
 mp_cl_mt_xyz_of_s('tb_outcomes') = tb_outcomes;
 
 if (bl_display_final)
-    disp('xxx tb_outcomes: all stats xxx')        
-    disp(rows2vars(tb_outcomes));    
+    disp('xxx tb_outcomes: all stats xxx')
+    disp(rows2vars(tb_outcomes));
 end
 
 end
