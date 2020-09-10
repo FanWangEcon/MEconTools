@@ -164,9 +164,9 @@ end
 [ar_upper_fx, ~] = fc_deri_wth_uniroot(fl_x_right_start);
 ar_lower_times_upper_fx = ar_lower_fx.*ar_upper_fx;
 ar_lower_x = fl_x_left_start + zeros(size(ar_lower_fx));
-clear fl_x_left_start
+% clear fl_x_left_start
 ar_upper_x = fl_x_right_start + zeros(size(ar_upper_fx));
-clear fl_x_right_start
+% clear fl_x_right_start
 if (bl_verbose)
     tb_bisec_info = array2table([ar_lower_x, ar_upper_x, ar_lower_fx, ar_upper_fx]');
     tb_bisec_info.Properties.RowNames = ...
@@ -174,7 +174,7 @@ if (bl_verbose)
     ar_st_cates = ["init", "init", "init", "init"];
     tb_bisec_info = addvars(tb_bisec_info, ar_st_cates', 'Before', 1);
 end
-clear ar_upper_fx 
+% clear ar_upper_fx 
 
 %% First Mid Point
 it_ctr_bisec = 1;
@@ -201,7 +201,7 @@ while (it_ctr_bisec <= it_bisect_max_iter)
     f_ap = ar_lower_fx.*ar_mid_fx;
     ar_upper_x(f_ap<0) = ar_mid_x(f_ap<0);
     ar_lower_x(f_ap>=0) = ar_mid_x(f_ap>=0);
-    clear f_ap
+    % clear f_ap
     
     % Update mide point
     ar_mid_x = (ar_lower_x + ar_upper_x)/2;
@@ -236,7 +236,7 @@ while (it_ctr_bisec <= it_bisect_max_iter)
     it_ctr_bisec = it_ctr_bisec + 1;
 end
 
-clear ar_lower_fx
+% clear ar_lower_fx
 %% Return 
 if (bl_verbose)
     ar_opti_save_level = ar_mid_saveborr_level;
@@ -254,7 +254,7 @@ else
     ar_mid_saveborr_level(ar_lower_times_upper_fx>0) = NaN;
     ar_mid_fx(ar_lower_times_upper_fx>0) = NaN;
 end
-clear ar_lower_times_upper_fx
+% clear ar_lower_times_upper_fx
 
 %% Timer End
 if (bl_timer)

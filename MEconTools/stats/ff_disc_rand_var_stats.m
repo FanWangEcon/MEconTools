@@ -24,7 +24,7 @@
 %    statistics for the given discrete random variable with the provided
 %    probabilities and name.
 %
-%    See also FX_DISC_RAND_VAR_STATS
+%    See also FX_DISC_RAND_VAR_STATS, FF_DISC_RAND_VAR_GINI
 %
 
 %%
@@ -48,7 +48,7 @@ bl_display_drvstats = false;
 
 % parse inputs
 if (~isempty(varargin))
-   
+
     if (length(varargin) == 3)
         [st_var_name, ar_choice_unique_sorted, ar_choice_prob] = varargin{:};
     elseif (length(varargin) == 4)
@@ -58,9 +58,9 @@ if (~isempty(varargin))
         [st_var_name, ar_choice_unique_sorted, ar_choice_prob, ...
             ar_fl_percentiles, bl_display_drvstats] = varargin{:};
     end
-   
+
 else
-   
+
     fl_binom_n = 30;
     fl_binom_p = 0.3;
     ar_binom_x = 0:1:fl_binom_n;
@@ -68,14 +68,14 @@ else
     % f(x)
     ar_choice_prob = binopdf(ar_binom_x, fl_binom_n, fl_binom_p);
     % x
-    ar_choice_unique_sorted = ar_binom_x - 10;
+    ar_choice_unique_sorted = ar_binom_x;
 
     % display
     st_var_name = 'binom';
 
     % display
     bl_display_drvstats = true;
-       
+
 end
 
 %% *f(y), f(c), f(a)*: Compute Scalar Statistics for outcomes
@@ -156,6 +156,9 @@ for it_percentile = 1:length(ar_fl_percentiles)
     ar_choice_perc_fracheld(it_percentile) = fl_cumfrac;
 end
 
+%% Call Gini function
+[fl_gini_index] = ff_disc_rand_var_gini(ar_choice_unique_sorted, ar_choice_prob);
+
 %% Collect Statistics
 
 ds_stats_map = containers.Map('KeyType','char', 'ValueType','any');
@@ -172,6 +175,7 @@ ds_stats_map('fl_choice_prob_below_zero') = fl_choice_prob_below_zero;
 ds_stats_map('fl_choice_prob_above_zero') = fl_choice_prob_above_zero;
 ds_stats_map('fl_choice_prob_min') = fl_choice_prob_min;
 ds_stats_map('fl_choice_prob_max') = fl_choice_prob_max;
+ds_stats_map('fl_gini_index') = fl_gini_index;
 
 % distributional array stats
 ds_stats_map('ar_fl_percentiles') = ar_fl_percentiles;
@@ -202,7 +206,8 @@ if (bl_display_drvstats)
     disp(fl_choice_prob_above_zero);
     disp('fl_choice_prob_max');
     disp(fl_choice_prob_max);
-
+    disp('fl_gini_index');
+    disp(fl_gini_index);
 
     disp('tb_disc_cumu');
     tb_disc_cumu = table(ar_choice_unique_sorted', ar_choice_prob', ...

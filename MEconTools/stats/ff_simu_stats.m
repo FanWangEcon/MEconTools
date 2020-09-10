@@ -176,11 +176,7 @@ for it_y_ctr=1:length(ar_st_y_name)
     %
 
     st_y_key = ar_st_y_name(it_y_ctr);
-    try
-        cl_mt_xyz_of_s = mp_cl_mt_xyz_of_s(st_y_key);
-    catch
-        1
-    end
+    cl_mt_xyz_of_s = mp_cl_mt_xyz_of_s(st_y_key);
     mt_y_of_s = cl_mt_xyz_of_s{1};
 
     % run function ff_disc_rand_var_mass2outcomes.m
@@ -221,6 +217,8 @@ for it_y_ctr=1:length(ar_st_y_name)
     fl_choice_prob_above_zero = ds_stats_map('fl_choice_prob_above_zero');
     fl_choice_prob_min = ds_stats_map('fl_choice_prob_min');
     fl_choice_prob_max = ds_stats_map('fl_choice_prob_max');
+    fl_gini_index = ds_stats_map('fl_gini_index');
+
     % retrieve distributional array stats
     ar_choice_percentiles = ds_stats_map('ar_choice_percentiles');
     ar_choice_perc_fracheld = ds_stats_map('ar_choice_perc_fracheld');
@@ -248,7 +246,7 @@ for it_y_ctr=1:length(ar_st_y_name)
     mp_cl_mt_xyz_of_s(st_y_key) = cl_mt_xyz_of_s;
 
     % key stats
-    ar_keystats = [fl_choice_mean fl_choice_sum_unweighted fl_choice_sd fl_choice_coefofvar fl_choice_min fl_choice_max ...
+    ar_keystats = [fl_choice_mean fl_choice_sum_unweighted fl_choice_sd fl_choice_coefofvar fl_gini_index fl_choice_min fl_choice_max ...
         fl_choice_prob_zero fl_choice_prob_below_zero fl_choice_prob_above_zero ...
         fl_choice_prob_min fl_choice_prob_max ar_choice_percentiles];
     cl_xyz_names(it_y_ctr) = st_y_key;
@@ -265,7 +263,7 @@ end
 % Store Stats
 tb_outcomes_meansdperc = array2table(mt_outcomes_meansdperc);
 ar_fl_percentiles = ds_stats_map('ar_fl_percentiles');
-cl_col_names = ['mean', 'unweighted_sum' 'sd', 'coefofvar', 'min', 'max', ...
+cl_col_names = ['mean', 'unweighted_sum' 'sd', 'coefofvar', 'gini', 'min', 'max', ...
     'pYis0', 'pYls0', 'pYgr0', 'pYisMINY', 'pYisMAXY', ...
     strcat('p', string(ar_fl_percentiles))];
 tb_outcomes_meansdperc.Properties.VariableNames = matlab.lang.makeValidName(cl_col_names);

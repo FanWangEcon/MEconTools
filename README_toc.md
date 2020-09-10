@@ -40,6 +40,9 @@
 	+ The state-space is on a grid, the choice space are continuous percentages of cash-on-hand.
 	+ Looped algorithm.
 	+ **MEconTools**: *[ff_ds_az_cts_loop()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/ds/ff_ds_az_cts_loop.m)*
+3. [Vectorized Exact Stationary Distribution Dynamic Savings Problem](https://fanwangecon.github.io/MEconTools/MEconTools/doc/ds/htmlpdfm/fx_ds_az_cts_vec.html): [**mlx**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/ds/fx_ds_az_cts_vec.mlx) \| [**m**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/ds/htmlpdfm/fx_ds_az_cts_vec.m) \| [**pdf**](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/ds/htmlpdfm/fx_ds_az_cts_vec.pdf) \| [**html**](https://fanwangecon.github.io/MEconTools/MEconTools/doc/ds/htmlpdfm/fx_ds_az_cts_vec.html)
+	+ This is the vectorized version of [ff_ds_az_cts_loop()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/ds/ff_ds_az_cts_loop.m).
+	+ **MEconTools**: *[ff_ds_az_cts_vec(8)](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/ds/ff_ds_az_cts_vec.m)*
 
 # 3  Summarize Policy and Value
 

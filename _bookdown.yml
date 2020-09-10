@@ -18,6 +18,7 @@ rmd_files:
   - MEconTools/doc/ds/main.Rmd
   - MEconTools/doc/ds/fx_ds_az_loop.Rmd
   - MEconTools/doc/ds/fx_ds_az_cts_loop.Rmd
+  - MEconTools/doc/ds/fx_ds_az_cts_vec.Rmd
 
   - MEconTools/doc/summ/main.Rmd
   - MEconTools/doc/summ/fx_summ_nd_array.Rmd

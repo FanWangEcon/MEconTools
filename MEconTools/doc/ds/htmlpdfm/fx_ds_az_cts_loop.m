@@ -12,6 +12,9 @@
 % * Distribution for States Grid + Continuous Exact Savings as Share of Cash-on-Hand 
 % _*Loop*_: <https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_ds_az_cts_loop.m 
 % *ff_ds_az_cts_loop*>
+% * Distribution for States Grid + Continuous Exact Savings as Share of Cash-on-Hand 
+% _*Vectorized*_: <https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_ds_az_cts_vec.m 
+% *ff_ds_az_cts_vec*>
 %% Test FF_DS_AZ_CTS_LOOP Defaults
 % Call the function with defaults. By default, shows the asset policy function 
 % summary. Model parameters can be changed by the mp_params.

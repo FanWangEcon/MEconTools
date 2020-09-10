@@ -5,26 +5,26 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Stationary Distribution | Matlab Toolbox Heterogeneous Agents Dynamic Programming</title>
-  <meta name="description" content="Chapter 2 Stationary Distribution | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
-  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+  <meta name="description" content="Find livescript (mlx) files, execute MLX files, and export MLX files to HTML in a different folder." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Stationary Distribution | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="Chapter 2 Stationary Distribution | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
+  <meta property="og:description" content="Find livescript (mlx) files, execute MLX files, and export MLX files to HTML in a different folder." />
   <meta name="github-repo" content="fanwangecon/MEconTools" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 2 Stationary Distribution | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
   
-  <meta name="twitter:description" content="Chapter 2 Stationary Distribution | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
+  <meta name="twitter:description" content="Find livescript (mlx) files, execute MLX files, and export MLX files to HTML in a different folder." />
   
 
 <meta name="author" content="Fan Wang" />
 
 
-<meta name="date" content="2020-07-26" />
+<meta name="date" content="2020-09-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="savings-dynamic-programming.html"/>
 <link rel="next" href="summarize-policy-and-value.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -78,8 +79,10 @@
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html"><i class="fa fa-check"></i><b>1</b> Savings Dynamic Programming</a><ul>
-<li class="chapter" data-level="1.1" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#ff_vfi_az_loop-savings-loop-grid-examples"><i class="fa fa-check"></i><b>1.1</b> FF_VFI_AZ_LOOP Savings Loop Grid Examples</a><ul>
+<li class="chapter" data-level="1" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html"><i class="fa fa-check"></i><b>1</b> Savings Dynamic Programming</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#ff_vfi_az_loop-savings-loop-grid-examples"><i class="fa fa-check"></i><b>1.1</b> FF_VFI_AZ_LOOP Savings Loop Grid Examples</a>
+<ul>
 <li class="chapter" data-level="1.1.1" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_loop-defaults"><i class="fa fa-check"></i><b>1.1.1</b> Test FF_VFI_AZ_LOOP Defaults</a></li>
 <li class="chapter" data-level="1.1.2" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_vec-speed-tests"><i class="fa fa-check"></i><b>1.1.2</b> Test FF_VFI_AZ_BISEC_VEC Speed Tests</a></li>
 <li class="chapter" data-level="1.1.3" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_loop-control-outputs"><i class="fa fa-check"></i><b>1.1.3</b> Test FF_VFI_AZ_LOOP Control Outputs</a></li>
@@ -87,7 +90,8 @@
 <li class="chapter" data-level="1.1.5" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_loop-changing-risk-aversion"><i class="fa fa-check"></i><b>1.1.5</b> Test FF_VFI_AZ_LOOP Changing Risk Aversion</a></li>
 <li class="chapter" data-level="1.1.6" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_loop-with-higher-uncertainty"><i class="fa fa-check"></i><b>1.1.6</b> Test FF_VFI_AZ_LOOP with Higher Uncertainty</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#ff_vfi_az_vec-savings-vectorized-grid-examples"><i class="fa fa-check"></i><b>1.2</b> FF_VFI_AZ_VEC Savings Vectorized Grid Examples</a><ul>
+<li class="chapter" data-level="1.2" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#ff_vfi_az_vec-savings-vectorized-grid-examples"><i class="fa fa-check"></i><b>1.2</b> FF_VFI_AZ_VEC Savings Vectorized Grid Examples</a>
+<ul>
 <li class="chapter" data-level="1.2.1" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_vec-defaults"><i class="fa fa-check"></i><b>1.2.1</b> Test FF_VFI_AZ_VEC Defaults</a></li>
 <li class="chapter" data-level="1.2.2" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_vec-speed-tests-1"><i class="fa fa-check"></i><b>1.2.2</b> Test FF_VFI_AZ_BISEC_VEC Speed Tests</a></li>
 <li class="chapter" data-level="1.2.3" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_vec-control-outputs"><i class="fa fa-check"></i><b>1.2.3</b> Test FF_VFI_AZ_VEC Control Outputs</a></li>
@@ -95,7 +99,8 @@
 <li class="chapter" data-level="1.2.5" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_vec-changing-risk-aversion"><i class="fa fa-check"></i><b>1.2.5</b> Test FF_VFI_AZ_VEC Changing Risk Aversion</a></li>
 <li class="chapter" data-level="1.2.6" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_vec-with-higher-uncertainty"><i class="fa fa-check"></i><b>1.2.6</b> Test FF_VFI_AZ_VEC with Higher Uncertainty</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#ff_vfi_az_bisec_loop-savings-loop-exact-foc-examples"><i class="fa fa-check"></i><b>1.3</b> FF_VFI_AZ_BISEC_LOOP Savings Loop Exact (FOC) Examples</a><ul>
+<li class="chapter" data-level="1.3" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#ff_vfi_az_bisec_loop-savings-loop-exact-foc-examples"><i class="fa fa-check"></i><b>1.3</b> FF_VFI_AZ_BISEC_LOOP Savings Loop Exact (FOC) Examples</a>
+<ul>
 <li class="chapter" data-level="1.3.1" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_loop-defaults"><i class="fa fa-check"></i><b>1.3.1</b> Test FF_VFI_AZ_BISEC_LOOP Defaults</a></li>
 <li class="chapter" data-level="1.3.2" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_loop-speed-tests"><i class="fa fa-check"></i><b>1.3.2</b> Test FF_VFI_AZ_BISEC_LOOP Speed Tests</a></li>
 <li class="chapter" data-level="1.3.3" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_loop-control-outputs"><i class="fa fa-check"></i><b>1.3.3</b> Test FF_VFI_AZ_BISEC_LOOP Control Outputs</a></li>
@@ -103,7 +108,8 @@
 <li class="chapter" data-level="1.3.5" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_loop-changing-risk-aversion"><i class="fa fa-check"></i><b>1.3.5</b> Test FF_VFI_AZ_BISEC_LOOP Changing Risk Aversion</a></li>
 <li class="chapter" data-level="1.3.6" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_loop-with-higher-uncertainty"><i class="fa fa-check"></i><b>1.3.6</b> Test FF_VFI_AZ_BISEC_LOOP with Higher Uncertainty</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#ff_vfi_az_bisec_vec-savings-vectorized-exact-foc-examples"><i class="fa fa-check"></i><b>1.4</b> FF_VFI_AZ_BISEC_VEC Savings Vectorized Exact (FOC) Examples</a><ul>
+<li class="chapter" data-level="1.4" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#ff_vfi_az_bisec_vec-savings-vectorized-exact-foc-examples"><i class="fa fa-check"></i><b>1.4</b> FF_VFI_AZ_BISEC_VEC Savings Vectorized Exact (FOC) Examples</a>
+<ul>
 <li class="chapter" data-level="1.4.1" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_vec-defaults"><i class="fa fa-check"></i><b>1.4.1</b> Test FF_VFI_AZ_BISEC_VEC Defaults</a></li>
 <li class="chapter" data-level="1.4.2" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_vec-speed-tests-2"><i class="fa fa-check"></i><b>1.4.2</b> Test FF_VFI_AZ_BISEC_VEC Speed Tests</a></li>
 <li class="chapter" data-level="1.4.3" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_vec-control-outputs"><i class="fa fa-check"></i><b>1.4.3</b> Test FF_VFI_AZ_BISEC_VEC Control Outputs</a></li>
@@ -111,7 +117,8 @@
 <li class="chapter" data-level="1.4.5" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_vec-changing-risk-aversion"><i class="fa fa-check"></i><b>1.4.5</b> Test FF_VFI_AZ_BISEC_VEC Changing Risk Aversion</a></li>
 <li class="chapter" data-level="1.4.6" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_bisec_vec-with-higher-uncertainty"><i class="fa fa-check"></i><b>1.4.6</b> Test FF_VFI_AZ_BISEC_VEC with Higher Uncertainty</a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#ff_vfi_az_mzoom_loop-savings-loop-exact-value-examples"><i class="fa fa-check"></i><b>1.5</b> FF_VFI_AZ_MZOOM_LOOP Savings Loop Exact (VALUE) Examples</a><ul>
+<li class="chapter" data-level="1.5" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#ff_vfi_az_mzoom_loop-savings-loop-exact-value-examples"><i class="fa fa-check"></i><b>1.5</b> FF_VFI_AZ_MZOOM_LOOP Savings Loop Exact (VALUE) Examples</a>
+<ul>
 <li class="chapter" data-level="1.5.1" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_mzoom_loop-defaults"><i class="fa fa-check"></i><b>1.5.1</b> Test FF_VFI_AZ_MZOOM_LOOP Defaults</a></li>
 <li class="chapter" data-level="1.5.2" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_mzoom_loop-speed-tests"><i class="fa fa-check"></i><b>1.5.2</b> Test FF_VFI_AZ_MZOOM_LOOP Speed Tests</a></li>
 <li class="chapter" data-level="1.5.3" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_mzoom_loop-control-outputs"><i class="fa fa-check"></i><b>1.5.3</b> Test FF_VFI_AZ_MZOOM_LOOP Control Outputs</a></li>
@@ -119,7 +126,8 @@
 <li class="chapter" data-level="1.5.5" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_mzoom_loop-changing-risk-aversion"><i class="fa fa-check"></i><b>1.5.5</b> Test FF_VFI_AZ_MZOOM_LOOP Changing Risk Aversion</a></li>
 <li class="chapter" data-level="1.5.6" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_mzoom_loop-with-higher-uncertainty"><i class="fa fa-check"></i><b>1.5.6</b> Test FF_VFI_AZ_MZOOM_LOOP with Higher Uncertainty</a></li>
 </ul></li>
-<li class="chapter" data-level="1.6" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#ff_vfi_az_mzoom_vec-savings-vectorized-exact-value-examples"><i class="fa fa-check"></i><b>1.6</b> FF_VFI_AZ_MZOOM_VEC Savings Vectorized Exact (VALUE) Examples</a><ul>
+<li class="chapter" data-level="1.6" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#ff_vfi_az_mzoom_vec-savings-vectorized-exact-value-examples"><i class="fa fa-check"></i><b>1.6</b> FF_VFI_AZ_MZOOM_VEC Savings Vectorized Exact (VALUE) Examples</a>
+<ul>
 <li class="chapter" data-level="1.6.1" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_mzoom_vec-defaults"><i class="fa fa-check"></i><b>1.6.1</b> Test FF_VFI_AZ_MZOOM_VEC Defaults</a></li>
 <li class="chapter" data-level="1.6.2" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_mzoom_vec-speed-tests"><i class="fa fa-check"></i><b>1.6.2</b> Test FF_VFI_AZ_MZOOM_VEC Speed Tests</a></li>
 <li class="chapter" data-level="1.6.3" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_mzoom_vec-control-outputs"><i class="fa fa-check"></i><b>1.6.3</b> Test FF_VFI_AZ_MZOOM_VEC Control Outputs</a></li>
@@ -128,70 +136,92 @@
 <li class="chapter" data-level="1.6.6" data-path="savings-dynamic-programming.html"><a href="savings-dynamic-programming.html#test-ff_vfi_az_mzoom_vec-with-higher-uncertainty"><i class="fa fa-check"></i><b>1.6.6</b> Test FF_VFI_AZ_MZOOM_VEC with Higher Uncertainty</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="stationary-distribution.html"><a href="stationary-distribution.html"><i class="fa fa-check"></i><b>2</b> Stationary Distribution</a><ul>
-<li class="chapter" data-level="2.1" data-path="stationary-distribution.html"><a href="stationary-distribution.html#ff_ds_az_loop-dynamic-savings-loop-discrete-distribution"><i class="fa fa-check"></i><b>2.1</b> FF_DS_AZ_LOOP Dynamic Savings Loop Discrete Distribution</a><ul>
+<li class="chapter" data-level="2" data-path="stationary-distribution.html"><a href="stationary-distribution.html"><i class="fa fa-check"></i><b>2</b> Stationary Distribution</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="stationary-distribution.html"><a href="stationary-distribution.html#ff_ds_az_loop-dynamic-savings-loop-discrete-distribution"><i class="fa fa-check"></i><b>2.1</b> FF_DS_AZ_LOOP Dynamic Savings Loop Discrete Distribution</a>
+<ul>
 <li class="chapter" data-level="2.1.1" data-path="stationary-distribution.html"><a href="stationary-distribution.html#test-ff_ds_az_loop-defaults"><i class="fa fa-check"></i><b>2.1.1</b> Test FF_DS_AZ_LOOP Defaults</a></li>
 <li class="chapter" data-level="2.1.2" data-path="stationary-distribution.html"><a href="stationary-distribution.html#test-ff_ds_az_loop-speed-tests"><i class="fa fa-check"></i><b>2.1.2</b> Test FF_DS_AZ_LOOP Speed Tests</a></li>
 <li class="chapter" data-level="2.1.3" data-path="stationary-distribution.html"><a href="stationary-distribution.html#test-ff_ds_az_loop-a-grid-100-shock-grid-7"><i class="fa fa-check"></i><b>2.1.3</b> Test FF_DS_AZ_LOOP A grid 100 Shock grid 7</a></li>
 <li class="chapter" data-level="2.1.4" data-path="stationary-distribution.html"><a href="stationary-distribution.html#test-ff_ds_az_loop-a-grid-300-shock-grid-25"><i class="fa fa-check"></i><b>2.1.4</b> Test FF_DS_AZ_LOOP A grid 300 Shock Grid 25</a></li>
 <li class="chapter" data-level="2.1.5" data-path="stationary-distribution.html"><a href="stationary-distribution.html#test-ff_ds_az_loop-a-grid-300-shock-grid-50"><i class="fa fa-check"></i><b>2.1.5</b> Test FF_DS_AZ_LOOP A grid 300 Shock Grid 50</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="stationary-distribution.html"><a href="stationary-distribution.html#ff_ds_az_cts_loop-dynamic-savings-loop-continuous-distribution"><i class="fa fa-check"></i><b>2.2</b> FF_DS_AZ_CTS_LOOP Dynamic Savings Loop Continuous Distribution</a><ul>
+<li class="chapter" data-level="2.2" data-path="stationary-distribution.html"><a href="stationary-distribution.html#ff_ds_az_cts_loop-dynamic-savings-loop-continuous-distribution"><i class="fa fa-check"></i><b>2.2</b> FF_DS_AZ_CTS_LOOP Dynamic Savings Loop Continuous Distribution</a>
+<ul>
 <li class="chapter" data-level="2.2.1" data-path="stationary-distribution.html"><a href="stationary-distribution.html#test-ff_ds_az_cts_loop-defaults"><i class="fa fa-check"></i><b>2.2.1</b> Test FF_DS_AZ_CTS_LOOP Defaults</a></li>
 <li class="chapter" data-level="2.2.2" data-path="stationary-distribution.html"><a href="stationary-distribution.html#test-ff_ds_az_cts_loop-speed-tests"><i class="fa fa-check"></i><b>2.2.2</b> Test FF_DS_AZ_CTS_LOOP Speed Tests</a></li>
 <li class="chapter" data-level="2.2.3" data-path="stationary-distribution.html"><a href="stationary-distribution.html#test-ff_ds_az_cts_loop-a-grid-100-shock-grid-7"><i class="fa fa-check"></i><b>2.2.3</b> Test FF_DS_AZ_CTS_LOOP A grid 100 Shock grid 7</a></li>
 <li class="chapter" data-level="2.2.4" data-path="stationary-distribution.html"><a href="stationary-distribution.html#test-ff_ds_az_cts_loop-a-grid-300-shock-grid-25"><i class="fa fa-check"></i><b>2.2.4</b> Test FF_DS_AZ_CTS_LOOP A grid 300 Shock grid 25</a></li>
 <li class="chapter" data-level="2.2.5" data-path="stationary-distribution.html"><a href="stationary-distribution.html#test-ff_ds_az_cts_loop-a-grid-300-shock-grid-50"><i class="fa fa-check"></i><b>2.2.5</b> Test FF_DS_AZ_CTS_LOOP A grid 300 Shock grid 50</a></li>
 </ul></li>
+<li class="chapter" data-level="2.3" data-path="stationary-distribution.html"><a href="stationary-distribution.html#ff_ds_az_cts_vec-dynamic-savings-vectorized-continuous-distribution"><i class="fa fa-check"></i><b>2.3</b> FF_DS_AZ_CTS_VEC Dynamic Savings Vectorized Continuous Distribution</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="stationary-distribution.html"><a href="stationary-distribution.html#test-ff_ds_az_cts_vec-defaults"><i class="fa fa-check"></i><b>2.3.1</b> Test FF_DS_AZ_CTS_VEC Defaults</a></li>
+<li class="chapter" data-level="2.3.2" data-path="stationary-distribution.html"><a href="stationary-distribution.html#test-ff_ds_az_cts_vec-speed-tests"><i class="fa fa-check"></i><b>2.3.2</b> Test FF_DS_AZ_CTS_VEC Speed Tests</a></li>
+<li class="chapter" data-level="2.3.3" data-path="stationary-distribution.html"><a href="stationary-distribution.html#test-ff_ds_az_cts_vec-a-grid-100-shock-grid-7"><i class="fa fa-check"></i><b>2.3.3</b> Test FF_DS_AZ_CTS_VEC A grid 100 Shock grid 7</a></li>
+<li class="chapter" data-level="2.3.4" data-path="stationary-distribution.html"><a href="stationary-distribution.html#test-ff_ds_az_cts_vec-a-grid-300-shock-grid-25"><i class="fa fa-check"></i><b>2.3.4</b> Test FF_DS_AZ_CTS_VEC A grid 300 Shock grid 25</a></li>
+<li class="chapter" data-level="2.3.5" data-path="stationary-distribution.html"><a href="stationary-distribution.html#test-ff_ds_az_cts_vec-a-grid-300-shock-grid-50"><i class="fa fa-check"></i><b>2.3.5</b> Test FF_DS_AZ_CTS_VEC A grid 300 Shock grid 50</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html"><i class="fa fa-check"></i><b>3</b> Summarize Policy and Value</a><ul>
-<li class="chapter" data-level="3.1" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#ff_summ_nd_array-examples"><i class="fa fa-check"></i><b>3.1</b> FF_SUMM_ND_ARRAY Examples</a><ul>
+</ul></li>
+<li class="chapter" data-level="3" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html"><i class="fa fa-check"></i><b>3</b> Summarize Policy and Value</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#ff_summ_nd_array-examples"><i class="fa fa-check"></i><b>3.1</b> FF_SUMM_ND_ARRAY Examples</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#test-ff_summ_nd_array-defaults"><i class="fa fa-check"></i><b>3.1.1</b> Test FF_SUMM_ND_ARRAY Defaults</a></li>
 <li class="chapter" data-level="3.1.2" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#test-ff_summ_nd_array-with-random-2-dimensional-matrix"><i class="fa fa-check"></i><b>3.1.2</b> Test FF_SUMM_ND_ARRAY with Random 2 Dimensional Matrix</a></li>
 <li class="chapter" data-level="3.1.3" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#test-ff_summ_nd_array-with-random-6-dimensional-matrix"><i class="fa fa-check"></i><b>3.1.3</b> Test FF_SUMM_ND_ARRAY with Random 6 Dimensional Matrix</a></li>
 <li class="chapter" data-level="3.1.4" data-path="summarize-policy-and-value.html"><a href="summarize-policy-and-value.html#test-ff_summ_nd_array-with-random-7-dimensional-matrix-with-all-parameters"><i class="fa fa-check"></i><b>3.1.4</b> Test FF_SUMM_ND_ARRAY with Random 7 Dimensional Matrix with All Parameters</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="distributional-analysis.html"><a href="distributional-analysis.html"><i class="fa fa-check"></i><b>4</b> Distributional Analysis</a><ul>
-<li class="chapter" data-level="4.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_simu_stats-examples"><i class="fa fa-check"></i><b>4.1</b> FF_SIMU_STATS Examples</a><ul>
+<li class="chapter" data-level="4" data-path="distributional-analysis.html"><a href="distributional-analysis.html"><i class="fa fa-check"></i><b>4</b> Distributional Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_simu_stats-examples"><i class="fa fa-check"></i><b>4.1</b> FF_SIMU_STATS Examples</a>
+<ul>
 <li class="chapter" data-level="4.1.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_simu_stats-defaults"><i class="fa fa-check"></i><b>4.1.1</b> Test FF_SIMU_STATS Defaults</a></li>
 <li class="chapter" data-level="4.1.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_simu_stats-four-states-points-matrix"><i class="fa fa-check"></i><b>4.1.2</b> Test FF_SIMU_STATS Four States-Points Matrix</a></li>
 <li class="chapter" data-level="4.1.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_simu_stats-four-states-points-matrix-single-column-inputs"><i class="fa fa-check"></i><b>4.1.3</b> Test FF_SIMU_STATS Four States-Points Matrix Single Column Inputs</a></li>
 <li class="chapter" data-level="4.1.4" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_simu_stats-print-many-details"><i class="fa fa-check"></i><b>4.1.4</b> Test FF_SIMU_STATS Print Many Details</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_disc_rand_var_stats-examples"><i class="fa fa-check"></i><b>4.2</b> FF_DISC_RAND_VAR_STATS Examples</a><ul>
+<li class="chapter" data-level="4.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_disc_rand_var_stats-examples"><i class="fa fa-check"></i><b>4.2</b> FF_DISC_RAND_VAR_STATS Examples</a>
+<ul>
 <li class="chapter" data-level="4.2.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_stats-defaults"><i class="fa fa-check"></i><b>4.2.1</b> Test FF_DISC_RAND_VAR_STATS Defaults</a></li>
 <li class="chapter" data-level="4.2.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_stats-0-and-1-random-variable"><i class="fa fa-check"></i><b>4.2.2</b> Test FF_DISC_RAND_VAR_STATS 0 and 1 Random Variable</a></li>
 <li class="chapter" data-level="4.2.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_stats-with-poisson"><i class="fa fa-check"></i><b>4.2.3</b> Test FF_DISC_RAND_VAR_STATS with Poisson</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_disc_rand_var_mass2outcomes-examples"><i class="fa fa-check"></i><b>4.3</b> FF_DISC_RAND_VAR_MASS2OUTCOMES Examples</a><ul>
+<li class="chapter" data-level="4.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_disc_rand_var_mass2outcomes-examples"><i class="fa fa-check"></i><b>4.3</b> FF_DISC_RAND_VAR_MASS2OUTCOMES Examples</a>
+<ul>
 <li class="chapter" data-level="4.3.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2outcomes-defaults"><i class="fa fa-check"></i><b>4.3.1</b> Test FF_DISC_RAND_VAR_MASS2OUTCOMES Defaults</a></li>
 <li class="chapter" data-level="4.3.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2outcomes-four-states-points"><i class="fa fa-check"></i><b>4.3.2</b> Test FF_DISC_RAND_VAR_MASS2OUTCOMES Four States-Points</a></li>
 <li class="chapter" data-level="4.3.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2outcomes-conditional-mass-outputs"><i class="fa fa-check"></i><b>4.3.3</b> Test FF_DISC_RAND_VAR_MASS2OUTCOMES Conditional Mass Outputs</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_disc_rand_var_mass2covcor-examples"><i class="fa fa-check"></i><b>4.4</b> FF_DISC_RAND_VAR_MASS2COVCOR Examples</a><ul>
+<li class="chapter" data-level="4.4" data-path="distributional-analysis.html"><a href="distributional-analysis.html#ff_disc_rand_var_mass2covcor-examples"><i class="fa fa-check"></i><b>4.4</b> FF_DISC_RAND_VAR_MASS2COVCOR Examples</a>
+<ul>
 <li class="chapter" data-level="4.4.1" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2covcor-defaults"><i class="fa fa-check"></i><b>4.4.1</b> Test FF_DISC_RAND_VAR_MASS2COVCOR Defaults</a></li>
 <li class="chapter" data-level="4.4.2" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2covcor-four-states-points"><i class="fa fa-check"></i><b>4.4.2</b> Test FF_DISC_RAND_VAR_MASS2COVCOR Four States-Points</a></li>
 <li class="chapter" data-level="4.4.3" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2covcor-two-random-vectors"><i class="fa fa-check"></i><b>4.4.3</b> Test FF_DISC_RAND_VAR_MASS2COVCOR Two Random Vectors</a></li>
 <li class="chapter" data-level="4.4.4" data-path="distributional-analysis.html"><a href="distributional-analysis.html#test-ff_disc_rand_var_mass2covcor-provide-mean-and-sd"><i class="fa fa-check"></i><b>4.4.4</b> Test FF_DISC_RAND_VAR_MASS2COVCOR Provide Mean and SD</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="optimizers.html"><a href="optimizers.html"><i class="fa fa-check"></i><b>5</b> Optimizers</a><ul>
-<li class="chapter" data-level="5.1" data-path="optimizers.html"><a href="optimizers.html#ff_optim_bisec_savezrone-derivative-bisection"><i class="fa fa-check"></i><b>5.1</b> FF_OPTIM_BISEC_SAVEZRONE Derivative Bisection</a><ul>
+<li class="chapter" data-level="5" data-path="optimizers.html"><a href="optimizers.html"><i class="fa fa-check"></i><b>5</b> Optimizers</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="optimizers.html"><a href="optimizers.html#faff_optim_bisec_savezrone-derivative-bisection"><i class="fa fa-check"></i><b>5.1</b> faFF_OPTIM_BISEC_SAVEZRONE Derivative Bisection</a>
+<ul>
 <li class="chapter" data-level="5.1.1" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_bisec_savezrone-defaults"><i class="fa fa-check"></i><b>5.1.1</b> Test FF_OPTIM_BISEC_SAVEZRONE Defaults</a></li>
 <li class="chapter" data-level="5.1.2" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_bisec_savezrone-one-individual"><i class="fa fa-check"></i><b>5.1.2</b> Test FF_OPTIM_BISEC_SAVEZRONE One Individual</a></li>
 <li class="chapter" data-level="5.1.3" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_bisec_savezrone-six-individual-states"><i class="fa fa-check"></i><b>5.1.3</b> Test FF_OPTIM_BISEC_SAVEZRONE Six Individual States</a></li>
 <li class="chapter" data-level="5.1.4" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_bisec_savezrone-speed"><i class="fa fa-check"></i><b>5.1.4</b> Test FF_OPTIM_BISEC_SAVEZRONE Speed</a></li>
 <li class="chapter" data-level="5.1.5" data-path="optimizers.html"><a href="optimizers.html#define-two-period-intertemporal-foc-log-utility-no-shock"><i class="fa fa-check"></i><b>5.1.5</b> Define Two Period Intertemporal FOC Log Utility No Shock</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="optimizers.html"><a href="optimizers.html#ff_optim_mlsec_savezrone-derivative-multisection"><i class="fa fa-check"></i><b>5.2</b> FF_OPTIM_MLSEC_SAVEZRONE Derivative Multisection</a><ul>
+<li class="chapter" data-level="5.2" data-path="optimizers.html"><a href="optimizers.html#ff_optim_mlsec_savezrone-derivative-multisection"><i class="fa fa-check"></i><b>5.2</b> FF_OPTIM_MLSEC_SAVEZRONE Derivative Multisection</a>
+<ul>
 <li class="chapter" data-level="5.2.1" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_mlsec_savezrone-one-individual"><i class="fa fa-check"></i><b>5.2.1</b> Test FF_OPTIM_MLSEC_SAVEZRONE One Individual</a></li>
 <li class="chapter" data-level="5.2.2" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_mlsec_savezrone-5-individuals-5-iterations-5-points-per-iteration"><i class="fa fa-check"></i><b>5.2.2</b> Test FF_OPTIM_MLSEC_SAVEZRONE 5 Individuals 5 Iterations 5 Points Per Iteration</a></li>
 <li class="chapter" data-level="5.2.3" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_mlsec_savezrone-8-individuals-3-iterations-10-points-per-iteration"><i class="fa fa-check"></i><b>5.2.3</b> Test FF_OPTIM_MLSEC_SAVEZRONE 8 Individuals 3 Iterations 10 Points Per Iteration</a></li>
 <li class="chapter" data-level="5.2.4" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_mlsec_savezrone-speed"><i class="fa fa-check"></i><b>5.2.4</b> Test FF_OPTIM_MLSEC_SAVEZRONE Speed</a></li>
 <li class="chapter" data-level="5.2.5" data-path="optimizers.html"><a href="optimizers.html#define-two-period-intertemporal-foc-log-utility-no-shock-1"><i class="fa fa-check"></i><b>5.2.5</b> Define Two Period Intertemporal FOC Log Utility No Shock</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="optimizers.html"><a href="optimizers.html#ff_optim_mzoom_savezrone-derivative-multisection"><i class="fa fa-check"></i><b>5.3</b> FF_OPTIM_MZOOM_SAVEZRONE Derivative Multisection</a><ul>
+<li class="chapter" data-level="5.3" data-path="optimizers.html"><a href="optimizers.html#ff_optim_mzoom_savezrone-derivative-multisection"><i class="fa fa-check"></i><b>5.3</b> FF_OPTIM_MZOOM_SAVEZRONE Derivative Multisection</a>
+<ul>
 <li class="chapter" data-level="5.3.1" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_mzoom_savezrone-one-individual"><i class="fa fa-check"></i><b>5.3.1</b> Test FF_OPTIM_MZOOM_SAVEZRONE One Individual</a></li>
 <li class="chapter" data-level="5.3.2" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_mzoom_savezrone-4-individuals-3-iterations-50-points-per-iteration"><i class="fa fa-check"></i><b>5.3.2</b> Test FF_OPTIM_MZOOM_SAVEZRONE 4 Individuals 3 Iterations 50 Points Per Iteration</a></li>
 <li class="chapter" data-level="5.3.3" data-path="optimizers.html"><a href="optimizers.html#test-ff_optim_mzoom_savezrone-8-individuals-3-iterations-10-points-per-iteration-0.25-zoom-in-ratio"><i class="fa fa-check"></i><b>5.3.3</b> Test FF_OPTIM_MZOOM_SAVEZRONE 8 Individuals 3 Iterations 10 Points Per Iteration, 0.25 zoom in ratio</a></li>
@@ -199,8 +229,10 @@
 <li class="chapter" data-level="5.3.5" data-path="optimizers.html"><a href="optimizers.html#define-two-period-intertemporal-log-utility-no-shock-utility-function"><i class="fa fa-check"></i><b>5.3.5</b> Define Two Period Intertemporal Log Utility No Shock Utility Function</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>6</b> Graphs</a><ul>
-<li class="chapter" data-level="6.1" data-path="graphs.html"><a href="graphs.html#ff_graph_grid-examples-x-y-and-color-line-plots"><i class="fa fa-check"></i><b>6.1</b> FF_GRAPH_GRID Examples: X, Y and Color Line Plots</a><ul>
+<li class="chapter" data-level="6" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>6</b> Graphs</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="graphs.html"><a href="graphs.html#ff_graph_grid-examples-x-y-and-color-line-plots"><i class="fa fa-check"></i><b>6.1</b> FF_GRAPH_GRID Examples: X, Y and Color Line Plots</a>
+<ul>
 <li class="chapter" data-level="6.1.1" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-defaults"><i class="fa fa-check"></i><b>6.1.1</b> Test FF_GRAPH_GRID Defaults</a></li>
 <li class="chapter" data-level="6.1.2" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-random-matrix-pick-markers-and-colors"><i class="fa fa-check"></i><b>6.1.2</b> Test FF_GRAPH_GRID Random Matrix Pick Markers and Colors</a></li>
 <li class="chapter" data-level="6.1.3" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-two-random-normal-lines-and-labels"><i class="fa fa-check"></i><b>6.1.3</b> Test FF_GRAPH_GRID Two Random Normal Lines and Labels</a></li>
@@ -210,15 +242,19 @@
 <li class="chapter" data-level="6.1.7" data-path="graphs.html"><a href="graphs.html#test-ff_graph_grid-joint-probability-mass-output-as-scatter-size"><i class="fa fa-check"></i><b>6.1.7</b> Test FF_GRAPH_GRID Joint Probability Mass Output as Scatter Size</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="support-tools.html"><a href="support-tools.html"><i class="fa fa-check"></i><b>7</b> Support Tools</a><ul>
-<li class="chapter" data-level="7.1" data-path="support-tools.html"><a href="support-tools.html#ff_container_map_display-examples"><i class="fa fa-check"></i><b>7.1</b> FF_CONTAINER_MAP_DISPLAY Examples</a><ul>
+<li class="chapter" data-level="7" data-path="support-tools.html"><a href="support-tools.html"><i class="fa fa-check"></i><b>7</b> Support Tools</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="support-tools.html"><a href="support-tools.html#ff_container_map_display-examples"><i class="fa fa-check"></i><b>7.1</b> FF_CONTAINER_MAP_DISPLAY Examples</a>
+<ul>
 <li class="chapter" data-level="7.1.1" data-path="support-tools.html"><a href="support-tools.html#test-ff_container_map_display-defaults"><i class="fa fa-check"></i><b>7.1.1</b> Test FF_CONTAINER_MAP_DISPLAY Defaults</a></li>
 <li class="chapter" data-level="7.1.2" data-path="support-tools.html"><a href="support-tools.html#test-ff_container_map_display-summarize-matrix-only"><i class="fa fa-check"></i><b>7.1.2</b> Test FF_CONTAINER_MAP_DISPLAY summarize Matrix Only</a></li>
 <li class="chapter" data-level="7.1.3" data-path="support-tools.html"><a href="support-tools.html#test-ff_container_map_display-show-matrix-subset"><i class="fa fa-check"></i><b>7.1.3</b> Test FF_CONTAINER_MAP_DISPLAY Show Matrix Subset</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="data-structures.html"><a href="data-structures.html"><i class="fa fa-check"></i><b>8</b> Data Structures</a><ul>
-<li class="chapter" data-level="8.1" data-path="data-structures.html"><a href="data-structures.html#ff_saveborr_grid-example-for-generating-asset-grid"><i class="fa fa-check"></i><b>8.1</b> FF_SAVEBORR_GRID Example for Generating Asset Grid</a><ul>
+<li class="chapter" data-level="8" data-path="data-structures.html"><a href="data-structures.html"><i class="fa fa-check"></i><b>8</b> Data Structures</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="data-structures.html"><a href="data-structures.html#ff_saveborr_grid-example-for-generating-asset-grid"><i class="fa fa-check"></i><b>8.1</b> FF_SAVEBORR_GRID Example for Generating Asset Grid</a>
+<ul>
 <li class="chapter" data-level="8.1.1" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-defaults"><i class="fa fa-check"></i><b>8.1.1</b> Test FF_SAVEBORR_GRID Defaults</a></li>
 <li class="chapter" data-level="8.1.2" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-default-linear-grid-log-grid-power-grid-threshold-grid"><i class="fa fa-check"></i><b>8.1.2</b> Test FF_SAVEBORR_GRID Default Linear Grid, Log Grid, Power Grid, Threshold Grid</a></li>
 <li class="chapter" data-level="8.1.3" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-log-grid-changing-parameters"><i class="fa fa-check"></i><b>8.1.3</b> Test FF_SAVEBORR_GRID Log Grid Changing Parameters</a></li>
@@ -226,8 +262,10 @@
 <li class="chapter" data-level="8.1.5" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-threshold-grid-changing-parameters"><i class="fa fa-check"></i><b>8.1.5</b> Test FF_SAVEBORR_GRID Threshold Grid Changing Parameters</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="common-functions.html"><a href="common-functions.html"><i class="fa fa-check"></i><b>9</b> Common Functions</a><ul>
-<li class="chapter" data-level="9.1" data-path="common-functions.html"><a href="common-functions.html#ffy_tauchen-ar1-shock-discretization-example"><i class="fa fa-check"></i><b>9.1</b> FFY_TAUCHEN AR1 Shock Discretization Example</a><ul>
+<li class="chapter" data-level="9" data-path="common-functions.html"><a href="common-functions.html"><i class="fa fa-check"></i><b>9</b> Common Functions</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="common-functions.html"><a href="common-functions.html#ffy_tauchen-ar1-shock-discretization-example"><i class="fa fa-check"></i><b>9.1</b> FFY_TAUCHEN AR1 Shock Discretization Example</a>
+<ul>
 <li class="chapter" data-level="9.1.1" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-defaults"><i class="fa fa-check"></i><b>9.1.1</b> Test FFY_TAUCHEN Defaults</a></li>
 <li class="chapter" data-level="9.1.2" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-specify-parameters"><i class="fa fa-check"></i><b>9.1.2</b> Test FFY_TAUCHEN Specify Parameters</a></li>
 <li class="chapter" data-level="9.1.3" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-high-persistence-low-sd"><i class="fa fa-check"></i><b>9.1.3</b> Test FFY_TAUCHEN High Persistence, Low SD</a></li>
@@ -235,7 +273,8 @@
 <li class="chapter" data-level="9.1.5" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-high-persistence-high-sd"><i class="fa fa-check"></i><b>9.1.5</b> Test FFY_TAUCHEN High Persistence, High SD</a></li>
 <li class="chapter" data-level="9.1.6" data-path="common-functions.html"><a href="common-functions.html#test-ffy_tauchen-low-persistence-low-sd-1"><i class="fa fa-check"></i><b>9.1.6</b> Test FFY_TAUCHEN Low Persistence, Low SD</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="common-functions.html"><a href="common-functions.html#ffy_rouwenhorst-ar1-shock-discretization-example"><i class="fa fa-check"></i><b>9.2</b> FFY_ROUWENHORST AR1 Shock Discretization Example</a><ul>
+<li class="chapter" data-level="9.2" data-path="common-functions.html"><a href="common-functions.html#ffy_rouwenhorst-ar1-shock-discretization-example"><i class="fa fa-check"></i><b>9.2</b> FFY_ROUWENHORST AR1 Shock Discretization Example</a>
+<ul>
 <li class="chapter" data-level="9.2.1" data-path="common-functions.html"><a href="common-functions.html#test-ffy_rouwenhorst-defaults"><i class="fa fa-check"></i><b>9.2.1</b> Test FFY_ROUWENHORST Defaults</a></li>
 <li class="chapter" data-level="9.2.2" data-path="common-functions.html"><a href="common-functions.html#test-ffy_rouwenhorst-specify-parameters"><i class="fa fa-check"></i><b>9.2.2</b> Test FFY_ROUWENHORST Specify Parameters</a></li>
 <li class="chapter" data-level="9.2.3" data-path="common-functions.html"><a href="common-functions.html#test-ffy_rouwenhorst-high-persistence-low-sd"><i class="fa fa-check"></i><b>9.2.3</b> Test FFY_ROUWENHORST High Persistence, Low SD</a></li>
@@ -244,18 +283,22 @@
 <li class="chapter" data-level="9.2.6" data-path="common-functions.html"><a href="common-functions.html#test-ffy_rouwenhorst-low-persistence-low-sd-1"><i class="fa fa-check"></i><b>9.2.6</b> Test FFY_ROUWENHORST Low Persistence, Low SD</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="system.html"><a href="system.html"><i class="fa fa-check"></i><b>10</b> System</a><ul>
-<li class="chapter" data-level="10.1" data-path="system.html"><a href="system.html#ff_find_files-examples"><i class="fa fa-check"></i><b>10.1</b> FF_FIND_FILES Examples</a><ul>
+<li class="chapter" data-level="10" data-path="system.html"><a href="system.html"><i class="fa fa-check"></i><b>10</b> System</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="system.html"><a href="system.html#ff_find_files-examples"><i class="fa fa-check"></i><b>10.1</b> FF_FIND_FILES Examples</a>
+<ul>
 <li class="chapter" data-level="10.1.1" data-path="system.html"><a href="system.html#test-ff_find_files-defaults"><i class="fa fa-check"></i><b>10.1.1</b> Test FF_FIND_FILES Defaults</a></li>
 <li class="chapter" data-level="10.1.2" data-path="system.html"><a href="system.html#test-ff_find_files-search-for-files-in-subfolders"><i class="fa fa-check"></i><b>10.1.2</b> Test FF_FIND_FILES search for files in subfolders</a></li>
 </ul></li>
-<li class="chapter" data-level="10.2" data-path="system.html"><a href="system.html#ff_mlx2htmlpdf_runandexport-examples"><i class="fa fa-check"></i><b>10.2</b> FF_MLX2HTMLPDF_RUNANDEXPORT Examples</a><ul>
+<li class="chapter" data-level="10.2" data-path="system.html"><a href="system.html#ff_mlx2htmlpdf_runandexport-examples"><i class="fa fa-check"></i><b>10.2</b> FF_MLX2HTMLPDF_RUNANDEXPORT Examples</a>
+<ul>
 <li class="chapter" data-level="10.2.1" data-path="system.html"><a href="system.html#test-ff_mlx2htmlpdf_runandexport-search-for-mlx-files-and-convert-to-html"><i class="fa fa-check"></i><b>10.2.1</b> Test FF_MLX2HTMLPDF_RUNANDEXPORT search for MLX files and Convert to HTML</a></li>
 <li class="chapter" data-level="10.2.2" data-path="system.html"><a href="system.html#test-ff_mlx2htmlpdf_runandexport-re-run-mlx"><i class="fa fa-check"></i><b>10.2.2</b> Test FF_MLX2HTMLPDF_RUNANDEXPORT re-run MLX</a></li>
 </ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="index-and-code-links.html"><a href="index-and-code-links.html"><i class="fa fa-check"></i><b>A</b> Index and Code Links</a><ul>
+<li class="chapter" data-level="A" data-path="index-and-code-links.html"><a href="index-and-code-links.html"><i class="fa fa-check"></i><b>A</b> Index and Code Links</a>
+<ul>
 <li class="chapter" data-level="A.1" data-path="index-and-code-links.html"><a href="index-and-code-links.html#savings-dynamic-programming-links"><i class="fa fa-check"></i><b>A.1</b> Savings Dynamic Programming links</a></li>
 <li class="chapter" data-level="A.2" data-path="index-and-code-links.html"><a href="index-and-code-links.html#stationary-distribution-links"><i class="fa fa-check"></i><b>A.2</b> Stationary Distribution links</a></li>
 <li class="chapter" data-level="A.3" data-path="index-and-code-links.html"><a href="index-and-code-links.html#summarize-policy-and-value-links"><i class="fa fa-check"></i><b>A.3</b> Summarize Policy and Value links</a></li>
@@ -287,10 +330,10 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="stationary-distribution" class="section level1">
+<div id="stationary-distribution" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Stationary Distribution</h1>
 
-<div id="ff_ds_az_loop-dynamic-savings-loop-discrete-distribution" class="section level2">
+<div id="ff_ds_az_loop-dynamic-savings-loop-discrete-distribution" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> FF_DS_AZ_LOOP Dynamic Savings Loop Discrete Distribution</h2>
 <blockquote>
 <p>Go back to <a href="http://fanwangecon.github.io/">fan</a>’s <a href="https://fanwangecon.github.io/MEconTools/">MEconTools</a> Toolbox (<a href="https://fanwangecon.github.io/MEconTools/bookdown">bookdown</a>), <a href="https://fanwangecon.github.io/M4Econ/">Matlab Code Examples</a> Repository (<a href="https://fanwangecon.github.io/M4Econ/bookdown">bookdown</a>), or <a href="https://fanwangecon.github.io/Math4Econ/">Math for Econ with Matlab</a> Repository (<a href="https://fanwangecon.github.io/Math4Econ/bookdown">bookdown</a>).</p>
@@ -302,13 +345,16 @@ Package</strong></a><strong>.</strong> F(a,z)
 discrete probability mass function given policy function solution with
 discretized savings choices.</p>
 <ul>
-<li><p>Distribution for Common Choice and States Grid :
-<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_ds_az_loop.m"><strong>ff_ds_az_loop</strong></a></p></li>
+<li><p>Distribution for Common Choice and States Grid <u><strong><em>Loop</em></strong></u>:
+ff_ds_az_cts_loop</p></li>
 <li><p>Distribution for States Grid + Continuous Exact Savings as Share of
-Cash-on-Hand :
+Cash-on-Hand <u><strong><em>Loop</em></strong></u>:
 <a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_ds_az_cts_loop.m"><strong>ff_ds_az_cts_loop</strong></a></p></li>
+<li><p>Distribution for States Grid + Continuous Exact Savings as Share of
+Cash-on-Hand <u><strong><em>Vectorized</em></strong></u>:
+<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_ds_az_cts_vec.m"><strong>ff_ds_az_cts_vec</strong></a></p></li>
 </ul>
-<div id="test-ff_ds_az_loop-defaults" class="section level3">
+<div id="test-ff_ds_az_loop-defaults" class="section level3" number="2.1.1">
 <h3><span class="header-section-number">2.1.1</span> Test FF_DS_AZ_LOOP Defaults</h3>
 <p>Call the function with defaults. By default, shows the asset policy
 function summary. Model parameters can be changed by the mp_params.</p>
@@ -319,7 +365,7 @@ mp_params(&#39;fl_beta&#39;) = 0.94;
 % call function
 ff_ds_az_loop(mp_params);
 
-Elapsed time is 0.159342 seconds.
+Elapsed time is 0.191238 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
@@ -344,7 +390,7 @@ xxx TABLE:ap xxxxxxxxxxxxxxxxxx
     r99     47.513    47.513    47.513      47.513     47.513     48.747    48.747
     r100    48.747    48.747    48.747      48.747     48.747         50        50
 
-FF_DS_AZ_LOOP finished. Distribution took = 0.13388
+FF_DS_AZ_LOOP finished. Distribution took = 0.14487
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ddcmd ND Array (Matrix etc)
@@ -400,7 +446,7 @@ xxx TABLE:fz xxxxxxxxxxxxxxxxxx
 <p><img src="img/fx_ds_az_loop_images/figure_0.png" width="500" /></p>
 <p><img src="img/fx_ds_az_loop_images/figure_1.png" width="500" /></p>
 </div>
-<div id="test-ff_ds_az_loop-speed-tests" class="section level3">
+<div id="test-ff_ds_az_loop-speed-tests" class="section level3" number="2.1.2">
 <h3><span class="header-section-number">2.1.2</span> Test FF_DS_AZ_LOOP Speed Tests</h3>
 <p>Call the function with different a and z grid size, print out speed:</p>
 <pre><code>mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
@@ -415,8 +461,8 @@ mp_params(&#39;it_a_n&#39;) = 50;
 mp_params(&#39;it_z_n&#39;) = 5;
 ff_ds_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.025627 seconds.
-FF_DS_AZ_LOOP finished. Distribution took = 0.066138
+Elapsed time is 0.021787 seconds.
+FF_DS_AZ_LOOP finished. Distribution took = 0.046636
 
 % A grid 100, shock grid 7:
 mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
@@ -424,8 +470,8 @@ mp_params(&#39;it_a_n&#39;) = 100;
 mp_params(&#39;it_z_n&#39;) = 7;
 ff_ds_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.155714 seconds.
-FF_DS_AZ_LOOP finished. Distribution took = 0.11763
+Elapsed time is 0.218465 seconds.
+FF_DS_AZ_LOOP finished. Distribution took = 0.13608
 
 % A grid 200, shock grid 9:
 mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
@@ -433,10 +479,10 @@ mp_params(&#39;it_a_n&#39;) = 200;
 mp_params(&#39;it_z_n&#39;) = 9;
 ff_ds_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.332056 seconds.
-FF_DS_AZ_LOOP finished. Distribution took = 0.32648</code></pre>
+Elapsed time is 0.489370 seconds.
+FF_DS_AZ_LOOP finished. Distribution took = 0.35393</code></pre>
 </div>
-<div id="test-ff_ds_az_loop-a-grid-100-shock-grid-7" class="section level3">
+<div id="test-ff_ds_az_loop-a-grid-100-shock-grid-7" class="section level3" number="2.1.3">
 <h3><span class="header-section-number">2.1.3</span> Test FF_DS_AZ_LOOP A grid 100 Shock grid 7</h3>
 <p>Call the function with different a and z grid size, print out speed:</p>
 <pre><code>mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
@@ -450,8 +496,8 @@ mp_params(&#39;it_a_n&#39;) = 100;
 mp_params(&#39;it_z_n&#39;) = 7;
 ff_ds_az_loop(mp_params, mp_support);
 
-Elapsed time is 0.144655 seconds.
-FF_DS_AZ_LOOP finished. Distribution took = 0.13625</code></pre>
+Elapsed time is 0.217312 seconds.
+FF_DS_AZ_LOOP finished. Distribution took = 0.1105</code></pre>
 <p><img src="img/fx_ds_az_loop_images/figure_2.png" width="500" /></p>
 <p><img src="img/fx_ds_az_loop_images/figure_3.png" width="500" /></p>
 <p><img src="img/fx_ds_az_loop_images/figure_4.png" width="500" /></p>
@@ -462,8 +508,10 @@ FF_DS_AZ_LOOP finished. Distribution took = 0.13625</code></pre>
     ______________________    __________    __________    __________    __________    __________    ___________
 
     {&#39;mean&#39;              }        2.7094        6.6576        1.5089        1.5084        4.2183       0.48487 
+    {&#39;unweighted_sum&#39;    }        1439.4        7299.4        1545.9        1473.6         11549        479.94 
     {&#39;sd&#39;                }        2.8976        2.0599       0.35843       0.52611        3.2096       0.25477 
     {&#39;coefofvar&#39;         }        1.0694        0.3094       0.23755       0.34879       0.76088       0.52544 
+    {&#39;gini&#39;              }       0.53346       0.17414       0.13326       0.19097       0.39103       0.29771 
     {&#39;min&#39;               }             0        1.6927       0.58543       0.58543       0.58543             0 
     {&#39;max&#39;               }            50        19.139        4.9969        4.9969        54.997       0.93121 
     {&#39;pYis0&#39;             }      0.070216             0             0             0             0      0.070216 
@@ -522,7 +570,7 @@ FF_DS_AZ_LOOP finished. Distribution took = 0.13625</code></pre>
     {&#39;fracByP99_9&#39;       }       0.99595       0.99805       0.99819       0.99776       0.99501       0.99858 
     {&#39;fracByP99_99&#39;      }       0.99934       0.99982       0.99985        0.9998       0.99938       0.99984 </code></pre>
 </div>
-<div id="test-ff_ds_az_loop-a-grid-300-shock-grid-25" class="section level3">
+<div id="test-ff_ds_az_loop-a-grid-300-shock-grid-25" class="section level3" number="2.1.4">
 <h3><span class="header-section-number">2.1.4</span> Test FF_DS_AZ_LOOP A grid 300 Shock Grid 25</h3>
 <pre><code>mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
 mp_support(&#39;bl_timer&#39;) = true;
@@ -535,8 +583,8 @@ mp_params(&#39;it_a_n&#39;) = 300;
 mp_params(&#39;it_z_n&#39;) = 25;
 ff_ds_az_loop(mp_params, mp_support);
 
-Elapsed time is 1.664355 seconds.
-FF_DS_AZ_LOOP finished. Distribution took = 1.3793</code></pre>
+Elapsed time is 1.356902 seconds.
+FF_DS_AZ_LOOP finished. Distribution took = 1.3706</code></pre>
 <p><img src="img/fx_ds_az_loop_images/figure_7.png" width="500" /></p>
 <p><img src="img/fx_ds_az_loop_images/figure_8.png" width="500" /></p>
 <p><img src="img/fx_ds_az_loop_images/figure_9.png" width="500" /></p>
@@ -547,8 +595,10 @@ FF_DS_AZ_LOOP finished. Distribution took = 1.3793</code></pre>
     ______________________    __________    __________    __________    __________    __________    ___________
 
     {&#39;mean&#39;              }        3.1835        6.9106        1.5286        1.5274        4.7121       0.52236 
+    {&#39;unweighted_sum&#39;    }        4296.5         79518         16864         19751    1.2716e+05        5295.3 
     {&#39;sd&#39;                }        3.2831         2.152       0.35175       0.53521        3.5973       0.25161 
     {&#39;coefofvar&#39;         }        1.0313       0.31141        0.2301       0.35041       0.76341       0.48168 
+    {&#39;gini&#39;              }       0.52466       0.17565       0.12887       0.19155       0.39536       0.26998 
     {&#39;min&#39;               }             0       -2.7621       0.25871       0.25871       0.25871             0 
     {&#39;max&#39;               }            50        20.027        8.7798        8.7798         58.78       0.93152 
     {&#39;pYis0&#39;             }      0.050267             0             0             0             0      0.050267 
@@ -607,7 +657,7 @@ FF_DS_AZ_LOOP finished. Distribution took = 1.3793</code></pre>
     {&#39;fracByP99_9&#39;       }       0.99324       0.99789       0.99809       0.99717       0.99445        0.9983 
     {&#39;fracByP99_99&#39;      }       0.99909       0.99977       0.99979       0.99967       0.99931       0.99983 </code></pre>
 </div>
-<div id="test-ff_ds_az_loop-a-grid-300-shock-grid-50" class="section level3">
+<div id="test-ff_ds_az_loop-a-grid-300-shock-grid-50" class="section level3" number="2.1.5">
 <h3><span class="header-section-number">2.1.5</span> Test FF_DS_AZ_LOOP A grid 300 Shock Grid 50</h3>
 <pre><code>mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
 mp_support(&#39;bl_timer&#39;) = true;
@@ -620,8 +670,8 @@ mp_params(&#39;it_a_n&#39;) = 300;
 mp_params(&#39;it_z_n&#39;) = 50;
 ff_ds_az_loop(mp_params, mp_support);
 
-Elapsed time is 4.319877 seconds.
-FF_DS_AZ_LOOP finished. Distribution took = 3.0884</code></pre>
+Elapsed time is 3.256673 seconds.
+FF_DS_AZ_LOOP finished. Distribution took = 3.3311</code></pre>
 <p><img src="img/fx_ds_az_loop_images/figure_12.png" width="500" /></p>
 <p><img src="img/fx_ds_az_loop_images/figure_13.png" width="500" /></p>
 <p><img src="img/fx_ds_az_loop_images/figure_14.png" width="500" /></p>
@@ -632,8 +682,10 @@ FF_DS_AZ_LOOP finished. Distribution took = 3.0884</code></pre>
     ______________________    __________    __________    __________    __________    __________    ___________
 
     {&#39;mean&#39;              }          3.26        6.9484        1.5319        1.5305        4.7919       0.52772 
+    {&#39;unweighted_sum&#39;    }        4296.5    1.6217e+05         35821         53309    2.6813e+05         10814 
     {&#39;sd&#39;                }        3.3166        2.1606       0.35167        0.5364        3.6315       0.25217 
     {&#39;coefofvar&#39;         }        1.0174       0.31094       0.22956       0.35048       0.75783       0.47785 
+    {&#39;gini&#39;              }       0.52112       0.17551       0.12829       0.19134       0.39468       0.26727 
     {&#39;min&#39;               }             0       -7.6871       0.12843       0.12843       0.12843             0 
     {&#39;max&#39;               }            50        20.751        15.657        15.657        65.657       0.93164 
     {&#39;pYis0&#39;             }      0.049546             0             0             0             0      0.049546 
@@ -690,11 +742,11 @@ FF_DS_AZ_LOOP finished. Distribution took = 3.0884</code></pre>
     {&#39;fracByP95&#39;         }       0.80347       0.91616       0.92515       0.90483       0.84244       0.91987 
     {&#39;fracByP99&#39;         }       0.94675       0.98117       0.98325       0.97691       0.95831       0.98345 
     {&#39;fracByP99_9&#39;       }       0.99284       0.99789        0.9981       0.99713       0.99445       0.99831 
-    {&#39;fracByP99_99&#39;      }       0.99909       0.99977       0.99979       0.99966        0.9993       0.99983</code></pre>
+    {&#39;fracByP99_99&#39;      }       0.99909       0.99977       0.99979       0.99966        0.9993       0.99983 </code></pre>
 
 </div>
 </div>
-<div id="ff_ds_az_cts_loop-dynamic-savings-loop-continuous-distribution" class="section level2">
+<div id="ff_ds_az_cts_loop-dynamic-savings-loop-continuous-distribution" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> FF_DS_AZ_CTS_LOOP Dynamic Savings Loop Continuous Distribution</h2>
 <blockquote>
 <p>Go back to <a href="http://fanwangecon.github.io/">fan</a>’s <a href="https://fanwangecon.github.io/MEconTools/">MEconTools</a> Toolbox (<a href="https://fanwangecon.github.io/MEconTools/bookdown">bookdown</a>), <a href="https://fanwangecon.github.io/M4Econ/">Matlab Code Examples</a> Repository (<a href="https://fanwangecon.github.io/M4Econ/bookdown">bookdown</a>), or <a href="https://fanwangecon.github.io/Math4Econ/">Math for Econ with Matlab</a> Repository (<a href="https://fanwangecon.github.io/Math4Econ/bookdown">bookdown</a>).</p>
@@ -706,13 +758,16 @@ Package</strong></a><strong>.</strong> F(a,z)
 discrete probability mass function given policy function solution with
 continuous savings choices.</p>
 <ul>
-<li><p>Distribution for Common Choice and States Grid :
+<li><p>Distribution for Common Choice and States Grid <u><strong><em>Loop</em></strong></u>:
 ff_ds_az_cts_loop</p></li>
 <li><p>Distribution for States Grid + Continuous Exact Savings as Share of
-Cash-on-Hand :
+Cash-on-Hand <u><strong><em>Loop</em></strong></u>:
 <a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_ds_az_cts_loop.m"><strong>ff_ds_az_cts_loop</strong></a></p></li>
+<li><p>Distribution for States Grid + Continuous Exact Savings as Share of
+Cash-on-Hand <u><strong><em>Vectorized</em></strong></u>:
+<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_ds_az_cts_vec.m"><strong>ff_ds_az_cts_vec</strong></a></p></li>
 </ul>
-<div id="test-ff_ds_az_cts_loop-defaults" class="section level3">
+<div id="test-ff_ds_az_cts_loop-defaults" class="section level3" number="2.2.1">
 <h3><span class="header-section-number">2.2.1</span> Test FF_DS_AZ_CTS_LOOP Defaults</h3>
 <p>Call the function with defaults. By default, shows the asset policy
 function summary. Model parameters can be changed by the mp_params.</p>
@@ -723,152 +778,157 @@ mp_params(&#39;fl_beta&#39;) = 0.94;
 % call function
 ff_ds_az_cts_loop(mp_params);
 
-Elapsed time is 1.029654 seconds.
+Elapsed time is 1.912182 seconds.
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-          i    idx    ndim    numel    rowN    colN     sum       mean      std      coefvari    min     max  
-          _    ___    ____    _____    ____    ____    ______    ______    ______    ________    ___    ______
+          i    idx    ndim    numel    rowN    colN     sum      mean      std      coefvari    min     max  
+          _    ___    ____    _____    ____    ____    _____    ______    ______    ________    ___    ______
 
-    ap    1     1      2       700     100      7      9863.4    14.091    14.388     1.0211      0     50.117
+    ap    1     1      2      3000     200      15     42703    14.234    14.307     1.0051      0     51.591
 
 xxx TABLE:ap xxxxxxxxxxxxxxxxxx
-              c1        c2        c3         c4         c5         c6         c7  
-            ______    ______    ______    ________    _______    _______    ______
+              c1        c2        c3        c4        c5        c11        c12       c13       c14       c15  
+            ______    ______    ______    ______    ______    _______    _______    ______    ______    ______
 
-    r1           0         0         0    0.053491    0.25574    0.60604    1.1157
-    r2           0         0         0    0.053998    0.25571     0.6066    1.1163
-    r3           0         0         0    0.056449    0.25576    0.60907    1.1187
-    r4           0         0         0    0.061799    0.26016     0.6109    1.1239
-    r5           0         0         0    0.066463    0.26897    0.61141    1.1327
-    r96     43.388     43.52    43.701      43.925     44.222      44.68    45.228
-    r97     44.566    44.695    44.878      45.103     45.398     45.856    46.403
-    r98     45.761    45.892    46.072      46.298     46.592      47.05    47.597
-    r99     46.973    47.107    47.286      47.514     47.806     48.263    48.815
-    r100    48.206    48.338    48.519      48.746     49.037     49.497    50.117
+    r1           0         0         0         0         0    0.58655    0.89911    1.2884    1.7803    2.3861
+    r2           0         0         0         0         0    0.58671    0.89914    1.2885    1.7804    2.3862
+    r3           0         0         0         0         0     0.5871    0.89961    1.2888    1.7808    2.3867
+    r4           0         0         0         0         0    0.58803    0.90058    1.2898    1.7817    2.3877
+    r5           0         0         0         0         0    0.58953    0.90208    1.2914    1.7831    2.3891
+    r196    45.655    45.699    45.725    45.798    45.889     47.025     47.404    47.828    48.358    49.028
+    r197    46.257    46.303    46.326    46.401    46.492     47.626     48.005    48.432    48.965    49.651
+    r198    46.863     46.91    46.931    47.007    47.097     48.232     48.611    49.041     49.59    50.294
+    r199    47.472    47.521    47.542    47.617    47.711     48.843     49.222    49.658    50.235     50.94
+    r200    48.088    48.134    48.157    48.232    48.326     49.459     49.841    50.311    50.885    51.591
 
-FF_DS_AZ_CTS_LOOP finished. Distribution took = 0.25795
+FF_DS_AZ_CTS_LOOP finished. Distribution took = 0.69766
 ----------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 CONTAINER NAME: mp_ddcmd ND Array (Matrix etc)
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-           i    idx    ndim    numel    rowN    colN    sum      mean         std       coefvari       min          max  
-           _    ___    ____    _____    ____    ____    ___    _________    ________    ________    __________    _______
+           i    idx    ndim    numel    rowN    colN    sum       mean          std       coefvari       min          max   
+           _    ___    ____    _____    ____    ____    ___    __________    _________    ________    __________    ________
 
-    fa     1     1      2       100     100      1       1          0.01      0.0155       1.55     2.6966e-22    0.11839
-    faz    2     2      2       700     100      7       1     0.0014286    0.003424     2.3968     1.9078e-27    0.05152
-    fz     3     3      2         7       7      1       1       0.14286     0.11742    0.82196       0.015625     0.3125
+    fa     1     1      2       200     200       1      1          0.005    0.0096174     1.9235              0     0.11604
+    faz    2     2      2      3000     200      15      1     0.00033333    0.0011636     3.4908              0    0.032295
+    fz     3     3      2        15      15       1      1       0.066667     0.076895     1.1534     6.1035e-05     0.20947
 
 xxx TABLE:fa xxxxxxxxxxxxxxxxxx
                 c1    
             __________
 
-    r1         0.11839
-    r2      0.00028039
-    r3      2.8585e-05
-    r4       0.0082178
-    r5       0.0062146
-    r96     1.3607e-18
-    r97     2.0727e-19
-    r98     2.7005e-20
-    r99     2.9248e-21
-    r100    2.6966e-22
+    r1         0.11604
+    r2               0
+    r3       0.0004751
+    r4      0.00026799
+    r5       0.0029727
+    r196    3.5618e-14
+    r197    2.1735e-14
+    r198     1.329e-14
+    r199    8.3938e-15
+    r200    8.2751e-15
 
 xxx TABLE:faz xxxxxxxxxxxxxxxxxx
-                c1            c2            c3            c4            c5            c6            c7    
-            __________    __________    __________    __________    __________    __________    __________
+                c1            c2            c3            c4            c5           c11           c12           c13           c14           c15    
+            __________    __________    __________    __________    __________    __________    __________    __________    __________    __________
 
-    r1       0.0082492      0.036999       0.05152      0.018557     0.0028578    0.00020313    5.5014e-06
-    r2      0.00014901     9.934e-05    2.7594e-05     4.088e-06    3.4067e-07    1.5141e-08    2.8039e-10
-    r3      1.0791e-06    3.8554e-06     1.588e-05    6.6114e-06    1.0779e-06    7.8977e-08    2.1795e-09
-    r4      0.00016483     0.0019292      0.004208     0.0016366    0.00025991    1.8779e-05    5.1379e-07
-    r5      0.00019509    0.00082304     0.0034877     0.0014538    0.00023711    1.7374e-05     4.795e-07
-    r96     4.1576e-23    1.0459e-21    1.1798e-20    7.4995e-20    2.7503e-19    5.3901e-19    4.5877e-19
-    r97     5.3415e-24    1.4108e-22    1.6619e-21    1.0943e-20    4.1203e-20    8.2324e-20    7.0996e-20
-    r98      5.734e-25    1.6065e-23    1.9875e-22    1.3596e-21    5.2668e-21     1.075e-20     9.414e-21
-    r99     4.7136e-26    1.4644e-24    1.9531e-23    1.4042e-22    5.6108e-22    1.1675e-21    1.0348e-21
-    r100    1.9078e-27    7.8348e-26    1.2906e-24    1.0816e-23    4.8188e-23    1.0831e-22    1.0098e-22
+    r1      4.1559e-05    0.00053618     0.0031141      0.010616      0.023097    9.8338e-05    8.1894e-06    4.3385e-07    1.3284e-08    1.7934e-10
+    r2               0             0             0             0             0             0             0             0             0             0
+    r3      2.0452e-10    1.1226e-08    2.5837e-07    3.2065e-06    2.2865e-05    1.2294e-06    1.0693e-07    5.8481e-09    1.8347e-10    2.5249e-12
+    r4      8.6656e-10    2.8074e-08     3.684e-07    2.7287e-06    1.4098e-05     6.831e-07    5.9408e-08     3.249e-09    1.0193e-10    1.4026e-12
+    r5      9.2776e-08    2.9148e-06     3.479e-05    0.00019689    0.00056423    2.3628e-06    1.9305e-07    1.0072e-08    3.0458e-10    4.0697e-12
+    r196    1.6685e-22    7.5909e-21    1.5483e-19    1.8762e-18    1.5117e-17    7.3723e-15    8.1882e-15    6.5347e-15    3.3448e-15    8.2909e-16
+    r197    4.6363e-23    2.3916e-21     5.523e-20    7.5562e-19    6.8327e-18    4.5113e-15    5.0046e-15    4.0053e-15    2.0624e-15     5.148e-16
+    r198    8.2487e-24    4.9336e-22    1.3328e-20    2.1488e-19    2.2991e-18    2.8157e-15    3.0885e-15    2.4579e-15    1.2688e-15    3.1814e-16
+    r199    6.6913e-25    5.3279e-23    1.9003e-21    4.0019e-20    5.5219e-19    1.9017e-15    2.0244e-15    1.5281e-15    7.7436e-16    1.9614e-16
+    r200    2.8381e-26     2.725e-24    1.1911e-22    3.1319e-21    5.5136e-20    1.4819e-15    2.2618e-15    2.1457e-15    1.1964e-15    3.1409e-16
 
 xxx TABLE:fz xxxxxxxxxxxxxxxxxx
-             c1   
-          ________
+               c1    
+           __________
 
-    r1    0.015625
-    r2     0.09375
-    r3     0.23438
-    r4      0.3125
-    r5     0.23438
-    r6     0.09375
-    r7    0.015625</code></pre>
+    r1     6.1035e-05
+    r2     0.00085449
+    r3      0.0055542
+    r4       0.022217
+    r5       0.061096
+    r11      0.061096
+    r12      0.022217
+    r13     0.0055542
+    r14    0.00085449
+    r15    6.1035e-05</code></pre>
 <p><img src="img/fx_ds_az_cts_loop_images/figure_0.png" width="500" /></p>
 <p><img src="img/fx_ds_az_cts_loop_images/figure_1.png" width="500" /></p>
 <pre><code>xxx tb_outcomes: all stats xxx
-    OriginalVariableNames         ap            v             c             y            coh        savefraccoh
-    ______________________    __________    __________    __________    __________    __________    ___________
+    OriginalVariableNames         ap             v             c             y            coh        savefraccoh
+    ______________________    __________    ___________    __________    __________    __________    ___________
 
-    {&#39;mean&#39;              }        1.6576        5.0855        1.4665        1.4663        3.1241       0.37319 
-    {&#39;sd&#39;                }        1.9603        1.7128         0.362       0.51116        2.2726       0.24899 
-    {&#39;coefofvar&#39;         }        1.1826       0.33679       0.24684        0.3486       0.72744       0.66717 
-    {&#39;min&#39;               }             0       0.87463       0.58543       0.58543       0.58543             0 
-    {&#39;max&#39;               }        50.117        16.344        4.8795        4.9969        54.997       0.91671 
-    {&#39;pYis0&#39;             }        0.1184             0             0             0             0        0.1184 
-    {&#39;pYls0&#39;             }             0             0             0             0             0             0 
-    {&#39;pYgr0&#39;             }        0.8816             1             1             1             1        0.8816 
-    {&#39;pYisMINY&#39;          }        0.1184     0.0082492     0.0082492     0.0082492     0.0082492        0.1184 
-    {&#39;pYisMAXY&#39;          }    1.0098e-22    1.0098e-22    1.0098e-22    1.0098e-22    1.0098e-22    1.9078e-27 
-    {&#39;p0_01&#39;             }             0       0.87463       0.58543       0.58543       0.58543             0 
-    {&#39;p0_1&#39;              }             0       0.87463       0.58543       0.58543       0.58543             0 
-    {&#39;p1&#39;                }             0        1.1243       0.69861       0.59041         0.715             0 
-    {&#39;p5&#39;                }             0        2.0791       0.77687       0.76855       0.78562             0 
-    {&#39;p10&#39;               }             0        3.1895         1.009       0.85364         1.009             0 
-    {&#39;p20&#39;               }        0.1057        3.4752          1.14        1.0154        1.3246      0.087685 
-    {&#39;p25&#39;               }        0.1939        3.8676        1.2593        1.0372        1.4541       0.14292 
-    {&#39;p30&#39;               }       0.31246        4.2445         1.288        1.0797        1.5906       0.19132 
-    {&#39;p40&#39;               }       0.60724        4.5309        1.3707        1.3296        1.9628       0.29984 
-    {&#39;p50&#39;               }       0.95427         5.055        1.4829        1.3613        2.4022       0.39725 
-    {&#39;p60&#39;               }        1.4469        5.5086        1.5637        1.4343        2.9909       0.48624 
-    {&#39;p70&#39;               }        2.0596        5.9381        1.6462        1.7599        3.7395       0.55313 
-    {&#39;p75&#39;               }        2.4165        6.2179        1.7114        1.7855        4.1539       0.58951 
-    {&#39;p80&#39;               }        2.8138        6.5733        1.7777         1.824        4.6604       0.62436 
-    {&#39;p90&#39;               }        4.2696        7.3417        1.9216         2.311        6.1793       0.69436 
-    {&#39;p95&#39;               }        5.8173        8.0019        2.0504        2.4211        7.7898       0.74197 
-    {&#39;p99&#39;               }        8.6172        9.1635        2.3145        3.1157        10.795       0.79263 
-    {&#39;p99_9&#39;             }        12.332         10.32        2.5888        3.3595        14.819        0.8312 
-    {&#39;p99_99&#39;            }        15.614        11.187        2.8357        3.5223        18.494        0.8503 
-    {&#39;fl_cov_ap&#39;         }        3.8427        2.8209       0.59546       0.62646        4.4381       0.41171 
-    {&#39;fl_cor_ap&#39;         }             1       0.84018       0.83914        0.6252       0.99624       0.84353 
-    {&#39;fl_cov_v&#39;          }        2.8209        2.9336       0.61788       0.78698        3.4388       0.36784 
-    {&#39;fl_cor_v&#39;          }       0.84018             1       0.99656        0.8989       0.88346       0.86257 
-    {&#39;fl_cov_c&#39;          }       0.59546       0.61788       0.13104       0.16288        0.7265      0.079955 
-    {&#39;fl_cor_c&#39;          }       0.83914       0.99656             1       0.88023       0.88311       0.88709 
-    {&#39;fl_cov_y&#39;          }       0.62646       0.78698       0.16288       0.26129       0.78934      0.080066 
-    {&#39;fl_cor_y&#39;          }        0.6252        0.8989       0.88023             1       0.67949       0.62909 
-    {&#39;fl_cov_coh&#39;        }        4.4381        3.4388        0.7265       0.78934        5.1646       0.49166 
-    {&#39;fl_cor_coh&#39;        }       0.99624       0.88346       0.88311       0.67949             1       0.86891 
-    {&#39;fl_cov_savefraccoh&#39;}       0.41171       0.36784      0.079955      0.080066       0.49166      0.061994 
-    {&#39;fl_cor_savefraccoh&#39;}       0.84353       0.86257       0.88709       0.62909       0.86891             1 
-    {&#39;fracByP0_01&#39;       }             0     0.0014187      0.003293     0.0032935     0.0015458             0 
-    {&#39;fracByP0_1&#39;        }             0     0.0014187      0.003293     0.0032935     0.0015458             0 
-    {&#39;fracByP1&#39;          }             0        0.0018     0.0041476     0.0040773     0.0019486             0 
-    {&#39;fracByP5&#39;          }             0      0.017798      0.025084      0.025722      0.011837             0 
-    {&#39;fracByP10&#39;         }             0      0.069566      0.076643      0.051708      0.032927             0 
-    {&#39;fracByP20&#39;         }     0.0028528        0.1122       0.13024        0.1217      0.065169      0.011916 
-    {&#39;fracByP25&#39;         }     0.0077609       0.14388       0.17442       0.15825      0.090199      0.025805 
-    {&#39;fracByP30&#39;         }      0.016336        0.1847       0.21519        0.1908       0.11027      0.047181 
-    {&#39;fracByP40&#39;         }      0.044743       0.27669       0.31043       0.27733       0.16769       0.11744 
-    {&#39;fracByP50&#39;         }      0.091661       0.37143       0.40445       0.37462        0.2384       0.21415 
-    {&#39;fracByP60&#39;         }        0.1676       0.47128       0.50501       0.46524       0.33103       0.33325 
-    {&#39;fracByP70&#39;         }       0.27323       0.58248        0.6172       0.57522       0.43968       0.47636 
-    {&#39;fracByP75&#39;         }       0.33601       0.64052       0.67429       0.63346       0.50276       0.54669 
-    {&#39;fracByP80&#39;         }       0.41177       0.70413       0.73317       0.69614       0.57118       0.62562 
-    {&#39;fracByP90&#39;         }       0.62757       0.84178       0.85697       0.82738       0.73915       0.80081 
-    {&#39;fracByP95&#39;         }       0.77414        0.9151       0.92509       0.91117       0.84868       0.89896 
-    {&#39;fracByP99&#39;         }        0.9381       0.98132       0.98368       0.97823        0.9596       0.97843 
-    {&#39;fracByP99_9&#39;       }       0.99212       0.99801       0.99826       0.99811       0.99474       0.99783 
-    {&#39;fracByP99_99&#39;      }       0.99909        0.9998       0.99982       0.99981       0.99944       0.99978 </code></pre>
+    {&#39;mean&#39;              }         1.675         5.0913        1.4673         1.467        3.1423       0.37474 
+    {&#39;unweighted_sum&#39;    }         42703          26797        7295.8        6979.8         49998        1657.9 
+    {&#39;sd&#39;                }        2.0062         1.7215       0.36267       0.51485        2.3189       0.24932 
+    {&#39;coefofvar&#39;         }        1.1977        0.33813       0.24717       0.35095       0.73794       0.66532 
+    {&#39;gini&#39;              }       0.59404        0.19113       0.13962       0.19161       0.37632       0.39022 
+    {&#39;min&#39;               }             0        -1.2641       0.38052       0.38052       0.38052             0 
+    {&#39;max&#39;               }        51.591         16.787        5.0209        6.6099         56.61       0.91805 
+    {&#39;pYis0&#39;             }       0.11606              0             0             0             0       0.11606 
+    {&#39;pYls0&#39;             }             0     0.00066766             0             0             0             0 
+    {&#39;pYgr0&#39;             }       0.88394        0.99933             1             1             1       0.88394 
+    {&#39;pYisMINY&#39;          }       0.11606     4.1559e-05    4.1559e-05    4.1559e-05    4.1559e-05       0.11606 
+    {&#39;pYisMAXY&#39;          }    3.1409e-16     3.1409e-16     5.148e-16    3.1409e-16    3.1409e-16    2.8381e-26 
+    {&#39;p0_01&#39;             }             0       -0.34507       0.45473       0.45473       0.45473             0 
+    {&#39;p0_1&#39;              }             0        0.52204       0.54342       0.54342       0.54342             0 
+    {&#39;p1&#39;                }             0         1.3412        0.6494        0.6494        0.6494             0 
+    {&#39;p5&#39;                }             0         2.1813       0.85431       0.77605       0.88697             0 
+    {&#39;p10&#39;               }             0         2.8514       0.96477       0.92741         1.002             0 
+    {&#39;p20&#39;               }       0.10665         3.5986        1.1516        1.0358        1.3244      0.083657 
+    {&#39;p25&#39;               }       0.21483         3.8501        1.2354        1.1105        1.4524       0.14274 
+    {&#39;p30&#39;               }       0.32994         4.2218         1.284         1.129        1.6395       0.20194 
+    {&#39;p40&#39;               }       0.60561         4.5759        1.3788        1.3244         1.999       0.30454 
+    {&#39;p50&#39;               }        0.9866         5.0443        1.4671         1.363        2.4484       0.39896 
+    {&#39;p60&#39;               }        1.4331         5.4957        1.5615        1.5828        2.9924       0.48032 
+    {&#39;p70&#39;               }        2.0261         5.9595        1.6562        1.6429         3.671         0.556 
+    {&#39;p75&#39;               }        2.4055         6.2377        1.7089        1.7094        4.0981       0.59225 
+    {&#39;p80&#39;               }        2.8929         6.5441        1.7669        1.9106        4.6329       0.62436 
+    {&#39;p90&#39;               }        4.3431         7.3623        1.9254         2.123        6.2699       0.69668 
+    {&#39;p95&#39;               }        5.7881         8.0262        2.0625        2.4019        7.7831       0.74075 
+    {&#39;p99&#39;               }        8.9453         9.2776        2.3421        2.9539        11.327       0.79763 
+    {&#39;p99_9&#39;             }        13.367         10.599        2.6636        3.7357        15.962       0.83767 
+    {&#39;p99_99&#39;            }        17.333         11.639        2.9483        4.3328        20.294       0.85903 
+    {&#39;fl_cov_ap&#39;         }        4.0248         2.8944       0.61038       0.64355        4.6352       0.41772 
+    {&#39;fl_cor_ap&#39;         }             1        0.83807       0.83891       0.62307       0.99637       0.83512 
+    {&#39;fl_cov_v&#39;          }        2.8944         2.9636       0.62238       0.79332        3.5168       0.36874 
+    {&#39;fl_cor_v&#39;          }       0.83807              1       0.99685       0.89507       0.88097       0.85912 
+    {&#39;fl_cov_c&#39;          }       0.61038        0.62238       0.13153       0.16405       0.74192      0.079746 
+    {&#39;fl_cor_c&#39;          }       0.83891        0.99685             1       0.87859        0.8822       0.88192 
+    {&#39;fl_cov_y&#39;          }       0.64355        0.79332       0.16405       0.26507       0.80761      0.079867 
+    {&#39;fl_cor_y&#39;          }       0.62307        0.89507       0.87859             1       0.67647        0.6222 
+    {&#39;fl_cov_coh&#39;        }        4.6352         3.5168       0.74192       0.80761        5.3771       0.49746 
+    {&#39;fl_cor_coh&#39;        }       0.99637        0.88097        0.8822       0.67647             1       0.86045 
+    {&#39;fl_cov_savefraccoh&#39;}       0.41772        0.36874      0.079746      0.079867       0.49746      0.062162 
+    {&#39;fl_cor_savefraccoh&#39;}       0.83512        0.85912       0.88192        0.6222       0.86045             1 
+    {&#39;fracByP0_01&#39;       }             0    -4.8153e-05    0.00017799    0.00018159    8.3115e-05             0 
+    {&#39;fracByP0_1&#39;        }             0     0.00027167     0.0013548     0.0014279    0.00063242             0 
+    {&#39;fracByP1&#39;          }             0      0.0032852     0.0063125     0.0069982     0.0029338             0 
+    {&#39;fracByP5&#39;          }             0       0.016969      0.025021      0.024262      0.011819             0 
+    {&#39;fracByP10&#39;         }             0       0.044207       0.05664      0.064855      0.026579             0 
+    {&#39;fracByP20&#39;         }     0.0026834         0.1115       0.13073       0.11733      0.067668     0.0099043 
+    {&#39;fracByP25&#39;         }     0.0076113        0.14492       0.17311       0.15549         0.086      0.025483 
+    {&#39;fracByP30&#39;         }      0.015302        0.19105       0.21762       0.19333       0.11182      0.048984 
+    {&#39;fracByP40&#39;         }      0.043894        0.27218       0.30467       0.27748       0.16912       0.11643 
+    {&#39;fracByP50&#39;         }      0.089861        0.36738       0.40369       0.36807       0.23805       0.21205 
+    {&#39;fracByP60&#39;         }       0.16112        0.46928       0.50828       0.46652        0.3263       0.32962 
+    {&#39;fracByP70&#39;         }       0.26525        0.58046       0.61519       0.57507        0.4298       0.46793 
+    {&#39;fracByP75&#39;         }       0.33325        0.64122       0.67431       0.63025       0.49166       0.54754 
+    {&#39;fracByP80&#39;         }       0.41265        0.70474       0.73277       0.69273       0.56293       0.62653 
+    {&#39;fracByP90&#39;         }       0.62139        0.84051       0.85792       0.82668       0.73375       0.80195 
+    {&#39;fracByP95&#39;         }       0.77085        0.91406        0.9245       0.90615       0.84324       0.89716 
+    {&#39;fracByP99&#39;         }       0.93558        0.98098       0.98317       0.97729       0.95807       0.97822 
+    {&#39;fracByP99_9&#39;       }       0.99103        0.99787       0.99814        0.9972       0.99438       0.99775 
+    {&#39;fracByP99_99&#39;      }       0.99886        0.99977       0.99979       0.99969       0.99931       0.99977 </code></pre>
 </div>
-<div id="test-ff_ds_az_cts_loop-speed-tests" class="section level3">
+<div id="test-ff_ds_az_cts_loop-speed-tests" class="section level3" number="2.2.2">
 <h3><span class="header-section-number">2.2.2</span> Test FF_DS_AZ_CTS_LOOP Speed Tests</h3>
 <p>Call the function with different a and z grid size, print out speed:</p>
 <pre><code>mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
@@ -883,8 +943,8 @@ mp_params(&#39;it_a_n&#39;) = 50;
 mp_params(&#39;it_z_n&#39;) = 5;
 ff_ds_az_cts_loop(mp_params, mp_support);
 
-Elapsed time is 0.610510 seconds.
-FF_DS_AZ_CTS_LOOP finished. Distribution took = 0.081975
+Elapsed time is 0.466529 seconds.
+FF_DS_AZ_CTS_LOOP finished. Distribution took = 0.065434
 
 % A grid 100, shock grid 7:
 mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
@@ -892,8 +952,8 @@ mp_params(&#39;it_a_n&#39;) = 100;
 mp_params(&#39;it_z_n&#39;) = 7;
 ff_ds_az_cts_loop(mp_params, mp_support);
 
-Elapsed time is 1.114978 seconds.
-FF_DS_AZ_CTS_LOOP finished. Distribution took = 0.18449
+Elapsed time is 0.930211 seconds.
+FF_DS_AZ_CTS_LOOP finished. Distribution took = 0.20136
 
 % A grid 200, shock grid 9:
 mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
@@ -901,10 +961,10 @@ mp_params(&#39;it_a_n&#39;) = 200;
 mp_params(&#39;it_z_n&#39;) = 9;
 ff_ds_az_cts_loop(mp_params, mp_support);
 
-Elapsed time is 2.014970 seconds.
-FF_DS_AZ_CTS_LOOP finished. Distribution took = 0.62806</code></pre>
+Elapsed time is 1.614469 seconds.
+FF_DS_AZ_CTS_LOOP finished. Distribution took = 0.52925</code></pre>
 </div>
-<div id="test-ff_ds_az_cts_loop-a-grid-100-shock-grid-7" class="section level3">
+<div id="test-ff_ds_az_cts_loop-a-grid-100-shock-grid-7" class="section level3" number="2.2.3">
 <h3><span class="header-section-number">2.2.3</span> Test FF_DS_AZ_CTS_LOOP A grid 100 Shock grid 7</h3>
 <p>Call the function with different a and z grid size, print out speed:</p>
 <pre><code>mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
@@ -918,8 +978,8 @@ mp_params(&#39;it_a_n&#39;) = 100;
 mp_params(&#39;it_z_n&#39;) = 7;
 ff_ds_az_cts_loop(mp_params, mp_support);
 
-Elapsed time is 0.953345 seconds.
-FF_DS_AZ_CTS_LOOP finished. Distribution took = 0.23426</code></pre>
+Elapsed time is 0.899597 seconds.
+FF_DS_AZ_CTS_LOOP finished. Distribution took = 0.25939</code></pre>
 <p><img src="img/fx_ds_az_cts_loop_images/figure_2.png" width="500" /></p>
 <p><img src="img/fx_ds_az_cts_loop_images/figure_3.png" width="500" /></p>
 <p><img src="img/fx_ds_az_cts_loop_images/figure_4.png" width="500" /></p>
@@ -930,8 +990,10 @@ FF_DS_AZ_CTS_LOOP finished. Distribution took = 0.23426</code></pre>
     ______________________    __________    __________    __________    __________    __________    ___________
 
     {&#39;mean&#39;              }        3.2216        6.9329        1.5295        1.5289        4.7511       0.52357 
+    {&#39;unweighted_sum&#39;    }         10019        7323.6        1530.6        1473.6         11549        457.17 
     {&#39;sd&#39;                }        3.2562        2.1508       0.34914        0.5307        3.5687       0.25504 
     {&#39;coefofvar&#39;         }        1.0107       0.31024       0.22827       0.34711       0.75113       0.48712 
+    {&#39;gini&#39;              }       0.52352       0.17526       0.12797       0.19065        0.3936        0.2723 
     {&#39;min&#39;               }             0        1.7008       0.58543       0.58543       0.58543             0 
     {&#39;max&#39;               }        50.789        19.213          4.21        4.9969        54.997       0.92702 
     {&#39;pYis0&#39;             }      0.062608             0             0             0             0      0.062608 
@@ -990,7 +1052,7 @@ FF_DS_AZ_CTS_LOOP finished. Distribution took = 0.23426</code></pre>
     {&#39;fracByP99_9&#39;       }       0.99336       0.99797       0.99826       0.99778       0.99494       0.99833 
     {&#39;fracByP99_99&#39;      }       0.99924       0.99979       0.99981       0.99977        0.9994       0.99984 </code></pre>
 </div>
-<div id="test-ff_ds_az_cts_loop-a-grid-300-shock-grid-25" class="section level3">
+<div id="test-ff_ds_az_cts_loop-a-grid-300-shock-grid-25" class="section level3" number="2.2.4">
 <h3><span class="header-section-number">2.2.4</span> Test FF_DS_AZ_CTS_LOOP A grid 300 Shock grid 25</h3>
 <pre><code>mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
 mp_support(&#39;bl_timer&#39;) = true;
@@ -1003,8 +1065,8 @@ mp_params(&#39;it_a_n&#39;) = 300;
 mp_params(&#39;it_z_n&#39;) = 25;
 ff_ds_az_cts_loop(mp_params, mp_support);
 
-Elapsed time is 11.056197 seconds.
-FF_DS_AZ_CTS_LOOP finished. Distribution took = 2.3435</code></pre>
+Elapsed time is 7.769713 seconds.
+FF_DS_AZ_CTS_LOOP finished. Distribution took = 2.2408</code></pre>
 <p><img src="img/fx_ds_az_cts_loop_images/figure_7.png" width="500" /></p>
 <p><img src="img/fx_ds_az_cts_loop_images/figure_8.png" width="500" /></p>
 <p><img src="img/fx_ds_az_cts_loop_images/figure_9.png" width="500" /></p>
@@ -1015,8 +1077,10 @@ FF_DS_AZ_CTS_LOOP finished. Distribution took = 2.3435</code></pre>
     ______________________    __________    __________    __________    __________    __________    ___________
 
     {&#39;mean&#39;              }        3.2612        6.9497        1.5318        1.5305         4.793       0.52715 
+    {&#39;unweighted_sum&#39;    }    1.1043e+05         79555         16733         19751    1.2716e+05        3442.8 
     {&#39;sd&#39;                }        3.3352        2.1663       0.35078        0.5359        3.6495       0.25199 
     {&#39;coefofvar&#39;         }        1.0227       0.31171         0.229       0.35014       0.76143       0.47803 
+    {&#39;gini&#39;              }       0.52534       0.17597       0.12824       0.19145       0.39608       0.26748 
     {&#39;min&#39;               }             0       -2.7616       0.25871       0.25871       0.25871             0 
     {&#39;max&#39;               }        54.451        20.418        4.3301        8.7798         58.78       0.92837 
     {&#39;pYis0&#39;             }       0.04941             0             0             0             0       0.04941 
@@ -1075,7 +1139,7 @@ FF_DS_AZ_CTS_LOOP finished. Distribution took = 2.3435</code></pre>
     {&#39;fracByP99_9&#39;       }        0.9927        0.9979       0.99812       0.99719       0.99443       0.99831 
     {&#39;fracByP99_99&#39;      }       0.99909       0.99977       0.99979       0.99967       0.99932       0.99983 </code></pre>
 </div>
-<div id="test-ff_ds_az_cts_loop-a-grid-300-shock-grid-50" class="section level3">
+<div id="test-ff_ds_az_cts_loop-a-grid-300-shock-grid-50" class="section level3" number="2.2.5">
 <h3><span class="header-section-number">2.2.5</span> Test FF_DS_AZ_CTS_LOOP A grid 300 Shock grid 50</h3>
 <pre><code>mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
 mp_support(&#39;bl_timer&#39;) = true;
@@ -1088,8 +1152,8 @@ mp_params(&#39;it_a_n&#39;) = 300;
 mp_params(&#39;it_z_n&#39;) = 50;
 ff_ds_az_cts_loop(mp_params, mp_support);
 
-Elapsed time is 20.983438 seconds.
-FF_DS_AZ_CTS_LOOP finished. Distribution took = 5.2169</code></pre>
+Elapsed time is 13.966894 seconds.
+FF_DS_AZ_CTS_LOOP finished. Distribution took = 5.0619</code></pre>
 <p><img src="img/fx_ds_az_cts_loop_images/figure_12.png" width="500" /></p>
 <p><img src="img/fx_ds_az_cts_loop_images/figure_13.png" width="500" /></p>
 <p><img src="img/fx_ds_az_cts_loop_images/figure_14.png" width="500" /></p>
@@ -1100,8 +1164,10 @@ FF_DS_AZ_CTS_LOOP finished. Distribution took = 5.2169</code></pre>
     ______________________    __________    ___________    __________    __________    __________    ___________
 
     {&#39;mean&#39;              }        3.2794          6.957        1.5328        1.5312        4.8122       0.52801 
+    {&#39;unweighted_sum&#39;    }    2.3346e+05     1.6237e+05         34668         53309    2.6813e+05        5324.8 
     {&#39;sd&#39;                }        3.3623         2.1722       0.35142       0.53693        3.6772       0.25195 
     {&#39;coefofvar&#39;         }        1.0253        0.31224       0.22927       0.35065       0.76415       0.47717 
+    {&#39;gini&#39;              }       0.52595        0.17618       0.12829       0.19144        0.3969       0.26705 
     {&#39;min&#39;               }             0        -7.6866       0.12843       0.12843       0.12843             0 
     {&#39;max&#39;               }        61.275         22.164        4.3849        15.657        65.657       0.93325 
     {&#39;pYis0&#39;             }      0.049376              0             0             0             0      0.049376 
@@ -1158,7 +1224,489 @@ FF_DS_AZ_CTS_LOOP finished. Distribution took = 5.2169</code></pre>
     {&#39;fracByP95&#39;         }       0.80166        0.91607       0.92521       0.90478       0.84112       0.91991 
     {&#39;fracByP99&#39;         }       0.94602        0.98111       0.98335       0.97699       0.95791       0.98349 
     {&#39;fracByP99_9&#39;       }       0.99264        0.99789        0.9981       0.99714       0.99438       0.99831 
-    {&#39;fracByP99_99&#39;      }       0.99908        0.99977       0.99979       0.99966        0.9993       0.99983</code></pre>
+    {&#39;fracByP99_99&#39;      }       0.99908        0.99977       0.99979       0.99966        0.9993       0.99983 </code></pre>
+
+</div>
+</div>
+<div id="ff_ds_az_cts_vec-dynamic-savings-vectorized-continuous-distribution" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> FF_DS_AZ_CTS_VEC Dynamic Savings Vectorized Continuous Distribution</h2>
+<blockquote>
+<p>Go back to <a href="http://fanwangecon.github.io/">fan</a>’s <a href="https://fanwangecon.github.io/MEconTools/">MEconTools</a> Toolbox (<a href="https://fanwangecon.github.io/MEconTools/bookdown">bookdown</a>), <a href="https://fanwangecon.github.io/M4Econ/">Matlab Code Examples</a> Repository (<a href="https://fanwangecon.github.io/M4Econ/bookdown">bookdown</a>), or <a href="https://fanwangecon.github.io/Math4Econ/">Math for Econ with Matlab</a> Repository (<a href="https://fanwangecon.github.io/Math4Econ/bookdown">bookdown</a>).</p>
+</blockquote>
+<p>This is the example vignette for function:
+<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_ds_az_cts_vec.m"><strong>ff_ds_az_cts_vec</strong></a>
+from the <a href="https://fanwangecon.github.io/MEconTools/"><strong>MEconTools
+Package</strong></a><strong>.</strong> F(a,z)
+discrete probability mass function given policy function solution with
+continuous savings choices, vectorized.</p>
+<ul>
+<li><p>Distribution for Common Choice and States Grid <u><strong><em>Loop</em></strong></u>:
+ff_ds_az_cts_loop</p></li>
+<li><p>Distribution for States Grid + Continuous Exact Savings as Share of
+Cash-on-Hand <u><strong><em>Loop</em></strong></u>:
+<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_ds_az_cts_loop.m"><strong>ff_ds_az_cts_loop</strong></a></p></li>
+<li><p>Distribution for States Grid + Continuous Exact Savings as Share of
+Cash-on-Hand <u><strong><em>Vectorized</em></strong></u>:
+<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/vfi/ff_ds_az_cts_vec.m"><strong>ff_ds_az_cts_vec</strong></a></p></li>
+</ul>
+<div id="test-ff_ds_az_cts_vec-defaults" class="section level3" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Test FF_DS_AZ_CTS_VEC Defaults</h3>
+<p>Call the function with defaults. By default, shows the asset policy
+function summary. Model parameters can be changed by the mp_params.</p>
+<pre><code>%mp_params
+mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_params(&#39;fl_crra&#39;) = 1.5;
+mp_params(&#39;fl_beta&#39;) = 0.94;
+% call function
+ff_ds_az_cts_vec(mp_params);
+
+Elapsed time is 2.185467 seconds.
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ffcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+          i    idx    ndim    numel    rowN    colN     sum      mean      std      coefvari    min     max  
+          _    ___    ____    _____    ____    ____    _____    ______    ______    ________    ___    ______
+
+    ap    1     1      2      3000     200      15     42703    14.234    14.307     1.0051      0     51.591
+
+xxx TABLE:ap xxxxxxxxxxxxxxxxxx
+              c1        c2        c3        c4        c5        c11        c12       c13       c14       c15  
+            ______    ______    ______    ______    ______    _______    _______    ______    ______    ______
+
+    r1           0         0         0         0         0    0.58655    0.89911    1.2884    1.7803    2.3861
+    r2           0         0         0         0         0    0.58671    0.89914    1.2885    1.7804    2.3862
+    r3           0         0         0         0         0     0.5871    0.89961    1.2888    1.7808    2.3867
+    r4           0         0         0         0         0    0.58803    0.90058    1.2898    1.7817    2.3877
+    r5           0         0         0         0         0    0.58953    0.90208    1.2914    1.7831    2.3891
+    r196    45.655    45.699    45.725    45.798    45.889     47.025     47.404    47.828    48.358    49.028
+    r197    46.257    46.303    46.326    46.401    46.492     47.626     48.005    48.432    48.965    49.651
+    r198    46.863     46.91    46.931    47.007    47.097     48.232     48.611    49.041     49.59    50.294
+    r199    47.472    47.521    47.542    47.617    47.711     48.843     49.222    49.658    50.235     50.94
+    r200    48.088    48.134    48.157    48.232    48.326     49.459     49.841    50.311    50.885    51.591
+
+FF_DS_AZ_CTS_LOOP finished. Distribution took = 0.13145
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_ddcmd ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+           i    idx    ndim    numel    rowN    colN    sum       mean          std       coefvari       min          max   
+           _    ___    ____    _____    ____    ____    ___    __________    _________    ________    __________    ________
+
+    fa     1     1      2       200     200       1      1          0.005    0.0096174     1.9235              0     0.11604
+    faz    2     2      2      3000     200      15      1     0.00033333    0.0011636     3.4908              0    0.032295
+    fz     3     3      2        15      15       1      1       0.066667     0.076895     1.1534     6.1035e-05     0.20947
+
+xxx TABLE:fa xxxxxxxxxxxxxxxxxx
+                c1    
+            __________
+
+    r1         0.11604
+    r2               0
+    r3       0.0004751
+    r4      0.00026799
+    r5       0.0029727
+    r196    3.5618e-14
+    r197    2.1735e-14
+    r198     1.329e-14
+    r199    8.3938e-15
+    r200    8.2751e-15
+
+xxx TABLE:faz xxxxxxxxxxxxxxxxxx
+                c1            c2            c3            c4            c5           c11           c12           c13           c14           c15    
+            __________    __________    __________    __________    __________    __________    __________    __________    __________    __________
+
+    r1      4.1559e-05    0.00053618     0.0031141      0.010616      0.023097    9.8338e-05    8.1894e-06    4.3385e-07    1.3284e-08    1.7934e-10
+    r2               0             0             0             0             0             0             0             0             0             0
+    r3      2.0452e-10    1.1226e-08    2.5837e-07    3.2065e-06    2.2865e-05    1.2294e-06    1.0693e-07    5.8481e-09    1.8347e-10    2.5249e-12
+    r4      8.6656e-10    2.8074e-08     3.684e-07    2.7287e-06    1.4098e-05     6.831e-07    5.9408e-08     3.249e-09    1.0193e-10    1.4026e-12
+    r5      9.2776e-08    2.9148e-06     3.479e-05    0.00019689    0.00056423    2.3628e-06    1.9305e-07    1.0072e-08    3.0458e-10    4.0697e-12
+    r196    1.6685e-22    7.5909e-21    1.5483e-19    1.8762e-18    1.5117e-17    7.3723e-15    8.1882e-15    6.5347e-15    3.3448e-15    8.2909e-16
+    r197    4.6363e-23    2.3916e-21     5.523e-20    7.5562e-19    6.8327e-18    4.5113e-15    5.0046e-15    4.0053e-15    2.0624e-15     5.148e-16
+    r198    8.2487e-24    4.9336e-22    1.3328e-20    2.1488e-19    2.2991e-18    2.8157e-15    3.0885e-15    2.4579e-15    1.2688e-15    3.1814e-16
+    r199    6.6913e-25    5.3279e-23    1.9003e-21    4.0019e-20    5.5219e-19    1.9017e-15    2.0244e-15    1.5281e-15    7.7436e-16    1.9614e-16
+    r200    2.8381e-26     2.725e-24    1.1911e-22    3.1319e-21    5.5136e-20    1.4819e-15    2.2618e-15    2.1457e-15    1.1964e-15    3.1409e-16
+
+xxx TABLE:fz xxxxxxxxxxxxxxxxxx
+               c1    
+           __________
+
+    r1     6.1035e-05
+    r2     0.00085449
+    r3      0.0055542
+    r4       0.022217
+    r5       0.061096
+    r11      0.061096
+    r12      0.022217
+    r13     0.0055542
+    r14    0.00085449
+    r15    6.1035e-05</code></pre>
+<p><img src="img/fx_ds_az_cts_vec_images/figure_0.png" width="500" /></p>
+<p><img src="img/fx_ds_az_cts_vec_images/figure_1.png" width="500" /></p>
+<pre><code>xxx tb_outcomes: all stats xxx
+    OriginalVariableNames         ap             v             c             y            coh        savefraccoh
+    ______________________    __________    ___________    __________    __________    __________    ___________
+
+    {&#39;mean&#39;              }         1.675         5.0913        1.4673         1.467        3.1423       0.37474 
+    {&#39;unweighted_sum&#39;    }         42703          26797        7295.8        6979.8         49998        1657.9 
+    {&#39;sd&#39;                }        2.0062         1.7215       0.36267       0.51485        2.3189       0.24932 
+    {&#39;coefofvar&#39;         }        1.1977        0.33813       0.24717       0.35095       0.73794       0.66532 
+    {&#39;gini&#39;              }       0.59404        0.19113       0.13962       0.19161       0.37632       0.39022 
+    {&#39;min&#39;               }             0        -1.2641       0.38052       0.38052       0.38052             0 
+    {&#39;max&#39;               }        51.591         16.787        5.0209        6.6099         56.61       0.91805 
+    {&#39;pYis0&#39;             }       0.11606              0             0             0             0       0.11606 
+    {&#39;pYls0&#39;             }             0     0.00066766             0             0             0             0 
+    {&#39;pYgr0&#39;             }       0.88394        0.99933             1             1             1       0.88394 
+    {&#39;pYisMINY&#39;          }       0.11606     4.1559e-05    4.1559e-05    4.1559e-05    4.1559e-05       0.11606 
+    {&#39;pYisMAXY&#39;          }    3.1409e-16     3.1409e-16     5.148e-16    3.1409e-16    3.1409e-16    2.8381e-26 
+    {&#39;p0_01&#39;             }             0       -0.34507       0.45473       0.45473       0.45473             0 
+    {&#39;p0_1&#39;              }             0        0.52204       0.54342       0.54342       0.54342             0 
+    {&#39;p1&#39;                }             0         1.3412        0.6494        0.6494        0.6494             0 
+    {&#39;p5&#39;                }             0         2.1813       0.85431       0.77605       0.88697             0 
+    {&#39;p10&#39;               }             0         2.8514       0.96477       0.92741         1.002             0 
+    {&#39;p20&#39;               }       0.10665         3.5986        1.1516        1.0358        1.3244      0.083657 
+    {&#39;p25&#39;               }       0.21483         3.8501        1.2354        1.1105        1.4524       0.14274 
+    {&#39;p30&#39;               }       0.32994         4.2218         1.284         1.129        1.6395       0.20194 
+    {&#39;p40&#39;               }       0.60561         4.5759        1.3788        1.3244         1.999       0.30454 
+    {&#39;p50&#39;               }        0.9866         5.0443        1.4671         1.363        2.4484       0.39896 
+    {&#39;p60&#39;               }        1.4331         5.4957        1.5615        1.5828        2.9924       0.48032 
+    {&#39;p70&#39;               }        2.0261         5.9595        1.6562        1.6429         3.671         0.556 
+    {&#39;p75&#39;               }        2.4055         6.2377        1.7089        1.7094        4.0981       0.59225 
+    {&#39;p80&#39;               }        2.8929         6.5441        1.7669        1.9106        4.6329       0.62436 
+    {&#39;p90&#39;               }        4.3431         7.3623        1.9254         2.123        6.2699       0.69668 
+    {&#39;p95&#39;               }        5.7881         8.0262        2.0625        2.4019        7.7831       0.74075 
+    {&#39;p99&#39;               }        8.9453         9.2776        2.3421        2.9539        11.327       0.79763 
+    {&#39;p99_9&#39;             }        13.367         10.599        2.6636        3.7357        15.962       0.83767 
+    {&#39;p99_99&#39;            }        17.333         11.639        2.9483        4.3328        20.294       0.85903 
+    {&#39;fl_cov_ap&#39;         }        4.0248         2.8944       0.61038       0.64355        4.6352       0.41772 
+    {&#39;fl_cor_ap&#39;         }             1        0.83807       0.83891       0.62307       0.99637       0.83512 
+    {&#39;fl_cov_v&#39;          }        2.8944         2.9636       0.62238       0.79332        3.5168       0.36874 
+    {&#39;fl_cor_v&#39;          }       0.83807              1       0.99685       0.89507       0.88097       0.85912 
+    {&#39;fl_cov_c&#39;          }       0.61038        0.62238       0.13153       0.16405       0.74192      0.079746 
+    {&#39;fl_cor_c&#39;          }       0.83891        0.99685             1       0.87859        0.8822       0.88192 
+    {&#39;fl_cov_y&#39;          }       0.64355        0.79332       0.16405       0.26507       0.80761      0.079867 
+    {&#39;fl_cor_y&#39;          }       0.62307        0.89507       0.87859             1       0.67647        0.6222 
+    {&#39;fl_cov_coh&#39;        }        4.6352         3.5168       0.74192       0.80761        5.3771       0.49746 
+    {&#39;fl_cor_coh&#39;        }       0.99637        0.88097        0.8822       0.67647             1       0.86045 
+    {&#39;fl_cov_savefraccoh&#39;}       0.41772        0.36874      0.079746      0.079867       0.49746      0.062162 
+    {&#39;fl_cor_savefraccoh&#39;}       0.83512        0.85912       0.88192        0.6222       0.86045             1 
+    {&#39;fracByP0_01&#39;       }             0    -4.8153e-05    0.00017799    0.00018159    8.3115e-05             0 
+    {&#39;fracByP0_1&#39;        }             0     0.00027167     0.0013548     0.0014279    0.00063242             0 
+    {&#39;fracByP1&#39;          }             0      0.0032852     0.0063125     0.0069982     0.0029338             0 
+    {&#39;fracByP5&#39;          }             0       0.016969      0.025021      0.024262      0.011819             0 
+    {&#39;fracByP10&#39;         }             0       0.044207       0.05664      0.064855      0.026579             0 
+    {&#39;fracByP20&#39;         }     0.0026834         0.1115       0.13073       0.11733      0.067668     0.0099043 
+    {&#39;fracByP25&#39;         }     0.0076113        0.14492       0.17311       0.15549         0.086      0.025483 
+    {&#39;fracByP30&#39;         }      0.015302        0.19105       0.21762       0.19333       0.11182      0.048984 
+    {&#39;fracByP40&#39;         }      0.043894        0.27218       0.30467       0.27748       0.16912       0.11643 
+    {&#39;fracByP50&#39;         }      0.089861        0.36738       0.40369       0.36807       0.23805       0.21205 
+    {&#39;fracByP60&#39;         }       0.16112        0.46928       0.50828       0.46652        0.3263       0.32962 
+    {&#39;fracByP70&#39;         }       0.26525        0.58046       0.61519       0.57507        0.4298       0.46793 
+    {&#39;fracByP75&#39;         }       0.33325        0.64122       0.67431       0.63025       0.49166       0.54754 
+    {&#39;fracByP80&#39;         }       0.41265        0.70474       0.73277       0.69273       0.56293       0.62653 
+    {&#39;fracByP90&#39;         }       0.62139        0.84051       0.85792       0.82668       0.73375       0.80195 
+    {&#39;fracByP95&#39;         }       0.77085        0.91406        0.9245       0.90615       0.84324       0.89716 
+    {&#39;fracByP99&#39;         }       0.93558        0.98098       0.98317       0.97729       0.95807       0.97822 
+    {&#39;fracByP99_9&#39;       }       0.99103        0.99787       0.99814        0.9972       0.99438       0.99775 
+    {&#39;fracByP99_99&#39;      }       0.99886        0.99977       0.99979       0.99969       0.99931       0.99977 </code></pre>
+</div>
+<div id="test-ff_ds_az_cts_vec-speed-tests" class="section level3" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Test FF_DS_AZ_CTS_VEC Speed Tests</h3>
+<p>Call the function with different a and z grid size, print out speed:</p>
+<pre><code>mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_support(&#39;bl_timer&#39;) = true;
+mp_support(&#39;ls_ffcmd&#39;) = {};
+mp_support(&#39;ls_ddcmd&#39;) = {};
+mp_support(&#39;ls_ddgrh&#39;) = {};
+mp_support(&#39;bl_show_stats_table&#39;) = false;
+% A grid 50, shock grid 5:
+mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_params(&#39;it_a_n&#39;) = 50;
+mp_params(&#39;it_z_n&#39;) = 5;
+ff_ds_az_cts_vec(mp_params, mp_support);
+
+Elapsed time is 0.459956 seconds.
+FF_DS_AZ_CTS_LOOP finished. Distribution took = 0.015748
+
+% A grid 100, shock grid 7:
+mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_params(&#39;it_a_n&#39;) = 100;
+mp_params(&#39;it_z_n&#39;) = 7;
+ff_ds_az_cts_vec(mp_params, mp_support);
+
+Elapsed time is 0.938024 seconds.
+FF_DS_AZ_CTS_LOOP finished. Distribution took = 0.046035
+
+% A grid 200, shock grid 9:
+mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_params(&#39;it_a_n&#39;) = 200;
+mp_params(&#39;it_z_n&#39;) = 9;
+ff_ds_az_cts_vec(mp_params, mp_support);
+
+Elapsed time is 1.696573 seconds.
+FF_DS_AZ_CTS_LOOP finished. Distribution took = 0.12795</code></pre>
+</div>
+<div id="test-ff_ds_az_cts_vec-a-grid-100-shock-grid-7" class="section level3" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> Test FF_DS_AZ_CTS_VEC A grid 100 Shock grid 7</h3>
+<p>Call the function with different a and z grid size, print out speed:</p>
+<pre><code>mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_support(&#39;bl_timer&#39;) = true;
+mp_support(&#39;ls_ffcmd&#39;) = {};
+mp_support(&#39;ls_ddcmd&#39;) = {};
+mp_support(&#39;ls_ddgrh&#39;) = {&#39;faz&#39;,&#39;fa&#39;};
+mp_support(&#39;bl_show_stats_table&#39;) = true;
+mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_params(&#39;it_a_n&#39;) = 100;
+mp_params(&#39;it_z_n&#39;) = 7;
+ff_ds_az_cts_vec(mp_params, mp_support);
+
+Elapsed time is 0.931254 seconds.
+FF_DS_AZ_CTS_LOOP finished. Distribution took = 0.069571</code></pre>
+<p><img src="img/fx_ds_az_cts_vec_images/figure_2.png" width="500" /></p>
+<p><img src="img/fx_ds_az_cts_vec_images/figure_3.png" width="500" /></p>
+<p><img src="img/fx_ds_az_cts_vec_images/figure_4.png" width="500" /></p>
+<p><img src="img/fx_ds_az_cts_vec_images/figure_5.png" width="500" /></p>
+<p><img src="img/fx_ds_az_cts_vec_images/figure_6.png" width="500" /></p>
+<pre><code>xxx tb_outcomes: all stats xxx
+    OriginalVariableNames         ap            v             c             y            coh        savefraccoh
+    ______________________    __________    __________    __________    __________    __________    ___________
+
+    {&#39;mean&#39;              }        3.2216        6.9329        1.5295        1.5289        4.7511       0.52357 
+    {&#39;unweighted_sum&#39;    }         10019        7323.6        1530.6        1473.6         11549        457.17 
+    {&#39;sd&#39;                }        3.2562        2.1508       0.34914        0.5307        3.5687       0.25504 
+    {&#39;coefofvar&#39;         }        1.0107       0.31024       0.22827       0.34711       0.75113       0.48712 
+    {&#39;gini&#39;              }       0.52352       0.17526       0.12797       0.19065        0.3936        0.2723 
+    {&#39;min&#39;               }             0        1.7008       0.58543       0.58543       0.58543             0 
+    {&#39;max&#39;               }        50.789        19.213          4.21        4.9969        54.997       0.92702 
+    {&#39;pYis0&#39;             }      0.062608             0             0             0             0      0.062608 
+    {&#39;pYls0&#39;             }             0             0             0             0             0             0 
+    {&#39;pYgr0&#39;             }       0.93739             1             1             1             1       0.93739 
+    {&#39;pYisMINY&#39;          }      0.062608     0.0049772     0.0049772     0.0049772     0.0049772      0.062608 
+    {&#39;pYisMAXY&#39;          }    2.9501e-11    2.9501e-11    3.1223e-11    2.9501e-11    2.9501e-11     1.494e-14 
+    {&#39;p0_01&#39;             }             0        1.7008       0.58543       0.58543       0.58543             0 
+    {&#39;p0_1&#39;              }             0        1.7008       0.58543       0.58543       0.58543             0 
+    {&#39;p1&#39;                }             0        2.9492       0.76855       0.62688       0.76855             0 
+    {&#39;p5&#39;                }             0        3.4945       0.97884       0.78105         1.009             0 
+    {&#39;p10&#39;               }      0.092835        4.1716        1.0603       0.97609         1.223      0.078835 
+    {&#39;p20&#39;               }       0.47609        5.1938        1.2588        1.0456        1.7419       0.27652 
+    {&#39;p25&#39;               }        0.7311        5.3812        1.3008         1.094        2.0576       0.35312 
+    {&#39;p30&#39;               }       0.97803        5.6276         1.351         1.188        2.3618       0.42581 
+    {&#39;p40&#39;               }        1.5512        6.3139        1.4528         1.349        3.0158       0.51932 
+    {&#39;p50&#39;               }         2.233        6.8328        1.5245        1.4175        3.7588       0.59714 
+    {&#39;p60&#39;               }        3.0801         7.416        1.6192        1.5453        4.6604       0.66085 
+    {&#39;p70&#39;               }         4.105        8.0461        1.7025        1.7909        5.7649       0.70987 
+    {&#39;p75&#39;               }        4.6992        8.4292        1.7544          1.84        6.4292       0.73355 
+    {&#39;p80&#39;               }        5.4329        8.7432        1.8159        1.9097        7.3478       0.75277 
+    {&#39;p90&#39;               }        7.7004        9.7559        1.9663        2.3407        9.5263       0.79745 
+    {&#39;p95&#39;               }        9.7011        10.662        2.1066        2.5036        11.722       0.82522 
+    {&#39;p99&#39;               }        14.279        12.148        2.3613        3.1795        16.608       0.85983 
+    {&#39;p99_9&#39;             }        19.899        13.734        2.6792        3.5223        22.615        0.8829 
+    {&#39;p99_99&#39;            }        25.265        14.885        2.9563        3.7789        28.175        0.8962 
+    {&#39;fl_cov_ap&#39;         }        10.603        6.2617        1.0053        1.0453        11.608       0.65544 
+    {&#39;fl_cor_ap&#39;         }             1       0.89408        0.8843       0.60489       0.99896       0.78925 
+    {&#39;fl_cov_v&#39;          }        6.2617         4.626       0.74802       0.96794        7.0097       0.47179 
+    {&#39;fl_cor_v&#39;          }       0.89408             1       0.99613         0.848       0.91325       0.86007 
+    {&#39;fl_cov_c&#39;          }        1.0053       0.74802        0.1219       0.15425        1.1272      0.078595 
+    {&#39;fl_cor_c&#39;          }        0.8843       0.99613             1       0.83252        0.9047       0.88265 
+    {&#39;fl_cov_y&#39;          }        1.0453       0.96794       0.15425       0.28164        1.1995      0.078136 
+    {&#39;fl_cor_y&#39;          }       0.60489         0.848       0.83252             1       0.63337       0.57729 
+    {&#39;fl_cov_coh&#39;        }        11.608        7.0097        1.1272        1.1995        12.735       0.73404 
+    {&#39;fl_cor_coh&#39;        }       0.99896       0.91325        0.9047       0.63337             1        0.8065 
+    {&#39;fl_cov_savefraccoh&#39;}       0.65544       0.47179      0.078595      0.078136       0.73404      0.065046 
+    {&#39;fl_cor_savefraccoh&#39;}       0.78925       0.86007       0.88265       0.57729        0.8065             1 
+    {&#39;fracByP0_01&#39;       }             0      0.001221     0.0019051     0.0019058    0.00061329             0 
+    {&#39;fracByP0_1&#39;        }             0      0.001221     0.0019051     0.0019058    0.00061329             0 
+    {&#39;fracByP1&#39;          }             0      0.011511      0.013437     0.0039104     0.0042425             0 
+    {&#39;fracByP5&#39;          }             0      0.021279      0.026546      0.024488      0.012268             0 
+    {&#39;fracByP10&#39;         }     0.0006892       0.05109      0.059758      0.051739      0.020676     0.0036864 
+    {&#39;fracByP20&#39;         }     0.0099846       0.12278        0.1366       0.12131      0.052438      0.038521 
+    {&#39;fracByP25&#39;         }      0.019425       0.15429       0.17945       0.15485      0.072434      0.070039 
+    {&#39;fracByP30&#39;         }      0.032212       0.19399       0.22206       0.19029      0.094665       0.10974 
+    {&#39;fracByP40&#39;         }        0.0737       0.28144       0.31482       0.27941       0.15063       0.20042 
+    {&#39;fracByP50&#39;         }        0.1321        0.3768       0.41124       0.37234       0.22365       0.30981 
+    {&#39;fracByP60&#39;         }       0.21336       0.48025       0.51513        0.4642       0.31463       0.42631 
+    {&#39;fracByP70&#39;         }        0.3254       0.59015       0.62157       0.57794       0.42288       0.55601 
+    {&#39;fracByP75&#39;         }       0.39769       0.65462       0.67967        0.6363       0.48537       0.62983 
+    {&#39;fracByP80&#39;         }       0.47503       0.71232       0.73844       0.70062       0.56134       0.69967 
+    {&#39;fracByP90&#39;         }       0.67403       0.84445       0.86104       0.82867       0.73331       0.84375 
+    {&#39;fracByP95&#39;         }       0.80886       0.92029       0.92647       0.90776       0.84668       0.92112 
+    {&#39;fracByP99&#39;         }       0.95057       0.98162       0.98401       0.97831       0.96163       0.98352 
+    {&#39;fracByP99_9&#39;       }       0.99336       0.99797       0.99826       0.99778       0.99494       0.99833 
+    {&#39;fracByP99_99&#39;      }       0.99924       0.99979       0.99981       0.99977        0.9994       0.99984 </code></pre>
+</div>
+<div id="test-ff_ds_az_cts_vec-a-grid-300-shock-grid-25" class="section level3" number="2.3.4">
+<h3><span class="header-section-number">2.3.4</span> Test FF_DS_AZ_CTS_VEC A grid 300 Shock grid 25</h3>
+<pre><code>mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_support(&#39;bl_timer&#39;) = true;
+mp_support(&#39;ls_ffcmd&#39;) = {};
+mp_support(&#39;ls_ddcmd&#39;) = {};
+mp_support(&#39;ls_ddgrh&#39;) = {&#39;faz&#39;,&#39;fa&#39;};
+mp_support(&#39;bl_show_stats_table&#39;) = true;
+mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_params(&#39;it_a_n&#39;) = 300;
+mp_params(&#39;it_z_n&#39;) = 25;
+ff_ds_az_cts_vec(mp_params, mp_support);
+
+Elapsed time is 7.884421 seconds.
+FF_DS_AZ_CTS_LOOP finished. Distribution took = 0.34095</code></pre>
+<p><img src="img/fx_ds_az_cts_vec_images/figure_7.png" width="500" /></p>
+<p><img src="img/fx_ds_az_cts_vec_images/figure_8.png" width="500" /></p>
+<p><img src="img/fx_ds_az_cts_vec_images/figure_9.png" width="500" /></p>
+<p><img src="img/fx_ds_az_cts_vec_images/figure_10.png" width="500" /></p>
+<p><img src="img/fx_ds_az_cts_vec_images/figure_11.png" width="500" /></p>
+<pre><code>xxx tb_outcomes: all stats xxx
+    OriginalVariableNames         ap            v             c             y            coh        savefraccoh
+    ______________________    __________    __________    __________    __________    __________    ___________
+
+    {&#39;mean&#39;              }        3.2612        6.9497        1.5318        1.5305         4.793       0.52715 
+    {&#39;unweighted_sum&#39;    }    1.1043e+05         79555         16733         19751    1.2716e+05        3442.8 
+    {&#39;sd&#39;                }        3.3352        2.1663       0.35078        0.5359        3.6495       0.25199 
+    {&#39;coefofvar&#39;         }        1.0227       0.31171         0.229       0.35014       0.76143       0.47803 
+    {&#39;gini&#39;              }       0.52534       0.17597       0.12824       0.19145       0.39608       0.26748 
+    {&#39;min&#39;               }             0       -2.7616       0.25871       0.25871       0.25871             0 
+    {&#39;max&#39;               }        54.451        20.418        4.3301        8.7798         58.78       0.92837 
+    {&#39;pYis0&#39;             }       0.04941             0             0             0             0       0.04941 
+    {&#39;pYls0&#39;             }             0    7.3281e-05             0             0             0             0 
+    {&#39;pYgr0&#39;             }       0.95059       0.99993             1             1             1       0.95059 
+    {&#39;pYisMINY&#39;          }       0.04941    3.1163e-08    3.1163e-08    3.1163e-08    3.1163e-08       0.04941 
+    {&#39;pYisMAXY&#39;          }    2.8477e-13    2.8477e-13     1.121e-13    2.8477e-13    2.8477e-13    3.6157e-25 
+    {&#39;p0_01&#39;             }             0       0.33584       0.44588       0.42374       0.44588             0 
+    {&#39;p0_1&#39;              }             0        1.0287       0.51088       0.51088       0.51088             0 
+    {&#39;p1&#39;                }             0          2.33       0.67226       0.67069       0.67505             0 
+    {&#39;p5&#39;                }     0.0027154        3.5353       0.94151        0.8016        1.0088      0.002787 
+    {&#39;p10&#39;               }       0.11496        4.1978        1.0921        0.9095        1.2356      0.093483 
+    {&#39;p20&#39;               }       0.51133         5.096        1.2504        1.0657         1.779       0.28788 
+    {&#39;p25&#39;               }       0.75298        5.4004        1.3077        1.1577        2.0685       0.36173 
+    {&#39;p30&#39;               }         1.004        5.7312        1.3565        1.1951        2.3792       0.42532 
+    {&#39;p40&#39;               }        1.5834         6.298        1.4458        1.3352        3.0372       0.52408 
+    {&#39;p50&#39;               }        2.2686        6.8433        1.5287         1.441        3.7996       0.59884 
+    {&#39;p60&#39;               }        3.0898        7.4098        1.6132        1.5764        4.6904       0.65811 
+    {&#39;p70&#39;               }        4.0971        8.0297        1.7037        1.7526        5.7899       0.70877 
+    {&#39;p75&#39;               }        4.7228        8.3787        1.7552        1.8223         6.462       0.73135 
+    {&#39;p80&#39;               }        5.4827        8.7742        1.8144        1.9267        7.2769       0.75357 
+    {&#39;p90&#39;               }        7.7718        9.8224        1.9746        2.2406        9.6945       0.79922 
+    {&#39;p95&#39;               }        9.9683        10.704        2.1148        2.5163        12.048       0.82675 
+    {&#39;p99&#39;               }        14.759        12.325        2.3956         3.157        17.176       0.86245 
+    {&#39;p99_9&#39;             }        21.215        14.066        2.7525        3.9803        23.946       0.88686 
+    {&#39;p99_99&#39;            }        27.205        15.415        3.0759        4.7968        30.277       0.90047 
+    {&#39;fl_cov_ap&#39;         }        11.123        6.4528        1.0361        1.0808         12.16       0.65691 
+    {&#39;fl_cor_ap&#39;         }             1       0.89313       0.88563       0.60472         0.999       0.78162 
+    {&#39;fl_cov_v&#39;          }        6.4528        4.6928       0.75717       0.98035          7.21       0.46786 
+    {&#39;fl_cor_v&#39;          }       0.89313             1       0.99643       0.84447       0.91198       0.85705 
+    {&#39;fl_cov_c&#39;          }        1.0361       0.75717       0.12304       0.15594        1.1592       0.07767 
+    {&#39;fl_cor_c&#39;          }       0.88563       0.99643             1       0.82954       0.90548       0.87868 
+    {&#39;fl_cov_y&#39;          }        1.0808       0.98035       0.15594       0.28718        1.2368      0.077234 
+    {&#39;fl_cor_y&#39;          }       0.60472       0.84447       0.82954             1       0.63237       0.57192 
+    {&#39;fl_cov_coh&#39;        }         12.16          7.21        1.1592        1.2368        13.319       0.73458 
+    {&#39;fl_cor_coh&#39;        }         0.999       0.91198       0.90548       0.63237             1       0.79876 
+    {&#39;fl_cov_savefraccoh&#39;}       0.65691       0.46786       0.07767      0.077234       0.73458      0.063501 
+    {&#39;fl_cor_savefraccoh&#39;}       0.78162       0.85705       0.87868       0.57192       0.79876             1 
+    {&#39;fracByP0_01&#39;       }             0    7.2341e-06    8.9677e-05    2.5415e-05    2.8657e-05             0 
+    {&#39;fracByP0_1&#39;        }             0    0.00014925    0.00040034    0.00047536    0.00012777             0 
+    {&#39;fracByP1&#39;          }             0     0.0031002      0.004056     0.0057421     0.0012982             0 
+    {&#39;fracByP5&#39;          }    4.4271e-07      0.020663      0.026101      0.023318      0.010275    3.7554e-06 
+    {&#39;fracByP10&#39;         }    0.00081444      0.049128      0.059669      0.051817      0.020124     0.0043579 
+    {&#39;fracByP20&#39;         }      0.010142       0.11647       0.13733        0.1174      0.051401      0.041452 
+    {&#39;fracByP25&#39;         }        0.0197       0.15487       0.17845       0.15395       0.07176       0.07241 
+    {&#39;fracByP30&#39;         }      0.033115       0.19474       0.22243       0.19298      0.095014       0.11033 
+    {&#39;fracByP40&#39;         }       0.07268       0.28138       0.31442       0.27544       0.15079       0.20152 
+    {&#39;fracByP50&#39;         }       0.13241        0.3756       0.41097       0.36527       0.22198       0.30736 
+    {&#39;fracByP60&#39;         }       0.21444       0.47892       0.51282       0.46572       0.31091       0.42746 
+    {&#39;fracByP70&#39;         }         0.323       0.58868       0.62139       0.57261       0.41949       0.55675 
+    {&#39;fracByP75&#39;         }       0.39061        0.6478       0.67743       0.63129       0.48319       0.62572 
+    {&#39;fracByP80&#39;         }       0.46952       0.70943       0.73587        0.6919       0.55532       0.69697 
+    {&#39;fracByP90&#39;         }       0.66831       0.84297       0.85906       0.82754       0.72955       0.84259 
+    {&#39;fracByP95&#39;         }       0.80219       0.91616       0.92541       0.90507       0.84194       0.91979 
+    {&#39;fracByP99&#39;         }       0.94613       0.98125       0.98339       0.97711       0.95822       0.98365 
+    {&#39;fracByP99_9&#39;       }        0.9927        0.9979       0.99812       0.99719       0.99443       0.99831 
+    {&#39;fracByP99_99&#39;      }       0.99909       0.99977       0.99979       0.99967       0.99932       0.99983 </code></pre>
+</div>
+<div id="test-ff_ds_az_cts_vec-a-grid-300-shock-grid-50" class="section level3" number="2.3.5">
+<h3><span class="header-section-number">2.3.5</span> Test FF_DS_AZ_CTS_VEC A grid 300 Shock grid 50</h3>
+<pre><code>mp_support = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_support(&#39;bl_timer&#39;) = true;
+mp_support(&#39;ls_ffcmd&#39;) = {};
+mp_support(&#39;ls_ddcmd&#39;) = {};
+mp_support(&#39;ls_ddgrh&#39;) = {&#39;faz&#39;,&#39;fa&#39;};
+mp_support(&#39;bl_show_stats_table&#39;) = true;
+mp_params = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+mp_params(&#39;it_a_n&#39;) = 300;
+mp_params(&#39;it_z_n&#39;) = 50;
+ff_ds_az_cts_vec(mp_params, mp_support);
+
+Elapsed time is 14.233149 seconds.
+FF_DS_AZ_CTS_LOOP finished. Distribution took = 1.2257</code></pre>
+<p><img src="img/fx_ds_az_cts_vec_images/figure_12.png" width="500" /></p>
+<p><img src="img/fx_ds_az_cts_vec_images/figure_13.png" width="500" /></p>
+<p><img src="img/fx_ds_az_cts_vec_images/figure_14.png" width="500" /></p>
+<p><img src="img/fx_ds_az_cts_vec_images/figure_15.png" width="500" /></p>
+<p><img src="img/fx_ds_az_cts_vec_images/figure_16.png" width="500" /></p>
+<pre><code>xxx tb_outcomes: all stats xxx
+    OriginalVariableNames         ap             v             c             y            coh        savefraccoh
+    ______________________    __________    ___________    __________    __________    __________    ___________
+
+    {&#39;mean&#39;              }        3.2794          6.957        1.5328        1.5312        4.8122       0.52801 
+    {&#39;unweighted_sum&#39;    }    2.3346e+05     1.6237e+05         34668         53309    2.6813e+05        5324.8 
+    {&#39;sd&#39;                }        3.3623         2.1722       0.35142       0.53693        3.6772       0.25195 
+    {&#39;coefofvar&#39;         }        1.0253        0.31224       0.22927       0.35065       0.76415       0.47717 
+    {&#39;gini&#39;              }       0.52595        0.17618       0.12829       0.19144        0.3969       0.26705 
+    {&#39;min&#39;               }             0        -7.6866       0.12843       0.12843       0.12843             0 
+    {&#39;max&#39;               }        61.275         22.164        4.3849        15.657        65.657       0.93325 
+    {&#39;pYis0&#39;             }      0.049376              0             0             0             0      0.049376 
+    {&#39;pYls0&#39;             }             0     0.00011917             0             0             0             0 
+    {&#39;pYgr0&#39;             }       0.95062        0.99988             1             1             1       0.95062 
+    {&#39;pYisMINY&#39;          }      0.049376     1.1048e-15    1.1048e-15    1.1048e-15    1.1048e-15      0.049376 
+    {&#39;pYisMAXY&#39;          }     1.584e-18      1.584e-18    5.0847e-19     1.584e-18     1.584e-18     1.584e-18 
+    {&#39;p0_01&#39;             }             0       -0.20427       0.40271       0.40271       0.40271             0 
+    {&#39;p0_1&#39;              }             0         1.2141       0.53589       0.48816       0.53589             0 
+    {&#39;p1&#39;                }             0         2.3693       0.71312       0.64833       0.71312             0 
+    {&#39;p5&#39;                }      0.001023         3.5435       0.94895       0.80724       0.96945     0.0010781 
+    {&#39;p10&#39;               }       0.11645         4.2417        1.0917       0.93681        1.2501      0.095192 
+    {&#39;p20&#39;               }       0.50875           5.08        1.2515         1.072        1.7735        0.2902 
+    {&#39;p25&#39;               }       0.75899         5.4247        1.3061        1.1504        2.0649       0.36356 
+    {&#39;p30&#39;               }        1.0156         5.7325        1.3564        1.2011        2.3741       0.42667 
+    {&#39;p40&#39;               }        1.6036         6.2932        1.4459        1.3198        3.0387       0.52518 
+    {&#39;p50&#39;               }        2.2768         6.8406        1.5297        1.4423        3.8053       0.59933 
+    {&#39;p60&#39;               }        3.0945         7.4051        1.6122        1.5771        4.7002        0.6586 
+    {&#39;p70&#39;               }         4.113         8.0338        1.7042        1.7334        5.8225       0.70999 
+    {&#39;p75&#39;               }        4.7604         8.3794        1.7554        1.8278        6.4985       0.73226 
+    {&#39;p80&#39;               }        5.5142         8.7771        1.8143        1.9295        7.3239       0.75424 
+    {&#39;p90&#39;               }        7.8048         9.8378        1.9756        2.2476        9.7629       0.80013 
+    {&#39;p95&#39;               }        10.007         10.714        2.1161        2.5336        12.107       0.82766 
+    {&#39;p99&#39;               }          14.9         12.348         2.407        3.1578        17.285       0.86312 
+    {&#39;p99_9&#39;             }        21.501          14.13        2.7694        4.0322        24.216       0.88766 
+    {&#39;p99_99&#39;            }        27.735         15.514        3.1037        4.8946        30.851       0.90127 
+    {&#39;fl_cov_ap&#39;         }        11.305         6.5234        1.0466        1.0907        12.352       0.66084 
+    {&#39;fl_cor_ap&#39;         }             1        0.89316       0.88579       0.60415       0.99902       0.78009 
+    {&#39;fl_cov_v&#39;          }        6.5234         4.7186       0.76066       0.98362        7.2841       0.46879 
+    {&#39;fl_cor_v&#39;          }       0.89316              1       0.99645       0.84334        0.9119       0.85658 
+    {&#39;fl_cov_c&#39;          }        1.0466        0.76066        0.1235       0.15645        1.1701      0.077707 
+    {&#39;fl_cor_c&#39;          }       0.88579        0.99645             1       0.82914        0.9055       0.87766 
+    {&#39;fl_cov_y&#39;          }        1.0907        0.98362       0.15645        0.2883        1.2471        0.0772 
+    {&#39;fl_cor_y&#39;          }       0.60415        0.84334       0.82914             1       0.63165       0.57067 
+    {&#39;fl_cov_coh&#39;        }        12.352         7.2841        1.1701        1.2471        13.522       0.73855 
+    {&#39;fl_cor_coh&#39;        }       0.99902         0.9119        0.9055       0.63165             1       0.79716 
+    {&#39;fl_cov_savefraccoh&#39;}       0.66084        0.46879      0.077707        0.0772       0.73855      0.063478 
+    {&#39;fl_cor_savefraccoh&#39;}       0.78009        0.85658       0.87766       0.57067       0.79716             1 
+    {&#39;fracByP0_01&#39;       }             0    -7.0657e-06    2.6272e-05    3.0716e-05    8.3673e-06             0 
+    {&#39;fracByP0_1&#39;        }             0     8.1733e-05    0.00058172        0.0003    0.00018482             0 
+    {&#39;fracByP1&#39;          }             0      0.0025825     0.0055755     0.0043105     0.0017358             0 
+    {&#39;fracByP5&#39;          }    1.3446e-07       0.020553      0.028388      0.023343     0.0084443     1.165e-06 
+    {&#39;fracByP10&#39;         }    0.00082822       0.048923      0.059616      0.051792      0.020041     0.0045383 
+    {&#39;fracByP20&#39;         }      0.010119        0.11678        0.1368        0.1176      0.051426      0.041679 
+    {&#39;fracByP25&#39;         }      0.019764        0.15445       0.17846       0.15402      0.071298       0.07291 
+    {&#39;fracByP30&#39;         }      0.033198        0.19437       0.22195       0.19279      0.094487       0.11072 
+    {&#39;fracByP40&#39;         }      0.072799        0.28088       0.31405       0.27516       0.15079       0.20093 
+    {&#39;fracByP50&#39;         }       0.13186        0.37535       0.41129       0.36559       0.22202       0.30846 
+    {&#39;fracByP60&#39;         }       0.21318        0.47748       0.51316       0.46495       0.30966       0.42828 
+    {&#39;fracByP70&#39;         }       0.32222        0.58845       0.62103       0.57307       0.41837       0.55682 
+    {&#39;fracByP75&#39;         }       0.39045        0.64744       0.67785       0.63075       0.48233       0.62537 
+    {&#39;fracByP80&#39;         }       0.46786         0.7092       0.73555       0.69205       0.55399       0.69588 
+    {&#39;fracByP90&#39;         }       0.66756        0.84275        0.8587       0.82726       0.72947       0.84385 
+    {&#39;fracByP95&#39;         }       0.80166        0.91607       0.92521       0.90478       0.84112       0.91991 
+    {&#39;fracByP99&#39;         }       0.94602        0.98111       0.98335       0.97699       0.95791       0.98349 
+    {&#39;fracByP99_9&#39;       }       0.99264        0.99789        0.9981       0.99714       0.99438       0.99831 
+    {&#39;fracByP99_99&#39;      }       0.99908        0.99977       0.99979       0.99966        0.9993       0.99983 </code></pre>
 
 </div>
 </div>

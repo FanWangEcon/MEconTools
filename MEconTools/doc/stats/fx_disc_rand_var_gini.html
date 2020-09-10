@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB R2019b"><title>FF_DISC_RAND_VAR_STATS Examples</title><style type="text/css">.rtcContent { padding: 30px; } .S0 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 28.8px; min-height: 0px; white-space: pre-wrap; color: rgb(213, 80, 0); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 24px; font-weight: 400; text-align: left;  }
+.S1 { margin: 2px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(0, 0, 0); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S2 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 20px; min-height: 0px; white-space: pre-wrap; color: rgb(60, 60, 60); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 20px; font-weight: 700; text-align: left;  }
+.CodeBlock { background-color: #F7F7F7; margin: 10px 0 10px 0;}
+.S3 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 1px solid rgb(233, 233, 233); border-bottom: 1px solid rgb(233, 233, 233); border-radius: 4px 4px 0px 0px; padding: 6px 45px 4px 13px; line-height: 16.996px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S4 { color: rgb(64, 64, 64); padding: 10px 0px 6px 17px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px; overflow-x: hidden; line-height: 16.996px;  }
+.embeddedOutputsErrorElement {min-height: 18px; max-height: 250px; overflow: auto;}
+.embeddedOutputsErrorElement.inlineElement {}
+.embeddedOutputsErrorElement.rightPaneElement {}
+.embeddedOutputsWarningElement{min-height: 18px; max-height: 250px; overflow: auto;}
+.embeddedOutputsWarningElement.inlineElement {}
+.embeddedOutputsWarningElement.rightPaneElement {}
+.diagnosticMessage-wrapper {font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 12px;}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType {color: rgb(255,100,0);}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType a {color: rgb(255,100,0); text-decoration: underline;}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType {color: rgb(230,0,0);}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType a {color: rgb(230,0,0); text-decoration: underline;}
+.diagnosticMessage-wrapper .diagnosticMessage-messagePart,.diagnosticMessage-wrapper .diagnosticMessage-causePart {white-space: pre-wrap;}
+.diagnosticMessage-wrapper .diagnosticMessage-stackPart {white-space: pre;}
+.embeddedOutputsTextElement,.embeddedOutputsVariableStringElement {white-space: pre; word-wrap: initial; min-height: 18px; max-height: 250px; overflow: auto;}
+.textElement,.rtcDataTipElement .textElement {padding-top: 3px;}
+.embeddedOutputsTextElement.inlineElement,.embeddedOutputsVariableStringElement.inlineElement {}
+.inlineElement .textElement {}
+.embeddedOutputsTextElement.rightPaneElement,.embeddedOutputsVariableStringElement.rightPaneElement {min-height: 16px;}
+.rightPaneElement .textElement {padding-top: 2px; padding-left: 9px;}
+.S5 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 1px solid rgb(233, 233, 233); border-bottom: 0px none rgb(0, 0, 0); border-radius: 4px 4px 0px 0px; padding: 6px 45px 0px 13px; line-height: 16.996px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S6 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 0px none rgb(0, 0, 0); border-bottom: 0px none rgb(0, 0, 0); border-radius: 0px; padding: 0px 45px 0px 13px; line-height: 16.996px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S7 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 0px none rgb(0, 0, 0); border-bottom: 1px solid rgb(233, 233, 233); border-radius: 0px; padding: 0px 45px 4px 13px; line-height: 16.996px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S8 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 1px solid rgb(233, 233, 233); border-bottom: 0px none rgb(0, 0, 0); border-radius: 0px; padding: 6px 45px 0px 13px; line-height: 16.996px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }</style></head><body><div class = rtcContent><h1  class = 'S0'><span>FF_DISC_RAND_VAR_STATS Examples</span></h1><div  class = 'S1'><span style=' font-weight: bold;'>back to </span><a href = "https://fanwangecon.github.io"><span style=' font-weight: bold;'>Fan</span></a><span style=' font-weight: bold;'>'s </span><a href = "https://fanwangecon.github.io/Math4Econ/"><span style=' font-weight: bold;'>Intro Math for Econ</span></a><span style=' font-weight: bold;'>,  </span><a href = "https://fanwangecon.github.io/M4Econ/"><span style=' font-weight: bold;'>Matlab Examples</span></a><span style=' font-weight: bold;'>, or </span><a href = "https://fanwangecon.github.io/CodeDynaAsset/"><span style=' font-weight: bold;'>Dynamic Asset</span></a><span style=' font-weight: bold;'> Repositories</span></div><div  class = 'S1'><span>This is the example vignette for function: </span><a href = "https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/stats/ff_disc_rand_var_stats.m"><span style=' font-weight: bold;'>ff_disc_rand_var_stats</span></a><span> from the </span><a href = "https://fanwangecon.github.io/MEconTools/"><span style=' font-weight: bold;'>MEconTools Package</span></a><span style=' font-weight: bold;'>. </span><span>This function summarizes statistics of matrixes stored in a container map, as well as scalar, string, function and other values stored in container maps.</span></div><h2  class = 'S2'><span>Test FF_DISC_RAND_VAR_STATS Defaults</span></h2><div  class = 'S1'><span>Call the function with defaults.</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S3'><span style="white-space: pre;"><span>ff_disc_rand_var_stats();</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement scrollableOutput" uid="BB854224" data-testid="output_0" data-width="428" data-height="1088" data-hashorizontaloverflow="true" style="width: 458px; max-height: 261px;"><div class="textElement">----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Summary Statistics for: binom
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+----------------------------------------
+fl_choice_mean
+   -1.0000
+
+fl_choice_sd
+    2.5100
+
+fl_choice_coefofvar
+   -2.5100
+
+fl_choice_prob_zero
+    0.1416
+
+fl_choice_prob_below_zero
+    0.5888
+
+fl_choice_prob_above_zero
+    0.2696
+
+fl_choice_prob_max
+   2.0589e-16
+
+tb_disc_cumu
+    <strong>binomDiscreteVal</strong>    <strong>binomDiscreteValProbMass</strong>       <strong>CDF</strong>       <strong>cumsumFrac</strong>
+    <strong>________________</strong>    <strong>________________________</strong>    <strong>_________</strong>    <strong>__________</strong>
+
+          -10                  2.2539e-05           0.0022539    0.00022539
+           -9                  0.00028979            0.031233     0.0028335
+           -8                   0.0018008             0.21132       0.01724
+           -7                   0.0072034             0.93166      0.067664
+           -6                    0.020838              3.0155       0.19269
+           -5                     0.04644              7.6595       0.42489
+           -4                    0.082928              15.952       0.75661
+           -3                     0.12185              28.138        1.1222
+           -2                     0.15014              43.152        1.4224
+           -1                     0.15729              58.881        1.5797
+
+    <strong>binomDiscreteVal</strong>    <strong>binomDiscreteValProbMass</strong>    <strong>CDF</strong>    <strong>cumsumFrac</strong>
+    <strong>________________</strong>    <strong>________________________</strong>    <strong>___</strong>    <strong>__________</strong>
+
+           11                  6.0392e-06           100        1     
+           12                  1.0588e-06           100        1     
+           13                  1.5784e-07           100        1     
+           14                   1.973e-08           100        1     
+           15                  2.0293e-09           100        1     
+           16                  1.6725e-10           100        1     
+           17                  1.0619e-11           100        1     
+           18                  4.8762e-13           100        1     
+           19                  1.4412e-14           100        1     
+           20                  2.0589e-16           100        1     
+
+tb_prob_drv
+    <strong>percentiles</strong>    <strong>binomDiscreteValPercentileValues</strong>    <strong>fracOfSumHeldBelowThisPercentile</strong>
+    <strong>___________</strong>    <strong>________________________________</strong>    <strong>________________________________</strong>
+
+        0.1                       -8                               0.01724             
+          1                       -6                               0.19269             
+          5                       -5                               0.42489             
+         10                       -4                               0.75661             
+         15                       -4                               0.75661             
+         20                       -3                                1.1222             
+         25                       -3                                1.1222             
+         35                       -2                                1.4224             
+         50                       -1                                1.5797             
+         65                        0                                1.5797             
+         75                        1                                1.4694             
+         80                        1                                1.4694             
+         85                        2                                1.3197             
+         90                        2                                1.3197             
+         95                        3                                1.1865             
+         99                        5                                1.0412             
+       99.9                        7                                1.0052             </div></div></div></div></div><h2  class = 'S2'><span>Test FF_DISC_RAND_VAR_STATS 0 and 1 Random Variable</span></h2><div  class = 'S1'><span>The simplest discrete random variable has two values, zero or one. The probability of zero is 30 percent, and 70 percent is the probability of one. </span></div><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S5'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">% Parameters</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">% 1. specify the random variable</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>st_var_name = </span><span style="color: rgb(160, 32, 240);">'bernoulli'</span><span>;</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>ar_choice_unique_sorted = [0, 1];</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>ar_choice_prob = [0.3, 0.7];</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">% 2. percentiles of interest</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>ar_fl_percentiles = [0.1 5 25 50 75 95 99.9];</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">% 3. print resutls</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>bl_display_drvstats = true;</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">% Call Function</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>[ds_stats_map] = ff_disc_rand_var_stats(st_var_name, </span><span style="color: rgb(0, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>    ar_choice_unique_sorted, ar_choice_prob, </span><span style="color: rgb(0, 0, 255);">...</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S7'><span style="white-space: pre;"><span>    ar_fl_percentiles, bl_display_drvstats);</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement scrollableOutput" uid="85BA302F" data-testid="output_1" data-width="428" data-height="717" data-hashorizontaloverflow="true" style="width: 458px; max-height: 261px;"><div class="textElement">----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Summary Statistics for: bernoulli
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+----------------------------------------
+fl_choice_mean
+    0.7000
+
+fl_choice_sd
+    0.4583
+
+fl_choice_coefofvar
+    0.6547
+
+fl_choice_prob_zero
+    0.3000
+
+fl_choice_prob_below_zero
+     0
+
+fl_choice_prob_above_zero
+    0.7000
+
+fl_choice_prob_max
+    0.7000
+
+tb_disc_cumu
+    <strong>bernoulliDiscreteVal</strong>    <strong>bernoulliDiscreteValProbMass</strong>    <strong>CDF</strong>    <strong>cumsumFrac</strong>
+    <strong>____________________</strong>    <strong>____________________________</strong>    <strong>___</strong>    <strong>__________</strong>
+
+             0                          0.3                  30        0     
+             1                          0.7                 100        1     
+
+    <strong>bernoulliDiscreteVal</strong>    <strong>bernoulliDiscreteValProbMass</strong>    <strong>CDF</strong>    <strong>cumsumFrac</strong>
+    <strong>____________________</strong>    <strong>____________________________</strong>    <strong>___</strong>    <strong>__________</strong>
+
+             0                          0.3                  30        0     
+             1                          0.7                 100        1     
+
+tb_prob_drv
+    <strong>percentiles</strong>    <strong>bernoulliDiscreteValPercentileValues</strong>    <strong>fracOfSumHeldBelowThisPercentile</strong>
+    <strong>___________</strong>    <strong>____________________________________</strong>    <strong>________________________________</strong>
+
+        0.1                         0                                     0                
+          5                         0                                     0                
+         25                         0                                     0                
+         50                         1                                     1                
+         75                         1                                     1                
+         95                         1                                     1                
+       99.9                         1                                     1                </div></div></div></div></div><h2  class = 'S2'><span>Test FF_DISC_RAND_VAR_STATS with Poisson</span></h2><div  class = 'S1'><a href = "https://fanwangecon.github.io/Stat4Econ/probability_discrete/htmlpdfr/poisson.html"><span>Poisson random variable</span></a><span>, with mean equals to ten, summarize over umsymmetric percentiles. Note that the poisson random variable has no upper bound.</span></div><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S5'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">% Parameters</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">% 1. specify the random variable</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>st_var_name = </span><span style="color: rgb(160, 32, 240);">'poisson'</span><span>;</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>mu = 10;</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>ar_choice_unique_sorted = 0:1:50;</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>ar_choice_prob = poisspdf(ar_choice_unique_sorted, mu);</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">% 2. percentiles of interest, unsymmetric</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>ar_fl_percentiles = [0.1 5 10 25 50 90 95 99 99.9 99.99 99.999 99.9999];</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">% 3. print resutls</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>bl_display_drvstats = true;</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">% Call Function</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>[ds_stats_map] = ff_disc_rand_var_stats(st_var_name, </span><span style="color: rgb(0, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>    ar_choice_unique_sorted, ar_choice_prob, </span><span style="color: rgb(0, 0, 255);">...</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S7'><span style="white-space: pre;"><span>    ar_fl_percentiles, bl_display_drvstats);</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement scrollableOutput" uid="4689C55B" data-testid="output_2" data-width="428" data-height="1017" data-hashorizontaloverflow="true" style="width: 458px; max-height: 261px;"><div class="textElement">----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Summary Statistics for: poisson
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+----------------------------------------
+fl_choice_mean
+    10
+
+fl_choice_sd
+    3.1623
+
+fl_choice_coefofvar
+    0.3162
+
+fl_choice_prob_zero
+   4.5400e-05
+
+fl_choice_prob_below_zero
+     0
+
+fl_choice_prob_above_zero
+    1.0000
+
+fl_choice_prob_max
+   1.4927e-19
+
+tb_disc_cumu
+    <strong>poissonDiscreteVal</strong>    <strong>poissonDiscreteValProbMass</strong>      <strong>CDF</strong>      <strong>cumsumFrac</strong>
+    <strong>__________________</strong>    <strong>__________________________</strong>    <strong>_______</strong>    <strong>__________</strong>
+
+            0                      4.54e-05             0.00454            0 
+            1                      0.000454             0.04994     4.54e-05 
+            2                       0.00227             0.27694    0.0004994 
+            3                     0.0075667              1.0336    0.0027694 
+            4                      0.018917              2.9253     0.010336 
+            5                      0.037833              6.7086     0.029253 
+            6                      0.063055              13.014     0.067086 
+            7                      0.090079              22.022      0.13014 
+            8                        0.1126              33.282      0.22022 
+            9                       0.12511              45.793      0.33282 
+
+    <strong>poissonDiscreteVal</strong>    <strong>poissonDiscreteValProbMass</strong>    <strong>CDF</strong>    <strong>cumsumFrac</strong>
+    <strong>__________________</strong>    <strong>__________________________</strong>    <strong>___</strong>    <strong>__________</strong>
+
+            41                    1.3571e-13            100        1     
+            42                    3.2313e-14            100        1     
+            43                    7.5146e-15            100        1     
+            44                    1.7079e-15            100        1     
+            45                    3.7953e-16            100        1     
+            46                    8.2506e-17            100        1     
+            47                    1.7554e-17            100        1     
+            48                    3.6572e-18            100        1     
+            49                    7.4636e-19            100        1     
+            50                    1.4927e-19            100        1     
+
+tb_prob_drv
+    <strong>percentiles</strong>    <strong>poissonDiscreteValPercentileValues</strong>    <strong>fracOfSumHeldBelowThisPercentile</strong>
+    <strong>___________</strong>    <strong>__________________________________</strong>    <strong>________________________________</strong>
+
+         0.1                        2                               0.0004994            
+           5                        5                                0.029253            
+          10                        6                                0.067086            
+          25                        8                                 0.22022            
+          50                       10                                 0.45793            
+          90                       14                                 0.86446            
+          95                       15                                 0.91654            
+          99                       18                                 0.98572            
+        99.9                       21                                 0.99841            
+       99.99                       24                                 0.99988            
+      99.999                       26                                 0.99998            
+         100                       28                                       1            </div></div></div></div><div class="inlineWrapper"><div  class = 'S8'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">% Print out full Stored Matrix</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">% Note that the outputs are single row arrays.</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S7'><span style="white-space: pre;"><span>ff_container_map_display(ds_stats_map, 100, 100)</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement scrollableOutput" uid="DA697017" data-testid="output_3" data-width="428" data-height="660" data-hashorizontaloverflow="true" style="width: 458px; max-height: 261px;"><div class="textElement">----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: ds_stats_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                               <strong>i</strong>    <strong>idx</strong>    <strong>ndim</strong>    <strong>numel</strong>    <strong>rowN</strong>    <strong>colN</strong>     <strong>sum</strong>       <strong>mean</strong>       <strong>std</strong>      <strong>coefvari</strong>       <strong>min</strong>       <strong>max</strong>
+                               <strong>_</strong>    <strong>___</strong>    <strong>____</strong>    <strong>_____</strong>    <strong>____</strong>    <strong>____</strong>    <strong>______</strong>    <strong>_______</strong>    <strong>______</strong>    <strong>________</strong>    <strong>_________</strong>    <strong>___</strong>
+
+    <strong>ar_choice_perc_fracheld</strong>    1     1      2       12       1       12       7.54    0.62833     0.435    0.69231     0.0004994      1
+    <strong>ar_choice_percentiles  </strong>    2     2      2       12       1       12        177      14.75    8.7399    0.59254             2     28
+    <strong>ar_fl_percentiles      </strong>    3     3      2       12       1       12     773.99     64.499    42.887    0.66492           0.1    100
+
+xxx TABLE:ar_choice_perc_fracheld xxxxxxxxxxxxxxxxxx
+             <strong>c1</strong>           <strong>c2</strong>          <strong>c3</strong>         <strong>c4</strong>         <strong>c5</strong>         <strong>c6</strong>         <strong>c7</strong>         <strong>c8</strong>         <strong>c9</strong>         <strong>c10</strong>        <strong>c11</strong>      <strong>c12</strong>
+          <strong>_________</strong>    <strong>________</strong>    <strong>________</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>___</strong>
+
+    <strong>r1</strong>    0.0004994    0.029253    0.067086    0.22022    0.45793    0.86446    0.91654    0.98572    0.99841    0.99988    0.99998     1 
+
+xxx TABLE:ar_choice_percentiles xxxxxxxxxxxxxxxxxx
+          <strong>c1</strong>    <strong>c2</strong>    <strong>c3</strong>    <strong>c4</strong>    <strong>c5</strong>    <strong>c6</strong>    <strong>c7</strong>    <strong>c8</strong>    <strong>c9</strong>    <strong>c10</strong>    <strong>c11</strong>    <strong>c12</strong>
+          <strong>__</strong>    <strong>__</strong>    <strong>__</strong>    <strong>__</strong>    <strong>__</strong>    <strong>__</strong>    <strong>__</strong>    <strong>__</strong>    <strong>__</strong>    <strong>___</strong>    <strong>___</strong>    <strong>___</strong>
+
+    <strong>r1</strong>    2     5     6     8     10    14    15    18    21    24     26     28 
+
+xxx TABLE:ar_fl_percentiles xxxxxxxxxxxxxxxxxx
+          <strong>c1</strong>     <strong>c2</strong>    <strong>c3</strong>    <strong>c4</strong>    <strong>c5</strong>    <strong>c6</strong>    <strong>c7</strong>    <strong>c8</strong>     <strong>c9</strong>      <strong>c10</strong>      <strong>c11</strong>      <strong>c12</strong>
+          <strong>___</strong>    <strong>__</strong>    <strong>__</strong>    <strong>__</strong>    <strong>__</strong>    <strong>__</strong>    <strong>__</strong>    <strong>__</strong>    <strong>____</strong>    <strong>_____</strong>    <strong>______</strong>    <strong>___</strong>
+
+    <strong>r1</strong>    0.1    5     10    25    50    90    95    99    99.9    99.99    99.999    100
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: ds_stats_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                 <strong>i</strong>     <strong>idx</strong>      <strong>value</strong>   
+                                 <strong>__</strong>    <strong>___</strong>    <strong>__________</strong>
+
+    <strong>fl_choice_coefofvar      </strong>     1     4        0.31623
+    <strong>fl_choice_max            </strong>     2     5             50
+    <strong>fl_choice_mean           </strong>     3     6             10
+    <strong>fl_choice_min            </strong>     4     7              0
+    <strong>fl_choice_prob_above_zero</strong>     5     8        0.99995
+    <strong>fl_choice_prob_below_zero</strong>     6     9              0
+    <strong>fl_choice_prob_max       </strong>     7    10     1.4927e-19
+    <strong>fl_choice_prob_min       </strong>     8    11       4.54e-05
+    <strong>fl_choice_prob_zero      </strong>     9    12       4.54e-05
+    <strong>fl_choice_sd             </strong>    10    13         3.1623</div></div></div></div></div></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+%% FF_DISC_RAND_VAR_STATS Examples
+% *back to* <https://fanwangecon.github.io *Fan*>*'s* <https://fanwangecon.github.io/Math4Econ/ 
+% *Intro Math for Econ*>*,*  <https://fanwangecon.github.io/M4Econ/ *Matlab Examples*>*, 
+% or* <https://fanwangecon.github.io/CodeDynaAsset/ *Dynamic Asset*> *Repositories*
+% 
+% This is the example vignette for function: <https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/stats/ff_disc_rand_var_stats.m 
+% *ff_disc_rand_var_stats*> from the <https://fanwangecon.github.io/MEconTools/ 
+% *MEconTools Package*>*.* This function summarizes statistics of matrixes stored 
+% in a container map, as well as scalar, string, function and other values stored 
+% in container maps.
+%% Test FF_DISC_RAND_VAR_STATS Defaults
+% Call the function with defaults.
+
+ff_disc_rand_var_stats();
+%% Test FF_DISC_RAND_VAR_STATS 0 and 1 Random Variable
+% The simplest discrete random variable has two values, zero or one. The probability 
+% of zero is 30 percent, and 70 percent is the probability of one. 
+
+% Parameters
+% 1. specify the random variable
+st_var_name = 'bernoulli';
+ar_choice_unique_sorted = [0, 1];
+ar_choice_prob = [0.3, 0.7];
+% 2. percentiles of interest
+ar_fl_percentiles = [0.1 5 25 50 75 95 99.9];
+% 3. print resutls
+bl_display_drvstats = true;
+% Call Function
+[ds_stats_map] = ff_disc_rand_var_stats(st_var_name, ...
+    ar_choice_unique_sorted, ar_choice_prob, ...
+    ar_fl_percentiles, bl_display_drvstats);
+%% Test FF_DISC_RAND_VAR_STATS with Poisson
+% <https://fanwangecon.github.io/Stat4Econ/probability_discrete/htmlpdfr/poisson.html 
+% Poisson random variable>, with mean equals to ten, summarize over umsymmetric 
+% percentiles. Note that the poisson random variable has no upper bound.
+
+% Parameters
+% 1. specify the random variable
+st_var_name = 'poisson';
+mu = 10;
+ar_choice_unique_sorted = 0:1:50;
+ar_choice_prob = poisspdf(ar_choice_unique_sorted, mu);
+% 2. percentiles of interest, unsymmetric
+ar_fl_percentiles = [0.1 5 10 25 50 90 95 99 99.9 99.99 99.999 99.9999];
+% 3. print resutls
+bl_display_drvstats = true;
+% Call Function
+[ds_stats_map] = ff_disc_rand_var_stats(st_var_name, ...
+    ar_choice_unique_sorted, ar_choice_prob, ...
+    ar_fl_percentiles, bl_display_drvstats);
+% Print out full Stored Matrix
+% Note that the outputs are single row arrays.
+ff_container_map_display(ds_stats_map, 100, 100)
+##### SOURCE END #####
+--></body></html>
