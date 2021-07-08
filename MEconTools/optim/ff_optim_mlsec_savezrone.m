@@ -35,6 +35,10 @@
 %    mp_mlsec_ctrlinfo('fl_x_left_start') = 10e-6;
 %    % max savings share, common for all
 %    mp_mlsec_ctrlinfo('fl_x_right_start') = 1-10e-6;
+%    % whether use NaN when bisection did not work, at min/max, sign the same
+%    % bl_returnmin = FALSE, means return NaN if no root found, if TRUE, return
+%    % value where the objective is minimized, even if not a root. 
+%    mp_mlsec_ctrlinfo('bl_returnmin') = FALSE;
 %
 %    [AR_OPTI_SAVE_FRAC] = FF_OPTIM_MLSEC_SAVEZRONE() default optimal
 %    saving and borrowing fractions.
@@ -150,6 +154,10 @@ mp_mlsec_ctrlinfo('it_mlsect_max_iter') = 4;
 mp_mlsec_ctrlinfo('fl_x_left_start') = 10e-6;
 % max savings share, common for all
 mp_mlsec_ctrlinfo('fl_x_right_start') = 1-10e-6;
+% whether use NaN when bisection did not work, at min/max, sign the same
+% bl_returnmin = FALSE, means return NaN if no root found, if TRUE, return
+% value where the objective is minimized, even if not a root. 
+mp_mlsec_ctrlinfo('bl_returnmin') = false;
 
 % override default support_map values
 if (length(varargin)>=4)
@@ -161,6 +169,8 @@ params_group = values(mp_mlsec_ctrlinfo, {'it_mlsect_jnt_pnts', 'it_mlsect_max_i
 [it_mlsect_jnt_pnts, it_mlsect_max_iter] = params_group{:};
 params_group = values(mp_mlsec_ctrlinfo, {'fl_x_left_start', 'fl_x_right_start'});
 [fl_x_left_start, fl_x_right_start] = params_group{:};
+params_group = values(mp_mlsec_ctrlinfo, {'bl_returnmin'});
+[bl_returnmin] = params_group{:};
 
 %% Timer Start
 if (bl_timer)
@@ -268,17 +278,21 @@ ar_opti_save_frac = (ar_upper_x_bd+ar_lower_x_bd)/2;
 % end
 
 %% Return
-if(isscalar(ar_opti_save_frac))
-    if (ar_lower_fx_init*ar_upper_fx_init > 0)
-        ar_opti_save_frac = NaN;
-        ar_opti_save_level = NaN;
-        ar_opti_foc_obj = NaN;
+% bl_returnmin = FALSE, return NaN when no root is found
+% bl_returnmin = TRUE, return objective minimizer when no root is found
+if (~bl_returnmin)
+    if(isscalar(ar_opti_save_frac))
+        if (ar_lower_fx_init*ar_upper_fx_init > 0)
+            ar_opti_save_frac = NaN;
+            ar_opti_save_level = NaN;
+            ar_opti_foc_obj = NaN;
+        end
+    else
+        ar_nosolu = (ar_lower_fx_init.*ar_upper_fx_init);
+        ar_opti_save_frac(ar_nosolu>0) = NaN;
+        ar_opti_save_level(ar_nosolu>0) = NaN;
+        ar_opti_foc_obj(ar_nosolu>0) = NaN;
     end
-else
-    ar_nosolu = (ar_lower_fx_init.*ar_upper_fx_init);
-    ar_opti_save_frac(ar_nosolu>0) = NaN;
-    ar_opti_save_level(ar_nosolu>0) = NaN;
-    ar_opti_foc_obj(ar_nosolu>0) = NaN;
 end
     
 % Show iteration points

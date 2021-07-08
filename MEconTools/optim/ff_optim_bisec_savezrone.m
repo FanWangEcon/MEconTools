@@ -26,7 +26,10 @@
 %    mp_bisec_ctrlinfo('fl_x_left_start') = 10e-6;
 %    % max savings share, common for all
 %    mp_bisec_ctrlinfo('fl_x_right_start') = 1-10e-6;
-%    % override default support_map values
+%    % At min/max, sign the same, if BL_RETURNMIN = FALSE, proceed as
+%    % normal, will return NaN at the end. if BL_RETURNMIN = TRUE, returns
+%    % the min or max whichever has smaller absolute gap to the root. 
+%    mp_bisec_ctrlinfo('bl_returnmin') = FALSE;
 %
 %    [AR_OPTI_SAVE_FRAC] = FF_OPTIM_BISEC_SAVEZRONE() default optimal
 %    saving and borrowing fractions.
@@ -142,7 +145,10 @@ mp_bisec_ctrlinfo('it_bisect_max_iter') = 15;
 mp_bisec_ctrlinfo('fl_x_left_start') = 10e-6;
 % max savings share, common for all
 mp_bisec_ctrlinfo('fl_x_right_start') = 1-10e-6;
-% override default support_map values
+% whether use NaN when bisection did not work, at min/max, sign the same
+% bl_returnmin = FALSE, means return NaN if no root found, if TRUE, return
+% value where the objective is minimized, even if not a root. 
+mp_bisec_ctrlinfo('bl_returnmin') = false;
 
 if (length(varargin)>=4)
     mp_bisec_ctrlinfo = [mp_bisec_ctrlinfo; mp_bisec_ctrlinfo_ext];
