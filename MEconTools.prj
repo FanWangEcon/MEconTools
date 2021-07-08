@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="2172318292" file="C:\Users\fan\MEconTools\MEconTools.prj" location="C:\Users\fan\MEconTools" name="MEconTools" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="1149678837" file="G:\repos\MEconTools\MEconTools.prj" location="G:\repos\MEconTools" name="MEconTools" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>MEconTools</param.appname>
     <param.authnamewatermark>Fan Wang</param.authnamewatermark>
     <param.email>fanwecon@gmail.com</param.email>
@@ -7,7 +7,7 @@
     <param.summary>Dynamic programming and related.</param.summary>
     <param.description>Dynamic programming and related.</param.description>
     <param.screenshot>${PROJECT_ROOT}\img\toolboxlogo.png</param.screenshot>
-    <param.version>0.1.31</param.version>
+    <param.version>0.1.34</param.version>
     <param.output>${PROJECT_ROOT}\MEconTools.mltbx</param.output>
     <param.products.name />
     <param.products.id />
@@ -347,12 +347,31 @@ htmlpdfm/*
     <fileset.depfun.excluded />
     <fileset.package />
     <build-deliverables>
-      <file location="${PROJECT_ROOT}" name="MEconTools.mltbx" optional="false">C:\Users\fan\MEconTools\MEconTools.mltbx</file>
+      <file location="${PROJECT_ROOT}" name="MEconTools.mltbx" optional="false">G:\repos\MEconTools\MEconTools.mltbx</file>
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>C:\Program Files\MATLAB\R2019b</root>
-      <toolboxes />
+      <root>G:\ProgramData\MATLAB\R2020b</root>
+      <toolboxes>
+        <toolbox name="matlabcoder" />
+        <toolbox name="gpucoder" />
+        <toolbox name="neuralnetwork" />
+      </toolboxes>
+      <toolbox>
+        <matlabcoder>
+          <enabled>true</enabled>
+        </matlabcoder>
+      </toolbox>
+      <toolbox>
+        <gpucoder>
+          <enabled>true</enabled>
+        </gpucoder>
+      </toolbox>
+      <toolbox>
+        <neuralnetwork>
+          <enabled>true</enabled>
+        </neuralnetwork>
+      </toolbox>
     </matlab>
     <platform>
       <unix>false</unix>

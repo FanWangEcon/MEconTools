@@ -20,3 +20,49 @@
         in_header: '../../../hdga.html'
   always_allow_html: true
   urlcolor: blue
+
+- file: fx_perturb_logn
+  title: "Matlab Randomly Perturb Some Parameter Value with Varying Magnitudes"
+  titleshort: "Randomly Perturb Some Parameter Value with Varying Magnitudes"
+  description: |
+    There is a starting estimation parameter value, perturb this initial starting points. Use a scalar so that 0 means almost no change, and 1 means maximum change to control how much to perturb the parameter. This is used for multi-start estimation
+  core :
+    - package: MEconTools
+      code: |
+        [ff_perturb_logn()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/generate/ff_perturb_logn.m)
+  date: 2021-07-08
+  date_start: 2020-07-08
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue
+
+- file: fx_nonimg_posnegbd
+  title: "Matlab Find Real-valued Domain of a Function"
+  titleshort: "Find Real-valued Domain of a Function"
+  description: |
+    Checks for valid domain for function that generates real-valued outcomes, and identifies values along the domain that generates positive and negative Values.
+  core :
+    - package: MEconTools
+      code: |
+        [ff_nonimg_posnegbd()](https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/generate/ff_nonimg_posnegbd.m)
+  date: 2021-07-08
+  date_start: 2020-07-08
+  output:
+    pdf_document:
+      pandoc_args: '../../../_output_kniti_pdf.yaml'
+      includes:
+        in_header: '../../../preamble.tex'
+    html_document:
+      pandoc_args: '../../../_output_kniti_html.yaml'
+      includes:
+        in_header: '../../../hdga.html'
+  always_allow_html: true
+  urlcolor: blue

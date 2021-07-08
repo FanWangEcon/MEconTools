@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Graphs | Matlab Toolbox Heterogeneous Agents Dynamic Programming</title>
   <meta name="description" content="Find livescript (mlx) files, execute MLX files, and export MLX files to HTML in a different folder." />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Graphs | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Fan Wang" />
 
 
-<meta name="date" content="2020-09-10" />
+<meta name="date" content="2021-07-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="optimizers.html"/>
 <link rel="next" href="support-tools.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +51,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92953468-6"></script>
 <script>
@@ -261,6 +263,16 @@
 <li class="chapter" data-level="8.1.4" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-power-grid-changing-parameters"><i class="fa fa-check"></i><b>8.1.4</b> Test FF_SAVEBORR_GRID Power Grid Changing Parameters</a></li>
 <li class="chapter" data-level="8.1.5" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-threshold-grid-changing-parameters"><i class="fa fa-check"></i><b>8.1.5</b> Test FF_SAVEBORR_GRID Threshold Grid Changing Parameters</a></li>
 </ul></li>
+<li class="chapter" data-level="8.2" data-path="data-structures.html"><a href="data-structures.html#fx_perturb_logn-perturb-parameter-with-logn-scalar"><i class="fa fa-check"></i><b>8.2</b> FX_PERTURB_LOGN Perturb Parameter with Logn Scalar</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="data-structures.html"><a href="data-structures.html#test-fx_perturb_logn-defaults"><i class="fa fa-check"></i><b>8.2.1</b> Test FX_PERTURB_LOGN Defaults</a></li>
+<li class="chapter" data-level="8.2.2" data-path="data-structures.html"><a href="data-structures.html#test-fx_perturb_logn-with-different-draws-and-how-much-to-perturb"><i class="fa fa-check"></i><b>8.2.2</b> Test FX_PERTURB_LOGN with Different Draws and How much to Perturb</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="data-structures.html"><a href="data-structures.html#ff_saveborr_grid-example-for-generating-asset-grid-1"><i class="fa fa-check"></i><b>8.3</b> FF_SAVEBORR_GRID Example for Generating Asset Grid</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="data-structures.html"><a href="data-structures.html#test-ff_nonimg_posnegbd-defaults"><i class="fa fa-check"></i><b>8.3.1</b> Test FF_NONIMG_POSNEGBD Defaults</a></li>
+<li class="chapter" data-level="8.3.2" data-path="data-structures.html"><a href="data-structures.html#test-ff_nonimg_posnegbd-with-logx"><i class="fa fa-check"></i><b>8.3.2</b> Test FF_NONIMG_POSNEGBD with Log(x)</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="common-functions.html"><a href="common-functions.html"><i class="fa fa-check"></i><b>9</b> Common Functions</a>
 <ul>
@@ -338,7 +350,9 @@
 <blockquote>
 <p>Go back to <a href="http://fanwangecon.github.io/">fan</a>’s <a href="https://fanwangecon.github.io/MEconTools/">MEconTools</a> Toolbox (<a href="https://fanwangecon.github.io/MEconTools/bookdown">bookdown</a>), <a href="https://fanwangecon.github.io/M4Econ/">Matlab Code Examples</a> Repository (<a href="https://fanwangecon.github.io/M4Econ/bookdown">bookdown</a>), or <a href="https://fanwangecon.github.io/Math4Econ/">Math for Econ with Matlab</a> Repository (<a href="https://fanwangecon.github.io/Math4Econ/bookdown">bookdown</a>).</p>
 </blockquote>
-<p>This is the example vignette for function:
+<p>Examples<strong>](<a href="https://fanwangecon.github.io/M4Econ/" class="uri">https://fanwangecon.github.io/M4Econ/</a>)</strong>, or** <a href="https://fanwangecon.github.io/CodeDynaAsset/"><strong>Dynamic
+Asset</strong></a>
+This is the example vignette for function:
 <a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/graph/ff_graph_grid.m"><strong>ff_graph_grid</strong></a>
 from the <a href="https://fanwangecon.github.io/MEconTools/"><strong>MEconTools
 Package</strong></a><strong>.</strong> This function

@@ -6,34 +6,34 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Matlab Toolbox Heterogeneous Agents Dynamic Programming</title>
   <meta name="description" content="Find livescript (mlx) files, execute MLX files, and export MLX files to HTML in a different folder." />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
   <meta property="og:type" content="book" />
-
-
+  
+  
   <meta property="og:description" content="Find livescript (mlx) files, execute MLX files, and export MLX files to HTML in a different folder." />
   <meta name="github-repo" content="fanwangecon/MEconTools" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
-
+  
   <meta name="twitter:description" content="Find livescript (mlx) files, execute MLX files, and export MLX files to HTML in a different folder." />
-
+  
 
 <meta name="author" content="Fan Wang" />
 
 
-<meta name="date" content="2020-09-10" />
+<meta name="date" content="2021-07-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-
-
+  
+  
 
 <link rel="next" href="savings-dynamic-programming.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +51,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92953468-6"></script>
 <script>
@@ -261,6 +263,16 @@
 <li class="chapter" data-level="8.1.4" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-power-grid-changing-parameters"><i class="fa fa-check"></i><b>8.1.4</b> Test FF_SAVEBORR_GRID Power Grid Changing Parameters</a></li>
 <li class="chapter" data-level="8.1.5" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-threshold-grid-changing-parameters"><i class="fa fa-check"></i><b>8.1.5</b> Test FF_SAVEBORR_GRID Threshold Grid Changing Parameters</a></li>
 </ul></li>
+<li class="chapter" data-level="8.2" data-path="data-structures.html"><a href="data-structures.html#fx_perturb_logn-perturb-parameter-with-logn-scalar"><i class="fa fa-check"></i><b>8.2</b> FX_PERTURB_LOGN Perturb Parameter with Logn Scalar</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="data-structures.html"><a href="data-structures.html#test-fx_perturb_logn-defaults"><i class="fa fa-check"></i><b>8.2.1</b> Test FX_PERTURB_LOGN Defaults</a></li>
+<li class="chapter" data-level="8.2.2" data-path="data-structures.html"><a href="data-structures.html#test-fx_perturb_logn-with-different-draws-and-how-much-to-perturb"><i class="fa fa-check"></i><b>8.2.2</b> Test FX_PERTURB_LOGN with Different Draws and How much to Perturb</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="data-structures.html"><a href="data-structures.html#ff_saveborr_grid-example-for-generating-asset-grid-1"><i class="fa fa-check"></i><b>8.3</b> FF_SAVEBORR_GRID Example for Generating Asset Grid</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="data-structures.html"><a href="data-structures.html#test-ff_nonimg_posnegbd-defaults"><i class="fa fa-check"></i><b>8.3.1</b> Test FF_NONIMG_POSNEGBD Defaults</a></li>
+<li class="chapter" data-level="8.3.2" data-path="data-structures.html"><a href="data-structures.html#test-ff_nonimg_posnegbd-with-logx"><i class="fa fa-check"></i><b>8.3.2</b> Test FF_NONIMG_POSNEGBD with Log(x)</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="common-functions.html"><a href="common-functions.html"><i class="fa fa-check"></i><b>9</b> Common Functions</a>
 <ul>
@@ -333,30 +345,21 @@
 <div id="header">
 <h1 class="title">Matlab Toolbox Heterogeneous Agents Dynamic Programming</h1>
 <p class="author"><em>Fan Wang</em></p>
-<p class="date"><em>2020-09-10</em></p>
+<p class="date"><em>2021-07-08</em></p>
 </div>
 <div id="preface" class="section level1 unnumbered">
 <h1>Preface</h1>
-<p><a href="https://github.com/FanWangEcon/MEconTools"><img src="http://hits.dwyl.com/fanwangecon/MEconTools.svg" alt="HitCount" /></a> <a href="https://github.com/FanWangEcon/MEconTools/stargazers"><img src="https://img.shields.io/github/stars/fanwangecon/MEconTools?style=social" alt="Star" /></a> <a href="https://github.com/FanWangEcon/MEconTools/network/members"><img src="https://img.shields.io/github/forks/fanwangecon/MEconTools?style=social" alt="Fork" /></a> <a href="https://github.com/FanWangEcon/MEconTools/watchers"><img src="https://img.shields.io/github/watchers/fanwangecon/MEconTools?style=social" alt="Star" /></a> <a href="https://zenodo.org/badge/latestdoi/232354852"><img src="https://zenodo.org/badge/232354852.svg" alt="DOI" /></a></p>
-<p>This is a work-in-progress Matlab package consisting of functions that facilitate Dynamic Programming and Related Tasks. Materials gathered from various <a href="https://fanwangecon.github.io/research">projects</a> in which Matlab code is used. Some of the solutions/algorithms are research outputs developed for specific research <a href="https://fanwangecon.github.io/research">papers</a>, other algorithms and methods are commonly-used. Files are the <a href="https://github.com/FanWangEcon/MEconTools">MEconTools</a> repository. Matlab files are linked below by section with livescript files. Tested with <a href="https://www.mathworks.com/products/matlab.html">Matlab</a> 2019a <span class="citation">(The MathWorks Inc <a href="#ref-matlab" role="doc-biblioref">2019</a>)</span>.</p>
+<p><a href="https://github.com/FanWangEcon/MEconTools/stargazers"><img src="https://img.shields.io/github/stars/fanwangecon/MEconTools?style=social" alt="Star" /></a> <a href="https://github.com/FanWangEcon/MEconTools/network/members"><img src="https://img.shields.io/github/forks/fanwangecon/MEconTools?style=social" alt="Fork" /></a> <a href="https://github.com/FanWangEcon/MEconTools/watchers"><img src="https://img.shields.io/github/watchers/fanwangecon/MEconTools?style=social" alt="Star" /></a> <a href="https://zenodo.org/badge/latestdoi/232354852"><img src="https://zenodo.org/badge/232354852.svg" alt="DOI" /></a></p>
+<p>This is a work-in-progress Matlab package consisting of functions that facilitate Dynamic Programming and Related Tasks. Materials gathered from various <a href="https://fanwangecon.github.io/research">projects</a> in which Matlab code is used. Some of the solutions/algorithms are research outputs developed for specific research <a href="https://fanwangecon.github.io/research">papers</a>, other algorithms and methods are commonly-used. Files are the <a href="https://github.com/FanWangEcon/MEconTools">MEconTools</a> repository. Matlab files are linked below by section with livescript files. Tested with <a href="https://www.mathworks.com/products/matlab.html">Matlab</a> 2019a <span class="citation">(<a href="index-and-code-links.html#ref-matlab" role="doc-biblioref">The MathWorks Inc 2019</a>)</span>.</p>
 <blockquote>
 <p>Download and install the Matlab toolbox: <a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools.mltbx">MEconTools.mltbx</a></p>
 </blockquote>
 <p>This bookdown file is a collection of mlx based vignettes for functions that are available from <a href="https://github.com/FanWangEcon/MEconTools">MEconTools</a>. Each Vignette file contains various examples for invoking each function. The goal of this repository is to make it easier to find/re-use codes produced for various projects.</p>
-<p>From other repositories: For dynamic borrowing and savings problems, see <a href="https://fanwangecon.github.io/CodeDynaAsset/">Dynamic Asset Repository</a>; For code examples, see also <a href="https://fanwangecon.github.io/R4Econ/">R Example Code</a>, <a href="https://fanwangecon.github.io/M4Econ/">Matlab Example Code</a>, and <a href="https://fanwangecon.github.io/Stata4Econ/">Stata Example Code</a>; For intro stat with R, see <a href="https://fanwangecon.github.io/Stat4Econ/">Intro Statistics for Undergraduates</a>, and intro Math with Matlab, see <a href="https://fanwangecon.github.io/Math4Econ/">Intro Mathematics for Economists</a>. See <a href="https://github.com/FanWangEcon">here</a> for all of <a href="https://fanwangecon.github.io/">Fan</a>’s public repositories.</p>
-<p>The site is built using <a href="https://bookdown.org/">Bookdown</a> <span class="citation">(Xie <a href="#ref-R-bookdown" role="doc-biblioref">2020</a>)</span>.</p>
+<p>From other repositories: For dynamic borrowing and savings problems, see <a href="https://fanwangecon.github.io/CodeDynaAsset/">Dynamic Asset Repository</a>; For code examples, see also <a href="https://fanwangecon.github.io/R4Econ/">R Example Code</a>, <a href="https://fanwangecon.github.io/M4Econ/">Matlab Example Code</a>, <a href="https://fanwangecon.github.io/Py4Econ/">Python Example Code</a>, and <a href="https://fanwangecon.github.io/Stata4Econ/">Stata Example Code</a>; For intro stat with R, see <a href="https://fanwangecon.github.io/Stat4Econ/">Intro Statistics for Undergraduates</a>, and intro Math with Matlab, see <a href="https://fanwangecon.github.io/Math4Econ/">Intro Mathematics for Economists</a>. See <a href="https://github.com/FanWangEcon">here</a> for all of <a href="https://fanwangecon.github.io/">Fan</a>’s public repositories.</p>
+<p>The site is built using <a href="https://bookdown.org/">Bookdown</a> <span class="citation">(<a href="index-and-code-links.html#ref-R-bookdown" role="doc-biblioref">Xie 2020</a>)</span>.</p>
 <p>Please contact <a href="https://fanwangecon.github.io/">FanWangEcon</a> for issues or problems.</p>
 <p><a href="https://github.com/FanWangEcon/MEconTools/commits/master"><img src="https://img.shields.io/github/last-commit/fanwangecon/MEconTools" /></a> <a href="https://github.com/FanWangEcon/MEconTools/graphs/commit-activity"><img src="https://img.shields.io/github/commit-activity/m/fanwangecon/MEconTools" /></a> <a href="https://github.com/FanWangEcon/MEconTools/issues"><img src="https://img.shields.io/github/issues/fanwangecon/MEconTools" /></a> <a href="https://github.com/FanWangEcon/MEconTools/pulls"><img src="https://img.shields.io/github/issues-pr/fanwangecon/MEconTools" /></a></p>
 
-</div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-matlab">
-<p>The MathWorks Inc. 2019. <em>MATLAB</em>. <a href="https://www.mathworks.com/products/matlab.html">https://www.mathworks.com/products/matlab.html</a>.</p>
-</div>
-<div id="ref-R-bookdown">
-<p>Xie, Yihui. 2020. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
-</div>
 </div>
             </section>
 

@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB 2020b"><title>FX_PERTURB_LOGN Perturb Parameter with Logn Scalar</title><style type="text/css">.rtcContent { padding: 30px; } .S0 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 28.8px; min-height: 0px; white-space: pre-wrap; color: rgb(213, 80, 0); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 24px; font-weight: 400; text-align: left;  }
+.S1 { margin: 2px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(0, 0, 0); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S2 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 20px; min-height: 0px; white-space: pre-wrap; color: rgb(60, 60, 60); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 20px; font-weight: 700; text-align: left;  }
+.CodeBlock { background-color: #F7F7F7; margin: 10px 0 10px 0;}
+.S3 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 1px solid rgb(233, 233, 233); border-bottom: 1px solid rgb(233, 233, 233); border-radius: 4px 4px 0px 0px; padding: 6px 45px 4px 13px; line-height: 17.234px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S4 { color: rgb(64, 64, 64); padding: 10px 0px 6px 17px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px; overflow-x: hidden; line-height: 17.234px;  }
+.embeddedOutputsErrorElement {min-height: 18px; max-height: 250px; overflow: auto;}
+.embeddedOutputsErrorElement.inlineElement {}
+.embeddedOutputsErrorElement.rightPaneElement {}
+.embeddedOutputsWarningElement{min-height: 18px; max-height: 250px; overflow: auto;}
+.embeddedOutputsWarningElement.inlineElement {}
+.embeddedOutputsWarningElement.rightPaneElement {}
+.diagnosticMessage-wrapper {font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 12px;}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType {color: rgb(255,100,0);}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType a {color: rgb(255,100,0); text-decoration: underline;}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType {color: rgb(230,0,0);}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType a {color: rgb(230,0,0); text-decoration: underline;}
+.diagnosticMessage-wrapper .diagnosticMessage-messagePart,.diagnosticMessage-wrapper .diagnosticMessage-causePart {white-space: pre-wrap;}
+.diagnosticMessage-wrapper .diagnosticMessage-stackPart {white-space: pre;}
+.embeddedOutputsTextElement,.embeddedOutputsVariableStringElement {white-space: pre; word-wrap: initial; min-height: 18px; max-height: 250px; overflow: auto;}
+.textElement,.rtcDataTipElement .textElement {padding-top: 3px;}
+.embeddedOutputsTextElement.inlineElement,.embeddedOutputsVariableStringElement.inlineElement {}
+.inlineElement .textElement {}
+.embeddedOutputsTextElement.rightPaneElement,.embeddedOutputsVariableStringElement.rightPaneElement {min-height: 16px;}
+.rightPaneElement .textElement {padding-top: 2px; padding-left: 9px;}
+.S5 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 1px solid rgb(233, 233, 233); border-bottom: 0px none rgb(0, 0, 0); border-radius: 4px 4px 0px 0px; padding: 6px 45px 0px 13px; line-height: 17.234px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S6 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 0px none rgb(0, 0, 0); border-bottom: 0px none rgb(0, 0, 0); border-radius: 0px; padding: 0px 45px 0px 13px; line-height: 17.234px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S7 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 0px none rgb(0, 0, 0); border-bottom: 1px solid rgb(233, 233, 233); border-radius: 0px; padding: 0px 45px 4px 13px; line-height: 17.234px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }</style></head><body><div class = rtcContent><h1  class = 'S0'><span>FX_PERTURB_LOGN Perturb Parameter with Logn Scalar</span></h1><div  class = 'S1'><span style=' font-weight: bold;'>back to </span><a href = "https://fanwangecon.github.io"><span style=' font-weight: bold;'>Fan</span></a><span style=' font-weight: bold;'>'s </span><a href = "https://fanwangecon.github.io/Math4Econ/"><span style=' font-weight: bold;'>Intro Math for Econ</span></a><span style=' font-weight: bold;'>,  </span><a href = "https://fanwangecon.github.io/M4Econ/"><span style=' font-weight: bold;'>Matlab Examples</span></a><span style=' font-weight: bold;'>, or </span><a href = "https://fanwangecon.github.io/CodeDynaAsset/"><span style=' font-weight: bold;'>Dynamic Asset</span></a><span style=' font-weight: bold;'> Repositories</span></div><div  class = 'S1'><span>This is the example vignette for function: </span><a href = "https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/generate/ff_perturb_logn.m"><span style=' font-weight: bold;'>ff_perturb_logn</span></a><span> from the </span><a href = "https://fanwangecon.github.io/MEconTools/"><span style=' font-weight: bold;'>MEconTools Package</span></a><span style=' font-weight: bold;'>. </span><span>This function randomly perturb some existing parameter. See </span><a href = "https://fanwangecon.github.io/R4Econ/statistics/random/htmlpdfr/fs_perturb_parameter.html"><span>Randomly Perturb Some Parameter Value with Varying Magnitudes</span></a><span>.</span></div><h2  class = 'S2'><span>Test FX_PERTURB_LOGN Defaults</span></h2><div  class = 'S1'><span>Call the function with defaults.</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S3'><span style="white-space: pre;"><span>ff_perturb_logn();</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement" uid="4502F203" data-testid="output_0" data-width="1128" data-height="185" data-hashorizontaloverflow="false" style="width: 1158px; max-height: 261px;"><div class="textElement">----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                        <strong>i</strong>    <strong>idx</strong>     <strong>value</strong> 
+                        <strong>_</strong>    <strong>___</strong>    <strong>_______</strong>
+
+    <strong>ar_logn_sd      </strong>    1     1     0.20534
+    <strong>fl_draw_znorm   </strong>    2     2      -0.343
+    <strong>logn_coef_of_var</strong>    3     3       24.35
+    <strong>param_original  </strong>    4     4           5
+    <strong>param_perturbed </strong>    5     5      4.9296
+    <strong>scaler_0t1      </strong>    6     6      0.1008</div></div></div></div></div><h2  class = 'S2'><span>Test FX_PERTURB_LOGN with Different Draws and How much to Perturb</span></h2><div  class = 'S1'><span>Call the function with defaults.</span></div><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S5'><span style="white-space: pre;"><span style="color: rgb(2, 128, 9);">% Collect</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>mp_container_map = containers.Map(</span><span style="color: rgb(170, 4, 249);">'KeyType'</span><span>,</span><span style="color: rgb(170, 4, 249);">'char'</span><span>, </span><span style="color: rgb(170, 4, 249);">'ValueType'</span><span>,</span><span style="color: rgb(170, 4, 249);">'any'</span><span>);</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span style="color: rgb(2, 128, 9);">% Loop over different scalars</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>param_original = 5;</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>ar_scaler_0t1 = linspace(0,1,11);</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>it_scalar_ctr = 0;</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span style="color: rgb(14, 0, 255);">for </span><span>scaler_0t1=ar_scaler_0t1</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>    it_scalar_ctr = it_scalar_ctr + 1;</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">% Generate differently perturbed parameters</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>    ar_param_perturbed = NaN(1,5000);</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>    </span><span style="color: rgb(14, 0, 255);">for </span><span>it_rand_seed=1:5000</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>        param_perturbed = ff_perturb_logn(param_original, it_rand_seed, scaler_0t1);</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>        ar_param_perturbed(it_rand_seed) = param_perturbed;</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>    </span><span style="color: rgb(14, 0, 255);">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">% Collect</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>    mp_container_map([</span><span style="color: rgb(170, 4, 249);">'PERTURB_SCALAR_' </span><span>num2str(scaler_0t1)]) = ar_param_perturbed;</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span style="color: rgb(14, 0, 255);">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span style="color: rgb(2, 128, 9);">% Display</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S7'><span style="white-space: pre;"><span>ff_container_map_display(mp_container_map);</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement" uid="016AACB5" data-testid="output_1" data-width="1128" data-height="255" data-hashorizontaloverflow="false" style="width: 1158px; max-height: 266px;"><div class="textElement">----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          <strong>i</strong>     <strong>idx</strong>    <strong>ndim</strong>    <strong>numel</strong>    <strong>rowN</strong>    <strong>colN</strong>        <strong>sum</strong>         <strong>mean</strong>         <strong>std</strong>        <strong>coefvari</strong>       <strong>min</strong>       <strong>max</strong>  
+                          <strong>__</strong>    <strong>___</strong>    <strong>____</strong>    <strong>_____</strong>    <strong>____</strong>    <strong>____</strong>    <strong>___________</strong>    <strong>_______</strong>    <strong>_________</strong>    <strong>__________</strong>    <strong>_______</strong>    <strong>______</strong>
+
+    <strong>PERTURB_SCALAR_0  </strong>     1     1      2      5000      1      5000          25000     4.9999    0.0022357    0.00044715     4.9922    5.0095
+    <strong>PERTURB_SCALAR_0_1</strong>     2     2      2      5000      1      5000          24963     4.9926      0.20802      0.041665     4.2759    5.8859
+    <strong>PERTURB_SCALAR_0_2</strong>     3     3      2      5000      1      5000          24889     4.9779      0.62106       0.12476      2.838    7.6451
+    <strong>PERTURB_SCALAR_0_3</strong>     4     4      2      5000      1      5000          24756     4.9512       1.3692       0.27654    0.23359    10.831
+    <strong>PERTURB_SCALAR_0_4</strong>     5     5      2      5000      1      5000          24521     4.9041       2.6921       0.54893    -4.3712    16.465
+    <strong>PERTURB_SCALAR_0_5</strong>     6     6      2      5000      1      5000          24098     4.8196       5.0651        1.0509    -12.632    26.572
+    <strong>PERTURB_SCALAR_0_6</strong>     7     7      2      5000      1      5000          23303     4.6606       9.5301        2.0448    -28.175    45.588
+    <strong>PERTURB_SCALAR_0_7</strong>     8     8      2      5000      1      5000          21664     4.3328       18.737        4.3245    -60.225      84.8
+    <strong>PERTURB_SCALAR_0_8</strong>     9     9      2      5000      1      5000          17645      3.529       41.309        11.705     -138.8    180.93
+    <strong>PERTURB_SCALAR_0_9</strong>    10    10      2      5000      1      5000         3041.2    0.60824       123.33        202.77    -424.33    530.27
+    <strong>PERTURB_SCALAR_1  </strong>    11    11      2      5000      1      5000    -2.0181e+06    -403.62        11475       -28.431     -39942     48878</div></div></div></div></div></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+%% FX_PERTURB_LOGN Perturb Parameter with Logn Scalar
+% *back to* <https://fanwangecon.github.io *Fan*>*'s* <https://fanwangecon.github.io/Math4Econ/ 
+% *Intro Math for Econ*>*,*  <https://fanwangecon.github.io/M4Econ/ *Matlab Examples*>*, 
+% or* <https://fanwangecon.github.io/CodeDynaAsset/ *Dynamic Asset*> *Repositories*
+% 
+% This is the example vignette for function: <https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/generate/ff_perturb_logn.m 
+% *ff_perturb_logn*> from the <https://fanwangecon.github.io/MEconTools/ *MEconTools 
+% Package*>*.* This function randomly perturb some existing parameter. See <https://fanwangecon.github.io/R4Econ/statistics/random/htmlpdfr/fs_perturb_parameter.html 
+% Randomly Perturb Some Parameter Value with Varying Magnitudes>.
+%% Test FX_PERTURB_LOGN Defaults
+% Call the function with defaults.
+
+ff_perturb_logn();
+%% Test FX_PERTURB_LOGN with Different Draws and How much to Perturb
+% Call the function with defaults.
+
+% Collect
+mp_container_map = containers.Map('KeyType','char', 'ValueType','any');
+% Loop over different scalars
+param_original = 5;
+ar_scaler_0t1 = linspace(0,1,11);
+it_scalar_ctr = 0;
+for scaler_0t1=ar_scaler_0t1
+    it_scalar_ctr = it_scalar_ctr + 1;
+    % Generate differently perturbed parameters
+    ar_param_perturbed = NaN(1,5000);
+    for it_rand_seed=1:5000
+        param_perturbed = ff_perturb_logn(param_original, it_rand_seed, scaler_0t1);
+        ar_param_perturbed(it_rand_seed) = param_perturbed;
+    end
+    % Collect
+    mp_container_map(['PERTURB_SCALAR_' num2str(scaler_0t1)]) = ar_param_perturbed;
+end
+% Display
+ff_container_map_display(mp_container_map);
+##### SOURCE END #####
+--></body></html>

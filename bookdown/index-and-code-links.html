@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>A Index and Code Links | Matlab Toolbox Heterogeneous Agents Dynamic Programming</title>
   <meta name="description" content="Find livescript (mlx) files, execute MLX files, and export MLX files to HTML in a different folder." />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="A Index and Code Links | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Fan Wang" />
 
 
-<meta name="date" content="2020-09-10" />
+<meta name="date" content="2021-07-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="system.html"/>
 
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +51,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92953468-6"></script>
 <script>
@@ -260,6 +262,16 @@
 <li class="chapter" data-level="8.1.3" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-log-grid-changing-parameters"><i class="fa fa-check"></i><b>8.1.3</b> Test FF_SAVEBORR_GRID Log Grid Changing Parameters</a></li>
 <li class="chapter" data-level="8.1.4" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-power-grid-changing-parameters"><i class="fa fa-check"></i><b>8.1.4</b> Test FF_SAVEBORR_GRID Power Grid Changing Parameters</a></li>
 <li class="chapter" data-level="8.1.5" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-threshold-grid-changing-parameters"><i class="fa fa-check"></i><b>8.1.5</b> Test FF_SAVEBORR_GRID Threshold Grid Changing Parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="data-structures.html"><a href="data-structures.html#fx_perturb_logn-perturb-parameter-with-logn-scalar"><i class="fa fa-check"></i><b>8.2</b> FX_PERTURB_LOGN Perturb Parameter with Logn Scalar</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="data-structures.html"><a href="data-structures.html#test-fx_perturb_logn-defaults"><i class="fa fa-check"></i><b>8.2.1</b> Test FX_PERTURB_LOGN Defaults</a></li>
+<li class="chapter" data-level="8.2.2" data-path="data-structures.html"><a href="data-structures.html#test-fx_perturb_logn-with-different-draws-and-how-much-to-perturb"><i class="fa fa-check"></i><b>8.2.2</b> Test FX_PERTURB_LOGN with Different Draws and How much to Perturb</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="data-structures.html"><a href="data-structures.html#ff_saveborr_grid-example-for-generating-asset-grid-1"><i class="fa fa-check"></i><b>8.3</b> FF_SAVEBORR_GRID Example for Generating Asset Grid</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="data-structures.html"><a href="data-structures.html#test-ff_nonimg_posnegbd-defaults"><i class="fa fa-check"></i><b>8.3.1</b> Test FF_NONIMG_POSNEGBD Defaults</a></li>
+<li class="chapter" data-level="8.3.2" data-path="data-structures.html"><a href="data-structures.html#test-ff_nonimg_posnegbd-with-logx"><i class="fa fa-check"></i><b>8.3.2</b> Test FF_NONIMG_POSNEGBD with Log(x)</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="common-functions.html"><a href="common-functions.html"><i class="fa fa-check"></i><b>9</b> Common Functions</a>
@@ -489,6 +501,16 @@
 <li>Generate linear, log-space, power-space, or threshold-cut asset or choice grids.</li>
 <li><strong>MEconTools</strong>: <em><a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/generate/ff_saveborr_grid.m">ff_saveborr_grid()</a></em></li>
 </ul></li>
+<li><a href="https://fanwangecon.github.io/MEconTools/MEconTools/doc/generate/htmlpdfm/fx_perturb_logn.html">Randomly Perturb Some Parameter Value with Varying Magnitudes</a>: <a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/generate/fx_perturb_logn.mlx"><strong>mlx</strong></a> | <a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/generate/htmlpdfm/fx_perturb_logn.m"><strong>m</strong></a> | <a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/generate/htmlpdfm/fx_perturb_logn.pdf"><strong>pdf</strong></a> | <a href="https://fanwangecon.github.io/MEconTools/MEconTools/doc/generate/htmlpdfm/fx_perturb_logn.html"><strong>html</strong></a>
+<ul>
+<li>There is a starting estimation parameter value, perturb this initial starting points. Use a scalar so that 0 means almost no change, and 1 means maximum change to control how much to perturb the parameter. This is used for multi-start estimation</li>
+<li><strong>MEconTools</strong>: <em><a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/generate/ff_perturb_logn.m">ff_perturb_logn()</a></em></li>
+</ul></li>
+<li><a href="https://fanwangecon.github.io/MEconTools/MEconTools/doc/generate/htmlpdfm/fx_nonimg_posnegbd.html">Find Real-valued Domain of a Function</a>: <a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/generate/fx_nonimg_posnegbd.mlx"><strong>mlx</strong></a> | <a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/generate/htmlpdfm/fx_nonimg_posnegbd.m"><strong>m</strong></a> | <a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/doc/generate/htmlpdfm/fx_nonimg_posnegbd.pdf"><strong>pdf</strong></a> | <a href="https://fanwangecon.github.io/MEconTools/MEconTools/doc/generate/htmlpdfm/fx_nonimg_posnegbd.html"><strong>html</strong></a>
+<ul>
+<li>Checks for valid domain for function that generates real-valued outcomes, and identifies values along the domain that generates positive and negative Values.</li>
+<li><strong>MEconTools</strong>: <em><a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/generate/ff_nonimg_posnegbd.m">ff_nonimg_posnegbd()</a></em></li>
+</ul></li>
 </ol>
 </div>
 <div id="common-functions-links" class="section level2" number="11.9">
@@ -522,12 +544,12 @@
 </ol>
 
 
-<div id="refs" class="references hanging-indent">
-<div>
-<p>The MathWorks Inc. 2019. <em>MATLAB</em>. <a href="https://www.mathworks.com/products/matlab.html">https://www.mathworks.com/products/matlab.html</a>.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-matlab" class="csl-entry">
+The MathWorks Inc. 2019. <em>MATLAB</em>. <a href="https://www.mathworks.com/products/matlab.html">https://www.mathworks.com/products/matlab.html</a>.
 </div>
-<div>
-<p>Xie, Yihui. 2020. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
+<div id="ref-R-bookdown" class="csl-entry">
+Xie, Yihui. 2020. <em>Bookdown: Authoring Books and Technical Documents with r Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.
 </div>
 </div>
 </div>

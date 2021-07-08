@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Data Structures | Matlab Toolbox Heterogeneous Agents Dynamic Programming</title>
   <meta name="description" content="Find livescript (mlx) files, execute MLX files, and export MLX files to HTML in a different folder." />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Data Structures | Matlab Toolbox Heterogeneous Agents Dynamic Programming" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Fan Wang" />
 
 
-<meta name="date" content="2020-09-10" />
+<meta name="date" content="2021-07-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="support-tools.html"/>
 <link rel="next" href="common-functions.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +51,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92953468-6"></script>
 <script>
@@ -261,6 +263,16 @@
 <li class="chapter" data-level="8.1.4" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-power-grid-changing-parameters"><i class="fa fa-check"></i><b>8.1.4</b> Test FF_SAVEBORR_GRID Power Grid Changing Parameters</a></li>
 <li class="chapter" data-level="8.1.5" data-path="data-structures.html"><a href="data-structures.html#test-ff_saveborr_grid-threshold-grid-changing-parameters"><i class="fa fa-check"></i><b>8.1.5</b> Test FF_SAVEBORR_GRID Threshold Grid Changing Parameters</a></li>
 </ul></li>
+<li class="chapter" data-level="8.2" data-path="data-structures.html"><a href="data-structures.html#fx_perturb_logn-perturb-parameter-with-logn-scalar"><i class="fa fa-check"></i><b>8.2</b> FX_PERTURB_LOGN Perturb Parameter with Logn Scalar</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="data-structures.html"><a href="data-structures.html#test-fx_perturb_logn-defaults"><i class="fa fa-check"></i><b>8.2.1</b> Test FX_PERTURB_LOGN Defaults</a></li>
+<li class="chapter" data-level="8.2.2" data-path="data-structures.html"><a href="data-structures.html#test-fx_perturb_logn-with-different-draws-and-how-much-to-perturb"><i class="fa fa-check"></i><b>8.2.2</b> Test FX_PERTURB_LOGN with Different Draws and How much to Perturb</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="data-structures.html"><a href="data-structures.html#ff_saveborr_grid-example-for-generating-asset-grid-1"><i class="fa fa-check"></i><b>8.3</b> FF_SAVEBORR_GRID Example for Generating Asset Grid</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="data-structures.html"><a href="data-structures.html#test-ff_nonimg_posnegbd-defaults"><i class="fa fa-check"></i><b>8.3.1</b> Test FF_NONIMG_POSNEGBD Defaults</a></li>
+<li class="chapter" data-level="8.3.2" data-path="data-structures.html"><a href="data-structures.html#test-ff_nonimg_posnegbd-with-logx"><i class="fa fa-check"></i><b>8.3.2</b> Test FF_NONIMG_POSNEGBD with Log(x)</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="common-functions.html"><a href="common-functions.html"><i class="fa fa-check"></i><b>9</b> Common Functions</a>
 <ul>
@@ -338,7 +350,9 @@
 <blockquote>
 <p>Go back to <a href="http://fanwangecon.github.io/">fan</a>’s <a href="https://fanwangecon.github.io/MEconTools/">MEconTools</a> Toolbox (<a href="https://fanwangecon.github.io/MEconTools/bookdown">bookdown</a>), <a href="https://fanwangecon.github.io/M4Econ/">Matlab Code Examples</a> Repository (<a href="https://fanwangecon.github.io/M4Econ/bookdown">bookdown</a>), or <a href="https://fanwangecon.github.io/Math4Econ/">Math for Econ with Matlab</a> Repository (<a href="https://fanwangecon.github.io/Math4Econ/bookdown">bookdown</a>).</p>
 </blockquote>
-<p>This is the example vignette for function:
+<p>Examples<strong>](<a href="https://fanwangecon.github.io/M4Econ/" class="uri">https://fanwangecon.github.io/M4Econ/</a>)</strong>, or** <a href="https://fanwangecon.github.io/CodeDynaAsset/"><strong>Dynamic
+Asset</strong></a>
+This is the example vignette for function:
 <a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/generate/ff_saveborr_grid.m"><strong>ff_saveborr_grid</strong></a>
 from the <a href="https://fanwangecon.github.io/MEconTools/"><strong>MEconTools
 Package</strong></a><strong>.</strong> This function
@@ -533,6 +547,120 @@ mp_support_graph(&#39;bl_graph_logy&#39;) = true; % do not log
 ff_graph_grid(mt_value, ar_row_grid, ar_col_grid, mp_support_graph);</code></pre>
 <p><img src="img/fx_saveborr_grid_images/figure_6.png" width="500" /></p>
 <p><img src="img/fx_saveborr_grid_images/figure_7.png" width="500" /></p>
+
+</div>
+</div>
+<div id="fx_perturb_logn-perturb-parameter-with-logn-scalar" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> FX_PERTURB_LOGN Perturb Parameter with Logn Scalar</h2>
+<blockquote>
+<p>Go back to <a href="http://fanwangecon.github.io/">fan</a>’s <a href="https://fanwangecon.github.io/MEconTools/">MEconTools</a> Toolbox (<a href="https://fanwangecon.github.io/MEconTools/bookdown">bookdown</a>), <a href="https://fanwangecon.github.io/M4Econ/">Matlab Code Examples</a> Repository (<a href="https://fanwangecon.github.io/M4Econ/bookdown">bookdown</a>), or <a href="https://fanwangecon.github.io/Math4Econ/">Math for Econ with Matlab</a> Repository (<a href="https://fanwangecon.github.io/Math4Econ/bookdown">bookdown</a>).</p>
+</blockquote>
+<p>Examples<strong>](<a href="https://fanwangecon.github.io/M4Econ/" class="uri">https://fanwangecon.github.io/M4Econ/</a>)</strong>, or** <a href="https://fanwangecon.github.io/CodeDynaAsset/"><strong>Dynamic
+Asset</strong></a>
+This is the example vignette for function:
+<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/generate/ff_perturb_logn.m"><strong>ff_perturb_logn</strong></a>
+from the <a href="https://fanwangecon.github.io/MEconTools/"><strong>MEconTools
+Package</strong></a><strong>.</strong> This function
+randomly perturb some existing parameter. See <a href="https://fanwangecon.github.io/R4Econ/statistics/random/htmlpdfr/fs_perturb_parameter.html">Randomly Perturb Some
+Parameter Value with Varying
+Magnitudes</a>.</p>
+<div id="test-fx_perturb_logn-defaults" class="section level3" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Test FX_PERTURB_LOGN Defaults</h3>
+<p>Call the function with defaults.</p>
+<pre><code>ff_perturb_logn();
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map Scalars
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                        i    idx     value 
+                        _    ___    _______
+
+    ar_logn_sd          1     1     0.20534
+    fl_draw_znorm       2     2      -0.343
+    logn_coef_of_var    3     3       24.35
+    param_original      4     4           5
+    param_perturbed     5     5      4.9296
+    scaler_0t1          6     6      0.1008</code></pre>
+</div>
+<div id="test-fx_perturb_logn-with-different-draws-and-how-much-to-perturb" class="section level3" number="8.2.2">
+<h3><span class="header-section-number">8.2.2</span> Test FX_PERTURB_LOGN with Different Draws and How much to Perturb</h3>
+<p>Call the function with defaults.</p>
+<pre><code>% Collect
+mp_container_map = containers.Map(&#39;KeyType&#39;,&#39;char&#39;, &#39;ValueType&#39;,&#39;any&#39;);
+% Loop over different scalars
+param_original = 5;
+ar_scaler_0t1 = linspace(0,1,11);
+it_scalar_ctr = 0;
+for scaler_0t1=ar_scaler_0t1
+    it_scalar_ctr = it_scalar_ctr + 1;
+    % Generate differently perturbed parameters
+    ar_param_perturbed = NaN(1,5000);
+    for it_rand_seed=1:5000
+        param_perturbed = ff_perturb_logn(param_original, it_rand_seed, scaler_0t1);
+        ar_param_perturbed(it_rand_seed) = param_perturbed;
+    end
+    % Collect
+    mp_container_map([&#39;PERTURB_SCALAR_&#39; num2str(scaler_0t1)]) = ar_param_perturbed;
+end
+% Display
+ff_container_map_display(mp_container_map);
+
+----------------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTAINER NAME: mp_container_map ND Array (Matrix etc)
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                          i     idx    ndim    numel    rowN    colN        sum         mean         std        coefvari       min       max  
+                          __    ___    ____    _____    ____    ____    ___________    _______    _________    __________    _______    ______
+
+    PERTURB_SCALAR_0       1     1      2      5000      1      5000          25000     4.9999    0.0022357    0.00044715     4.9922    5.0095
+    PERTURB_SCALAR_0_1     2     2      2      5000      1      5000          24963     4.9926      0.20802      0.041665     4.2759    5.8859
+    PERTURB_SCALAR_0_2     3     3      2      5000      1      5000          24889     4.9779      0.62106       0.12476      2.838    7.6451
+    PERTURB_SCALAR_0_3     4     4      2      5000      1      5000          24756     4.9512       1.3692       0.27654    0.23359    10.831
+    PERTURB_SCALAR_0_4     5     5      2      5000      1      5000          24521     4.9041       2.6921       0.54893    -4.3712    16.465
+    PERTURB_SCALAR_0_5     6     6      2      5000      1      5000          24098     4.8196       5.0651        1.0509    -12.632    26.572
+    PERTURB_SCALAR_0_6     7     7      2      5000      1      5000          23303     4.6606       9.5301        2.0448    -28.175    45.588
+    PERTURB_SCALAR_0_7     8     8      2      5000      1      5000          21664     4.3328       18.737        4.3245    -60.225      84.8
+    PERTURB_SCALAR_0_8     9     9      2      5000      1      5000          17645      3.529       41.309        11.705     -138.8    180.93
+    PERTURB_SCALAR_0_9    10    10      2      5000      1      5000         3041.2    0.60824       123.33        202.77    -424.33    530.27
+    PERTURB_SCALAR_1      11    11      2      5000      1      5000    -2.0181e+06    -403.62        11475       -28.431     -39942     48878</code></pre>
+
+</div>
+</div>
+<div id="ff_saveborr_grid-example-for-generating-asset-grid-1" class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> FF_SAVEBORR_GRID Example for Generating Asset Grid</h2>
+<blockquote>
+<p>Go back to <a href="http://fanwangecon.github.io/">fan</a>’s <a href="https://fanwangecon.github.io/MEconTools/">MEconTools</a> Toolbox (<a href="https://fanwangecon.github.io/MEconTools/bookdown">bookdown</a>), <a href="https://fanwangecon.github.io/M4Econ/">Matlab Code Examples</a> Repository (<a href="https://fanwangecon.github.io/M4Econ/bookdown">bookdown</a>), or <a href="https://fanwangecon.github.io/Math4Econ/">Math for Econ with Matlab</a> Repository (<a href="https://fanwangecon.github.io/Math4Econ/bookdown">bookdown</a>).</p>
+</blockquote>
+<p>This is the example vignette for function:
+<a href="https://github.com/FanWangEcon/MEconTools/blob/master/MEconTools/generate/ff_nonimg_posnegbd.m"><strong>ff_nonimg_posnegbd</strong></a>
+from the <a href="https://fanwangecon.github.io/MEconTools/"><strong>MEconTools
+Package</strong></a><strong>.</strong> This function
+checks for valid domain for function that generates real-valued
+outcomes, and identifies values along the domain that generates positive
+and negative Values.</p>
+<div id="test-ff_nonimg_posnegbd-defaults" class="section level3" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> Test FF_NONIMG_POSNEGBD Defaults</h3>
+<p>Call the function with defaults.</p>
+<pre><code>ff_nonimg_posnegbd();
+
+FF_NONIMG_POSNEGBD;it_exit_condition=6;bl_has_increase=0;bl_has_decrease=1;bl_has_constant=0;bl_has_pos=0;bl_has_neg=1;bl_has_zero=0</code></pre>
+<p><img src="img/fx_nonimg_posnegbd_images/figure_0.png" width="500" /></p>
+</div>
+<div id="test-ff_nonimg_posnegbd-with-logx" class="section level3" number="8.3.2">
+<h3><span class="header-section-number">8.3.2</span> Test FF_NONIMG_POSNEGBD with Log(x)</h3>
+<p>Testing the function with log(x)</p>
+<pre><code>% Same min and max and grid points
+[fl_x_min, fl_x_max, it_eval_points, it_eval_max_round, bl_loop] = deal(-5, 5, 10, 3, true);
+[bl_verbose, bl_timer] = deal(true, true);
+fc_eval = @(x) log(x);
+% Solve
+[ar_x_points_noimg, ar_obj_eval_noimg, aar_obj_eval_noimg] = ...
+    ff_nonimg_posnegbd(fl_x_min, fl_x_max, fc_eval, it_eval_points, it_eval_max_round, bl_loop, ...
+    bl_verbose, bl_timer);
+
+FF_NONIMG_POSNEGBD;it_exit_condition=1;bl_has_increase=1;bl_has_decrease=0;bl_has_constant=0;bl_has_pos=1;bl_has_neg=1;bl_has_zero=0</code></pre>
+<p><img src="img/fx_nonimg_posnegbd_images/figure_1.png" width="500" /></p>
 
 </div>
 </div>

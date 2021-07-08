@@ -121,7 +121,7 @@ xlabel('Savings Fractions');
 grid on;
 %% Define Two Period Intertemporal  Log Utility No Shock Utility Function
 % See <https://fanwangecon.github.io/Math4Econ/derivative_application/htmlpdfm/K_save_households.html 
-% Household’s Utility Maximization Problem and Two-Period Borrowing and Savings 
+% Householdâ€™s Utility Maximization Problem and Two-Period Borrowing and Savings 
 % Problem given Endowments>.
 
 function [ar_util, ar_saveborr_level] = ...

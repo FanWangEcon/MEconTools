@@ -42,6 +42,8 @@ rmd_files:
 
   - MEconTools/doc/generate/main.Rmd
   - MEconTools/doc/generate/fx_saveborr_grid.Rmd
+  - MEconTools/doc/generate/fx_perturb_logn.Rmd
+  - MEconTools/doc/generate/fx_nonimg_posnegbd.Rmd
 
   - MEconTools/doc/external/main.Rmd
   - MEconTools/doc/external/fxy_tauchen.Rmd
