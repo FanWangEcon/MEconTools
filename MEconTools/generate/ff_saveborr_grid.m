@@ -8,7 +8,7 @@
 %
 %    * ST_GRID_TYPE String which type of grid to generate: 'grid_linspace',
 %    'grid_log10space', 'grid_powerspace', 'grid_evenlog'.
-%    
+%
 %    Each type has type specific options set through key/value of
 %    MP_GRID_CONTROL. 'grid_linspace': linspace; 'grid_log10space': log
 %    space; 'grid_powerspace': power grid spacing; 'grid_evenlog': even
@@ -41,10 +41,10 @@
 function varargout = ff_saveborr_grid(varargin)
 
 if (~isempty(varargin))
-    
+
     st_grid_type = 'grid_linspace';
     bl_verbose = false;
-    
+
     if (length(varargin) == 3)
         [fl_a_min, fl_a_max, it_a_points] = varargin{:};
     elseif (length(varargin) == 4)
@@ -62,12 +62,12 @@ else
     fl_a_max = 50;
     it_a_points = 25;
     bl_verbose = true;
-    
+
 %     st_grid_type = 'grid_linspace';
 %     st_grid_type = 'grid_log10space';
     st_grid_type = 'grid_powerspace';
 %     st_grid_type = 'grid_evenlog';
-    
+
 end
 
 %% Set and Update Support Map
@@ -101,30 +101,30 @@ params_group = values(mp_grid_control, {'grid_evenlog_threshold'});
 %% Grid Generations
 if (strcmp(st_grid_type, 'grid_linspace'))
     %% st_grid_type == grid_linspace
-    
+
     ar_fl_saveborr = linspace(fl_a_min, fl_a_max, (it_a_points))';
-    
+
 elseif (strcmp(st_grid_type, 'grid_log10space'))
     %% st_grid_type == grid_log10space
-    
+
     % generate logspace
     ar_fl_logspace = logspace(grid_log10space_x1, grid_log10space_x2, it_a_points)';
-    
+
     % use logspace as ratio
     ar_fl_saveborr_ratio = (ar_fl_logspace -min(ar_fl_logspace))./(max(ar_fl_logspace) - min(ar_fl_logspace));
-    
+
     % use ratio with min and max
     ar_fl_saveborr = ar_fl_saveborr_ratio.*(fl_a_max-fl_a_min) + fl_a_min;
-    
+
 elseif (strcmp(st_grid_type, 'grid_powerspace'))
     %% st_grid_type == grid_powerspace
-    
+
     ar_fl_saveborr=zeros(it_a_points, 1);
 
     for i=1:(it_a_points)
         ar_fl_saveborr(i)= fl_a_min + (fl_a_max-fl_a_min)*((i-1)/(it_a_points-1))^grid_powerspace_power;
     end
-                
+
 elseif (strcmp(st_grid_type, 'grid_evenlog'))
     %% st_grid_type == grid_evenlog
 
@@ -132,25 +132,25 @@ elseif (strcmp(st_grid_type, 'grid_evenlog'))
     it_a_vec_n_actual = it_a_points + 99999999;
 
     while (it_a_vec_n_actual >= it_a_points+1)
-        
+
         % After Threshold log space
         avec_log = logspace(...
             log10(grid_evenlog_threshold),...
             log10(fl_a_max), ...
             it_a_vec_n_log_cur);
         log_space_min_gap = avec_log(2) - avec_log(1);
-        
+
         % Before Threshold equi-distance
         avec_lin = fl_a_min:log_space_min_gap:grid_evenlog_threshold;
-        
+
         % combine
         ar_fl_saveborr = unique([avec_lin';avec_log']);
-        
+
         % length check
         it_a_vec_n_actual = length(ar_fl_saveborr);
         it_a_vec_n_log_cur = it_a_vec_n_log_cur - 1;
     end
-    
+
 end
 
 %% print details
@@ -160,7 +160,7 @@ if (bl_verbose)
     mp_container_map = containers.Map('KeyType','char', 'ValueType','any');
     mp_container_map('ar_fl_saveborr') = ar_fl_saveborr;
     mp_container_map = [mp_container_map; mp_grid_control];
-    
+
     % print
     ff_container_map_display(mp_container_map, 50, 50);
 
